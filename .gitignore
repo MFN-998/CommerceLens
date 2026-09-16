@@ -1,0 +1,46 @@
+# Local configuration (safe examples are versioned)
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Python environments, caches and coverage
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.pytest-tmp/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+*.egg-info/
+dist/
+build/
+
+# Frontend dependencies and generated output
+node_modules/
+.next/
+out/
+coverage/
+*.tsbuildinfo
+next-env.d.ts
+
+# Local tools and logs
+.idea/
+.DS_Store
+Thumbs.db
+*.log
+.artifacts/
+
+# Future datasets and trained artifacts; add reviewed samples explicitly
+/data/raw/*
+/data/interim/*
+/models/*
+*.joblib
+*.pkl
+/dbt/target/
+/dbt/dbt_packages/
+/dbt/logs/
+/dbt/profiles.yml
+.ipynb_checkpoints/
