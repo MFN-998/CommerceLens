@@ -158,9 +158,25 @@ The example branch belongs to Phase 2; create it only after Phase 1 passes. Revi
 before staging. Commit messages should describe the change, such as
 `feat: initialize CommerceLens foundation`. Commit lockfiles with their manifests.
 
-Git stores local history. GitHub stores a remote copy and supports collaboration. The owner
-must choose the repository destination and visibility. Until a remote is configured and
-the initial commit is pushed successfully, the GitHub portion of Phase 1 remains pending.
+Git stores local history. GitHub stores a remote copy and supports collaboration.
+The repository is [MFN-998/CommerceLens](https://github.com/MFN-998/CommerceLens).
+`origin` points to `https://github.com/MFN-998/CommerceLens.git`, and local `main` tracks
+`origin/main`. The original GitHub README commit and local foundation history were merged
+and published together. The existing repository visibility was left unchanged.
+
+To inspect the connection and refresh your view of the remote branch:
+
+```powershell
+git remote -v
+git fetch origin
+git status --short --branch
+```
+
+Committing records changes locally. `git push` publishes commits on the current branch
+to its configured upstream; on `main`, that is `origin/main`. New feature branches need
+their own upstream, for example `git push --set-upstream origin feat/data-ingestion`.
+Pushing to GitHub does not deploy the application. Phase 1 is complete; Phase 2 begins
+as a separate workstream when requested.
 
 ## Troubleshooting
 

@@ -6,7 +6,7 @@ CommerceLens is an e-commerce analytics and decision-intelligence portfolio proj
 The planned product brings together reliable data pipelines, SQL analytics, customer
 intelligence, delivery-risk prediction, forecasting, and business recommendations.
 
-**Current stage: Phase 1 — Project Foundation & Environment.** This repository currently
+**Phase 1 complete — Project Foundation & Environment. Phase 2 has not started.** This repository currently
 contains a minimal FastAPI service and Next.js development page, not a completed analytics product.
 No dataset has been downloaded. The planned Olist dataset is historical anonymized data;
 the future public application will not present it as a live business feed.
@@ -15,7 +15,7 @@ the future public application will not present it as a live business feed.
 
 - [Canonical master plan](docs/master-plan.md): scope, architecture, and phase boundaries.
 - [Step-by-step setup](docs/development.md): installation, startup, verification, and troubleshooting.
-- [Phase 1 checklist](docs/phase-1-status.md): verified work and remaining prerequisites.
+- [Phase 1 checklist](docs/phase-1-status.md): completion evidence and known tooling limitations.
 - [Architecture decisions](docs/decisions/0001-foundation.md): what we chose and why.
 
 ## Foundation architecture

@@ -2,15 +2,16 @@
 
 Canonical scope: [master plan](master-plan.md), sections 36 and 45.
 
-**Local foundation verified on 2026-09-16. GitHub setup remains pending.**
-Do not acquire the Olist dataset until the remaining Phase 1 requirement is satisfied.
+**Phase 1 complete. Local foundation and GitHub connection verified on 2026-09-16.**
+Phase 2 has not started; dataset acquisition remains a separate workstream.
 
-## Completed locally
+## Completed
 
 | Requirement | Evidence |
 | --- | --- |
 | Correct working directory | `D:\My Projects\CommerceLens` |
 | Git repository | Initialized with `main`; initial foundation commit contains this report |
+| GitHub connection | [MFN-998/CommerceLens](https://github.com/MFN-998/CommerceLens); `main` tracks `origin/main`; foundation pushed and remote commit verified |
 | Master plan preserved | `docs/master-plan.md` copied from the supplied plan; working copy matched the supplied text exactly |
 | Python environment | Python 3.13.14, uv 0.11.14, isolated root `.venv`, exact direct versions, committed `uv.lock` |
 | Frontend environment | Node.js 24.18.0, npm 11.16.0, Next.js 16.3.5, React 19.2.8, TypeScript 5.9.3, Tailwind 4.3.3 |
@@ -25,15 +26,23 @@ Do not acquire the Olist dataset until the remaining Phase 1 requirement is sati
 | Ignore rules | Local secrets, environments, builds, test scratch files, future raw data and model binaries excluded; examples and lockfiles included |
 
 The clean export used Git tree `45669aed69d918979fb2f546a946f6e798cd680c`.
-Only this status report was finalized after those checks; application code and dependencies
-were unchanged. The verification is local on Windows; Linux and remote CI were not tested.
+Documentation was finalized after those checks; application code and dependencies
+remain unchanged. The verification is local on Windows; Linux and remote CI were not tested.
 
-## Remaining Phase 1 requirement
+## GitHub verification
 
-The owner must identify the GitHub destination and visibility (an existing repository URL,
-or username/organization plus private/public preference). Then connect `origin`, push the
-initial commit, and verify the remote branch. No GitHub repository has been created and
-no code has been published during this setup.
+- The owner selected the existing repository `https://github.com/MFN-998/CommerceLens`.
+- `origin` is configured as `https://github.com/MFN-998/CommerceLens.git`.
+- Its original commit `5a54297` contained a title-only README. Both that commit and the
+  local foundation commit `949651c` are preserved in merge commit `05ad05d`.
+- The detailed local README retains the same project title and supplies the setup instructions.
+- The initial push succeeded, and a direct remote query confirmed GitHub stored commit
+  `05ad05dff5f9b905abc5584d8848c8939c6d7ef5` on `main` before this documentation update.
+- Local `main` tracks `origin/main`. No force push, repository recreation, or visibility
+  change was used. No public application deployment or remote CI run is claimed.
+
+All Phase 1 exit requirements are satisfied. This report records completion and does not
+authorize starting a later phase.
 
 ## Known tooling limitations
 
