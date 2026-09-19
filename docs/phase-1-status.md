@@ -3,7 +3,8 @@
 Canonical scope: [master plan](master-plan.md), sections 36 and 45.
 
 **Phase 1 complete. Local foundation and GitHub connection verified on 2026-09-16.**
-Phase 2 has not started; dataset acquisition remains a separate workstream.
+This is the historical foundation record. Phase 2 subsequently began on 2026-09-19;
+see its separate [plan](phase-2-plan.md) and [completion record](phase-2-status.md).
 
 ## Completed
 
@@ -55,7 +56,7 @@ authorize starting a later phase.
   approval was granted; lint, type checks, fresh installation, and builds succeeded as installed.
 - Code licensing is an owner decision still to be made. No license grant was invented.
 
-## Explicitly deferred
+## Deferred at the Phase 1 handoff
 
 Dataset acquisition and profiling (Phase 2), PostgreSQL/Supabase/dbt (Phase 3), analytics
 and KPI definitions (Phases 4–5), frontend/API product integration and public deployment

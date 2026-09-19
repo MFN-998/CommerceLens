@@ -6,17 +6,21 @@ CommerceLens is an e-commerce analytics and decision-intelligence portfolio proj
 The planned product brings together reliable data pipelines, SQL analytics, customer
 intelligence, delivery-risk prediction, forecasting, and business recommendations.
 
-**Phase 1 complete — Project Foundation & Environment. Phase 2 has not started.** This repository currently
-contains a minimal FastAPI service and Next.js development page, not a completed analytics product.
-No dataset has been downloaded. The planned Olist dataset is historical anonymized data;
-the future public application will not present it as a live business feed.
+**Phases 1–2 complete: foundation, source acquisition, profiling, and local staging.**
+The repository contains a minimal FastAPI service, Next.js development page, and a
+reproducible Olist data pipeline. The source is historical anonymized data; it is not a
+live business feed. Local staging preserves documented source-quality warnings.
 
 ## Start here
 
 - [Canonical master plan](docs/master-plan.md): scope, architecture, and phase boundaries.
 - [Step-by-step setup](docs/development.md): installation, startup, verification, and troubleshooting.
 - [Phase 1 checklist](docs/phase-1-status.md): completion evidence and known tooling limitations.
-- [Architecture decisions](docs/decisions/0001-foundation.md): what we chose and why.
+- [Data setup](data/README.md): acquire, verify, and profile pinned Olist version 2.
+- [Phase 2 plan](docs/phase-2-plan.md) and [completion evidence](docs/phase-2-status.md).
+- [Quality report](docs/data-quality-report.md) and [column dictionary](docs/data_dictionary/initial.md).
+- Architecture decisions: [foundation](docs/decisions/0001-foundation.md) and
+  [source quality and local staging](docs/decisions/0002-source-quality.md).
 
 ## Foundation architecture
 
@@ -66,7 +70,7 @@ Copy `.env.example` only on first setup so you do not overwrite local settings.
 ```powershell
 uv run --locked ruff check .
 uv run --locked ruff format --check .
-uv run --locked pytest
+uv run --locked --group data pytest
 npm --prefix web run lint
 npm --prefix web run typecheck
 npm --prefix web run build
@@ -79,5 +83,6 @@ Keep commits focused and descriptive, e.g. `feat: initialize CommerceLens founda
 Commit dependency manifests and lockfiles together. Keep local `.env` files, datasets,
 generated builds, virtual environments, and trained model artifacts out of Git.
 
-Software licensing has not yet been selected by the project owner. Dataset licensing
-will be documented during Phase 2 acquisition; it is separate from the code's license.
+Software licensing has not yet been selected by the project owner. The source dataset
+is listed by Kaggle under CC BY-NC-SA 4.0; attribution and the source/license links are
+recorded in [data setup](data/README.md). Dataset and software licensing are separate.

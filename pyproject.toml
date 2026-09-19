@@ -10,6 +10,12 @@ dependencies = [
 ]
 
 [dependency-groups]
+data = [
+    "kagglehub==1.0.2",
+    "pandas==3.0.6",
+    "pandera[pandas]==0.33.1",
+    "pyarrow==25.0.1",
+]
 dev = [
     "httpx2==2.13.0",
     "pytest==9.1.1",
@@ -21,7 +27,7 @@ package = false
 link-mode = "copy"
 
 [tool.pytest.ini_options]
-testpaths = ["api/tests"]
+testpaths = ["api/tests", "tests"]
 pythonpath = ["."]
 addopts = "-ra --basetemp=.pytest-tmp"
 

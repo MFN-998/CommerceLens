@@ -3,6 +3,9 @@
 The local checkout is `D:\My Projects\CommerceLens`. All commands below use PowerShell.
 Commands for another machine should use that machine's actual checkout path.
 
+This guide covers the application foundation. Continue with [data setup](../data/README.md)
+for the Phase 2 acquisition, validation, and staging walkthrough.
+
 ## 1. Understand the repository
 
 `api/` holds FastAPI code and tests. `web/` holds Next.js. `docs/` holds the canonical
@@ -45,8 +48,10 @@ instead of silently choosing new versions. uv can obtain the pinned Python versi
 Use `uv run --locked` so there is no need to activate a virtual environment manually.
 
 Current runtime dependencies serve the API: FastAPI, Pydantic Settings, and Uvicorn.
-Development dependencies provide tests, the HTTP test client, and Ruff. Data science
-libraries are added when their phase needs them.
+Development dependencies provide tests, the HTTP test client, and Ruff. Phase 2 adds
+pandas, Pandera, PyArrow, and KaggleHub in the optional `data` dependency group. Use
+`uv sync --locked --group data` for data work. Include `--group data` in data commands
+because uv synchronizes the selected groups on each run.
 
 For intentional changes use `uv add package-name` or `uv add --dev package-name` and
 review both `pyproject.toml` and `uv.lock`. Avoid installing arbitrary packages into the
@@ -120,7 +125,7 @@ Stop the frontend development server before building:
 ```powershell
 uv run --locked ruff check .
 uv run --locked ruff format --check .
-uv run --locked pytest
+uv run --locked --group data pytest
 npm --prefix web run lint
 npm --prefix web run typecheck
 npm --prefix web run build
@@ -129,7 +134,9 @@ npm --prefix web run build
 API tests check the health contract, OpenAPI documentation, missing-route behavior, and
 configuration precedence/validation. Frontend linting and type checking find source defects;
 the production build checks that the application can be compiled for deployment later.
-These checks do not claim to test data or database integration, which do not exist yet.
+Data tests exercise acquisition integrity, schema failures, relationships, and complete
+Parquet round trips with synthetic fixtures. They do not download Olist or require a
+database. For API-only work, `uv run --locked pytest api/tests` needs no data group.
 
 Pytest scratch files live in `.pytest-tmp`, which pytest clears on each run.
 Do not put source files or personal files there. This avoids a Windows permissions conflict
@@ -175,8 +182,8 @@ git status --short --branch
 Committing records changes locally. `git push` publishes commits on the current branch
 to its configured upstream; on `main`, that is `origin/main`. New feature branches need
 their own upstream, for example `git push --set-upstream origin feat/data-ingestion`.
-Pushing to GitHub does not deploy the application. Phase 1 is complete; Phase 2 begins
-as a separate workstream when requested.
+Pushing to GitHub does not deploy the application. Phase 2 work uses `feat/data-ingestion`;
+see its [completion record](phase-2-status.md) for the data handoff.
 
 ## Troubleshooting
 
@@ -192,6 +199,7 @@ as a separate workstream when requested.
 
 ## Phase boundary
 
-No dataset download, PostgreSQL/Supabase provisioning, dbt project, ML experiment,
-analytics endpoint, public deployment, or CI/CD pipeline belongs to this setup.
-See [Phase 1 status](phase-1-status.md) before proceeding to Phase 2.
+Phase 1 established the application foundation. Phase 2 adds source acquisition,
+profiling, validation, and local staging. PostgreSQL/Supabase and dbt begin in Phase 3;
+business analytics, product integration, ML, deployment, and CI/CD remain in their
+master-plan phases. See [Phase 1 status](phase-1-status.md) and [Phase 2 status](phase-2-status.md).
