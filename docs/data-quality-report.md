@@ -1,6 +1,6 @@
 # Olist Phase 2 data-quality report
 
-Status: **PASS_WITH_WARNINGS**. Generated: 2026-09-19T13:22:44.395822+00:00.
+Status: **PASS_WITH_WARNINGS**. Generated: 2026-09-20T08:12:28.560132+00:00.
 
 Source: [Olist on Kaggle](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce), version 2; historical anonymized data, not a live business feed.
 

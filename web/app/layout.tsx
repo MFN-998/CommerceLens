@@ -4,7 +4,8 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "CommerceLens | Project Foundation",
-  description: "From commerce data to business decisions. CommerceLens development foundation.",
+  description:
+    "From commerce data to business decisions. CommerceLens development foundation.",
   robots: { index: false, follow: false },
 };
 

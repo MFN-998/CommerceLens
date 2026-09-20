@@ -13,6 +13,8 @@ live business feed. Local staging preserves documented source-quality warnings.
 
 ## Start here
 
+- [Permanent engineering standards](docs/engineering-standards.md) and [contributor workflow](CONTRIBUTING.md).
+- [Phase 1–2 engineering audit](docs/engineering-audit-phase-1-2.md): corrections, verification, and release gates.
 - [Canonical master plan](docs/master-plan.md): scope, architecture, and phase boundaries.
 - [Step-by-step setup](docs/development.md): installation, startup, verification, and troubleshooting.
 - [Phase 1 checklist](docs/phase-1-status.md): completion evidence and known tooling limitations.
@@ -51,7 +53,7 @@ Set-Location 'D:\My Projects\CommerceLens'
 uv sync --locked
 npm --prefix web ci
 Copy-Item .env.example .env
-uv run --locked uvicorn api.app.main:app --reload --host 127.0.0.1 --port 8000
+uv run --locked uvicorn api.app.main:create_app --factory --reload --host 127.0.0.1 --port 8000
 ```
 
 In a second terminal:
@@ -67,10 +69,16 @@ Copy `.env.example` only on first setup so you do not overwrite local settings.
 
 ## Checks
 
+Stop the Next.js development server before building. The repeatable local gate is
+`./scripts/check.ps1`; add `-Data` for full raw/staging verification and see
+[CONTRIBUTING](CONTRIBUTING.md) for dependency/secret scans. Individual checks:
+
 ```powershell
 uv run --locked ruff check .
 uv run --locked ruff format --check .
+uv run --locked --group data mypy
 uv run --locked --group data pytest
+npm --prefix web run format:check
 npm --prefix web run lint
 npm --prefix web run typecheck
 npm --prefix web run build

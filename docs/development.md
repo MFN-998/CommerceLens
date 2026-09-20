@@ -77,11 +77,13 @@ Add a safe example file when adding new settings. Never paste real credentials i
 ## 5. Start and understand the backend
 
 ```powershell
-uv run --locked uvicorn api.app.main:app --reload --host 127.0.0.1 --port 8000
+uv run --locked uvicorn api.app.main:create_app --factory --reload --host 127.0.0.1 --port 8000
 ```
 
-Uvicorn is the process serving the FastAPI application. `api.app.main:app` names the Python
-module and application object. `--reload` restarts it when development code changes.
+Uvicorn is the process serving the FastAPI application. `api.app.main:create_app` names
+the factory; `--factory` creates the application and validates configuration at startup.
+Importing this module no longer loads a developer's `.env`, which keeps tests and tooling
+isolated. `--reload` restarts the server when development code changes.
 Binding to `127.0.0.1` keeps this development server on your own machine.
 
 Open <http://127.0.0.1:8000/health>. Expected JSON:
@@ -107,7 +109,7 @@ npm --prefix web run dev
 It replaces `web/node_modules` if present; dependencies are disposable, source files are not.
 The `--prefix web` argument tells npm which application to operate on.
 
-Open <http://localhost:3000>. You should see CommerceLens and its Phase 1 status, with
+Open <http://localhost:3000>. You should see the CommerceLens application preview, with
 an honest empty state for future analytics. `web/app/page.tsx` is the page, `layout.tsx`
 provides shared page structure, and `globals.css` loads Tailwind and shared styles.
 
@@ -120,12 +122,18 @@ build commands concurrently in the same checkout, since they share generated out
 
 ## 7. Verify changes
 
+The standard local gate is `./scripts/check.ps1`. See [CONTRIBUTING](../CONTRIBUTING.md)
+for data/security options and [engineering standards](engineering-standards.md) for the
+permanent review requirements. Individual commands remain useful for targeted work.
+
 Stop the frontend development server before building:
 
 ```powershell
 uv run --locked ruff check .
 uv run --locked ruff format --check .
+uv run --locked --group data mypy
 uv run --locked --group data pytest
+npm --prefix web run format:check
 npm --prefix web run lint
 npm --prefix web run typecheck
 npm --prefix web run build

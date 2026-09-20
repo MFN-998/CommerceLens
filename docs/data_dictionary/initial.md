@@ -1,5 +1,7 @@
 # Initial Olist source and staging dictionary
 
+Generated: 2026-09-20T08:12:28.560132+00:00. Match this to the JSON quality report.
+
 Observed against pinned Olist version 2. These are source contracts, not the Phase 3 warehouse design. All source names, including `lenght`, are preserved.
 
 Every staging table adds `_source_row` (nullable integer dtype, no null values): the 1-based CSV data-record ordinal, excluding the header. It is not a physical line number because review text can contain line breaks.

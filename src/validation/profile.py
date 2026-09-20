@@ -1,5 +1,7 @@
 """Observable quality checks; no deduplication, KPI calculation, or business inference."""
 
+import math
+import warnings
 from itertools import combinations
 
 import pandas as pd
@@ -21,6 +23,16 @@ PAYMENT_TYPES = {"credit_card", "boleto", "voucher", "debit_card", "not_defined"
 STATES = set(
     "AC AL AP AM BA CE DF ES GO MA MT MS MG PA PB PR PE PI RJ RN RS RO RR SC SP SE TO".split()
 )
+
+
+def _percentile(series: pd.Series, fraction: float) -> float | None:
+    if series.empty:
+        return None
+    # Bad finite source values can overflow interpolation before schema checks report them.
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore", RuntimeWarning)
+        result = float(series.quantile(fraction))
+    return result if math.isfinite(result) else None
 
 
 def check(name, table, severity, count, detail, unit="rows"):
@@ -104,10 +116,25 @@ def table_profile(table: str, raw: pd.DataFrame, frame: pd.DataFrame, source_rec
         if column.dtype in (INTEGER, F):
             value["zero_count"] = int(series.eq(0).sum())
             value["negative_count"] = int(series.lt(0).sum())
-            value["p01"] = float(nonnull.quantile(0.01)) if len(nonnull) else None
-            value["p99"] = float(nonnull.quantile(0.99)) if len(nonnull) else None
+            value["p01"] = _percentile(nonnull, 0.01)
+            value["p99"] = _percentile(nonnull, 0.99)
+            if len(nonnull) and (value["p01"] is None or value["p99"] is None):
+                value["statistics_note"] = (
+                    "A percentile is unavailable because source values exceed finite "
+                    "interpolation precision; inspect the validation checks."
+                )
         if name in {"order_status", "payment_type"} or name.endswith("_state"):
-            value["values"] = {str(k): int(v) for k, v in series.value_counts().items()}
+            domain = (
+                STATUSES
+                if name == "order_status"
+                else PAYMENT_TYPES
+                if name == "payment_type"
+                else STATES
+            )
+            value["values"] = {
+                str(k): int(v) for k, v in series[series.isin(domain)].value_counts().items()
+            }
+            value["unknown_value_count"] = int((series.notna() & ~series.isin(domain)).sum())
         if column.dtype == "string":
             value["max_length"] = int(series.str.len().max()) if len(nonnull) else 0
         columns[name] = value
@@ -161,7 +188,10 @@ def contextual_checks(frames: dict[str, pd.DataFrame]) -> tuple[list[dict], dict
         "order_delivered_carrier_date",
         "order_delivered_customer_date",
     )
-    for status, group in orders.groupby("order_status", dropna=False):
+    statuses = orders["order_status"].where(
+        orders["order_status"].isin(STATUSES), "unknown_or_missing"
+    )
+    for status, group in orders.groupby(statuses, dropna=False):
         status_profile[str(status)] = {
             "orders": len(group),
             "missing_events": {c: int(group[c].isna().sum()) for c in events},
@@ -200,7 +230,7 @@ def contextual_checks(frames: dict[str, pd.DataFrame]) -> tuple[list[dict], dict
             "orders",
         )
         result["by_status"] = {
-            str(k): int(v) for k, v in orders.loc[missing, "order_status"].value_counts().items()
+            str(k): int(v) for k, v in statuses.loc[missing].value_counts().items()
         }
         results.append(result)
     review_counts = frames["order_reviews"].groupby("order_id").size()
@@ -280,7 +310,10 @@ def contextual_checks(frames: dict[str, pd.DataFrame]) -> tuple[list[dict], dict
     # Duplicate order keys already block promotion; avoid ambiguous mapping in a failing report.
     if purchase_by_order.index.is_unique:
         purchase = items["order_id"].map(purchase_by_order)
-        days = (items["shipping_limit_date"] - purchase).dt.total_seconds() / 86400
+        # Second resolution also handles extreme valid dates without nanosecond overflow.
+        days = (
+            items["shipping_limit_date"].dt.as_unit("s") - purchase.dt.as_unit("s")
+        ).dt.total_seconds() / 86400
         results.append(
             check(
                 "shipping_deadline_before_purchase",

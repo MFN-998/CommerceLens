@@ -16,7 +16,7 @@ from src.validation.profile import (
     table_profile,
     validate_frame,
 )
-from src.validation.run import report_markdown, run
+from src.validation.run import report_markdown, run, write_text
 
 
 @pytest.fixture
@@ -437,3 +437,161 @@ def test_reader_rejects_malformed_field_counts_instead_of_dropping_records(
     with pytest.raises(ValueError, match="wrong field count"):
         read_source(path, "customers")
     assert path.read_bytes() == before
+
+
+@pytest.mark.parametrize(
+    ("source_value", "expected"),
+    [
+        ("9007199254740993.0", 9007199254740993),
+        ("9223372036854775807.0", 9223372036854775807),
+        ("-9223372036854775808", -9223372036854775808),
+        ("9223372036854775808", None),
+        ("-9223372036854775809", None),
+        ("1.000000000000000000000000001", None),
+        ("1e99999999999999999999999", None),
+        ("1e2", 100),
+        ("1_000", None),
+        ("Infinity", None),
+    ],
+)
+def test_integer_parsing_is_exact_and_counts_unrepresentable_values(
+    validation_paths, source_value, expected
+):
+    _, source = validation_paths
+    raw = read_source(source / TABLES["order_items"].filename, "order_items")
+    raw.loc[0, "order_item_id"] = source_value
+    frame, failures = standardize(raw, "order_items")
+    if expected is None:
+        assert pd.isna(frame.loc[0, "order_item_id"])
+        assert failures["order_item_id"] == 1
+    else:
+        assert frame.loc[0, "order_item_id"] == expected
+        assert failures["order_item_id"] == 0
+    assert raw.loc[0, "order_item_id"] == source_value
+
+
+@pytest.mark.parametrize("date", ["1000-01-01 00:00:00", "2300-01-01 00:00:00"])
+def test_dates_outside_staging_precision_are_counted_as_parse_failures(validation_paths, date):
+    _, source = validation_paths
+    raw = read_source(source / TABLES["order_items"].filename, "order_items")
+    raw.loc[0, "shipping_limit_date"] = date
+    frame, failures = standardize(raw, "order_items")
+    assert pd.isna(frame.loc[0, "shipping_limit_date"])
+    assert failures["shipping_limit_date"] == 1
+    assert len(frame) == len(raw)
+
+
+def test_embedded_nul_blocks_staging_without_truncating_review_text(validation_paths):
+    project, source = validation_paths
+    path = source / TABLES["order_reviews"].filename
+    path.write_bytes(path.read_bytes().replace(b"First line", b"First\x00line"))
+    original = path.read_bytes()
+    acquire(project, source)
+    result = run(project)
+    assert result["status"] == "FAIL"
+    assert result["staging"]["promoted"] is False
+    assert any("NUL character" in check["detail"] for check in positive_errors(result["checks"]))
+    assert path.read_bytes() == original
+    assert (project / "data" / "raw" / "olist-v2" / path.name).read_bytes() == original
+
+
+@pytest.mark.parametrize("location", ["header", "status", "state", "payment_type"])
+def test_failed_reports_do_not_echo_unexpected_source_text(tmp_path, source_rows, location):
+    project, source = tmp_path / "project", tmp_path / "source"
+    project.mkdir()
+    private_text = "PRIVATE-SOURCE-VALUE-THAT-MUST-NOT-ENTER-REPORTS"
+    if location == "status":
+        source_rows["orders"][0]["order_status"] = private_text
+    elif location == "state":
+        source_rows["customers"][0]["customer_state"] = private_text
+    elif location == "payment_type":
+        source_rows["order_payments"][0]["payment_type"] = private_text
+    write_sources(source, source_rows)
+    if location == "header":
+        path = source / TABLES["customers"].filename
+        path.write_text(path.read_text().replace("customer_id", private_text, 1))
+    acquire(project, source)
+    result = run(project)
+    assert result["status"] == "FAIL"
+    assert private_text not in json.dumps(result)
+    for path in (project / "docs").rglob("*"):
+        if path.is_file():
+            assert private_text not in path.read_text(encoding="utf-8")
+
+
+def test_concurrent_validation_is_refused_without_changing_existing_reports(validation_paths):
+    project, source = validation_paths
+    acquire(project, source)
+    run(project)
+    before = {p: p.read_bytes() for p in (project / "docs").rglob("*") if p.is_file()}
+    lock = project / ".artifacts" / "olist-validation.lock"
+    lock.mkdir()
+    with pytest.raises(ValueError, match="validation lock already exists"):
+        run(project)
+    assert lock.is_dir()
+    assert all(path.read_bytes() == content for path, content in before.items())
+
+
+def test_failed_report_publication_preserves_existing_file_and_cleans_temporary(
+    tmp_path, monkeypatch
+):
+    target = tmp_path / "report.json"
+    target.write_text("previous complete report")
+
+    def fail_replace(*_args):
+        raise OSError("simulated publication failure")
+
+    monkeypatch.setattr("src.validation.run.os.replace", fail_replace)
+    with pytest.raises(OSError, match="simulated publication failure"):
+        write_text(target, "replacement report")
+    assert target.read_text() == "previous complete report"
+    assert list(tmp_path.iterdir()) == [target]
+
+
+def test_modified_staging_is_detected_without_overwrite(validation_paths):
+    project, source = validation_paths
+    acquire(project, source)
+    result = run(project)
+    staging = project / result["staging"]["path"]
+    altered = staging / "order_items.parquet"
+    altered.write_bytes(b"modified existing parquet")
+    before = {p: p.read_bytes() for p in staging.iterdir()}
+    result = run(project)
+    assert result["status"] == "FAIL"
+    assert result["staging"]["promoted"] is False
+    assert all(path.read_bytes() == content for path, content in before.items())
+    assert not (project / ".artifacts" / "olist-validation.lock").exists()
+
+
+def test_shipping_date_diagnostics_handle_widely_separated_valid_dates(validation_paths):
+    _, source = validation_paths
+    frames = frames_from_source(source)
+    frames["orders"].loc[0, "order_purchase_timestamp"] = pd.Timestamp("1700-01-01")
+    frames["order_items"].loc[0, "shipping_limit_date"] = pd.Timestamp("2200-01-01")
+    checks, _ = contextual_checks(frames)
+    result = next(check for check in checks if check["name"] == "shipping_deadline_over_365_days")
+    assert result["count"] == 1
+
+
+def test_invalid_extreme_coordinates_produce_a_failure_report_instead_of_json_overflow(
+    tmp_path, source_rows
+):
+    project, source = tmp_path / "project", tmp_path / "source"
+    project.mkdir()
+    source_rows["geolocation"][0]["geolocation_lat"] = "-1e308"
+    source_rows["geolocation"][1]["geolocation_lat"] = "1e308"
+    write_sources(source, source_rows)
+    acquire(project, source)
+    result = run(project)
+    assert result["status"] == "FAIL"
+    assert result["staging"]["promoted"] is False
+    latitude = result["tables"]["geolocation"]["columns"]["geolocation_lat"]
+    assert latitude["p01"] is None
+    assert latitude["p99"] is None
+    assert "unavailable" in latitude["statistics_note"]
+    saved = json.loads((project / "docs" / "data-quality-report.json").read_text())
+    assert saved["status"] == "FAIL"
+    assert any(
+        check["table"] == "geolocation" and check["name"] == "schema"
+        for check in positive_errors(result["checks"])
+    )

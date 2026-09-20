@@ -5,6 +5,7 @@ import csv
 import json
 import os
 import platform
+import sys
 import tempfile
 from datetime import UTC, datetime
 from importlib.metadata import version
@@ -29,9 +30,25 @@ STAGING_FORMAT_VERSION = 1
 
 def write_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    temporary = path.with_suffix(path.suffix + ".tmp")
-    temporary.write_text(text, encoding="utf-8", newline="\n")
-    os.replace(temporary, path)
+    temporary = None
+    try:
+        with tempfile.NamedTemporaryFile(
+            mode="w",
+            encoding="utf-8",
+            newline="\n",
+            dir=path.parent,
+            prefix=f".{path.name}.",
+            suffix=".tmp",
+            delete=False,
+        ) as output:
+            temporary = Path(output.name)
+            output.write(text)
+            output.flush()
+            os.fsync(output.fileno())
+        os.replace(temporary, path)
+    finally:
+        if temporary is not None:
+            temporary.unlink(missing_ok=True)
 
 
 def write_json(path: Path, value: dict) -> None:
@@ -43,7 +60,7 @@ def stage_frames(project_root: Path, frames: dict[str, pd.DataFrame]) -> dict:
     interim = project_root / "data" / "interim"
     interim.mkdir(parents=True, exist_ok=True)
     destination = interim / "olist-v2-v1"
-    manifest = {
+    manifest: dict = {
         "staging_format_version": STAGING_FORMAT_VERSION,
         "source_manifest_sha256": sha256_file(project_root / "data" / "source-manifest.json"),
         "pandas": version("pandas"),
@@ -209,6 +226,8 @@ def dictionary_markdown(report: dict) -> str:
     lines = [
         "# Initial Olist source and staging dictionary",
         "",
+        f"Generated: {report['generated_at_utc']}. Match this to the JSON quality report.",
+        "",
         "Observed against pinned Olist version 2. These are source contracts, not "
         "the Phase 3 warehouse design. All source names, including `lenght`, are preserved.",
         "",
@@ -245,8 +264,30 @@ def dictionary_markdown(report: dict) -> str:
 
 
 def run(project_root: Path = DEFAULT_PROJECT_ROOT) -> dict:
+    """Allow one writer so a competing run cannot replace reports or staging."""
     root = Path(project_root).resolve()
-    report = {
+    if not root.is_dir():
+        raise ValueError("The project root must already exist.")
+    artifacts = root / ".artifacts"
+    if artifacts.is_symlink():
+        raise ValueError("Validation artifacts must be a real directory.")
+    artifacts.mkdir(exist_ok=True)
+    lock = artifacts / "olist-validation.lock"
+    try:
+        lock.mkdir()
+    except FileExistsError as exc:
+        raise ValueError(
+            "Another validation is active or was interrupted; validation lock already exists. "
+            "Check active processes before recovering an interrupted run."
+        ) from exc
+    try:
+        return _run(root)
+    finally:
+        lock.rmdir()
+
+
+def _run(root: Path) -> dict:
+    report: dict = {
         "report_version": 1,
         "generated_at_utc": datetime.now(UTC).isoformat(),
         "python": platform.python_version(),
@@ -317,7 +358,11 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--project-root", type=Path, default=DEFAULT_PROJECT_ROOT)
     args = parser.parse_args()
-    report = run(args.project_root)
+    try:
+        report = run(args.project_root)
+    except (OSError, ValueError) as exc:
+        print(f"Validation failed: {exc}", file=sys.stderr)
+        return 1
     print(
         json.dumps(
             {key: report[key] for key in ("status", "error_checks", "warning_checks", "staging")}

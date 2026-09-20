@@ -1,6 +1,6 @@
 {
   "report_version": 1,
-  "generated_at_utc": "2026-09-19T13:22:44.395822+00:00",
+  "generated_at_utc": "2026-09-20T08:12:28.560132+00:00",
   "python": "3.13.14",
   "packages": {
     "pandas": "3.0.6",
@@ -102,6 +102,7 @@
             "AP": 68,
             "RR": 46
           },
+          "unknown_value_count": 0,
           "max_length": 2
         }
       }
@@ -202,6 +203,7 @@
             "AP": 853,
             "RR": 646
           },
+          "unknown_value_count": 0,
           "max_length": 2
         }
       }
@@ -265,6 +267,7 @@
             "created": 5,
             "approved": 2
           },
+          "unknown_value_count": 0,
           "max_length": 11
         },
         "order_purchase_timestamp": {
@@ -478,6 +481,7 @@
             "debit_card": 1529,
             "not_defined": 3
           },
+          "unknown_value_count": 0,
           "max_length": 11
         },
         "payment_installments": {
@@ -813,6 +817,7 @@
             "AM": 1,
             "PA": 1
           },
+          "unknown_value_count": 0,
           "max_length": 2
         }
       }

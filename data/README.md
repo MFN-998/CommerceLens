@@ -78,6 +78,8 @@ The transformations are deliberately limited:
 - Identifiers and ZIP prefixes remain strings. No invented zero-padding or trimming occurs.
 - Nullable integers, floats, and timezone-naive timestamps get explicit types. Non-empty
   values that fail conversion are counted and block staging; they are not silently discarded.
+  Integral decimals are parsed without a floating-point intermediate. Unsupported NUL
+  characters are rejected before the CSV parser could truncate a field.
 - Every row is retained, including repeated geography rows and multiple reviews. `_source_row`
   is the one-based logical CSV record ordinal, excluding the header, not a physical line number.
 
@@ -118,8 +120,16 @@ aggregate diagnostics, not source customer/order IDs or review comments.
 On a hash or staging mismatch, investigate the named file and source version first.
 There is no force-overwrite option. Preserve an existing snapshot while deciding whether
 a reviewed source or staging-format version change is needed. A terminated acquisition
-may leave `.artifacts/olist-acquisition.lock`; confirm that no acquisition is running
+may leave `.artifacts/olist-acquisition.lock`; validation may leave
+`.artifacts/olist-validation.lock`. Confirm that no corresponding process is running
 before removing only that lock directory and retrying. Do not delete the raw snapshot
 or its manifest as a routine troubleshooting step.
+
+Report files are replaced atomically one at a time, not as a multi-file transaction.
+After an interruption, rerun validation to refresh JSON, Markdown, and the dictionary
+together; compare their generation timestamps. The JSON report is authoritative.
+A concurrent validation attempt fails without replacing the active run's reports.
+Reports record only allowed categorical values and aggregate unknown counts; unexpected
+input text must not leak into tracked failure reports.
 
 PostgreSQL/Supabase, dbt, warehouse models, and analytical queries belong to Phase 3.

@@ -4,6 +4,13 @@
 !.env.example
 !.env.*.example
 
+# Local credentials and private keys; keep only deliberately safe examples in Git
+.credentials/
+secrets/
+kaggle.json
+*.pem
+*.key
+
 # Python environments, caches and coverage
 .venv/
 __pycache__/
@@ -43,4 +50,6 @@ Thumbs.db
 /dbt/dbt_packages/
 /dbt/logs/
 /dbt/profiles.yml
+/backups/
+*.dump
 .ipynb_checkpoints/

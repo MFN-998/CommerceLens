@@ -1,6 +1,8 @@
 # Phase 2: Data Acquisition, Profiling & Quality
 
 **Phase 2 complete — verified on 2026-09-19.**
+Subsequent hardening and verification are recorded in the
+[2026-09-20 engineering audit](engineering-audit-phase-1-2.md); the evidence below is the original phase handoff.
 Canonical scope: [master plan](master-plan.md), Phase 2.
 Implementation plan: [phase-2-plan.md](phase-2-plan.md).
 Working directory: `D:\My Projects\CommerceLens`; branch: `feat/data-ingestion`.

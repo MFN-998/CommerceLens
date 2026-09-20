@@ -1,6 +1,7 @@
 """Source contracts, kept separate from future warehouse models and KPI definitions."""
 
 from dataclasses import dataclass
+from typing import Final
 
 
 @dataclass(frozen=True)
@@ -19,10 +20,10 @@ class Table:
     candidates: tuple[tuple[str, ...], ...] = ()
 
 
-S = "string"
-INTEGER = "Int64"
-F = "Float64"
-D = "datetime64[ns]"
+S: Final = "string"
+INTEGER: Final = "Int64"
+F: Final = "Float64"
+D: Final = "datetime64[ns]"
 
 TABLES = {
     "customers": Table(

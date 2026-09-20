@@ -1,11 +1,28 @@
 """Read CSV values losslessly, then apply explicit nullable staging types."""
 
 import csv
+import re
+from decimal import Decimal, InvalidOperation
 from pathlib import Path
 
 import pandas as pd
 
 from src.validation.contracts import INTEGER, TABLES, D, F
+
+NUMBER = re.compile(r"[+-]?(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)(?:[eE][+-]?[0-9]+)?")
+
+
+def _integer(value):
+    """Parse integral decimal values without a lossy intermediate float."""
+    if pd.isna(value) or NUMBER.fullmatch(value.strip()) is None:
+        return pd.NA
+    try:
+        number = Decimal(value)
+        if not -(2**63) <= number < 2**63 or number != number.to_integral_value():
+            return pd.NA
+        return int(number)
+    except InvalidOperation:
+        return pd.NA
 
 
 def read_source(path: Path, table: str) -> pd.DataFrame:
@@ -14,10 +31,12 @@ def read_source(path: Path, table: str) -> pd.DataFrame:
         reader = csv.reader(stream, strict=True)
         header = next(reader, [])
         if header != expected:
-            raise ValueError(f"{path.name}: expected columns {expected}, found {header}")
+            raise ValueError(f"{path.name}: source columns do not match the contract")
         for record_number, record in enumerate(reader, start=1):
             if len(record) != len(expected):
                 raise ValueError(f"{path.name}: wrong field count in source record {record_number}")
+            if any("\0" in value for value in record):
+                raise ValueError(f"{path.name}: NUL character in source record {record_number}")
     frame = pd.read_csv(
         path,
         dtype="string",
@@ -39,17 +58,17 @@ def standardize(raw: pd.DataFrame, table: str) -> tuple[pd.DataFrame, dict[str, 
     failures = {}
     for name, column in spec.columns.items():
         source = frame[name]
-        if column.dtype in (INTEGER, F):
+        typed: pd.Series
+        if column.dtype == INTEGER:
+            typed = pd.Series(source.map(_integer), dtype=pd.Int64Dtype(), index=source.index)
+        elif column.dtype == F:
             typed = pd.to_numeric(source, errors="coerce")
             invalid = typed.isin([float("inf"), float("-inf")])
-            if column.dtype == INTEGER:
-                invalid |= (typed % 1 != 0).fillna(False)
-                invalid |= ((typed < -(2**63)) | (typed >= 2**63)).fillna(False)
-            typed = typed.mask(invalid).astype(column.dtype)
+            typed = typed.mask(invalid).astype(pd.Float64Dtype())
         elif column.dtype == D:
             typed = pd.to_datetime(source, format="%Y-%m-%d %H:%M:%S", errors="coerce")
             # Use ns consistently in the contract and Parquet round trips.
-            typed = typed.astype(D)
+            typed = typed.where(typed.between(pd.Timestamp.min, pd.Timestamp.max)).astype(D)
         else:
             typed = source.astype("string")
         failures[name] = int((source.notna() & typed.isna()).sum())

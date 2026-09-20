@@ -1,6 +1,9 @@
 # ADR 0002: Versioned source acquisition and faithful local staging
 
 Status: Accepted for Phase 2, 2026-09-19.
+Follow-up: the [2026-09-20 engineering audit](../engineering-audit-phase-1-2.md) hardens
+numeric/CSV handling, failure-report privacy, and single-writer validation without changing
+the verified Olist snapshot or source grains.
 Authority: [Master plan](../master-plan.md), Phase 2.
 
 ## Context

@@ -5,6 +5,8 @@ Canonical scope: [master plan](master-plan.md), sections 36 and 45.
 **Phase 1 complete. Local foundation and GitHub connection verified on 2026-09-16.**
 This is the historical foundation record. Phase 2 subsequently began on 2026-09-19;
 see its separate [plan](phase-2-plan.md) and [completion record](phase-2-status.md).
+The [2026-09-20 engineering audit](engineering-audit-phase-1-2.md) records subsequent
+hardening and current verification. Use the updated development guide's factory startup command.
 
 ## Completed
 

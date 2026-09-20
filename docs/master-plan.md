@@ -1638,3 +1638,23 @@ Do not begin dataset acquisition until the Phase 1 exit criteria are satisfied.
 **CommerceLens Master Plan — Source of Truth**
 
 For GPT Work, I recommend pasting the entire block as the first project instruction/context. The most important section for Work itself is **“Instructions for GPT Work”**, while the rest gives it the architecture and scope needed to make good implementation decisions.
+
+---
+
+# Owner addendum — Permanent engineering standards (2026-09-20)
+
+The project owner requires practical professional software-engineering standards in
+all phases, architectural decisions, implementation, reviews, deployment decisions,
+and documentation. The requirements are defined in
+[CommerceLens engineering standards](engineering-standards.md) and are part of this
+master plan unless the owner explicitly changes them. They preserve the original
+product scope and phase sequence and avoid unnecessary enterprise complexity.
+
+Before Phase 3, complete the [Phase 1–2 engineering audit](engineering-audit-phase-1-2.md),
+correct applicable issues, verify the foundation, and document justified exceptions.
+From Phase 3 onward, incorporate security, maintainability, tests, performance,
+scalability, privacy, accessibility, and production-readiness during development.
+Explain significant decisions and record development shortcuts with a clear revisit gate.
+
+The original master-plan text above is retained. Repository instructions in `AGENTS.md`,
+the contributor workflow, and the review template make this requirement actionable.

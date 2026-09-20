@@ -45,6 +45,11 @@ data/cloud work. Future decisions should be recorded as additional numbered ADRs
 
 This ADR selects implementation details left open by the plan; it does not change scope.
 
+The 2026-09-20 [engineering audit](../engineering-audit-phase-1-2.md) adds an explicit
+application factory to keep configuration loading out of imports, Python type checking,
+frontend formatting, and a local quality gate. Its permanent standards supplement this
+foundation decision. The API runtime and overall architecture remain the same.
+
 ## Tooling compatibility notes
 
 - Use `httpx2` for Starlette's current TestClient, following its documented migration.
