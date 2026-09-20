@@ -1,5 +1,11 @@
 # CommerceLens project instructions
 
+On every resumed/new session, read [WORK_STATE.md](WORK_STATE.md), inspect Git status
+and relevant history, reconcile recorded and actual state, and resume the first incomplete
+action. Follow the permanent [execution protocol](docs/execution-protocol.md): check
+available usage honestly, work in atomic verified milestones, update the handoff continuously,
+and create meaningful recoverable checkpoints. End COMPLETE or SAFE TO RESUME with exact next steps.
+
 Read [the master plan](docs/master-plan.md) and the permanent
 [engineering standards](docs/engineering-standards.md) before significant work.
 These standards apply to every phase, code review, architecture/deployment decision,

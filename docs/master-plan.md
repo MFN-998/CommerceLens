@@ -1658,3 +1658,13 @@ Explain significant decisions and record development shortcuts with a clear revi
 
 The original master-plan text above is retained. Repository instructions in `AGENTS.md`,
 the contributor workflow, and the review template make this requirement actionable.
+
+## Owner addendum — Execution continuity and recovery (2026-09-20)
+
+The [execution, usage-management, checkpointing, and recovery protocol](execution-protocol.md)
+is a permanent project rule for all substantial work from before Phase 3 onward.
+Maintain root [WORK_STATE.md](../WORK_STATE.md) as the authoritative session handoff,
+use meaningful validated Git checkpoints, inspect actual state on resume, and preserve
+correctness and context when usage is constrained. End sessions COMPLETE or SAFE TO RESUME.
+Do not redo completed phases. This supplements the engineering standards without changing
+the product scope, phase sequence, or requirements for security and production readiness.

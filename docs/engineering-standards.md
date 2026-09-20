@@ -5,6 +5,11 @@ Applies to every phase, significant feature, architectural decision, review, dep
 and documentation change unless the owner explicitly changes it. This supplements the
 [master plan](master-plan.md); it does not redesign the product or its phase sequence.
 
+The permanent [execution, usage, checkpointing, and recovery protocol](execution-protocol.md)
+also applies. Maintain root `WORK_STATE.md` continuously, reconcile it with Git on resume,
+and use atomic validated milestones and pre-risk checkpoints. Usage constraints reduce
+scope, not engineering quality; every substantial session ends COMPLETE or SAFE TO RESUME.
+
 ## Practical standard of work
 
 Build as a small professional team would: make behavior correct, code understandable,

@@ -3,6 +3,14 @@
 Read the [master plan](docs/master-plan.md), [engineering standards](docs/engineering-standards.md),
 and current phase status before changing CommerceLens. The standards are a permanent owner requirement.
 
+Read [WORK_STATE.md](WORK_STATE.md) and the permanent
+[execution protocol](docs/execution-protocol.md) on every new/resumed session. Reconcile
+the handoff with actual Git/files before editing. Check exposed usage before major units,
+work in independently verifiable milestones, and update the handoff during work. Use
+pre-risk checkpoints for broad changes and database-specific recovery plans for migrations.
+End substantial sessions COMPLETE or SAFE TO RESUME with an appropriate Git checkpoint,
+honest validation/failures, and exact next actions; never rely only on chat history.
+
 ## Setup and branches
 
 Use [development setup](docs/development.md) and [data setup](data/README.md). From the

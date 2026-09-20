@@ -13,6 +13,8 @@ live business feed. Local staging preserves documented source-quality warnings.
 
 ## Start here
 
+- [Current work state](WORK_STATE.md): authoritative handoff, verified baseline, and exact next actions.
+- [Execution and recovery protocol](docs/execution-protocol.md): permanent usage/checkpoint/resume rules.
 - [Permanent engineering standards](docs/engineering-standards.md) and [contributor workflow](CONTRIBUTING.md).
 - [Phase 1–2 engineering audit](docs/engineering-audit-phase-1-2.md): corrections, verification, and release gates.
 - [Canonical master plan](docs/master-plan.md): scope, architecture, and phase boundaries.
