@@ -1,0 +1,64 @@
+{
+  "generated_at_utc": "2026-09-20T08:41:10.482964+00:00",
+  "dataset_handle": "olistbr/brazilian-ecommerce/versions/2",
+  "source_manifest_sha256": "aa21797da3ee2e723a182c5899832dd4c436daef0f43a8812bbacace9775bcde",
+  "method": "Read original CSV fields as text; Decimal for money, literal strings for ZIPs. Aggregate observations only.",
+  "money": {
+    "price": {
+      "file": "olist_order_items_dataset.csv",
+      "rows": 112650,
+      "maximum_observed_scale": 2,
+      "min": "0.85",
+      "max": "6735.00",
+      "source_column_sum_for_reconciliation_only": "13591643.70"
+    },
+    "freight_value": {
+      "file": "olist_order_items_dataset.csv",
+      "rows": 112650,
+      "maximum_observed_scale": 2,
+      "min": "0.00",
+      "max": "409.68",
+      "source_column_sum_for_reconciliation_only": "2251909.54"
+    },
+    "payment_value": {
+      "file": "olist_order_payments_dataset.csv",
+      "rows": 103886,
+      "maximum_observed_scale": 2,
+      "min": "0.00",
+      "max": "13664.08",
+      "source_column_sum_for_reconciliation_only": "16008872.12"
+    }
+  },
+  "zip_prefixes": {
+    "customer_zip_code_prefix": {
+      "file": "olist_customers_dataset.csv",
+      "rows": 99441,
+      "distinct": 14994,
+      "length_counts": {
+        "5": 99441
+      },
+      "starts_with_zero": 23995,
+      "distinct_collisions_if_padded_to_five": 0
+    },
+    "seller_zip_code_prefix": {
+      "file": "olist_sellers_dataset.csv",
+      "rows": 3095,
+      "distinct": 2246,
+      "length_counts": {
+        "5": 3095
+      },
+      "starts_with_zero": 1027,
+      "distinct_collisions_if_padded_to_five": 0
+    },
+    "geolocation_zip_code_prefix": {
+      "file": "olist_geolocation_dataset.csv",
+      "rows": 1000163,
+      "distinct": 19015,
+      "length_counts": {
+        "5": 1000163
+      },
+      "starts_with_zero": 245733,
+      "distinct_collisions_if_padded_to_five": 0
+    }
+  }
+}
