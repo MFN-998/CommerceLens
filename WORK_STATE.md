@@ -1,142 +1,124 @@
 # CommerceLens work state
 
 Updated: 2026-09-21. Repository: `D:\My Projects\CommerceLens`.
-Read with root instructions, master plan, engineering standards, and execution protocol.
+Read with AGENTS, master plan, engineering standards, and execution protocol.
 
 ## Project State
 
-- Phases 1–2 and engineering audit COMPLETE. Phase 3 PARTIALLY COMPLETE.
-- M1 design COMPLETE. M2 database foundation COMPLETE and applied; Phase 3 M3 is next.
-- Current task: M2 completed; next unit is storage sizing and reproducible source loading.
-- Objective: tested private analytical warehouse within the master-plan phase boundaries.
-- Status: **M2 COMPLETE / SAFE TO RESUME Phase 3**. Five private schemas and four restricted
-  roles are persistent; no source records loaded.
+- Phases 1–2/audit COMPLETE; Phase 3 M1–M2 COMPLETE; M3 PARTIALLY COMPLETE.
+- Completed M3 units: measured capacity decision, source contract/evidence, landing schema rehearsal.
+- Current task: checkpoint/apply migration 0002, then finish restricted atomic loading in the next unit.
+- Objective: all nine source tables loaded faithfully, atomically, and reproducibly.
+- Status: SAFE TO RESUME. Full source data has **not** been uploaded.
 
 ## Completed Work
 
-- Reconciled clean published checkpoint `3e96ef9`; preserved completed Phases 1–2.
-- Verified owner-created Supabase **CommerceLens**, ref `imvahwzlovgmaltuysmb`, Tokyo
-  (`ap-northeast-1`), Free/Nano. Keep this project; do not rename or create a duplicate.
-- Verified PostgreSQL 17.6, direct IPv6, certificate-verified encrypted authentication.
-- Added separate pinned warehouse driver group, guarded configuration, migration runner,
-  private-schema/capability-role SQL, transactional privilege checks, and recovery tests.
-- Real rehearsal exercised creation, permitted/denied operations, unchanged migration replay,
-  and complete rollback. Integration test also proved checksum rejection, injected DDL failure
-  with no surviving object/ledger row, concurrent-run lock protection, and fresh-session rebuild.
-- Applied migration 0001 after code checkpoint `aa0104f`; unchanged replay returned no migrations.
-  Post-apply privilege checks passed and removed all test objects. Dashboard confirmed
-  2 of 7 schemas exposed and 0 of 1 tables exposed; warehouse schemas remain private.
-- Owner privately populated ignored `.env.warehouse`; never display or commit its contents.
+- Resumed clean published `207b74f`; live PostgreSQL 17.6, roles/schemas and verify-full match.
+- Measured real temporary PostgreSQL samples with UUID/bigint lineage and primary indexes;
+  all temporary tables rolled back, immutable source integrity verified before/after.
+- Initial 532 MB conservative materialization budget exceeded Free's 500 MB allowance.
+  Owner explicitly chose Free with views initially and a fresh review before materializing.
+  Revised budget: 466,728,242 bytes. ADR 0004 records assumptions and actual-size gates.
+- Source-contract module: stable content identity, logical row framing/digests, strict CSV
+  text preservation, NUL/shape rejection, exact monetary validation and sums. 27 new tests pass.
+- Prepared aggregate evidence for all 1,550,922 rows; exact sums match M1 observations.
+- Migration 0002 creates immutable ops.source_loads and nine raw tables. Its live rollback
+  test passed: COPY fidelity, expected denials, PK/FK/positive ordinal/non-null constraints,
+  server-owned attribution, repeat migration, existing M2 privileges, and cleanup.
 
 ## Files
 
-- Created: `.env.warehouse.example`, `src/warehouse/` (configuration, runner, CLI),
-  `warehouse/migrations/0001_foundation.sql`, `warehouse/checks/privileges.sql`,
-  three `tests/test_warehouse_*.py` files, `docs/warehouse-development.md`.
-- Modified: `pyproject.toml`, `uv.lock`, `scripts/check.ps1`, `CONTRIBUTING.md`,
-  `README.md`, `docs/phase-3-plan.md`, `WORK_STATE.md`.
-- Local ignored: `.env.warehouse`, `.credentials/supabase-ca.crt`; contain local configuration.
-- Deleted/renamed: none. Source CSV/Parquet and application behavior unchanged.
+- Created: src/warehouse/source.py, tests/test_warehouse_source.py,
+  warehouse/migrations/0002_source_landing.sql, tests/test_warehouse_landing_integration.py,
+  docs/warehouse-storage-estimate.json, docs/warehouse-load-plan.json,
+  docs/decisions/0004-development-storage-budget.md.
+- Modified: tests/test_warehouse_integration.py (all-current-migration recovery expectations),
+  WORK_STATE.md, docs/phase-3-plan.md, docs/warehouse-development.md.
+- No new dependencies, source/staging dataset changes, or deleted/renamed repository files.
+- Optional unintegrated drafts live outside Git at the local ChatGPT workspace's
+  `m3-staging/src/warehouse/loading.py`, `credentials.py`, and
+  `m3-staging/tests/test_warehouse_credentials.py`. They are NOT implemented/validated
+  repository features. Review/adapt before use; the contracts and next actions here are authoritative.
 
 ## Technical Decisions
 
-- Psycopg binary 3.3.6 (libpq 18.4) is isolated in the optional warehouse group; exact lockfile.
-- Direct target works; no session-pooler or paid IPv4 add-on needed. Always `verify-full`.
-  The public CA comes from the dashboard; no TLS fallback/disabled certificate checks.
-- Four restricted NOLOGIN capabilities; owner owns ops/raw, transformer owns staging/core/marts.
-  Loader can read/insert raw; reader only explicitly approved marts. API roles have no access.
-- Apply SQL as intended creator roles; defaults protect future tables/functions/types/sequences.
-- Ordered LF-normalized SHA-256 migration ledger and whole-batch transactions under a lock.
-  History drift fails rather than silently repairing it; never edit an applied migration.
-- Bootstrap uses the existing administrator. M3/M4 must add least-privilege job credentials
-  before routine loading/transformation. No administrator credential reaches the frontend.
-- Free-plan 500 MB allowance is a gate before M3: estimate landing/index/build/materialization
-  space. Do not silently upgrade, omit source rows, or redefine project scope to fit.
+- All raw fields stay text, including empty strings. Row ordinals count logical CSV records.
+- Stable snapshot fingerprint uses dataset/version, landing contract version, sorted file hashes;
+  acquisition timestamps do not duplicate identical content. Manifest byte hash is separate.
+- UUID identity plus full unique fingerprint; per-table content digests include field lengths
+  and logical ordinals, so unchanged counts/money totals cannot hide changed text or row order.
+- Registry inserted before raw COPY, immediate FKs; the future loader must put registry,
+  all nine loads, full reconciliation, and final capacity check inside one transaction.
+- Loader capability has registry SELECT and restricted INSERT; no UPDATE/DELETE, no ability
+  to spoof loaded_at/by, no migration-ledger privileges. Actual job login is still pending.
+- Views initially; one snapshot per capacity-reviewed target. No automatic second snapshot,
+  paid upgrade, omitted data, or blanket materialization. See ADR 0004 for ceilings/reserves.
 
 ## Validation
 
-- Actual connection: PostgreSQL 17.6, TLS in use with `verify-full`; empty warehouse confirmed.
-- Bootstrap rehearsal passed; fixtures rolled back. Opt-in real integration test: 1 passed,
-  including failure rollback, checksum drift, lock contention, and fresh-session reconstruction.
-- Offline suite: 86 passed, 1 real-database test intentionally skipped; that test passed separately.
-- Ruff lint/format and mypy (18 source files) passed; 72 installed packages compatible.
-- Full gate passed: frontend Prettier/ESLint/TypeScript/build, Python dependency audit,
-  npm audit, and Git history secret scan. No known advisories/leaks found.
-- Initial port parsing issue was corrected and covered by a dedicated environment-file test.
-- Initial generic Python TLS probe rejected the CA under Python's strict extension rules;
-  the actual libpq client passed full chain/hostname verification. See warehouse guide.
-- Historical Phase 2: nine raw files/staging hashes verified, zero blocking errors, 29 warnings.
-  No data pipeline regeneration required for this unit.
-- No populated warehouse, dbt, full data reconstruction, or deployment validation yet.
+- Storage sample measured raw estimate 293,382,593 bytes; with 25% margin 366,728,242 bytes.
+  Revised total 466,728,242 bytes includes platform/model/build reserves; not a guarantee.
+- Complete source preparation passed; 1,550,922 rows and all three exact money totals verified.
+- Offline tests: 113 passed, 2 explicit database tests skipped. New live landing integration
+  test passed separately (92 seconds); all fixture work rolled back.
+- Ruff lint/format and mypy (19 source files) passed; 72 packages compatible.
+- Full frontend format/lint/type/build gate passed. No dependency changes; advisory
+  scan results remain historical M2 evidence. Existing AnyIO warning remains documented.
+- Full production-size COPY, restricted login, retry/content corruption/failure-load tests:
+  **Not yet tested / not yet implemented**. No dbt/deployment claim.
 
 ## Current Repository Condition
 
-**CLEAN / STABLE — verified M2 database foundation.** Code is committed at `aa0104f`.
-The final checkpoint contains only the three updated handoff/phase/setup documents;
-confirm the live working tree after that commit. Migration 0001 is persistent, replay is
-a no-op, and all verification fixtures were removed. Existing app remains functional.
+STABLE / SAFE TO RESUME. Source contract checkpoint b6acd5b is committed. Migration 0002
+is tested but awaits the pre-apply code checkpoint and permanent application. Only intended
+M3 files are modified. No source records or live fixture residue remain.
 
 ## Incomplete Work
 
-- No outstanding M2 implementation failure. Data API exposes only public/graphql_public;
-  creator-specific defaults and tested privileges keep warehouse objects inaccessible to API roles.
-  Preserve/recheck this boundary when adding loaders, dbt models, or new login memberships.
-- M3–M5: storage sizing, source landing/provenance/idempotent loading, least-privilege jobs,
-  dbt dimensions/facts/tests, technical marts/query grain checks, populated reconstruction.
-- Bootstrap reconstruction used empty-target rollback/fresh-session rebuild. It is not a
-  populated backup/restore test. Review server-side SSL enforcement/network allowlists before deployment.
-- Audit E01–E10 remain with existing revisit gates; known AnyIO deprecation persists.
-- Latest account usage observed: 94% used / 6% remaining; preservation mode selected.
-  Refresh before M3. No reset credit redeemed; no additional large unit started.
+- Finish the migration checkpoint/apply and verify unchanged replay.
+- Implement reviewed restricted loader credentials/configuration and atomic COPY pipeline;
+  never run routine loading as postgres. Keep generated credentials ignored and unlogged.
+- Test interrupted-load rollback, idempotent retry, and corruption with unchanged counts/sums.
+- Apply actual-size ceilings, load all nine sources, reconcile row/text/decimal evidence,
+  verify unchanged raw hashes, and checkpoint M3 before M4 dbt models.
+- M4/M5 and populated recovery remain pending. Audit E01–E10 retain their revisit gates.
+- Latest observed account window: 76% used; work narrowed to schema milestone. Refresh on resume.
+  No reset credit redeemed. Earlier completed phases are not reopened.
 
 ## Exact Next Actions
 
-1. Read this handoff and warehouse guide; inspect Git status/history, refresh usage, and run
-   `uv run --locked --group warehouse python -m src.warehouse inspect` to reconcile live state.
-2. Start M3 by measuring expected landing/index/build/materialization storage against the
-   500 MB allowance. Preserve all nine source tables and documented grains; resolve capacity
-   before loading. Do not silently buy upgrades or reduce source coverage.
-3. Implement narrowly scoped loader credentials/membership, versioned source landing and
-   load registry, exact decimal reconciliation, atomic load and idempotent retry tests.
-4. Checkpoint M3 before dbt M4. Follow master-plan acceptance gates; do not redo Phases 1–2.
+1. Inspect Git status/history, refresh usage, read ADR 0004 and source/landing contracts;
+   run warehouse inspect and reconcile migration history before changing anything.
+2. If 0002 is pending, apply only its validated committed SQL and check no-op replay.
+3. Implement purpose-specific loader configuration and a restricted LOGIN member of only
+   commercelens_loader. Test allowed/denied actions using that actual login.
+4. Complete transactional COPY with registry/content/money/capacity checks, rollback and
+   repeat-run tests; only then load all nine sources and record actual storage/evidence.
 
 ## Git State
 
-- Branch: `feat/warehouse-foundation`; starting clean published checkpoint
-  `3e96ef9ac73292de6c33042a13b460b7a48164db`.
-- Protocol `b06fe2e`; audited application `561b4b1`; Phase 2 source baseline `4f7df97`.
-- M2 validated pre-apply code checkpoint: `aa0104f300a41e1de0a75d0af7e3691d0eac8d91`.
-- Final applied-state checkpoint is the commit containing this handoff; resolve it below.
-  Remote target `origin/feat/warehouse-foundation`; verify actual publication and clean status.
-- No main merge or deployment. Git does not roll back committed database changes.
+- Branch feat/warehouse-foundation; initial published baseline 207b74f.
+- Source/capacity checkpoint b6acd5b; M2 implementation aa0104f.
+- Landing pre-apply checkpoint is the commit containing 0002; resolve via Git log below.
+- Final handoff checkpoint is the commit containing this file; verify clean status and
+  origin/feat/warehouse-foundation publication. No main merge/deployment.
 
 ## Continuation Commands
 
 ```powershell
 Set-Location 'D:\My Projects\CommerceLens'
 git status --short --branch
-git log -4 --oneline
+git log -5 --oneline
 git log -1 --format="%H %s" -- WORK_STATE.md
-uv sync --locked --group data --group warehouse
+git log -1 --format="%H %s" -- warehouse/migrations/0002_source_landing.sql
 uv run --locked --group warehouse python -m src.warehouse inspect
 uv run --locked --group warehouse python -m src.warehouse migrate
 uv run --locked --group warehouse python -m src.warehouse verify
-./scripts/check.ps1 -Security -GitleaksPath '.artifacts/tools/gitleaks/gitleaks.exe'
+./scripts/check.ps1
+# Reversible live landing fixture test; does not load source data:
+$env:COMMERCE_WAREHOUSE_LANDING_INTEGRATION = '1'
+try { uv run --locked --group warehouse pytest tests/test_warehouse_landing_integration.py }
+finally { Remove-Item Env:\COMMERCE_WAREHOUSE_LANDING_INTEGRATION }
 ```
 
-First-bootstrap rehearsal/integration commands require an empty isolated target; see
-[development warehouse](docs/warehouse-development.md). Never include credentials here.
-
-## Active M3 work
-
-Resumed clean checkpoint 207b74f on 2026-09-21. Live M2 schemas/roles/TLS match handoff.
-Usage refreshed to 1% used in the five-hour account window. Starting storage sampling
-using temporary rolled-back tables before creating any source landing tables. No source
-load has been committed. Next: decide capacity gate from measured relation/index sizes.
-
-Storage gate completed: estimated raw 293382593 bytes; initial materialized budget
-531728242 bytes failed. Owner explicitly selected Free with views initially and a
-recheck before materialization. Revised budget 466728242 bytes passes; see ADR0004.
-Source-contract module now validates all CSV text, deterministic load identity, unambiguous
-content hashes, and exact decimal totals. No source landing migration applied or full load yet.
-Next atomic unit: restricted loader, migration0002, rollback/retry/content integration tests.
+Never print `.env.warehouse` or credentials. No production data-load command exists yet.

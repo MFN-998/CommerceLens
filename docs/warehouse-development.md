@@ -134,3 +134,21 @@ warning is carried forward. No populated-data/dbt/deployment validation is claim
 After apply the dashboard showed 2 of 7 schemas exposed and 0 of 1 tables exposed.
 M3 starts with storage sizing and least-privilege loading; the 500 MB allowance remains
 an explicit acceptance gate, not an assumption that the eventual warehouse will fit.
+
+## M3 source and landing checkpoint — 2026-09-21
+
+[ADR 0004](decisions/0004-development-storage-budget.md) records the owner's Free/views
+choice after the initial materialized budget failed. The approved conservative budget
+is 466,728,242 bytes. [Load evidence](warehouse-load-plan.json) records all 1,550,922
+source rows, framed content hashes, and exact decimal totals; no source rows are uploaded yet.
+
+Migration 0002 adds immutable ops.source_loads plus nine textual raw tables. Its live
+rollback test passed all nine COPY fidelity checks, permissions, integrity constraints,
+server-owned attribution, repeat migration, and cleanup. Use the explicit opt-in variable
+COMMERCE_WAREHOUSE_LANDING_INTEGRATION=1 with tests/test_warehouse_landing_integration.py
+to rerun that reversible fixture test. The ordinary suite skips live tests.
+
+The source registry is inserted before raw rows for immediate foreign keys. The upcoming
+loader must commit only after all nine tables and complete content/money evidence match.
+Restricted login provisioning, full COPY, idempotent loading, failure injection, and actual
+storage reconciliation remain required before M3 is complete.
