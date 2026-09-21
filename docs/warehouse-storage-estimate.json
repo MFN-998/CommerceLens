@@ -1,0 +1,72 @@
+{
+  "measured_at_utc": "2026-09-21T14:36:23.658164+00:00",
+  "manifest_sha256": "aa21797da3ee2e723a182c5899832dd4c436daef0f43a8812bbacace9775bcde",
+  "sample_limit_per_table": 10000,
+  "method": "Deterministic reservoir sample; actual PostgreSQL text landing with UUID load ID, bigint logical ordinal, composite primary key; temporary tables rolled back",
+  "tables": {
+    "customers": {
+      "source_rows": 99441,
+      "sample_rows": 10000,
+      "sample_relation_bytes_including_indexes_toast": 2138112,
+      "estimated_full_relation_bytes": 21261600
+    },
+    "geolocation": {
+      "source_rows": 1000163,
+      "sample_rows": 10000,
+      "sample_relation_bytes_including_indexes_toast": 1613824,
+      "estimated_full_relation_bytes": 161408706
+    },
+    "orders": {
+      "source_rows": 99441,
+      "sample_rows": 10000,
+      "sample_relation_bytes_including_indexes_toast": 3121152,
+      "estimated_full_relation_bytes": 31037048
+    },
+    "order_items": {
+      "source_rows": 112650,
+      "sample_rows": 10000,
+      "sample_relation_bytes_including_indexes_toast": 2596864,
+      "estimated_full_relation_bytes": 29253673
+    },
+    "order_payments": {
+      "source_rows": 103886,
+      "sample_rows": 10000,
+      "sample_relation_bytes_including_indexes_toast": 1613824,
+      "estimated_full_relation_bytes": 16765373
+    },
+    "order_reviews": {
+      "source_rows": 99224,
+      "sample_rows": 10000,
+      "sample_relation_bytes_including_indexes_toast": 2596864,
+      "estimated_full_relation_bytes": 25767124
+    },
+    "products": {
+      "source_rows": 32951,
+      "sample_rows": 10000,
+      "sample_relation_bytes_including_indexes_toast": 2138112,
+      "estimated_full_relation_bytes": 7045293
+    },
+    "sellers": {
+      "source_rows": 3095,
+      "sample_rows": 3095,
+      "sample_relation_bytes_including_indexes_toast": 811008,
+      "estimated_full_relation_bytes": 811008
+    },
+    "category_translation": {
+      "source_rows": 71,
+      "sample_rows": 71,
+      "sample_relation_bytes_including_indexes_toast": 32768,
+      "estimated_full_relation_bytes": 32768
+    }
+  },
+  "baseline_database_bytes": 10923155,
+  "estimated_raw_bytes": 293382593,
+  "upper_raw_bytes_25pct_margin": 366728242,
+  "limit_bytes_conservative_decimal": 500000000,
+  "reserved_platform_bytes": 40000000,
+  "reserved_future_models_bytes": 75000000,
+  "reserved_build_workspace_bytes": 50000000,
+  "budget_total_bytes": 531728242,
+  "raw_landing_gate_passed": false,
+  "limitations": "Estimate, not a guarantee. M4 must remeasure actual model/rebuild plans; no second full raw snapshot or blanket materialization is budgeted. WAL/temporary allocation is separate from billed database size. No source rows removed."
+}

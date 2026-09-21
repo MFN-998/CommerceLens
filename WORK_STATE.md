@@ -126,3 +126,17 @@ uv run --locked --group warehouse python -m src.warehouse verify
 
 First-bootstrap rehearsal/integration commands require an empty isolated target; see
 [development warehouse](docs/warehouse-development.md). Never include credentials here.
+
+## Active M3 work
+
+Resumed clean checkpoint 207b74f on 2026-09-21. Live M2 schemas/roles/TLS match handoff.
+Usage refreshed to 1% used in the five-hour account window. Starting storage sampling
+using temporary rolled-back tables before creating any source landing tables. No source
+load has been committed. Next: decide capacity gate from measured relation/index sizes.
+
+Storage gate completed: estimated raw 293382593 bytes; initial materialized budget
+531728242 bytes failed. Owner explicitly selected Free with views initially and a
+recheck before materialization. Revised budget 466728242 bytes passes; see ADR0004.
+Source-contract module now validates all CSV text, deterministic load identity, unambiguous
+content hashes, and exact decimal totals. No source landing migration applied or full load yet.
+Next atomic unit: restricted loader, migration0002, rollback/retry/content integration tests.
