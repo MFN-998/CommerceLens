@@ -13,7 +13,7 @@ this is not a CommerceLens production deployment. Do not create a duplicate proj
   user `postgres.imvahwzlovgmaltuysmb`. Copy actual settings again if the project changes.
 - Dashboard allowance: 500 MB. Measure source landing, indexes, temporary build space,
   and materialized-model overhead before M3 loading. Do not upgrade a paid plan silently.
-- Data API exposed schemas observed before bootstrap: `public`, `graphql_public`.
+- Data API exposed schemas verified before and after bootstrap: `public`, `graphql_public`.
   Warehouse schemas are private; application/UI access is not introduced by M2.
 
 The pinned `psycopg[binary]==3.3.6` warehouse dependency includes its PostgreSQL client
@@ -117,3 +117,20 @@ The [Phase 3 plan](phase-3-plan.md), [warehouse ADR](decisions/0003-warehouse-co
 and [WORK_STATE](../WORK_STATE.md) record acceptance and remaining work. Connection choices
 follow the [Supabase connection guide](https://supabase.com/docs/guides/database/connecting-to-postgres);
 driver packaging follows the [Psycopg installation guide](https://www.psycopg.org/psycopg3/docs/basic/install.html).
+
+## M2 completion evidence — 2026-09-21
+
+Implementation checkpoint `aa0104f` preceded persistent migration 0001. Apply succeeded;
+an identical rerun returned no pending migration. Live privilege verification passed,
+including probe cleanup; five schemas and four NOLOGIN roles remain. The final measured
+database size was 10,923,155 bytes (the dashboard billing metric may differ).
+
+Offline checks: 86 passed, one opt-in database test skipped. That integration test passed
+separately against the empty target before apply. Ruff, mypy (18 source files), package
+compatibility (72 installed packages), frontend formatting/lint/types/build, dependency
+advisory scans, and staged/history secret scans passed. The existing AnyIO deprecation
+warning is carried forward. No populated-data/dbt/deployment validation is claimed.
+
+After apply the dashboard showed 2 of 7 schemas exposed and 0 of 1 tables exposed.
+M3 starts with storage sizing and least-privilege loading; the 500 MB allowance remains
+an explicit acceptance gate, not an assumption that the eventual warehouse will fit.

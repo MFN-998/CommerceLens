@@ -6,11 +6,11 @@ Read with root instructions, master plan, engineering standards, and execution p
 ## Project State
 
 - Phases 1–2 and engineering audit COMPLETE. Phase 3 PARTIALLY COMPLETE.
-- M1 design COMPLETE. M2 implementation and transactional rehearsal COMPLETE;
-  persistent database apply awaits the validated code checkpoint.
-- Current task: checkpoint M2 code, apply migration 0001, verify live permissions and replay.
+- M1 design COMPLETE. M2 database foundation COMPLETE and applied; Phase 3 M3 is next.
+- Current task: M2 completed; next unit is storage sizing and reproducible source loading.
 - Objective: tested private analytical warehouse within the master-plan phase boundaries.
-- Status: **SAFE TO RESUME**; no source records loaded, no permanent warehouse schema yet.
+- Status: **M2 COMPLETE / SAFE TO RESUME Phase 3**. Five private schemas and four restricted
+  roles are persistent; no source records loaded.
 
 ## Completed Work
 
@@ -23,6 +23,9 @@ Read with root instructions, master plan, engineering standards, and execution p
 - Real rehearsal exercised creation, permitted/denied operations, unchanged migration replay,
   and complete rollback. Integration test also proved checksum rejection, injected DDL failure
   with no surviving object/ledger row, concurrent-run lock protection, and fresh-session rebuild.
+- Applied migration 0001 after code checkpoint `aa0104f`; unchanged replay returned no migrations.
+  Post-apply privilege checks passed and removed all test objects. Dashboard confirmed
+  2 of 7 schemas exposed and 0 of 1 tables exposed; warehouse schemas remain private.
 - Owner privately populated ignored `.env.warehouse`; never display or commit its contents.
 
 ## Files
@@ -68,38 +71,43 @@ Read with root instructions, master plan, engineering standards, and execution p
 
 ## Current Repository Condition
 
-**FUNCTIONAL WITH KNOWN ISSUES / SAFE TO RESUME** while completing the M2 checkpoint.
-Only intended M2 implementation/documentation paths are modified. All live rehearsal objects
-were rolled back; committed database migration is pending. Existing app remains functional.
+**CLEAN / STABLE — verified M2 database foundation.** Code is committed at `aa0104f`.
+The final checkpoint contains only the three updated handoff/phase/setup documents;
+confirm the live working tree after that commit. Migration 0001 is persistent, replay is
+a no-op, and all verification fixtures were removed. Existing app remains functional.
 
 ## Incomplete Work
 
-- Finish final quality/security gates, commit code, then persist and verify migration 0001.
-- Data API configuration observed public/graphql_public only; verify warehouse schemas remain
-  unexposed after apply. Auto-expose setting exists; our creator-specific grants deny API roles.
+- No outstanding M2 implementation failure. Data API exposes only public/graphql_public;
+  creator-specific defaults and tested privileges keep warehouse objects inaccessible to API roles.
+  Preserve/recheck this boundary when adding loaders, dbt models, or new login memberships.
 - M3–M5: storage sizing, source landing/provenance/idempotent loading, least-privilege jobs,
   dbt dimensions/facts/tests, technical marts/query grain checks, populated reconstruction.
 - Bootstrap reconstruction used empty-target rollback/fresh-session rebuild. It is not a
   populated backup/restore test. Review server-side SSL enforcement/network allowlists before deployment.
 - Audit E01–E10 remain with existing revisit gates; known AnyIO deprecation persists.
-- Latest account usage observed: 62% used / 38% remaining; refresh before another large unit.
-  No reset credit redeemed. Keep M2 bounded before M3.
+- Latest account usage observed: 94% used / 6% remaining; preservation mode selected.
+  Refresh before M3. No reset credit redeemed; no additional large unit started.
 
 ## Exact Next Actions
 
-1. Inspect Git status and the handoff's containing commit; reconcile final gate/apply evidence.
-2. If 0001 is still unapplied, finish checks and create the code checkpoint before running
-   `uv run --locked --group warehouse python -m src.warehouse migrate`.
-3. Repeat migrate (expect no applied IDs), run verify, check API exposure and leftover probes.
-4. Save final M2 evidence/checkpoint; begin M3 with measured capacity and source-load design.
+1. Read this handoff and warehouse guide; inspect Git status/history, refresh usage, and run
+   `uv run --locked --group warehouse python -m src.warehouse inspect` to reconcile live state.
+2. Start M3 by measuring expected landing/index/build/materialization storage against the
+   500 MB allowance. Preserve all nine source tables and documented grains; resolve capacity
+   before loading. Do not silently buy upgrades or reduce source coverage.
+3. Implement narrowly scoped loader credentials/membership, versioned source landing and
+   load registry, exact decimal reconciliation, atomic load and idempotent retry tests.
+4. Checkpoint M3 before dbt M4. Follow master-plan acceptance gates; do not redo Phases 1–2.
 
 ## Git State
 
 - Branch: `feat/warehouse-foundation`; starting clean published checkpoint
   `3e96ef9ac73292de6c33042a13b460b7a48164db`.
 - Protocol `b06fe2e`; audited application `561b4b1`; Phase 2 source baseline `4f7df97`.
-- M2 code checkpoint: commit containing this handoff. Before it, listed M2 paths are dirty;
-  confirm actual status afterward. Remote target `origin/feat/warehouse-foundation`.
+- M2 validated pre-apply code checkpoint: `aa0104f300a41e1de0a75d0af7e3691d0eac8d91`.
+- Final applied-state checkpoint is the commit containing this handoff; resolve it below.
+  Remote target `origin/feat/warehouse-foundation`; verify actual publication and clean status.
 - No main merge or deployment. Git does not roll back committed database changes.
 
 ## Continuation Commands
