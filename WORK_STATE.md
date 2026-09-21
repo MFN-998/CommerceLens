@@ -1,128 +1,120 @@
 # CommerceLens work state
 
-Updated: 2026-09-20. Repository: `D:\My Projects\CommerceLens`.
-Read this with `AGENTS.md`, the master plan, engineering standards, and execution protocol.
+Updated: 2026-09-21. Repository: `D:\My Projects\CommerceLens`.
+Read with root instructions, master plan, engineering standards, and execution protocol.
 
 ## Project State
 
-- Phase: Phases 1–2 and retrospective engineering audit COMPLETE. Phase 3 PARTIALLY COMPLETE.
-- Milestone: M1 warehouse design COMPLETE; M2 database foundation awaits owner sign-in.
-- Current task: dedicated Supabase development setup, then implement the tested warehouse.
-- Objective: complete master-plan Phase 3 in independently validated, recoverable units.
-- Session status: **SAFE TO RESUME**. Permanent protocol and M1 design are complete;
-  no database has been created or tested. The phase exit is not yet satisfied.
+- Phases 1–2 and engineering audit COMPLETE. Phase 3 PARTIALLY COMPLETE.
+- M1 design COMPLETE. M2 implementation and transactional rehearsal COMPLETE;
+  persistent database apply awaits the validated code checkpoint.
+- Current task: checkpoint M2 code, apply migration 0001, verify live permissions and replay.
+- Objective: tested private analytical warehouse within the master-plan phase boundaries.
+- Status: **SAFE TO RESUME**; no source records loaded, no permanent warehouse schema yet.
 
 ## Completed Work
 
-- Preserved the completed foundation, source pipeline, and audited remediation; did not redo them.
-- Persisted the permanent execution protocol in checkpoint `b06fe2e` and linked it from
-  repository instructions, README, contributor guidance, standards, and master-plan addendum.
-- Wrote the five-milestone Phase 3 plan and ADR 0003 covering schemas, types, model grains,
-  source-warning retention, access boundaries, loading, migrations, and recovery acceptance.
-- Inspected original CSV monetary/ZIP fields and saved aggregate observations without row data.
-- Owner selected a dedicated Supabase development project. Dashboard sign-in/signup remains
-  with the owner; the last response was that they need to finish signing in or creating an account.
+- Reconciled clean published checkpoint `3e96ef9`; preserved completed Phases 1–2.
+- Verified owner-created Supabase **CommerceLens**, ref `imvahwzlovgmaltuysmb`, Tokyo
+  (`ap-northeast-1`), Free/Nano. Keep this project; do not rename or create a duplicate.
+- Verified PostgreSQL 17.6, direct IPv6, certificate-verified encrypted authentication.
+- Added separate pinned warehouse driver group, guarded configuration, migration runner,
+  private-schema/capability-role SQL, transactional privilege checks, and recovery tests.
+- Real rehearsal exercised creation, permitted/denied operations, unchanged migration replay,
+  and complete rollback. Integration test also proved checksum rejection, injected DDL failure
+  with no surviving object/ledger row, concurrent-run lock protection, and fresh-session rebuild.
+- Owner privately populated ignored `.env.warehouse`; never display or commit its contents.
 
 ## Files
 
-- M1 created: `docs/phase-3-plan.md`, `docs/decisions/0003-warehouse-contract.md`,
-  `docs/warehouse-source-observations.json`.
-- M1 modified: `WORK_STATE.md`, `README.md`.
-- Protocol checkpoint created `WORK_STATE.md` and `docs/execution-protocol.md`, and updated
-  `AGENTS.md`, `CONTRIBUTING.md`, `README.md`, `docs/master-plan.md`, `docs/engineering-standards.md`.
-- Deleted/renamed: none. No source code, dependencies, migrations, or datasets changed.
+- Created: `.env.warehouse.example`, `src/warehouse/` (configuration, runner, CLI),
+  `warehouse/migrations/0001_foundation.sql`, `warehouse/checks/privileges.sql`,
+  three `tests/test_warehouse_*.py` files, `docs/warehouse-development.md`.
+- Modified: `pyproject.toml`, `uv.lock`, `scripts/check.ps1`, `CONTRIBUTING.md`,
+  `README.md`, `docs/phase-3-plan.md`, `WORK_STATE.md`.
+- Local ignored: `.env.warehouse`, `.credentials/supabase-ca.crt`; contain local configuration.
+- Deleted/renamed: none. Source CSV/Parquet and application behavior unchanged.
 
 ## Technical Decisions
 
-- Preserve master-plan phase boundaries: Phase 3 tested warehouse/technical marts;
-  Phase 4 business EDA; Phase 5 official KPI/API analytics definitions.
-- Use original CSV decimal strings for money, validate before casting to `numeric(18,2)`;
-  profiling Parquet floats are not authoritative money. All observed scales are at most two.
-- Preserve literal ZIP strings: all three sources already have five characters, including zero prefixes.
-- Keep cross-order customer identity separate from order-linked addresses. Keep independent
-  item/payment/review facts; aggregate each child before joining to the order-grain mart.
-- Preserve all 29 source warning outcomes with explicit flags. Unknown/absent values are
-  not silently replaced, and geography does not acquire an invented canonical coordinate.
-- Plan private schemas and least-privilege role capabilities; verify allowed and denied access.
-  Source/Git reconstruction and database recovery need separate evidence.
-- No credentials in chat/Git/logs. No cloud project, paid commitment, or schema mutation performed.
+- Psycopg binary 3.3.6 (libpq 18.4) is isolated in the optional warehouse group; exact lockfile.
+- Direct target works; no session-pooler or paid IPv4 add-on needed. Always `verify-full`.
+  The public CA comes from the dashboard; no TLS fallback/disabled certificate checks.
+- Four restricted NOLOGIN capabilities; owner owns ops/raw, transformer owns staging/core/marts.
+  Loader can read/insert raw; reader only explicitly approved marts. API roles have no access.
+- Apply SQL as intended creator roles; defaults protect future tables/functions/types/sequences.
+- Ordered LF-normalized SHA-256 migration ledger and whole-batch transactions under a lock.
+  History drift fails rather than silently repairing it; never edit an applied migration.
+- Bootstrap uses the existing administrator. M3/M4 must add least-privilege job credentials
+  before routine loading/transformation. No administrator credential reaches the frontend.
+- Free-plan 500 MB allowance is a gate before M3: estimate landing/index/build/materialization
+  space. Do not silently upgrade, omit source rows, or redefine project scope to fit.
 
 ## Validation
 
-- This session: inspected actual Git/history/audit documents and verified the audited baseline.
-- Protocol: all 10 handoff sections, 37 local links, master-plan prefix preservation, and
-  Git whitespace checks passed; commit `b06fe2e` had a clean working tree afterward.
-- M1: raw integrity verified before and after read-only CSV profiling. Exact Decimal money
-  and literal ZIP aggregates recorded with the source-manifest SHA-256 in the observations JSON.
-- M1 checks passed: 30 local links, 10 handoff sections, manifest checksum, all six observed
-  column row counts reconciled to Phase 2, and Git diff whitespace checks. Gitleaks scanned
-  the complete staged snapshot (about 440 KB); no leaks found.
-- Historical audit (2026-09-20): 63 tests, Ruff, mypy (14 files), Prettier, ESLint,
-  TypeScript/build, clean-install reproduction, API startup, and mobile/desktop preview passed.
-  Raw/staging integrity passed with zero blocking errors and 29 warnings; dependency and
-  secret scans found no known advisories/leaks. See `docs/engineering-audit-phase-1-2.md`.
-- Historical application checks were not rerun for this documentation-only milestone.
-- Database, schema, dbt, integration, recovery, deployment validation: **Not yet tested / not implemented**.
+- Actual connection: PostgreSQL 17.6, TLS in use with `verify-full`; empty warehouse confirmed.
+- Bootstrap rehearsal passed; fixtures rolled back. Opt-in real integration test: 1 passed,
+  including failure rollback, checksum drift, lock contention, and fresh-session reconstruction.
+- Offline suite: 86 passed, 1 real-database test intentionally skipped; that test passed separately.
+- Ruff lint/format and mypy (18 source files) passed; 72 installed packages compatible.
+- Full gate passed: frontend Prettier/ESLint/TypeScript/build, Python dependency audit,
+  npm audit, and Git history secret scan. No known advisories/leaks found.
+- Initial port parsing issue was corrected and covered by a dedicated environment-file test.
+- Initial generic Python TLS probe rejected the CA under Python's strict extension rules;
+  the actual libpq client passed full chain/hostname verification. See warehouse guide.
+- Historical Phase 2: nine raw files/staging hashes verified, zero blocking errors, 29 warnings.
+  No data pipeline regeneration required for this unit.
+- No populated warehouse, dbt, full data reconstruction, or deployment validation yet.
 
 ## Current Repository Condition
 
-**CLEAN / STABLE application baseline and completed M1 documentation checkpoint content.**
-The pre-commit changes were the five M1 files above. Confirm the live working
-tree after committing; the commit containing this handoff is the M1 checkpoint.
-There are no partially edited application files or pending migrations.
+**FUNCTIONAL WITH KNOWN ISSUES / SAFE TO RESUME** while completing the M2 checkpoint.
+Only intended M2 implementation/documentation paths are modified. All live rehearsal objects
+were rolled back; committed database migration is pending. Existing app remains functional.
 
 ## Incomplete Work
 
-- Owner must finish Supabase sign-in/signup; no project availability, organization, region,
-  PostgreSQL version, connection, or credentials have been verified.
-- M2–M5 in `docs/phase-3-plan.md` remain: database/access/migrations, reproducible loading,
-  dbt staging/dimensions/facts/tests, technical marts/queries/recovery verification.
-- Latest usage observation: 91% used / 9% remaining in the account-wide five-hour window.
-  Preservation mode selected; this is not an exact model/task budget. Refresh on resume.
-  No reset credit redeemed.
-- Carry forward audit exceptions E01–E10 with their documented revisit gates: tooling
-  compatibility/deprecation, local-job recovery limits, source warnings, future DB/security/
-  release/CI gates, code-license decision, and gradual typing. No hidden new workaround.
-- `main` remains at Phase 1; later work is on descendant feature/audit branches, not merged.
+- Finish final quality/security gates, commit code, then persist and verify migration 0001.
+- Data API configuration observed public/graphql_public only; verify warehouse schemas remain
+  unexposed after apply. Auto-expose setting exists; our creator-specific grants deny API roles.
+- M3–M5: storage sizing, source landing/provenance/idempotent loading, least-privilege jobs,
+  dbt dimensions/facts/tests, technical marts/query grain checks, populated reconstruction.
+- Bootstrap reconstruction used empty-target rollback/fresh-session rebuild. It is not a
+  populated backup/restore test. Review server-side SSL enforcement/network allowlists before deployment.
+- Audit E01–E10 remain with existing revisit gates; known AnyIO deprecation persists.
+- Latest account usage observed: 62% used / 38% remaining; refresh before another large unit.
+  No reset credit redeemed. Keep M2 bounded before M3.
 
 ## Exact Next Actions
 
-1. Read this handoff, `docs/phase-3-plan.md`, and ADR 0003; inspect Git status and the latest
-   handoff commit, reconcile any differences, and refresh available usage.
-2. After the owner confirms sign-in, inspect the actual Supabase dashboard organization and
-   project allowance; prepare dedicated `commercelens-dev`. The owner handles new credentials
-   privately. Resolve any paid commitment before submission; do not assume a project exists.
-3. Record non-secret target metadata and actual Connect settings, then implement and validate
-   bounded M2 bootstrap/migrations, encrypted connection, grants/denials, and recovery checks.
-4. Checkpoint M2 before M3 loading. Follow the remaining acceptance gates; do not reopen Phases 1–2.
+1. Inspect Git status and the handoff's containing commit; reconcile final gate/apply evidence.
+2. If 0001 is still unapplied, finish checks and create the code checkpoint before running
+   `uv run --locked --group warehouse python -m src.warehouse migrate`.
+3. Repeat migrate (expect no applied IDs), run verify, check API exposure and leftover probes.
+4. Save final M2 evidence/checkpoint; begin M3 with measured capacity and source-load design.
 
 ## Git State
 
-- Branch: `feat/warehouse-foundation`, based on protocol checkpoint
-  `b06fe2e5e41d2a70aa15664ae078514cebca8628` (`chore/execution-continuity`).
-- Latest validated application/audit: `561b4b1521c8a842421124786b368205718ea29d`.
-- Phase 2 source baseline: `4f7df972ef6c71a658a2641564aeb9338a8d1d30`.
-- M1 checkpoint: the commit containing this handoff; resolve with the command below.
-  Pre-commit changes are the five documented M1 paths; verify clean status afterward.
-- Remote checkpoint targets: `origin/chore/execution-continuity` and
-  `origin/feat/warehouse-foundation`. Verify their actual refs with the command below;
-  do not infer publication from this file alone. No merge into `main` is claimed.
+- Branch: `feat/warehouse-foundation`; starting clean published checkpoint
+  `3e96ef9ac73292de6c33042a13b460b7a48164db`.
+- Protocol `b06fe2e`; audited application `561b4b1`; Phase 2 source baseline `4f7df97`.
+- M2 code checkpoint: commit containing this handoff. Before it, listed M2 paths are dirty;
+  confirm actual status afterward. Remote target `origin/feat/warehouse-foundation`.
+- No main merge or deployment. Git does not roll back committed database changes.
 
 ## Continuation Commands
 
 ```powershell
 Set-Location 'D:\My Projects\CommerceLens'
 git status --short --branch
-git log -5 --oneline
+git log -4 --oneline
 git log -1 --format="%H %s" -- WORK_STATE.md
-git ls-remote origin refs/heads/chore/execution-continuity refs/heads/feat/warehouse-foundation
-# Run application checks when changed code or a discrepancy requires them:
-./scripts/check.ps1
-# Data verification regenerates report timestamps:
-./scripts/check.ps1 -Data
-uv run --locked uvicorn api.app.main:create_app --factory --reload --host 127.0.0.1 --port 8000
-# Separate terminal; stop before running a production build:
-npm --prefix web run dev
+uv sync --locked --group data --group warehouse
+uv run --locked --group warehouse python -m src.warehouse inspect
+uv run --locked --group warehouse python -m src.warehouse migrate
+uv run --locked --group warehouse python -m src.warehouse verify
+./scripts/check.ps1 -Security -GitleaksPath '.artifacts/tools/gitleaks/gitleaks.exe'
 ```
 
-No database/migration commands exist yet. Keep secrets out of this file and Git.
+First-bootstrap rehearsal/integration commands require an empty isolated target; see
+[development warehouse](docs/warehouse-development.md). Never include credentials here.

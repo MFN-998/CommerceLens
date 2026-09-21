@@ -5,8 +5,9 @@ Started 2026-09-20 from audited baseline `561b4b1` and execution-protocol checkp
 Authority: [master plan](master-plan.md), [engineering standards](engineering-standards.md),
 [execution protocol](execution-protocol.md), and root [work state](../WORK_STATE.md).
 
-The owner selected a **dedicated Supabase development project**. No project/database
-has been created or verified yet; account sign-in/signup is pending with the owner.
+The owner created **CommerceLens** as the dedicated Supabase development project.
+Project and PostgreSQL 17.6 connection verified on 2026-09-21; see the
+[development warehouse guide](warehouse-development.md) for configuration and evidence.
 The phase exit remains a **tested analytical warehouse**, not a deployed analytics app.
 
 ## Milestones and checkpoints
@@ -14,7 +15,7 @@ The phase exit remains a **tested analytical warehouse**, not a deployed analyti
 | Unit | Deliverable | Required exit evidence | State |
 | --- | --- | --- | --- |
 | M1. Warehouse contracts | ADR with schemas, grains/types, join/quality policies, role boundaries, and recovery contract | Phase 2 evidence reviewed; original decimal/ZIP fields inspected; design and source observations consistent | Complete; implementation still pending |
-| M2. Isolated database foundation | Dedicated dev project; reviewed versioned bootstrap/migrations; secret-free examples and connection guidance | Target/version verified, encrypted connection, repeat migration, intended grants and denied access, API exposure review, disposable recovery test | Awaiting account access; not implemented |
+| M2. Isolated database foundation | Dedicated dev project; reviewed versioned bootstrap/migrations; secret-free examples and connection guidance | Target/version verified, encrypted connection, repeat migration, intended grants and denied access, API exposure review, disposable recovery test | Code and rollback rehearsal verified; persistent apply pending checkpoint |
 | M3. Reproducible loading | All nine verified source tables, provenance/load registry, exact monetary ingestion, atomic load | Source/hash/count/content reconciliation, exact decimal checks, idempotent rerun, failed-load rollback, unchanged raw files | Not started |
 | M4. dbt staging and dimensions/facts | Pinned compatible dbt/Postgres tools; staging/intermediate/core models and explicit quality flags | dbt build, uniqueness/null/reference/domain tests, source reconciliation, synthetic grain and missing-data cases | Not started |
 | M5. Initial marts and handoff | Order-grain technical mart and reliable example SQL; access/recovery/developer guidance | Independent child aggregation, conserved counts/sums, repeat build, query-plan review, reconstruction/recovery verification, final checks and checkpoint | Not started |
@@ -40,9 +41,9 @@ See [ADR 0003](decisions/0003-warehouse-contract.md) and the
 
 ## First database unit
 
-After owner sign-in, inspect the actual organization, available project allowance, and
-creation form. Prepare `commercelens-dev` in an appropriate available region, keeping it
-separate from production. Confirm any paid commitment before submission. If creating or
+The owner-created `CommerceLens` project is the verified development target in Tokyo.
+Preserve its name and do not create a duplicate. The Free plan shows a 500 MB database
+allowance: measure capacity before M3 loading or materializing dbt models. Confirm any paid commitment before submission. If creating or
 changing a credential requires user entry, let the owner complete that step privately.
 Never paste passwords/tokens into chat, WORK_STATE, tracked files, or logs.
 

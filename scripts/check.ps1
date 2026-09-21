@@ -18,7 +18,7 @@ function Invoke-Check {
 Push-Location $projectRoot
 try {
     Write-Host 'Checking Python style, types, and offline tests.'
-    $runArgs = @('run', '--locked', '--group', 'data')
+    $runArgs = @('run', '--locked', '--group', 'data', '--group', 'warehouse')
     if ($Security) { $runArgs += @('--group', 'audit') }
     Invoke-Check 'uv' ($runArgs + @('ruff', 'check', '.'))
     Invoke-Check 'uv' ($runArgs + @('ruff', 'format', '--check', '.'))

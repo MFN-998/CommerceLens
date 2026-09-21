@@ -26,6 +26,9 @@ dev = [
     "pytest==9.1.1",
     "ruff==0.16.7",
 ]
+warehouse = [
+    "psycopg[binary]==3.3.6",
+]
 
 [tool.uv]
 package = false

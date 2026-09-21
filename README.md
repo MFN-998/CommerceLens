@@ -22,7 +22,8 @@ live business feed. Local staging preserves documented source-quality warnings.
 - [Phase 1 checklist](docs/phase-1-status.md): completion evidence and known tooling limitations.
 - [Data setup](data/README.md): acquire, verify, and profile pinned Olist version 2.
 - [Phase 2 plan](docs/phase-2-plan.md) and [completion evidence](docs/phase-2-status.md).
-- [Phase 3 plan](docs/phase-3-plan.md) and [warehouse contract](docs/decisions/0003-warehouse-contract.md): design checkpoint; database setup pending.
+- [Phase 3 plan](docs/phase-3-plan.md) and [warehouse contract](docs/decisions/0003-warehouse-contract.md): warehouse foundation and verification milestones.
+- [Development warehouse](docs/warehouse-development.md): private configuration, migrations, access checks, and recovery.
 - [Quality report](docs/data-quality-report.md) and [column dictionary](docs/data_dictionary/initial.md).
 - Architecture decisions: [foundation](docs/decisions/0001-foundation.md) and
   [source quality and local staging](docs/decisions/0002-source-quality.md).

@@ -17,7 +17,7 @@ Use [development setup](docs/development.md) and [data setup](data/README.md). F
 repository root, install reproducibly:
 
 ```powershell
-uv sync --locked --group data
+uv sync --locked --group data --group warehouse
 npm --prefix web ci
 ```
 
@@ -73,10 +73,10 @@ publishing secret values. Before pushing, rerun the history scan including the n
 For targeted work, individual commands remain available:
 
 ```powershell
-uv run --locked --group data mypy
-uv run --locked --group data pytest
-uv run --locked --group data ruff check .
-uv run --locked --group data ruff format .
+uv run --locked --group data --group warehouse mypy
+uv run --locked --group data --group warehouse pytest
+uv run --locked --group data --group warehouse ruff check .
+uv run --locked --group data --group warehouse ruff format .
 npm --prefix web run format
 npm --prefix web run format:check
 ```
@@ -103,3 +103,6 @@ An exception must describe severity, reason, mitigation, owner, and revisit gate
 current audit/phase record. Failures must not be hidden by disabling checks or adding
 blanket suppressions. Keep future security, migration, a11y, and production decisions
 visible during development, not postponed to an unspecified cleanup phase.
+
+Warehouse setup and explicit real-database checks are documented in
+[development warehouse](docs/warehouse-development.md). Offline checks do not connect to Supabase.
