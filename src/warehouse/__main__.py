@@ -8,7 +8,8 @@ import psycopg
 from pydantic import ValidationError
 
 from src.warehouse.config import ROOT, connect, load_settings
-from src.warehouse.credentials import ProvisioningError, provision_loader
+from src.warehouse.credentials import ProvisioningError, provision_loader, provision_transformer
+from src.warehouse.dbt_runner import DbtCommand, DbtError, run_dbt
 from src.warehouse.loading import LoadError, load_source
 from src.warehouse.migrations import (
     MigrationError,
@@ -23,10 +24,25 @@ from src.warehouse.source import prepare_source
 def main() -> int:
     parser = argparse.ArgumentParser(description="Private development warehouse administration")
     parser.add_argument(
-        "command", choices=["inspect", "migrate", "verify", "rehearse", "provision-loader", "load"]
+        "command",
+        choices=[
+            "inspect",
+            "migrate",
+            "verify",
+            "rehearse",
+            "provision-loader",
+            "load",
+            "provision-transformer",
+            "dbt-parse",
+            "dbt-debug",
+        ],
     )
     args = parser.parse_args()
     try:
+        if args.command in ("dbt-parse", "dbt-debug"):
+            dbt_command: DbtCommand = "parse" if args.command == "dbt-parse" else "debug"
+            print(json.dumps(run_dbt(dbt_command), indent=2))
+            return 0
         if args.command == "load":
             settings = load_settings(purpose="loader")
             print(
@@ -46,6 +62,9 @@ def main() -> int:
         settings = load_settings()
         if args.command == "provision-loader":
             print(json.dumps(provision_loader(settings), indent=2))
+            return 0
+        if args.command == "provision-transformer":
+            print(json.dumps(provision_transformer(settings), indent=2))
             return 0
         migrations = read_migrations()
         with connect(settings) as connection:
@@ -88,7 +107,7 @@ def main() -> int:
             {str(item["loc"][0]) if item["loc"] else "target" for item in error.errors()}
         )
         print("Invalid warehouse configuration fields: " + ", ".join(fields), file=sys.stderr)
-    except (ProvisioningError, LoadError) as error:
+    except (ProvisioningError, LoadError, DbtError) as error:
         # These errors expose fixed recovery instructions, never driver or row detail.
         print(str(error), file=sys.stderr)
     except (MigrationError, ValueError, OSError):

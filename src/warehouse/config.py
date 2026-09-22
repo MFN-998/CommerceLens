@@ -9,7 +9,17 @@ from pydantic import Field, SecretStr, field_validator, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 ROOT = Path(__file__).resolve().parents[2]
-WarehousePurpose = Literal["admin", "loader"]
+WarehousePurpose = Literal["admin", "loader", "transformer"]
+PURPOSE_USERS: dict[WarehousePurpose, str] = {
+    "admin": "postgres",
+    "loader": "commercelens_ingest",
+    "transformer": "commercelens_transform",
+}
+PURPOSE_FILES: dict[WarehousePurpose, str] = {
+    "admin": ".env.warehouse",
+    "loader": ".env.warehouse.loader",
+    "transformer": ".env.warehouse.transformer",
+}
 
 
 class WarehouseSettings(BaseSettings):
@@ -36,7 +46,7 @@ class WarehouseSettings(BaseSettings):
 
     @model_validator(mode="after")
     def validate_target(self) -> "WarehouseSettings":
-        username = "postgres" if self.purpose == "admin" else "commercelens_ingest"
+        username = PURPOSE_USERS[self.purpose]
         direct = self.host == f"db.{self.project_ref}.supabase.co" and self.user == username
         session = (
             re.fullmatch(r"aws-\d+-[a-z0-9-]+\.pooler\.supabase\.com", self.host)
@@ -58,10 +68,10 @@ class WarehouseSettings(BaseSettings):
 def load_settings(root: Path = ROOT, *, purpose: WarehousePurpose = "admin") -> WarehouseSettings:
     """Use a purpose-specific ignored file, with validated environment overrides.
 
-    Loading never searches the administration file for missing loader credentials.
+    Loading never searches another purpose's file for missing credentials.
     A purpose override must agree with the command as well as its allowed username.
     """
-    filename = ".env.warehouse" if purpose == "admin" else ".env.warehouse.loader"
+    filename = PURPOSE_FILES[purpose]
     settings = WarehouseSettings(_env_file=root / filename, _env_file_encoding="utf-8")
     if settings.purpose != purpose:
         raise ValueError("Warehouse configuration purpose does not match the requested operation")

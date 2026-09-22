@@ -9,7 +9,7 @@ Use ADR 0003 for logical schemas/grains and ADR 0004 for views-first storage con
 The optional transform group and reviewed lock are now adopted in the actual repository.
 Locked installation, dbt version, 151 offline tests, all existing style/type/build checks,
 111-package compatibility and Python/npm advisory scans passed. Use check.ps1 -Transform
-for dbt changes. Transformer credentials, project configuration and models remain pending.
+for dbt changes. See the implementation status below for the subsequent configuration unit.
 The isolated experiment below is historical evidence preceding adoption.
 
 ## Validated tooling candidates
@@ -74,3 +74,16 @@ Configuration references: [profiles](https://docs.getdbt.com/docs/local/profiles
 [secret environment variables](https://docs.getdbt.com/reference/dbt-jinja-functions/env_var),
 [Postgres settings](https://docs.getdbt.com/docs/local/connect-data-platform/postgres-setup),
 [custom schemas](https://docs.getdbt.com/docs/build/custom-schemas).
+
+## Bootstrap implemented — 2026-09-22
+
+The purpose-specific transformer provisioning, safe dbt wrapper/profile, nine raw sources,
+restricted schema macro and rollback-only actual-login test are implemented. Full gate
+passed: 203 tests, 14 opt-in live tests skipped, Ruff, mypy (22 source files), offline dbt
+parse, frontend checks/build, 111-package compatibility, advisory and history secret scans.
+The CLI command's Literal annotation was corrected after mypy rejected an inferred string.
+
+This is the pre-provision checkpoint: the transformer credential file does not exist yet;
+actual login/access and dbt debug are Not yet tested. No models or database objects were
+built by this unit. Follow [dbt development](dbt-development.md) and WORK_STATE for the
+next verified operation, then staging/core implementation. Do not repeat tooling adoption.

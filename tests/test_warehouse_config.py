@@ -6,7 +6,13 @@ import pytest
 from pydantic import ValidationError
 
 from src.warehouse import __main__ as cli
-from src.warehouse.config import WarehouseSettings, connect, load_settings
+from src.warehouse.config import (
+    PURPOSE_FILES,
+    PURPOSE_USERS,
+    WarehouseSettings,
+    connect,
+    load_settings,
+)
 
 
 @pytest.fixture
@@ -120,15 +126,16 @@ def test_dotenv_parses_port_and_preserves_secret(
 
 
 @pytest.mark.parametrize("pooler", [False, True])
-def test_loader_target_requires_loader_identity(values: dict[str, object], pooler: bool) -> None:
-    values["purpose"] = "loader"
+@pytest.mark.parametrize("purpose", ["loader", "transformer"])
+def test_restricted_target_requires_matching_identity(values, pooler, purpose) -> None:
+    values["purpose"] = purpose
     if pooler:
         values["host"] = "aws-0-ap-northeast-1.pooler.supabase.com"
         values["user"] = "postgres.abcdefghijklmnopqrst"
     with pytest.raises(ValidationError):
         WarehouseSettings.model_validate(values)
-    values["user"] = "commercelens_ingest" + (".abcdefghijklmnopqrst" if pooler else "")
-    assert WarehouseSettings.model_validate(values).purpose == "loader"
+    values["user"] = PURPOSE_USERS[purpose] + (".abcdefghijklmnopqrst" if pooler else "")
+    assert WarehouseSettings.model_validate(values).purpose == purpose
     values["purpose"] = "admin"
     with pytest.raises(ValidationError):
         WarehouseSettings.model_validate(values)
@@ -156,35 +163,41 @@ def write_config(path: Path, purpose: str, user: str) -> None:
     )
 
 
-def test_missing_loader_file_never_uses_admin_file(tmp_path, clean_warehouse_environment) -> None:
+@pytest.mark.parametrize("purpose", ["loader", "transformer"])
+def test_missing_restricted_file_never_uses_admin_file(
+    tmp_path, clean_warehouse_environment, purpose
+) -> None:
     write_config(tmp_path / ".env.warehouse", "admin", "postgres")
     assert load_settings(tmp_path).purpose == "admin"
     with pytest.raises(ValidationError):
-        load_settings(tmp_path, purpose="loader")
+        load_settings(tmp_path, purpose=purpose)
 
 
 def test_each_command_uses_its_own_file(tmp_path, clean_warehouse_environment) -> None:
     write_config(tmp_path / ".env.warehouse", "admin", "postgres")
     write_config(tmp_path / ".env.warehouse.loader", "loader", "commercelens_ingest")
+    write_config(tmp_path / ".env.warehouse.transformer", "transformer", "commercelens_transform")
     assert load_settings(tmp_path).user == "postgres"
     assert load_settings(tmp_path, purpose="loader").user == "commercelens_ingest"
+    assert load_settings(tmp_path, purpose="transformer").user == "commercelens_transform"
 
 
-def test_loader_rejects_ambient_admin_override(
-    tmp_path, clean_warehouse_environment, monkeypatch
+@pytest.mark.parametrize("purpose", ["loader", "transformer"])
+def test_restricted_purpose_rejects_ambient_admin_override(
+    tmp_path, clean_warehouse_environment, monkeypatch, purpose
 ) -> None:
-    write_config(tmp_path / ".env.warehouse.loader", "loader", "commercelens_ingest")
+    write_config(tmp_path / PURPOSE_FILES[purpose], purpose, PURPOSE_USERS[purpose])
     monkeypatch.setenv("WAREHOUSE_USER", "postgres")
     with pytest.raises(ValidationError):
-        load_settings(tmp_path, purpose="loader")
+        load_settings(tmp_path, purpose=purpose)
     monkeypatch.setenv("WAREHOUSE_PURPOSE", "admin")
     with pytest.raises(ValueError, match="purpose does not match"):
-        load_settings(tmp_path, purpose="loader")
+        load_settings(tmp_path, purpose=purpose)
 
 
-@pytest.mark.parametrize("purpose", ["admin", "loader"])
+@pytest.mark.parametrize("purpose", ["admin", "loader", "transformer"])
 def test_misplaced_configuration_is_rejected(tmp_path, clean_warehouse_environment, purpose):
-    filename = ".env.warehouse" if purpose == "admin" else ".env.warehouse.loader"
+    filename = PURPOSE_FILES[purpose]
     wrong_purpose, user = (
         ("loader", "commercelens_ingest") if purpose == "admin" else ("admin", "postgres")
     )
@@ -193,13 +206,24 @@ def test_misplaced_configuration_is_rejected(tmp_path, clean_warehouse_environme
         load_settings(tmp_path, purpose=purpose)
 
 
-def test_loader_connection_preserves_tls_and_marks_application(
-    values: dict[str, object], monkeypatch: pytest.MonkeyPatch
+@pytest.mark.parametrize("purpose", ["loader", "transformer"])
+def test_restricted_connection_preserves_tls_and_marks_application(
+    values, monkeypatch, purpose
 ) -> None:
     captured = {}
     monkeypatch.setattr("src.warehouse.config.psycopg.connect", lambda **kw: captured.update(kw))
-    values.update(purpose="loader", user="commercelens_ingest")
+    values.update(purpose=purpose, user=PURPOSE_USERS[purpose])
     connect(WarehouseSettings.model_validate(values))
     assert captured["sslmode"] == "verify-full"
-    assert captured["user"] == "commercelens_ingest"
-    assert captured["application_name"] == "commercelens-warehouse-loader"
+    assert captured["user"] == PURPOSE_USERS[purpose]
+    assert captured["application_name"] == f"commercelens-warehouse-{purpose}"
+
+
+@pytest.mark.parametrize("purpose", ["loader", "transformer"])
+def test_restricted_purposes_cannot_use_each_others_credentials(
+    tmp_path, clean_warehouse_environment, purpose
+):
+    other = "transformer" if purpose == "loader" else "loader"
+    write_config(tmp_path / PURPOSE_FILES[purpose], purpose, PURPOSE_USERS[other])
+    with pytest.raises(ValidationError):
+        load_settings(tmp_path, purpose=purpose)

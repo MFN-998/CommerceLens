@@ -32,6 +32,9 @@ try {
     Invoke-Check 'uv' ($runArgs + @('mypy'))
     Invoke-Check 'uv' ($runArgs + @('pytest'))
     Invoke-Check 'uv' @('pip', 'check')
+    if ($Transform) {
+        Invoke-Check 'uv' ($runArgs + @('python', '-m', 'src.warehouse', 'dbt-parse'))
+    }
 
     Write-Host 'Checking frontend formatting, lint, types, and production compilation.'
     $npmProgram = if ($env:OS -eq 'Windows_NT') { 'npm.cmd' } else { 'npm' }

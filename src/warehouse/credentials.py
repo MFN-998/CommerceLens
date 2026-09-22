@@ -1,19 +1,27 @@
-"""Provision one development loader login without printing or replacing credentials."""
+"""Provision restricted development logins without printing or replacing credentials."""
 
 import os
 import secrets
 import stat
 import subprocess
 from pathlib import Path
+from typing import Literal
 
 import psycopg
 from psycopg import sql
 
-from src.warehouse.config import ROOT, WarehouseSettings, connect
+from src.warehouse.config import PURPOSE_FILES, PURPOSE_USERS, ROOT, WarehouseSettings, connect
 from src.warehouse.migrations import LOCK_ID
 
-LOADER_ROLE = "commercelens_ingest"
-LOADER_ENV = ".env.warehouse.loader"
+LOADER_ROLE = PURPOSE_USERS["loader"]
+LOADER_ENV = PURPOSE_FILES["loader"]
+TRANSFORMER_ROLE = PURPOSE_USERS["transformer"]
+TRANSFORMER_ENV = PURPOSE_FILES["transformer"]
+RestrictedPurpose = Literal["loader", "transformer"]
+CAPABILITY_ROLES: dict[RestrictedPurpose, str] = {
+    "loader": "commercelens_loader",
+    "transformer": "commercelens_transformer",
+}
 
 # Fixed code: the path is data from the subprocess environment, never interpolated
 # into PowerShell. No file content is read, and all subprocess output is discarded.
@@ -108,16 +116,18 @@ def protect_credential_file(path: Path) -> None:
 def _quoted_value(value: str) -> str:
     """Preserve dotenv values without line injection or variable interpolation."""
     if any(character in value for character in ("\r", "\n", "\x00", "${")):
-        raise ProvisioningError("Loader configuration contains an unsupported file value")
+        raise ProvisioningError("Warehouse configuration contains an unsupported file value")
     return "'" + value.replace("\\", "\\\\").replace("'", "\\'") + "'"
 
 
-def _credential_content(settings: WarehouseSettings, password: str) -> str:
-    username = LOADER_ROLE
+def _credential_content(
+    settings: WarehouseSettings, password: str, purpose: RestrictedPurpose = "loader"
+) -> str:
+    username = PURPOSE_USERS[purpose]
     if settings.user == f"postgres.{settings.project_ref}":
         username += f".{settings.project_ref}"
     values = {
-        "WAREHOUSE_PURPOSE": "loader",
+        "WAREHOUSE_PURPOSE": purpose,
         "WAREHOUSE_ENVIRONMENT": settings.environment,
         "WAREHOUSE_PROJECT_REF": settings.project_ref,
         "WAREHOUSE_HOST": settings.host,
@@ -128,25 +138,41 @@ def _credential_content(settings: WarehouseSettings, password: str) -> str:
         "WAREHOUSE_SSLROOTCERT": settings.sslrootcert.as_posix(),
     }
     return (
-        "# Private loader credentials. Never commit, print, or share this file.\n"
+        f"# Private {purpose} credentials. Never commit, print, or share this file.\n"
         + "\n".join(f"{name}={_quoted_value(value)}" for name, value in values.items())
         + "\n"
     )
 
 
 def provision_loader(admin_settings: WarehouseSettings, root: Path = ROOT) -> dict[str, str]:
-    """Create an isolated loader login and durably save its password before SQL commits.
+    """Create the isolated loader login without replacing existing credentials."""
+    return _provision_login(admin_settings, root, purpose="loader")
+
+
+def provision_transformer(admin_settings: WarehouseSettings, root: Path = ROOT) -> dict[str, str]:
+    """Create the isolated transformer login without replacing existing credentials."""
+    return _provision_login(admin_settings, root, purpose="transformer")
+
+
+def _provision_login(
+    admin_settings: WarehouseSettings, root: Path, *, purpose: RestrictedPurpose
+) -> dict[str, str]:
+    """Create one login and durably save its password before SQL commits.
 
     Repeated calls never rotate passwords or overwrite a local file. A failure after
     file creation retains that file because a failed commit acknowledgement can leave
     the database outcome uncertain. An administrator must reconcile both sides before
     recovery; this function deliberately does not auto-delete or auto-retry either.
     """
+    label = purpose.capitalize()
+    role = PURPOSE_USERS[purpose]
     if admin_settings.purpose != "admin":
-        raise ProvisioningError("Loader provisioning requires administration settings")
-    path = root / LOADER_ENV
+        raise ProvisioningError(f"{label} provisioning requires administration settings")
+    path = root / PURPOSE_FILES[purpose]
     if path.exists() or path.is_symlink():
-        raise ProvisioningError("Loader credential file already exists; reconcile before retrying")
+        raise ProvisioningError(
+            f"{label} credential file already exists; reconcile before retrying"
+        )
 
     file_created = False
     try:
@@ -156,14 +182,14 @@ def provision_loader(admin_settings: WarehouseSettings, root: Path = ROOT) -> di
                 "SELECT session_user, current_user, current_database()"
             ).fetchone()
             if identity != ("postgres", "postgres", "postgres"):
-                raise ProvisioningError("Loader provisioning requires the administrator identity")
+                raise ProvisioningError(f"{label} provisioning requires the administrator identity")
             exists = connection.execute(
-                "SELECT 1 FROM pg_roles WHERE rolname = %s", (LOADER_ROLE,)
+                "SELECT 1 FROM pg_roles WHERE rolname = %s", (role,)
             ).fetchone()
             if exists is not None:
-                raise ProvisioningError("Loader login already exists; reconcile before retrying")
+                raise ProvisioningError(f"{label} login already exists; reconcile before retrying")
             capability = connection.execute(
-                "SELECT 1 FROM pg_roles WHERE rolname = 'commercelens_loader'"
+                "SELECT 1 FROM pg_roles WHERE rolname = %s", (CAPABILITY_ROLES[purpose],)
             ).fetchone()
             if capability is None:
                 raise ProvisioningError("Apply the warehouse foundation before provisioning")
@@ -172,9 +198,9 @@ def provision_loader(admin_settings: WarehouseSettings, root: Path = ROOT) -> di
             # Compute the SCRAM verifier in libpq so SQL statement logs never receive
             # the clear password. The verifier remains sensitive and is never logged.
             verifier = connection.pgconn.encrypt_password(
-                password.encode("utf-8"), LOADER_ROLE.encode("ascii"), b"scram-sha-256"
+                password.encode("utf-8"), role.encode("ascii"), b"scram-sha-256"
             ).decode("ascii")
-            content = _credential_content(admin_settings, password)
+            content = _credential_content(admin_settings, password, purpose)
             # O_EXCL also rejects a concurrent file creator or a dangling symlink.
             # Secure the empty file before writing any credential content.
             descriptor = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
@@ -193,31 +219,29 @@ def provision_loader(admin_settings: WarehouseSettings, root: Path = ROOT) -> di
                 sql.SQL(
                     "CREATE ROLE {} LOGIN NOINHERIT NOSUPERUSER NOCREATEDB "
                     "NOCREATEROLE NOREPLICATION NOBYPASSRLS CONNECTION LIMIT 2 PASSWORD {}"
-                ).format(sql.Identifier(LOADER_ROLE), sql.Literal(verifier))
+                ).format(sql.Identifier(role), sql.Literal(verifier))
             )
             # PostgreSQL 17 defaults ADMIN to false and SET to true for a new
             # membership. NOINHERIT is also explicit on this capability grant.
             connection.execute(
-                sql.SQL("GRANT commercelens_loader TO {} WITH INHERIT FALSE").format(
-                    sql.Identifier(LOADER_ROLE)
+                sql.SQL("GRANT {} TO {} WITH INHERIT FALSE").format(
+                    sql.Identifier(CAPABILITY_ROLES[purpose]), sql.Identifier(role)
                 )
             )
             connection.execute(
-                sql.SQL("ALTER ROLE {} SET search_path = pg_catalog").format(
-                    sql.Identifier(LOADER_ROLE)
-                )
+                sql.SQL("ALTER ROLE {} SET search_path = pg_catalog").format(sql.Identifier(role))
             )
     except FileExistsError:
         raise ProvisioningError(
-            "Loader credential file already exists; reconcile before retrying"
+            f"{label} credential file already exists; reconcile before retrying"
         ) from None
     except (psycopg.Error, OSError):
         if file_created:
             raise ProvisioningError(
-                "Loader provisioning did not complete reliably; local credential file retained. "
+                f"{label} provisioning did not complete reliably; local credential file retained. "
                 "Reconcile the database role and local file before retrying"
             ) from None
         raise ProvisioningError(
-            "Loader provisioning failed before saving credentials; no error detail logged"
+            f"{label} provisioning failed before saving credentials; no error detail logged"
         ) from None
-    return {"role": LOADER_ROLE, "credential_file": path.name}
+    return {"role": role, "credential_file": path.name}

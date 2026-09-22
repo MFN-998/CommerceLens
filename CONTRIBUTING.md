@@ -47,8 +47,8 @@ uv sync --locked --group data --group warehouse --group transform
 ./scripts/check.ps1 -Transform -Security -GitleaksPath '.artifacts/tools/gitleaks/gitleaks.exe'
 ```
 
-`-Transform` verifies the pinned dbt version and includes its dependencies throughout
-the gate. It disables dbt anonymous usage reporting and restores the caller's setting.
+`-Transform` verifies the pinned dbt version, performs offline project parsing, and includes
+its dependencies throughout the gate. It disables dbt anonymous usage reporting and restores the caller's setting.
 It does not imply a database connection or model build; those require explicit checks.
 
 For source/data changes, additionally verify the acquired snapshot and regenerate reports:
@@ -117,3 +117,6 @@ visible during development, not postponed to an unspecified cleanup phase.
 
 Warehouse setup and explicit real-database checks are documented in
 [development warehouse](docs/warehouse-development.md). Offline checks do not connect to Supabase.
+
+Restricted dbt configuration and real-account verification are documented in
+[dbt development setup](docs/dbt-development.md).

@@ -1,0 +1,19 @@
+# Selected explicitly by src.warehouse.dbt_runner; never put credentials here.
+commercelens:
+  target: development
+  outputs:
+    development:
+      type: postgres
+      host: "{{ env_var('DBT_ENV_SECRET_WAREHOUSE_HOST') }}"
+      user: "{{ env_var('DBT_ENV_SECRET_WAREHOUSE_USER') }}"
+      password: "{{ env_var('DBT_ENV_SECRET_WAREHOUSE_PASSWORD') }}"
+      port: 5432
+      dbname: postgres
+      schema: staging
+      role: commercelens_transformer
+      sslmode: verify-full
+      sslrootcert: "{{ env_var('DBT_ENV_SECRET_WAREHOUSE_SSLROOTCERT') }}"
+      connect_timeout: 10
+      retries: 0
+      threads: 1
+      application_name: commercelens-dbt-transformer

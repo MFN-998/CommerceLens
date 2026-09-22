@@ -1,0 +1,251 @@
+version: 2
+sources:
+- name: raw
+  database: postgres
+  schema: raw
+  description: Verified Olist version 2 source landing. All nine tables preserve source text, logical
+    row order, and load identity; no source rows are discarded.
+  tables:
+  - name: customers
+    description: One order-linked customer record per customer_id; customer_unique_id can repeat.
+      Raw values remain source text, including empty strings.
+    columns:
+    - name: _load_id
+      data_type: uuid
+      description: Immutable source snapshot identity; references ops.source_loads.
+    - name: _source_row
+      data_type: bigint
+      description: One-based logical CSV record ordinal, excluding the header.
+    - name: customer_id
+      data_type: text
+      description: Order-linked customer identifier; orders join on this field.
+    - name: customer_unique_id
+      data_type: text
+      description: Cross-order customer identifier; not a unique row key.
+    - name: customer_zip_code_prefix
+      data_type: text
+      description: Source ZIP prefix as text; no automatic padding.
+    - name: customer_city
+      data_type: text
+      description: Source customer city; spelling preserved.
+    - name: customer_state
+      data_type: text
+      description: Customer Brazilian state abbreviation.
+  - name: geolocation
+    description: One source geolocation observation; ZIP prefixes and entire rows may repeat. Raw
+      values remain source text, including empty strings.
+    columns:
+    - name: _load_id
+      data_type: uuid
+      description: Immutable source snapshot identity; references ops.source_loads.
+    - name: _source_row
+      data_type: bigint
+      description: One-based logical CSV record ordinal, excluding the header.
+    - name: geolocation_zip_code_prefix
+      data_type: text
+      description: Source ZIP prefix; not a unique join key.
+    - name: geolocation_lat
+      data_type: text
+      description: Source latitude in decimal degrees.
+    - name: geolocation_lng
+      data_type: text
+      description: Source longitude in decimal degrees.
+    - name: geolocation_city
+      data_type: text
+      description: Source city; variants are retained.
+    - name: geolocation_state
+      data_type: text
+      description: Source Brazilian state abbreviation.
+  - name: orders
+    description: One order per order_id. Raw values remain source text, including empty strings.
+    columns:
+    - name: _load_id
+      data_type: uuid
+      description: Immutable source snapshot identity; references ops.source_loads.
+    - name: _source_row
+      data_type: bigint
+      description: One-based logical CSV record ordinal, excluding the header.
+    - name: order_id
+      data_type: text
+      description: Order identifier.
+    - name: customer_id
+      data_type: text
+      description: Reference to customers.customer_id.
+    - name: order_status
+      data_type: text
+      description: Source lifecycle status, not an inferred completion flag.
+    - name: order_purchase_timestamp
+      data_type: text
+      description: Purchase timestamp; source timezone unspecified.
+    - name: order_approved_at
+      data_type: text
+      description: Approval timestamp, when recorded.
+    - name: order_delivered_carrier_date
+      data_type: text
+      description: Carrier handoff timestamp, when recorded.
+    - name: order_delivered_customer_date
+      data_type: text
+      description: Actual customer delivery timestamp.
+    - name: order_estimated_delivery_date
+      data_type: text
+      description: Estimated delivery date; not an actual event.
+  - name: order_items
+    description: One order item, identified by (order_id, order_item_id). Raw values remain source
+      text, including empty strings.
+    columns:
+    - name: _load_id
+      data_type: uuid
+      description: Immutable source snapshot identity; references ops.source_loads.
+    - name: _source_row
+      data_type: bigint
+      description: One-based logical CSV record ordinal, excluding the header.
+    - name: order_id
+      data_type: text
+      description: Reference to orders.order_id.
+    - name: order_item_id
+      data_type: text
+      description: Item sequence within the order, not a global identifier.
+    - name: product_id
+      data_type: text
+      description: Reference to products.product_id.
+    - name: seller_id
+      data_type: text
+      description: Reference to sellers.seller_id.
+    - name: shipping_limit_date
+      data_type: text
+      description: Source seller shipping deadline.
+    - name: price
+      data_type: text
+      description: Source item price in BRL; not profit or platform revenue.
+    - name: freight_value
+      data_type: text
+      description: Source item freight value in BRL.
+  - name: order_payments
+    description: One payment component per (order_id, payment_sequential); orders may have many. Raw
+      values remain source text, including empty strings.
+    columns:
+    - name: _load_id
+      data_type: uuid
+      description: Immutable source snapshot identity; references ops.source_loads.
+    - name: _source_row
+      data_type: bigint
+      description: One-based logical CSV record ordinal, excluding the header.
+    - name: order_id
+      data_type: text
+      description: Reference to orders.order_id.
+    - name: payment_sequential
+      data_type: text
+      description: Payment component sequence within the order.
+    - name: payment_type
+      data_type: text
+      description: Source payment method, including not_defined if supplied.
+    - name: payment_installments
+      data_type: text
+      description: Source installment count; zero is retained and flagged.
+    - name: payment_value
+      data_type: text
+      description: Source payment component amount in BRL.
+  - name: order_reviews
+    description: One source review record; neither review_id nor order_id is assumed unique. Raw values
+      remain source text, including empty strings.
+    columns:
+    - name: _load_id
+      data_type: uuid
+      description: Immutable source snapshot identity; references ops.source_loads.
+    - name: _source_row
+      data_type: bigint
+      description: One-based logical CSV record ordinal, excluding the header.
+    - name: review_id
+      data_type: text
+      description: Source review identifier; uniqueness is profiled, not assumed.
+    - name: order_id
+      data_type: text
+      description: Reference to orders.order_id; multiple reviews are retained.
+    - name: review_score
+      data_type: text
+      description: Review score on the source 1–5 scale.
+    - name: review_comment_title
+      data_type: text
+      description: Optional source review title; text is preserved.
+    - name: review_comment_message
+      data_type: text
+      description: Optional source review text; text is preserved.
+    - name: review_creation_date
+      data_type: text
+      description: Source review creation/survey date.
+    - name: review_answer_timestamp
+      data_type: text
+      description: Source review answer timestamp.
+  - name: products
+    description: One product per product_id. Raw values remain source text, including empty strings.
+    columns:
+    - name: _load_id
+      data_type: uuid
+      description: Immutable source snapshot identity; references ops.source_loads.
+    - name: _source_row
+      data_type: bigint
+      description: One-based logical CSV record ordinal, excluding the header.
+    - name: product_id
+      data_type: text
+      description: Product identifier.
+    - name: product_category_name
+      data_type: text
+      description: Portuguese source category; may lack translation.
+    - name: product_name_lenght
+      data_type: text
+      description: Source name length; original misspelled column retained.
+    - name: product_description_lenght
+      data_type: text
+      description: Source description length; original name retained.
+    - name: product_photos_qty
+      data_type: text
+      description: Source number of product photos.
+    - name: product_weight_g
+      data_type: text
+      description: Source weight in grams; null/zero retained.
+    - name: product_length_cm
+      data_type: text
+      description: Source package length in centimetres.
+    - name: product_height_cm
+      data_type: text
+      description: Source package height in centimetres.
+    - name: product_width_cm
+      data_type: text
+      description: Source package width in centimetres.
+  - name: sellers
+    description: One seller per seller_id. Raw values remain source text, including empty strings.
+    columns:
+    - name: _load_id
+      data_type: uuid
+      description: Immutable source snapshot identity; references ops.source_loads.
+    - name: _source_row
+      data_type: bigint
+      description: One-based logical CSV record ordinal, excluding the header.
+    - name: seller_id
+      data_type: text
+      description: Seller identifier.
+    - name: seller_zip_code_prefix
+      data_type: text
+      description: Source ZIP prefix as text; no automatic padding.
+    - name: seller_city
+      data_type: text
+      description: Source seller city; spelling preserved.
+    - name: seller_state
+      data_type: text
+      description: Seller Brazilian state abbreviation.
+  - name: category_translation
+    description: One translation per Portuguese category name; source coverage is not assumed complete.
+      Raw values remain source text, including empty strings.
+    columns:
+    - name: _load_id
+      data_type: uuid
+      description: Immutable source snapshot identity; references ops.source_loads.
+    - name: _source_row
+      data_type: bigint
+      description: One-based logical CSV record ordinal, excluding the header.
+    - name: product_category_name
+      data_type: text
+      description: Portuguese source category; translation lookup key.
+    - name: product_category_name_english
+      data_type: text
+      description: Supplied English category translation.

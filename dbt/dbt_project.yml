@@ -1,0 +1,17 @@
+name: commercelens
+version: '0.1.0'
+config-version: 2
+require-dbt-version: '=1.12.5'
+profile: commercelens
+
+model-paths: [models]
+macro-paths: [macros]
+clean-targets: [target, dbt_packages]
+
+flags:
+  send_anonymous_usage_stats: false
+
+models:
+  commercelens:
+    +materialized: view
+    +schema: staging

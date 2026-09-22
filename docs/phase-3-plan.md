@@ -17,7 +17,7 @@ The phase exit remains a **tested analytical warehouse**, not a deployed analyti
 | M1. Warehouse contracts | ADR with schemas, grains/types, join/quality policies, role boundaries, and recovery contract | Phase 2 evidence reviewed; original decimal/ZIP fields inspected; design and source observations consistent | Complete; implementation still pending |
 | M2. Isolated database foundation | Dedicated dev project; reviewed versioned bootstrap/migrations; secret-free examples and connection guidance | Target/version verified, encrypted connection, repeat migration, intended grants and denied access, API exposure review, disposable recovery test | Complete 2026-09-21: migration applied, replay/permissions/recovery checks passed |
 | M3. Reproducible loading | All nine verified source tables, provenance/load registry, exact monetary ingestion, atomic load | Source/hash/count/content reconciliation, exact decimal checks, idempotent rerun, failed-load rollback, unchanged raw files | Complete 2026-09-22: all 1,550,922 rows committed; full content/count/money and repeat verification passed |
-| M4. dbt staging and dimensions/facts | Pinned compatible dbt/Postgres tools; staging/intermediate/core models and explicit quality flags | dbt build, uniqueness/null/reference/domain tests, source reconciliation, synthetic grain and missing-data cases | In progress: locked tooling adopted; configuration/models pending |
+| M4. dbt staging and dimensions/facts | Pinned compatible dbt/Postgres tools; staging/intermediate/core models and explicit quality flags | dbt build, uniqueness/null/reference/domain tests, source reconciliation, synthetic grain and missing-data cases | In progress: tooling and offline dbt bootstrap verified; actual connection/models pending |
 | M5. Initial marts and handoff | Order-grain technical mart and reliable example SQL; access/recovery/developer guidance | Independent child aggregation, conserved counts/sums, repeat build, query-plan review, reconstruction/recovery verification, final checks and checkpoint | Not started |
 
 Each unit follows implement → validate → document → update WORK_STATE → commit → verify
@@ -73,5 +73,6 @@ snapshot without duplication. Final raw/database sizes were 275,750,912 / 287,02
 bytes, within approved ceilings; API access remains denied. Original source integrity
 is unchanged. [Acceptance evidence](warehouse-load-verification.json) records counts,
 content digests, exact monetary totals, attribution and storage. 
-Next: [M4 dbt setup plan](dbt-setup-plan.md). Tooling is adopted and verified in the actual project; transformer configuration
-and dbt models remain unimplemented.
+Next: [M4 dbt setup plan](dbt-setup-plan.md). Tooling and offline bootstrap are implemented
+and verified. Restricted transformer provisioning/access and dbt debug remain untested;
+staging/core models remain unimplemented. See [dbt development](dbt-development.md).

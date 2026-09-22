@@ -48,3 +48,19 @@ def test_load_cli_uses_loader_and_reports_only_after_clean_exit(monkeypatch, cap
     else:
         assert events[-1] == "closed"
         assert '"status": "loaded"' in captured.out
+
+
+@pytest.mark.parametrize("command", ["parse", "debug"])
+def test_dbt_cli_never_loads_administrator_configuration(monkeypatch, capsys, command):
+    def refuse_admin():
+        pytest.fail("dbt commands must never request administrator settings")
+
+    def run_dbt(actual_command):
+        assert actual_command == command
+        return {"command": f"dbt-{command}", "status": "passed"}
+
+    monkeypatch.setattr(cli, "load_settings", refuse_admin)
+    monkeypatch.setattr(cli, "run_dbt", run_dbt)
+    monkeypatch.setattr("sys.argv", ["warehouse", f"dbt-{command}"])
+    assert cli.main() == 0
+    assert '"status": "passed"' in capsys.readouterr().out
