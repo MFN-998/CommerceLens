@@ -6,9 +6,10 @@ Read with AGENTS, master plan, engineering standards, and execution protocol.
 ## Project State
 
 - Phases 1–2/audit COMPLETE; Phase 3 M1–M2 COMPLETE; M3 PARTIALLY COMPLETE.
-- Current milestone: credential tooling and actual restricted login COMPLETE; atomic COPY is next.
-- Objective: faithfully load all nine sources in one verified, recoverable transaction.
-- Status: SAFE TO RESUME. No full source data has been uploaded.
+- Current milestone: restricted login and atomic loader implementation/tests COMPLETE.
+- Current task: checkpoint validated code, then perform full source load and idempotent verification.
+- Objective: all nine source tables faithfully committed, with full text/count/decimal evidence.
+- SAFE TO RESUME. Full Olist upload has not started; only rolled-back synthetic fixtures ran.
 
 ## Completed Work
 
@@ -27,21 +28,23 @@ Read with AGENTS, master plan, engineering standards, and execution protocol.
 - Provisioned commercelens_ingest using committed e428801; saved protected ignored
   .env.warehouse.loader. Actual login boundary test passed (17.88 seconds), including TLS,
   role attributes, exact membership, SELECT/INSERT access and denied schema/admin/mutation actions.
-- No dependency, source-dataset, or schema changes in this credential unit.
+- Atomic client COPY implementation now reconciles full row text/order/counts and exact
+  decimal sums; verifies source before/after; enforces one snapshot and actual storage gates.
+- Review fixed the administrator-refusal test to roll back even on a guard regression;
+  documented physical-space maintenance after failed COPY and added capacity refusal coverage.
+- No dependency, source-dataset, or schema changes in this unit.
 
 ## Files
 
-- Created: src/warehouse/credentials.py, tests/test_warehouse_credentials.py,
-  tests/test_warehouse_loader_access_integration.py.
-- Modified: src/warehouse/config.py, src/warehouse/__main__.py,
-  tests/test_warehouse_config.py, docs/warehouse-development.md, WORK_STATE.md.
-- Earlier M3: source.py, 0002_source_landing.sql, source/landing tests, ADR 0004,
-  warehouse-load-plan.json and warehouse-storage-estimate.json.
-- No deleted/renamed files. Credentials stay ignored and must never be printed.
-- Next-unit candidates exist outside Git in the ChatGPT workspace's m3-staging:
-  src/warehouse/loading.py, tests/test_warehouse_loading.py and
-  tests/test_warehouse_loading_integration.py. They are NOT implemented repository
-  features; review/integrate and run tests before use. Ignore unrelated staging copies.
+- Created: src/warehouse/loading.py, tests/test_warehouse_loading.py,
+  tests/test_warehouse_loading_integration.py, tests/test_warehouse_cli.py,
+  docs/warehouse-loading.md.
+- Modified: src/warehouse/__main__.py, docs/warehouse-development.md,
+  docs/phase-3-plan.md, WORK_STATE.md.
+- Existing source.py, source evidence, migrations 0001/0002 and original datasets unchanged.
+- No dependencies, deleted/renamed files, schema changes or later-phase implementation.
+- .env.warehouse.loader is protected, ignored and provisioned; never print or recreate it.
+- Outside-repository m3-staging drafts are now superseded by the actual repository files.
 
 ## Technical Decisions
 
@@ -74,43 +77,46 @@ Read with AGENTS, master plan, engineering standards, and execution protocol.
 - Historical source/landing checkpoint: 113 offline tests passed, two live tests skipped;
   real landing rollback test passed separately. Ruff/mypy/packages/frontend gates passed.
 - Recovery documentation staged/history secret scans passed; bcd85a9 published.
-- Full-size COPY, loader rollback/retry/corruption tests, dbt, and deployment: Not yet tested.
+- Atomic loader: 151 offline tests passed, 13 explicit live cases skipped by default;
+  all 10 actual-loader recovery tests passed separately in 320.24 seconds with cleanup.
+  Full Ruff lint/format (59 files), mypy (21 source files), frontend checks/build,
+  package compatibility, Python/npm advisory and history secret scans passed.
+  The existing AnyIO warning remains; no checks disabled.
+- Full-size COPY/replay, dbt and deployment: Not yet tested.
 
 ## Current Repository Condition
 
-CLEAN / STABLE at this credential-tooling checkpoint; SAFE TO RESUME for larger M3.
-All listed changes are validated and intended for the containing commit. Verify Git status
-for final publication. Restricted loader role now exists and passed access checks; landing remains empty.
+CLEAN / STABLE at the containing pre-load implementation checkpoint; SAFE TO RESUME.
+Actual restricted login passed permission tests. All synthetic fixture rows rolled back.
+Full-source production-size COPY and replay remain the first unverified acceptance step.
 
 ## Incomplete Work
 
-- Integrate/review loading candidate, test interrupted-load rollback, repeat-run identity,
-  unchanged-count/money text corruption, provenance changes, and capacity failures.
-- Only after those pass: upload all nine sources, reconcile text/rows/exact money/storage,
-  rerun idempotently, verify raw hashes unchanged, and checkpoint M3.
-- M4 dbt models/M5 queries and populated recovery remain pending. Audit E01–E10 keep
-  their documented revisit gates. No model reset credit was redeemed.
-- Usage window reset before this resumption (0% used observed at start). Continue atomic
-  milestones and refresh before major units; no reset credit redeemed.
+- Run the full load using the restricted login, then repeat the same command for complete
+  stored-snapshot verification. Record actual bytes, rows, exact money and unchanged source hashes.
+- If interrupted, read docs/warehouse-loading.md: verify committed state before retry.
+  Empty rows can retain allocated space; never disable capacity gates or auto-truncate.
+- M4 dbt models/M5 queries and populated reconstruction remain pending. Free/views first;
+  remeasure before any materialization. Audit E01–E10 retain their documented revisit gates.
+- No known failing check at this checkpoint. No reset credit, paid upgrade, merge or deployment.
 
 ## Exact Next Actions
 
-1. Confirm Git/usage and the provisioned credential checkpoint; do not run provisioning again.
-2. Read the three loading candidates and review findings before integrating them.
-   Fix the admin-refusal fixture to force rollback even if the identity guard regresses.
-   Document physical storage recovery after rolled-back COPY; remeasure before retry.
-3. Integrate and test the three loading candidates; implement a loader-purpose CLI
-   that prepares source before connecting and prints success only after commit.
-4. Checkpoint validated code, execute full load/retry, record actual evidence, then start M4.
+1. Inspect status/history and current usage. Confirm the pre-load checkpoint is published.
+   Read docs/warehouse-loading.md; loader role/file already exist. Do not provision again.
+2. Run `uv run --locked --group warehouse python -m src.warehouse load` and preserve its
+   final result. Progress is not a commit; success is printed only after clean completion.
+3. Run the same command again: expect verified_existing with the same load identity.
+   Reconcile all counts/content/decimal evidence, actual storage and source integrity.
+4. Record M3 completion and checkpoint before starting M4 according to ADR 0003/0004.
 
 ## Git State
 
-- Branch feat/warehouse-foundation; main is unchanged/unmerged.
-- Published pre-risk baseline bcd85a9; source/capacity b6acd5b; landing schema 625dbe8.
-- Credential implementation e428801; provisioned-login evidence is this containing commit.
-- M2 implementation aa0104f; final foundation evidence 207b74f.
-- The commit containing this handoff is the current checkpoint when committed;
-  resolve with git log below. Confirm status/publication instead of assuming them.
+- Branch feat/warehouse-foundation; main unchanged/unmerged.
+- Provisioned-login checkpoint 7cbf938; credential implementation e428801.
+- Source/capacity b6acd5b; applied landing schema 625dbe8; M2 foundation aa0104f/207b74f.
+- Atomic-loader implementation is the containing commit. Confirm clean status and publication
+  with Git; `git log -1 --format="%H %s" -- WORK_STATE.md` resolves the checkpoint.
 
 ## Continuation Commands
 
@@ -118,14 +124,13 @@ for final publication. Restricted loader role now exists and passed access check
 Set-Location 'D:\My Projects\CommerceLens'
 git status --short --branch
 git log -5 --oneline
-git log -1 --format="%H %s" -- WORK_STATE.md
 uv run --locked --group warehouse python -m src.warehouse inspect
-uv run --locked --group warehouse pytest tests/test_warehouse_config.py tests/test_warehouse_credentials.py
+uv run --locked --group warehouse python -m src.warehouse load
+# Repeat load to verify the committed snapshot without adding rows.
 ./scripts/check.ps1 -Security -GitleaksPath '.artifacts/tools/gitleaks/gitleaks.exe'
-# Loader already provisioned; do not run provision-loader again.
-$env:COMMERCE_WAREHOUSE_LOADER_ACCESS_INTEGRATION = '1'
-try { uv run --locked --group warehouse pytest tests/test_warehouse_loader_access_integration.py }
-finally { Remove-Item Env:\COMMERCE_WAREHOUSE_LOADER_ACCESS_INTEGRATION }
 ```
 
-Never print `.env.warehouse`, `.env.warehouse.loader`, or credentials.
+Live loading-fixture suite requires an empty isolated target; do not rerun it against
+populated landing. The actual-login access test remains safe after loading. See the guide.
+Never print credentials, source rows, or sensitive database error details.
+

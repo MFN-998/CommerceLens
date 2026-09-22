@@ -220,3 +220,7 @@ commercelens_ingest and its protected ignored file. The actual-login integration
 passed (17.88 seconds): TLS, non-inheriting restricted membership, role flags, expected
 reads/inserts, and denied schema/owner/admin/mutation/attribution operations. No Olist
 rows were uploaded. Provisioning must not be rerun against this existing login/file.
+
+See [source loading and recovery](warehouse-loading.md) for the implemented restricted
+load command, complete reconciliation, retry semantics, empty-target tests, and physical
+storage recovery after interruption. Applied migrations and credentials remain unchanged.

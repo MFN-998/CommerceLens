@@ -7,8 +7,9 @@ import sys
 import psycopg
 from pydantic import ValidationError
 
-from src.warehouse.config import connect, load_settings
+from src.warehouse.config import ROOT, connect, load_settings
 from src.warehouse.credentials import ProvisioningError, provision_loader
+from src.warehouse.loading import LoadError, load_source
 from src.warehouse.migrations import (
     MigrationError,
     apply_migrations,
@@ -16,15 +17,32 @@ from src.warehouse.migrations import (
     read_migrations,
     verify_privileges,
 )
+from src.warehouse.source import prepare_source
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Private development warehouse administration")
     parser.add_argument(
-        "command", choices=["inspect", "migrate", "verify", "rehearse", "provision-loader"]
+        "command", choices=["inspect", "migrate", "verify", "rehearse", "provision-loader", "load"]
     )
     args = parser.parse_args()
     try:
+        if args.command == "load":
+            settings = load_settings(purpose="loader")
+            print(
+                "Verifying all local source files before connecting.", file=sys.stderr, flush=True
+            )
+            plan = prepare_source(ROOT)
+            with connect(settings) as connection:
+                load_result = load_source(
+                    connection,
+                    ROOT,
+                    plan,
+                    progress=lambda message: print(message, file=sys.stderr, flush=True),
+                )
+            # Report success only after the transaction and connection exit cleanly.
+            print(json.dumps({"project_ref": settings.project_ref, **load_result}, indent=2))
+            return 0
         settings = load_settings()
         if args.command == "provision-loader":
             print(json.dumps(provision_loader(settings), indent=2))
@@ -70,12 +88,12 @@ def main() -> int:
             {str(item["loc"][0]) if item["loc"] else "target" for item in error.errors()}
         )
         print("Invalid warehouse configuration fields: " + ", ".join(fields), file=sys.stderr)
-    except ProvisioningError as error:
-        # Provisioning exposes only fixed recovery instructions, never driver detail.
+    except (ProvisioningError, LoadError) as error:
+        # These errors expose fixed recovery instructions, never driver or row detail.
         print(str(error), file=sys.stderr)
     except (MigrationError, ValueError, OSError):
         print(
-            "Warehouse configuration or migration validation failed; review target and history.",
+            "Warehouse validation failed; review configuration, source provenance, and history.",
             file=sys.stderr,
         )
     except psycopg.Error as error:
@@ -85,6 +103,12 @@ def main() -> int:
             f"Warehouse operation failed ({type(error).__name__}, {code}); no error detail logged.",
             file=sys.stderr,
         )
+    except KeyboardInterrupt:
+        print(
+            "Warehouse operation interrupted; verify committed state before resuming.",
+            file=sys.stderr,
+        )
+        return 130
     return 1
 
 
