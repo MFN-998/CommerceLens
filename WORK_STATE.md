@@ -6,7 +6,7 @@ Read with AGENTS, master plan, engineering standards, and execution protocol.
 ## Project State
 
 - Phases 1–2/audit COMPLETE; Phase 3 M1–M2 COMPLETE; M3 PARTIALLY COMPLETE.
-- Current milestone: credential tooling COMPLETE; actual loader provisioning is next.
+- Current milestone: credential tooling and actual restricted login COMPLETE; atomic COPY is next.
 - Objective: faithfully load all nine sources in one verified, recoverable transaction.
 - Status: SAFE TO RESUME. No full source data has been uploaded.
 
@@ -24,6 +24,9 @@ Read with AGENTS, master plan, engineering standards, and execution protocol.
 - Existing administrator configuration ACL protected and verified without reading contents.
   Fixed Windows module loading with direct .NET ACL APIs and preserved existing ownership
   so protecting an existing file does not request unnecessary ownership privileges.
+- Provisioned commercelens_ingest using committed e428801; saved protected ignored
+  .env.warehouse.loader. Actual login boundary test passed (17.88 seconds), including TLS,
+  role attributes, exact membership, SELECT/INSERT access and denied schema/admin/mutation actions.
 - No dependency, source-dataset, or schema changes in this credential unit.
 
 ## Files
@@ -67,7 +70,7 @@ Read with AGENTS, master plan, engineering standards, and execution protocol.
   formatting/lint/types/build, Python/npm advisory and Git-history secret scans passed.
   One existing AnyIO deprecation warning remains. Windows ACL failures were corrected;
   all 19 credential tests passed again after the ownership-preserving fix.
-  Actual role provisioning/actual-login permission test: Not yet run.
+  Actual role provisioning succeeded; actual-login permission test passed separately.
 - Historical source/landing checkpoint: 113 offline tests passed, two live tests skipped;
   real landing rollback test passed separately. Ruff/mypy/packages/frontend gates passed.
 - Recovery documentation staged/history secret scans passed; bcd85a9 published.
@@ -77,28 +80,25 @@ Read with AGENTS, master plan, engineering standards, and execution protocol.
 
 CLEAN / STABLE at this credential-tooling checkpoint; SAFE TO RESUME for larger M3.
 All listed changes are validated and intended for the containing commit. Verify Git status
-for final publication. No real loader role has been provisioned; landing remains empty.
+for final publication. Restricted loader role now exists and passed access checks; landing remains empty.
 
 ## Incomplete Work
 
-- Provision the restricted login, verify permissions
-  using that actual login, record evidence, and checkpoint before complete COPY work.
 - Integrate/review loading candidate, test interrupted-load rollback, repeat-run identity,
   unchanged-count/money text corruption, provenance changes, and capacity failures.
 - Only after those pass: upload all nine sources, reconcile text/rows/exact money/storage,
   rerun idempotently, verify raw hashes unchanged, and checkpoint M3.
 - M4 dbt models/M5 queries and populated recovery remain pending. Audit E01–E10 keep
   their documented revisit gates. No model reset credit was redeemed.
-- Account usage reached 88% used before live provisioning; preservation mode completed
-  the tested credential-tooling unit. Refresh actual usage before the next substantial unit.
+- Usage window reset before this resumption (0% used observed at start). Continue atomic
+  milestones and refresh before major units; no reset credit redeemed.
 
 ## Exact Next Actions
 
-1. Inspect Git status/history and usage; confirm this checkpoint. Check whether
-   .env.warehouse.loader and the commercelens_ingest role exist WITHOUT printing credentials.
-   Neither was created in this session. Read the provisioning recovery guide if either exists.
-2. If both are absent, run provision-loader, then the actual-login access test below.
-   Record its outcome and checkpoint before integrating complete COPY work.
+1. Confirm Git/usage and the provisioned credential checkpoint; do not run provisioning again.
+2. Read the three loading candidates and review findings before integrating them.
+   Fix the admin-refusal fixture to force rollback even if the identity guard regresses.
+   Document physical storage recovery after rolled-back COPY; remeasure before retry.
 3. Integrate and test the three loading candidates; implement a loader-purpose CLI
    that prepares source before connecting and prints success only after commit.
 4. Checkpoint validated code, execute full load/retry, record actual evidence, then start M4.
@@ -107,7 +107,7 @@ for final publication. No real loader role has been provisioned; landing remains
 
 - Branch feat/warehouse-foundation; main is unchanged/unmerged.
 - Published pre-risk baseline bcd85a9; source/capacity b6acd5b; landing schema 625dbe8.
-- Credential implementation is the containing commit; staged/history scans precede push.
+- Credential implementation e428801; provisioned-login evidence is this containing commit.
 - M2 implementation aa0104f; final foundation evidence 207b74f.
 - The commit containing this handoff is the current checkpoint when committed;
   resolve with git log below. Confirm status/publication instead of assuming them.
@@ -122,8 +122,7 @@ git log -1 --format="%H %s" -- WORK_STATE.md
 uv run --locked --group warehouse python -m src.warehouse inspect
 uv run --locked --group warehouse pytest tests/test_warehouse_config.py tests/test_warehouse_credentials.py
 ./scripts/check.ps1 -Security -GitleaksPath '.artifacts/tools/gitleaks/gitleaks.exe'
-# Only once, after validated code checkpoint; never overwrite existing credentials:
-uv run --locked --group warehouse python -m src.warehouse provision-loader
+# Loader already provisioned; do not run provision-loader again.
 $env:COMMERCE_WAREHOUSE_LOADER_ACCESS_INTEGRATION = '1'
 try { uv run --locked --group warehouse pytest tests/test_warehouse_loader_access_integration.py }
 finally { Remove-Item Env:\COMMERCE_WAREHOUSE_LOADER_ACCESS_INTEGRATION }

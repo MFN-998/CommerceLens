@@ -214,3 +214,9 @@ were skipped. Full formatting/lint/type/build/package/advisory/history gates pas
 Existing administrator file ACL hardened and verified; its contents were not read.
 The final ACL fix preserves existing ownership; 19 credential tests passed again.
 Actual loader role creation and actual-login validation remain pending.
+
+Provisioned-login evidence 2026-09-22: committed tooling e428801 created
+commercelens_ingest and its protected ignored file. The actual-login integration test
+passed (17.88 seconds): TLS, non-inheriting restricted membership, role flags, expected
+reads/inserts, and denied schema/owner/admin/mutation/attribution operations. No Olist
+rows were uploaded. Provisioning must not be rerun against this existing login/file.
