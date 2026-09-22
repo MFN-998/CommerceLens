@@ -4,6 +4,14 @@ Prepared 2026-09-22 after M3 full loading and repeat verification. This is the n
 bounded implementation unit, not a redesign or a claim that dbt models already exist.
 Use ADR 0003 for logical schemas/grains and ADR 0004 for views-first storage constraints.
 
+## Tooling adopted — 2026-09-22
+
+The optional transform group and reviewed lock are now adopted in the actual repository.
+Locked installation, dbt version, 151 offline tests, all existing style/type/build checks,
+111-package compatibility and Python/npm advisory scans passed. Use check.ps1 -Transform
+for dbt changes. Transformer credentials, project configuration and models remain pending.
+The isolated experiment below is historical evidence preceding adoption.
+
 ## Validated tooling candidates
 
 Use a separate optional `transform` dependency group in the existing Python manifest:

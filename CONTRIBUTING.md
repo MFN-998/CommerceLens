@@ -40,6 +40,17 @@ frontend format/lint/type errors, or a failed production build. It includes all 
 API and data tests. It needs the dependencies above, but no dataset, account, or database.
 The script preserves the caller's working directory and stops on the first failure.
 
+For dbt tooling/configuration/model changes, include the optional transform group:
+
+```powershell
+uv sync --locked --group data --group warehouse --group transform
+./scripts/check.ps1 -Transform -Security -GitleaksPath '.artifacts/tools/gitleaks/gitleaks.exe'
+```
+
+`-Transform` verifies the pinned dbt version and includes its dependencies throughout
+the gate. It disables dbt anonymous usage reporting and restores the caller's setting.
+It does not imply a database connection or model build; those require explicit checks.
+
 For source/data changes, additionally verify the acquired snapshot and regenerate reports:
 
 ```powershell

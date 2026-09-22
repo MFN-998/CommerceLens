@@ -1,139 +1,92 @@
 # CommerceLens work state
 
 Updated: 2026-09-22. Repository: `D:\My Projects\CommerceLens`.
-Read with AGENTS, master plan, engineering standards, and execution protocol.
+Read with AGENTS, master plan, engineering standards and execution protocol.
 
 ## Project State
 
-- Phases 1–2/audit COMPLETE; Phase 3 M1–M3 COMPLETE. Phase 3 overall remains IN PROGRESS.
-- Current milestone: full source loading, content reconciliation and repeat verification COMPLETE.
-- Current task: prepare the next bounded M4 dbt tooling/configuration unit.
-- Objective: a tested analytical warehouse; M4 models and M5 marts/recovery are still required.
-- M3 COMPLETE / SAFE TO RESUME at M4. All 1,550,922 source rows are committed privately.
+- Phases 1–2/audit COMPLETE; Phase 3 M1–M3 COMPLETE; M4 IN PROGRESS.
+- Current milestone: pinned dbt tooling adopted and validated in the actual project.
+- Current task: implement restricted transformer access and minimal dbt configuration.
+- Objective: tested analytical warehouse; staging/core models and M5 marts still pending.
+- Tooling unit COMPLETE / SAFE TO RESUME. M3 source snapshot remains populated and unchanged.
 
 ## Completed Work
 
-- Reconciled interrupted session: migration 0002 was applied, with identical replay a no-op.
-  Both ledger checksums match Git; nine raw tables and registry were empty on resume.
-  API roles have no table access. Published missing implementation/handoff checkpoints.
-- Source contracts preserve all 1,550,922 rows, exact decimal totals, framed text hashes,
-  empty values, logical row ordinals, and immutable provenance. Migration 0002 adds
-  ops.source_loads and nine raw text tables. Prior real migration/COPY fixture test passed.
-- Current credential unit adds isolated admin/loader configuration, exclusive durable
-  private-file creation, client-side SCRAM verifier generation, refusal to overwrite an
-  existing role/file, and explicit recovery when commit acknowledgement is uncertain.
-- Existing administrator configuration ACL protected and verified without reading contents.
-  Fixed Windows module loading with direct .NET ACL APIs and preserved existing ownership
-  so protecting an existing file does not request unnecessary ownership privileges.
-- Provisioned commercelens_ingest using committed e428801; saved protected ignored
-  .env.warehouse.loader. Actual login boundary test passed (17.88 seconds), including TLS,
-  role attributes, exact membership, SELECT/INSERT access and denied schema/admin/mutation actions.
-- Atomic client COPY implementation now reconciles full row text/order/counts and exact
-  decimal sums; verifies source before/after; enforces one snapshot and actual storage gates.
-- Review fixed the administrator-refusal test to roll back even on a guard regression;
-  documented physical-space maintenance after failed COPY and added capacity refusal coverage.
-- Full load committed using restricted login; repeat fully verified the same snapshot,
-  preserving original attribution and adding no rows. Aggregate receipt persisted in docs.
-- M4 candidates resolved/installed in an isolated environment only: dbt-core 1.12.5,
-  dbt-postgres 1.11.0, 111 installed packages compatible and no known advisories.
-  Repository dependency adoption, dbt parse/debug/models have NOT been done.
-- No dependency, source-dataset, or schema changes in the actual repository this unit.
+- M3: all nine source tables and 1,550,922 rows committed, exact text/count/money and
+  unchanged-source verification passed; complete rerun verified_existing with same identity.
+  See docs/warehouse-load-verification.json and source-loading recovery guide.
+- Resumed clean 2604e82. Live load registry identity and migration checksums match Git.
+- Added optional transform dependency group: dbt-core 1.12.5 and dbt-postgres 1.11.0.
+  Adopted reviewed single lock; installed with existing data/warehouse/dev/audit groups.
+- Added scripts/check.ps1 -Transform to include dbt tooling/version checks, with telemetry
+  disabled for that invocation and the caller's environment restored afterward.
+- Full actual-project quality/advisory gate passed. No database mutations in this unit.
 
 ## Files
 
-- Created: src/warehouse/loading.py, tests/test_warehouse_loading.py,
-  tests/test_warehouse_loading_integration.py, tests/test_warehouse_cli.py,
-  docs/warehouse-loading.md, docs/warehouse-load-verification.json, docs/dbt-setup-plan.md.
-- Modified: src/warehouse/__main__.py, docs/warehouse-development.md,
-  docs/phase-3-plan.md, docs/engineering-audit-phase-1-2.md, README.md, WORK_STATE.md.
-- Existing source.py, source evidence, migrations 0001/0002 and original datasets unchanged.
-- No dependencies, deleted/renamed files, schema changes or later-phase implementation.
-- .env.warehouse.loader is protected, ignored and provisioned; never print or recreate it.
-- Outside-repository m3-staging drafts are now superseded by the actual repository files.
+- Modified: pyproject.toml, uv.lock, scripts/check.ps1, CONTRIBUTING.md,
+  docs/dbt-setup-plan.md, docs/phase-3-plan.md, WORK_STATE.md.
+- No repository files deleted/renamed; source data, migrations and loaded rows unchanged.
+- Protected .env.warehouse and .env.warehouse.loader exist and stay ignored.
+- Transformer/dbt bootstrap candidates are being reviewed outside Git in the local
+  ChatGPT workspace's m4-staging. They are not implemented repository features yet.
 
 ## Technical Decisions
 
-- Dedicated LOGIN commercelens_ingest must be a non-inheriting member only of
-  commercelens_loader. No administrator fallback. Loader purpose reads only its
-  dedicated ignored configuration file; target and verify-full checks remain mandatory.
-- Before writing secrets, private files require owner-only POSIX permissions or Windows
-  owner/SYSTEM/Administrators ACL. Existing inherited Windows folder permissions proved
-  too broad; protect administrator credentials as well.
-- Persist the local credential before committing the database role. Uncertain failures
-  retain the file for reconciliation; never silently overwrite, rotate, or delete it.
-- All nine COPY operations, registry insertion, full text/count/decimal reconciliation,
-  and final capacity check must share one transaction and warehouse advisory lock.
-- Free/views decision is unchanged: one snapshot per reviewed target; raw ceiling
-  367,000,000 bytes, database ceiling 400,000,000 bytes. Initial models use views.
-  ADR 0004 preserves the failed initial 532 MB materialization scenario and approved
-  revised 466,728,242-byte budget. Estimates are not guarantees or WAL/disk guarantees.
+- dbt remains optional tooling, separate from FastAPI runtime dependencies. One manifest/lock.
+- Shared transitive changes: pathspec 1.1.1 → 1.0.4; protobuf 7.36.2 → 6.33.6.
+  Existing direct pins retained. Core 1.12 supports the mypy/pathspec intersection.
+- Transformer will get a separate NOINHERIT LOGIN member only of commercelens_transformer;
+  private configuration, verified TLS, explicit role and no administrator fallback.
+- Planned dbt profiles contain environment references only; parse must work offline without
+  real credentials. Initial schemas staging/core/marts only, one thread and view materialization.
+- Free/views storage policy remains: raw ceiling 367M bytes, database ceiling 400M bytes.
+  Fresh capacity/performance review before materializing. No paid upgrade or source omission.
 
 ## Validation
 
-- Resume 2026-09-22: actual PostgreSQL 17.6, verify-full/TLS, schemas/roles unchanged;
-  migrations 0001/0002 match, registry/raw empty, API table denials pass.
-  Database: 11,234,451 bytes before credential work.
-- Full credential checkpoint gate: 140 tests passed, three explicit live tests skipped;
-  Ruff lint/format (54 files), mypy (20 source files), package compatibility, frontend
-  formatting/lint/types/build, Python/npm advisory and Git-history secret scans passed.
-  One existing AnyIO deprecation warning remains. Windows ACL failures were corrected;
-  all 19 credential tests passed again after the ownership-preserving fix.
-  Actual role provisioning succeeded; actual-login permission test passed separately.
-- Historical source/landing checkpoint: 113 offline tests passed, two live tests skipped;
-  real landing rollback test passed separately. Ruff/mypy/packages/frontend gates passed.
-- Recovery documentation staged/history secret scans passed; bcd85a9 published.
-- Atomic loader: 151 offline tests passed, 13 explicit live cases skipped by default;
-  all 10 actual-loader recovery tests passed separately in 320.24 seconds with cleanup.
-  Full Ruff lint/format (59 files), mypy (21 source files), frontend checks/build,
-  package compatibility, Python/npm advisory and history secret scans passed.
-  The existing AnyIO warning remains; no checks disabled.
-- Full-size COPY and complete replay passed: 1,550,922 rows, same load UUID
-  12051b6f-5396-591b-bc5a-f86148eabb6f. Original manifest and all nine file hashes unchanged.
-  Full logical text digests/counts and exact money independently reconciled.
-  Raw size 275,750,912 bytes; database 287,026,323 bytes at final acceptance.
-  API schema access denied for anon/authenticated/service_role. See aggregate receipt.
-- M4 isolated tooling: lock resolution, installed-package compatibility, dbt --version and
-  advisory scan passed. No dbt project parse/build, transformer login or deployment tested.
+- Actual environment: dbt Core 1.12.5 / Postgres 1.11.0; 111 installed packages compatible.
+- Full -Transform -Security gate passed: 151 offline tests, 13 explicit live cases skipped;
+  Ruff lint/format, mypy (21 source files), frontend format/lint/types/build,
+  Python/npm advisory scans and Git-history secret scan. Existing AnyIO warning remains.
+- M3 historical evidence: all 10 actual-loader recovery cases and restricted-login access
+  passed separately; full source COPY and complete idempotent verification passed.
+  Last accepted raw/database sizes: 275,750,912 / 287,026,323 bytes. API schemas private.
+- This resume rechecked live migration hashes and load registry; no redundant full data reload.
+- Transformer login, dbt parse/debug/build/models: Not yet implemented or tested in repository.
 
 ## Current Repository Condition
 
-CLEAN / STABLE at the containing M3 completion checkpoint. All source rows are committed;
-the repeat command verified_existing with unchanged identity and original provenance.
-Source files, migrations, role isolation and existing application remain intact.
-Do not rerun empty-landing fixture tests on this populated target or provision the loader again.
+CLEAN / STABLE at the containing tooling checkpoint. M3 remains verified and populated.
+SAFE TO RESUME with transformer access/configuration. Do not rerun empty-target fixture
+tests against the populated database or provision the existing loader again.
 
 ## Incomplete Work
 
-- M4: adopt the tested dbt version candidates in an optional group; validate the actual
-  project environment; implement restricted transformer settings/login and minimal dbt
-  project/profile/source configuration before model implementation. See docs/dbt-setup-plan.md.
-- Then build/test staging and dimensional models with explicit quality flags and retained rows.
-- M5: safe order-grain technical mart, example queries/plans, access and populated reconstruction.
-- Views first. Remeasure storage, rebuild overlap and performance before materialization.
-- E01–E10 audit revisit gates remain; E05/E06 now have partial Phase 3 implementation evidence.
-- No known failing check. No merge, deployment, paid upgrade, reset credit or production-readiness claim.
-- Usage reached 71% during acceptance; completed M3 and documented isolated M4 compatibility
-  proof rather than beginning credential/dependency changes across the actual project.
+- Review/integrate transformer purpose/provisioning and rollback-only actual-login tests.
+- Review/integrate minimal dbt project, nine sources, restricted schema macro, safe profile
+  and parse/debug wrapper. Run offline parse, actual debug and ownership/denial tests.
+- Then implement staging/core models and tests; M5 technical marts/queries/reconstruction.
+- Audit E01–E10 retain revisit gates; E05/E06 have documented partial Phase 3 remediation.
+- No known failing check. No reset credit, paid upgrade, merge, deployment or production claim.
 
 ## Exact Next Actions
 
-1. Read docs/dbt-setup-plan.md and ADR 0003/0004; inspect Git status/history and current usage.
-   Confirm M3 completion evidence in docs/warehouse-load-verification.json against actual state.
-2. Implement M4 tooling: add optional transform group with dbt-core==1.12.5 and
-   dbt-postgres==1.11.0 to pyproject.toml; resolve/review the single uv.lock, install locked
-   groups, include transform in quality/advisory checks, verify dbt version, and checkpoint.
-3. Implement/test transformer purpose and protected provisioning, then minimal dbt project,
-   secret-safe profile/wrapper and source declarations; run parse/debug and role-boundary tests.
-4. Checkpoint configuration before building staging/core models. Preserve grains and warnings;
-   do not start Phase 4 business analysis or Phase 5 KPI definitions.
+1. Inspect current status/history and usage. Read docs/dbt-setup-plan.md and ADR 0003/0004.
+2. Review the m4-staging candidates against actual repository config/credentials;
+   preserve loader compatibility, private file safeguards and rollback-only tests.
+3. Integrate configuration/CLI and dbt bootstrap; run full gate plus offline parse.
+   Checkpoint before actual transformer provisioning. Verify role/file absence first.
+4. Provision once; verify actual role boundaries/TLS/view ownership and dbt debug, then
+   checkpoint configuration before staging/core model implementation.
 
 ## Git State
 
 - Branch feat/warehouse-foundation; main unchanged/unmerged.
-- Published pre-load code checkpoint 35ba3c5; loader provisioning evidence 7cbf938;
-  credential tooling e428801; applied landing migration 625dbe8.
-- M3 completion evidence is the containing commit. Confirm clean status and publication.
-- Resolve handoff commit with `git log -1 --format="%H %s" -- WORK_STATE.md`.
+- Published M3 acceptance 2604e82; atomic loader 35ba3c5; loader tooling e428801.
+- Tooling adoption is the containing commit; verify final status and publication.
+- Resolve handoff with git log -1 --format="%H %s" -- WORK_STATE.md.
 
 ## Continuation Commands
 
@@ -141,13 +94,10 @@ Do not rerun empty-landing fixture tests on this populated target or provision t
 Set-Location 'D:\My Projects\CommerceLens'
 git status --short --branch
 git log -5 --oneline
+uv sync --locked --group data --group warehouse --group transform
+./scripts/check.ps1 -Transform -Security -GitleaksPath '.artifacts/tools/gitleaks/gitleaks.exe'
 uv run --locked --group warehouse python -m src.warehouse inspect
-# Full committed-snapshot verification; adds no rows for the same verified source:
-uv run --locked --group warehouse python -m src.warehouse load
-./scripts/check.ps1 -Security -GitleaksPath '.artifacts/tools/gitleaks/gitleaks.exe'
 ```
 
-The load command streams all stored content on verification. Use it when needed, not
-after every documentation edit. Empty-target loading/bootstrap tests need a replacement
-isolated target; the actual-login access test remains safe on this populated database.
-Never print credentials, raw records or sensitive database diagnostics.
+Use the source load command for full verification only when needed; it re-reads all data.
+Never print credentials, raw rows or sensitive database errors. All databases here remain development.

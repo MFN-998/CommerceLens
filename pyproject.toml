@@ -26,6 +26,10 @@ dev = [
     "pytest==9.1.1",
     "ruff==0.16.7",
 ]
+transform = [
+    "dbt-core==1.12.5",
+    "dbt-postgres==1.11.0",
+]
 warehouse = [
     "psycopg[binary]==3.3.6",
 ]

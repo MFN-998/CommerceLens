@@ -1,5 +1,6 @@
 param(
     [switch]$Data,
+    [switch]$Transform,
     [switch]$Security,
     [string]$GitleaksPath = 'gitleaks'
 )
@@ -15,11 +16,17 @@ function Invoke-Check {
     }
 }
 
+$previousDbtTelemetry = $env:DBT_SEND_ANONYMOUS_USAGE_STATS
 Push-Location $projectRoot
 try {
     Write-Host 'Checking Python style, types, and offline tests.'
     $runArgs = @('run', '--locked', '--group', 'data', '--group', 'warehouse')
+    if ($Transform) { $runArgs += @('--group', 'transform') }
     if ($Security) { $runArgs += @('--group', 'audit') }
+    if ($Transform) {
+        $env:DBT_SEND_ANONYMOUS_USAGE_STATS = 'false'
+        Invoke-Check 'uv' ($runArgs + @('dbt', '--version'))
+    }
     Invoke-Check 'uv' ($runArgs + @('ruff', 'check', '.'))
     Invoke-Check 'uv' ($runArgs + @('ruff', 'format', '--check', '.'))
     Invoke-Check 'uv' ($runArgs + @('mypy'))
@@ -45,5 +52,6 @@ try {
     }
     Write-Host 'All selected checks passed.'
 } finally {
+    $env:DBT_SEND_ANONYMOUS_USAGE_STATS = $previousDbtTelemetry
     Pop-Location
 }
