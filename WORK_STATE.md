@@ -6,103 +6,111 @@ Read with AGENTS, master plan, engineering standards, and execution protocol.
 ## Project State
 
 - Phases 1–2/audit COMPLETE; Phase 3 M1–M2 COMPLETE; M3 PARTIALLY COMPLETE.
-- Completed M3 units: measured capacity decision, source contract/evidence, landing schema rehearsal and permanent application.
-- Current task: finish restricted loader credentials, then atomic loading and recovery tests.
-- Objective: all nine source tables loaded faithfully, atomically, and reproducibly.
-- Status: SAFE TO RESUME. Full source data has **not** been uploaded.
+- Current milestone: credential tooling COMPLETE; actual loader provisioning is next.
+- Objective: faithfully load all nine sources in one verified, recoverable transaction.
+- Status: SAFE TO RESUME. No full source data has been uploaded.
 
 ## Completed Work
 
-- Resumed clean published `207b74f`; live PostgreSQL 17.6, roles/schemas and verify-full match.
-- Measured real temporary PostgreSQL samples with UUID/bigint lineage and primary indexes;
-  all temporary tables rolled back, immutable source integrity verified before/after.
-- Initial 532 MB conservative materialization budget exceeded Free's 500 MB allowance.
-  Owner explicitly chose Free with views initially and a fresh review before materializing.
-  Revised budget: 466,728,242 bytes. ADR 0004 records assumptions and actual-size gates.
-- Source-contract module: stable content identity, logical row framing/digests, strict CSV
-  text preservation, NUL/shape rejection, exact monetary validation and sums. 27 new tests pass.
-- Prepared aggregate evidence for all 1,550,922 rows; exact sums match M1 observations.
-- Migration 0002 was committed (625dbe8), permanently applied, and replayed with no changes.
-  Resume verification on 2026-09-22 confirmed both migration checksums, nine empty tables,
-  zero registry rows, and denied API-role access. Database size: 11,234,451 bytes.
-- Migration 0002 creates immutable ops.source_loads and nine raw tables. Its live rollback
-  test passed: COPY fidelity, expected denials, PK/FK/positive ordinal/non-null constraints,
-  server-owned attribution, repeat migration, existing M2 privileges, and cleanup.
+- Reconciled interrupted session: migration 0002 was applied, with identical replay a no-op.
+  Both ledger checksums match Git; nine raw tables and registry were empty on resume.
+  API roles have no table access. Published missing implementation/handoff checkpoints.
+- Source contracts preserve all 1,550,922 rows, exact decimal totals, framed text hashes,
+  empty values, logical row ordinals, and immutable provenance. Migration 0002 adds
+  ops.source_loads and nine raw text tables. Prior real migration/COPY fixture test passed.
+- Current credential unit adds isolated admin/loader configuration, exclusive durable
+  private-file creation, client-side SCRAM verifier generation, refusal to overwrite an
+  existing role/file, and explicit recovery when commit acknowledgement is uncertain.
+- Existing administrator configuration ACL protected and verified without reading contents.
+  Fixed Windows module loading with direct .NET ACL APIs and preserved existing ownership
+  so protecting an existing file does not request unnecessary ownership privileges.
+- No dependency, source-dataset, or schema changes in this credential unit.
 
 ## Files
 
-- Created: src/warehouse/source.py, tests/test_warehouse_source.py,
-  warehouse/migrations/0002_source_landing.sql, tests/test_warehouse_landing_integration.py,
-  docs/warehouse-storage-estimate.json, docs/warehouse-load-plan.json,
-  docs/decisions/0004-development-storage-budget.md.
-- Modified: tests/test_warehouse_integration.py (all-current-migration recovery expectations),
-  WORK_STATE.md, docs/phase-3-plan.md, docs/warehouse-development.md.
-- No new dependencies, source/staging dataset changes, or deleted/renamed repository files.
-- Optional unintegrated drafts live outside Git at the local ChatGPT workspace's
-  `m3-staging/src/warehouse/loading.py`, `credentials.py`, and
-  `m3-staging/tests/test_warehouse_credentials.py`. They are NOT implemented/validated
-  repository features. Review/adapt before use; the contracts and next actions here are authoritative.
+- Created: src/warehouse/credentials.py, tests/test_warehouse_credentials.py,
+  tests/test_warehouse_loader_access_integration.py.
+- Modified: src/warehouse/config.py, src/warehouse/__main__.py,
+  tests/test_warehouse_config.py, docs/warehouse-development.md, WORK_STATE.md.
+- Earlier M3: source.py, 0002_source_landing.sql, source/landing tests, ADR 0004,
+  warehouse-load-plan.json and warehouse-storage-estimate.json.
+- No deleted/renamed files. Credentials stay ignored and must never be printed.
+- Next-unit candidates exist outside Git in the ChatGPT workspace's m3-staging:
+  src/warehouse/loading.py, tests/test_warehouse_loading.py and
+  tests/test_warehouse_loading_integration.py. They are NOT implemented repository
+  features; review/integrate and run tests before use. Ignore unrelated staging copies.
 
 ## Technical Decisions
 
-- All raw fields stay text, including empty strings. Row ordinals count logical CSV records.
-- Stable snapshot fingerprint uses dataset/version, landing contract version, sorted file hashes;
-  acquisition timestamps do not duplicate identical content. Manifest byte hash is separate.
-- UUID identity plus full unique fingerprint; per-table content digests include field lengths
-  and logical ordinals, so unchanged counts/money totals cannot hide changed text or row order.
-- Registry inserted before raw COPY, immediate FKs; the future loader must put registry,
-  all nine loads, full reconciliation, and final capacity check inside one transaction.
-- Loader capability has registry SELECT and restricted INSERT; no UPDATE/DELETE, no ability
-  to spoof loaded_at/by, no migration-ledger privileges. Actual job login is still pending.
-- Views initially; one snapshot per capacity-reviewed target. No automatic second snapshot,
-  paid upgrade, omitted data, or blanket materialization. See ADR 0004 for ceilings/reserves.
+- Dedicated LOGIN commercelens_ingest must be a non-inheriting member only of
+  commercelens_loader. No administrator fallback. Loader purpose reads only its
+  dedicated ignored configuration file; target and verify-full checks remain mandatory.
+- Before writing secrets, private files require owner-only POSIX permissions or Windows
+  owner/SYSTEM/Administrators ACL. Existing inherited Windows folder permissions proved
+  too broad; protect administrator credentials as well.
+- Persist the local credential before committing the database role. Uncertain failures
+  retain the file for reconciliation; never silently overwrite, rotate, or delete it.
+- All nine COPY operations, registry insertion, full text/count/decimal reconciliation,
+  and final capacity check must share one transaction and warehouse advisory lock.
+- Free/views decision is unchanged: one snapshot per reviewed target; raw ceiling
+  367,000,000 bytes, database ceiling 400,000,000 bytes. Initial models use views.
+  ADR 0004 preserves the failed initial 532 MB materialization scenario and approved
+  revised 466,728,242-byte budget. Estimates are not guarantees or WAL/disk guarantees.
 
 ## Validation
 
-- Storage sample measured raw estimate 293,382,593 bytes; with 25% margin 366,728,242 bytes.
-  Revised total 466,728,242 bytes includes platform/model/build reserves; not a guarantee.
-- Complete source preparation passed; 1,550,922 rows and all three exact money totals verified.
-- Offline tests: 113 passed, 2 explicit database tests skipped. New live landing integration
-  test passed separately (92 seconds); all fixture work rolled back.
-- Ruff lint/format and mypy (19 source files) passed; 72 packages compatible.
-- Full frontend format/lint/type/build gate passed. No dependency changes; advisory
-  scan results remain historical M2 evidence. Existing AnyIO warning remains documented.
-- Full production-size COPY, restricted login, retry/content corruption/failure-load tests:
-  **Not yet tested / not yet implemented**. No dbt/deployment claim.
+- Resume 2026-09-22: actual PostgreSQL 17.6, verify-full/TLS, schemas/roles unchanged;
+  migrations 0001/0002 match, registry/raw empty, API table denials pass.
+  Database: 11,234,451 bytes before credential work.
+- Full credential checkpoint gate: 140 tests passed, three explicit live tests skipped;
+  Ruff lint/format (54 files), mypy (20 source files), package compatibility, frontend
+  formatting/lint/types/build, Python/npm advisory and Git-history secret scans passed.
+  One existing AnyIO deprecation warning remains. Windows ACL failures were corrected;
+  all 19 credential tests passed again after the ownership-preserving fix.
+  Actual role provisioning/actual-login permission test: Not yet run.
+- Historical source/landing checkpoint: 113 offline tests passed, two live tests skipped;
+  real landing rollback test passed separately. Ruff/mypy/packages/frontend gates passed.
+- Recovery documentation staged/history secret scans passed; bcd85a9 published.
+- Full-size COPY, loader rollback/retry/corruption tests, dbt, and deployment: Not yet tested.
 
 ## Current Repository Condition
 
-CLEAN / STABLE at resume; SAFE TO RESUME. Source contract b6acd5b and landing schema
-625dbe8 are committed. Live 0001/0002 match checked-in SQL; no pending migration.
-This handoff corrects the interrupted pre-apply record. No source records or fixture residue
-remain. Publish the two existing implementation commits with this recovery checkpoint.
+CLEAN / STABLE at this credential-tooling checkpoint; SAFE TO RESUME for larger M3.
+All listed changes are validated and intended for the containing commit. Verify Git status
+for final publication. No real loader role has been provisioned; landing remains empty.
 
 ## Incomplete Work
 
-- Implement reviewed restricted loader credentials/configuration and atomic COPY pipeline;
-  never run routine loading as postgres. Keep generated credentials ignored and unlogged.
-- Test interrupted-load rollback, idempotent retry, and corruption with unchanged counts/sums.
-- Apply actual-size ceilings, load all nine sources, reconcile row/text/decimal evidence,
-  verify unchanged raw hashes, and checkpoint M3 before M4 dbt models.
-- M4/M5 and populated recovery remain pending. Audit E01–E10 retain their revisit gates.
-- Resumed account window: 10% used (account-wide reading, not a task reservation).
-  No reset credit redeemed. Earlier completed phases are not reopened.
+- Provision the restricted login, verify permissions
+  using that actual login, record evidence, and checkpoint before complete COPY work.
+- Integrate/review loading candidate, test interrupted-load rollback, repeat-run identity,
+  unchanged-count/money text corruption, provenance changes, and capacity failures.
+- Only after those pass: upload all nine sources, reconcile text/rows/exact money/storage,
+  rerun idempotently, verify raw hashes unchanged, and checkpoint M3.
+- M4 dbt models/M5 queries and populated recovery remain pending. Audit E01–E10 keep
+  their documented revisit gates. No model reset credit was redeemed.
+- Account usage reached 88% used before live provisioning; preservation mode completed
+  the tested credential-tooling unit. Refresh actual usage before the next substantial unit.
 
 ## Exact Next Actions
 
-1. Confirm this recovery checkpoint is published; inspect status and refresh usage.
-2. Implement purpose-specific loader configuration and a restricted LOGIN member of only
-   commercelens_loader. Test allowed/denied actions using that actual login.
-3. Complete transactional COPY with registry/content/money/capacity checks, rollback and
-   repeat-run tests; only then load all nine sources and record actual storage/evidence.
+1. Inspect Git status/history and usage; confirm this checkpoint. Check whether
+   .env.warehouse.loader and the commercelens_ingest role exist WITHOUT printing credentials.
+   Neither was created in this session. Read the provisioning recovery guide if either exists.
+2. If both are absent, run provision-loader, then the actual-login access test below.
+   Record its outcome and checkpoint before integrating complete COPY work.
+3. Integrate and test the three loading candidates; implement a loader-purpose CLI
+   that prepares source before connecting and prints success only after commit.
+4. Checkpoint validated code, execute full load/retry, record actual evidence, then start M4.
 
 ## Git State
 
-- Branch feat/warehouse-foundation; initial published baseline 207b74f.
-- Source/capacity checkpoint b6acd5b; M2 implementation aa0104f.
-- Landing pre-apply checkpoint 625dbe8; no pending migration on the verified target.
-- Final handoff checkpoint is the commit containing this file; verify clean status and
-  origin/feat/warehouse-foundation publication. No main merge/deployment.
+- Branch feat/warehouse-foundation; main is unchanged/unmerged.
+- Published pre-risk baseline bcd85a9; source/capacity b6acd5b; landing schema 625dbe8.
+- Credential implementation is the containing commit; staged/history scans precede push.
+- M2 implementation aa0104f; final foundation evidence 207b74f.
+- The commit containing this handoff is the current checkpoint when committed;
+  resolve with git log below. Confirm status/publication instead of assuming them.
 
 ## Continuation Commands
 
@@ -111,15 +119,14 @@ Set-Location 'D:\My Projects\CommerceLens'
 git status --short --branch
 git log -5 --oneline
 git log -1 --format="%H %s" -- WORK_STATE.md
-git log -1 --format="%H %s" -- warehouse/migrations/0002_source_landing.sql
 uv run --locked --group warehouse python -m src.warehouse inspect
-uv run --locked --group warehouse python -m src.warehouse migrate
-uv run --locked --group warehouse python -m src.warehouse verify
-./scripts/check.ps1
-# Reversible live landing fixture test; does not load source data:
-$env:COMMERCE_WAREHOUSE_LANDING_INTEGRATION = '1'
-try { uv run --locked --group warehouse pytest tests/test_warehouse_landing_integration.py }
-finally { Remove-Item Env:\COMMERCE_WAREHOUSE_LANDING_INTEGRATION }
+uv run --locked --group warehouse pytest tests/test_warehouse_config.py tests/test_warehouse_credentials.py
+./scripts/check.ps1 -Security -GitleaksPath '.artifacts/tools/gitleaks/gitleaks.exe'
+# Only once, after validated code checkpoint; never overwrite existing credentials:
+uv run --locked --group warehouse python -m src.warehouse provision-loader
+$env:COMMERCE_WAREHOUSE_LOADER_ACCESS_INTEGRATION = '1'
+try { uv run --locked --group warehouse pytest tests/test_warehouse_loader_access_integration.py }
+finally { Remove-Item Env:\COMMERCE_WAREHOUSE_LOADER_ACCESS_INTEGRATION }
 ```
 
-Never print `.env.warehouse` or credentials. No production data-load command exists yet.
+Never print `.env.warehouse`, `.env.warehouse.loader`, or credentials.

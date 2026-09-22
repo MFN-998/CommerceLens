@@ -6,7 +6,7 @@ import pytest
 from pydantic import ValidationError
 
 from src.warehouse import __main__ as cli
-from src.warehouse.config import WarehouseSettings, connect
+from src.warehouse.config import WarehouseSettings, connect, load_settings
 
 
 @pytest.fixture
@@ -93,9 +93,8 @@ def test_cli_validation_never_prints_input_secrets(
 def test_dotenv_parses_port_and_preserves_secret(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    from src.warehouse.config import load_settings
-
     for name in (
+        "PURPOSE",
         "ENVIRONMENT",
         "PROJECT_REF",
         "HOST",
@@ -118,3 +117,89 @@ def test_dotenv_parses_port_and_preserves_secret(
     assert settings.password.get_secret_value() == "synthetic @ # password"
     monkeypatch.setenv("WAREHOUSE_ENVIRONMENT", "test")
     assert load_settings(tmp_path).environment == "test"
+
+
+@pytest.mark.parametrize("pooler", [False, True])
+def test_loader_target_requires_loader_identity(values: dict[str, object], pooler: bool) -> None:
+    values["purpose"] = "loader"
+    if pooler:
+        values["host"] = "aws-0-ap-northeast-1.pooler.supabase.com"
+        values["user"] = "postgres.abcdefghijklmnopqrst"
+    with pytest.raises(ValidationError):
+        WarehouseSettings.model_validate(values)
+    values["user"] = "commercelens_ingest" + (".abcdefghijklmnopqrst" if pooler else "")
+    assert WarehouseSettings.model_validate(values).purpose == "loader"
+    values["purpose"] = "admin"
+    with pytest.raises(ValidationError):
+        WarehouseSettings.model_validate(values)
+
+
+@pytest.fixture
+def clean_warehouse_environment(monkeypatch: pytest.MonkeyPatch) -> None:
+    import os
+
+    for name in os.environ:
+        if name.startswith("WAREHOUSE_"):
+            monkeypatch.delenv(name)
+
+
+def write_config(path: Path, purpose: str, user: str) -> None:
+    path.write_text(
+        f"WAREHOUSE_PURPOSE={purpose}\n"
+        "WAREHOUSE_ENVIRONMENT=test\n"
+        "WAREHOUSE_PROJECT_REF=abcdefghijklmnopqrst\n"
+        "WAREHOUSE_HOST=db.abcdefghijklmnopqrst.supabase.co\n"
+        f"WAREHOUSE_USER={user}\n"
+        "WAREHOUSE_PASSWORD=synthetic-test-only-password\n"
+        "WAREHOUSE_SSLROOTCERT=ca.crt\n",
+        encoding="utf-8",
+    )
+
+
+def test_missing_loader_file_never_uses_admin_file(tmp_path, clean_warehouse_environment) -> None:
+    write_config(tmp_path / ".env.warehouse", "admin", "postgres")
+    assert load_settings(tmp_path).purpose == "admin"
+    with pytest.raises(ValidationError):
+        load_settings(tmp_path, purpose="loader")
+
+
+def test_each_command_uses_its_own_file(tmp_path, clean_warehouse_environment) -> None:
+    write_config(tmp_path / ".env.warehouse", "admin", "postgres")
+    write_config(tmp_path / ".env.warehouse.loader", "loader", "commercelens_ingest")
+    assert load_settings(tmp_path).user == "postgres"
+    assert load_settings(tmp_path, purpose="loader").user == "commercelens_ingest"
+
+
+def test_loader_rejects_ambient_admin_override(
+    tmp_path, clean_warehouse_environment, monkeypatch
+) -> None:
+    write_config(tmp_path / ".env.warehouse.loader", "loader", "commercelens_ingest")
+    monkeypatch.setenv("WAREHOUSE_USER", "postgres")
+    with pytest.raises(ValidationError):
+        load_settings(tmp_path, purpose="loader")
+    monkeypatch.setenv("WAREHOUSE_PURPOSE", "admin")
+    with pytest.raises(ValueError, match="purpose does not match"):
+        load_settings(tmp_path, purpose="loader")
+
+
+@pytest.mark.parametrize("purpose", ["admin", "loader"])
+def test_misplaced_configuration_is_rejected(tmp_path, clean_warehouse_environment, purpose):
+    filename = ".env.warehouse" if purpose == "admin" else ".env.warehouse.loader"
+    wrong_purpose, user = (
+        ("loader", "commercelens_ingest") if purpose == "admin" else ("admin", "postgres")
+    )
+    write_config(tmp_path / filename, wrong_purpose, user)
+    with pytest.raises(ValueError, match="purpose does not match"):
+        load_settings(tmp_path, purpose=purpose)
+
+
+def test_loader_connection_preserves_tls_and_marks_application(
+    values: dict[str, object], monkeypatch: pytest.MonkeyPatch
+) -> None:
+    captured = {}
+    monkeypatch.setattr("src.warehouse.config.psycopg.connect", lambda **kw: captured.update(kw))
+    values.update(purpose="loader", user="commercelens_ingest")
+    connect(WarehouseSettings.model_validate(values))
+    assert captured["sslmode"] == "verify-full"
+    assert captured["user"] == "commercelens_ingest"
+    assert captured["application_name"] == "commercelens-warehouse-loader"

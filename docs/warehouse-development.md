@@ -157,3 +157,60 @@ Resume verification on 2026-09-22 confirmed migration 0002 was permanently appli
 from checkpoint `625dbe8`. Both ledger checksums match the repository; all nine raw
 tables and the registry remain empty, API-role table access is denied, and verify-full
 remains active. Measured database size: 11,234,451 bytes.
+
+## Restricted loader credentials
+
+Run once after migrations 0001/0002 are applied, using the private administration
+configuration:
+
+```powershell
+uv run --locked --group warehouse python -m src.warehouse provision-loader
+```
+
+This creates `commercelens_ingest`, a LOGIN member only of `commercelens_loader`,
+with no inherited capability, administration, role creation, replication, or RLS bypass.
+Jobs explicitly select the loader capability within their transaction. The job cannot
+change the schema, update/delete existing rows, impersonate an owner, or set server-owned
+load attribution. Its connection limit is two. Administration credentials remain separate.
+
+The generated password is saved in ignored `.env.warehouse.loader`, never printed.
+On Windows the file receives a verified private ACL for its owner, SYSTEM, and
+Administrators before any password is written; POSIX uses mode 0600. A folder's inherited
+permissions alone are insufficient. Keep the administrator file equally protected.
+The password is generated locally and converted to a SCRAM verifier before SQL, keeping
+the clear password out of SQL statement logs. Treat both passwords and verifiers as secrets.
+
+Credential provisioning uses the warehouse advisory lock and a transaction. It refuses
+an existing role or file instead of silently rotating a password. The file is flushed to
+disk before database commit. If saving, SQL, or commit acknowledgement fails, preserve
+the file, inspect whether the role exists, and test the saved loader connection privately.
+An empty/partial file or absent role requires explicit administrator reconciliation;
+never automatically delete the evidence or rerun provisioning. A successful connection
+after an uncertain commit is followed by the access test below. Future intentional rotation
+must update both database and protected local configuration through a reviewed procedure.
+
+Loader configuration requires `WAREHOUSE_PURPOSE=loader` and the loader username.
+It reads only `.env.warehouse.loader`; there is no fallback to the administrator file.
+Environment overrides must still match the requested purpose. Hostname, target database,
+certificate verification, and development/test restrictions remain enforced.
+
+Verify the actual login's role attributes, membership, TLS, and allowed/denied operations:
+
+```powershell
+$env:COMMERCE_WAREHOUSE_LOADER_ACCESS_INTEGRATION = '1'
+try {
+    uv run --locked --group warehouse pytest tests/test_warehouse_loader_access_integration.py
+} finally {
+    Remove-Item Env:\COMMERCE_WAREHOUSE_LOADER_ACCESS_INTEGRATION
+}
+```
+
+This test uses the generated login and rolls back all probes. It works on empty or loaded
+tables. It proves this connection's boundaries; it is not a deployment/network-security
+audit. Use a platform secret store and reviewed credential rotation before hosted jobs.
+
+Credential-tooling checkpoint 2026-09-22: 140 offline tests passed; three live tests
+were skipped. Full formatting/lint/type/build/package/advisory/history gates passed.
+Existing administrator file ACL hardened and verified; its contents were not read.
+The final ACL fix preserves existing ownership; 19 credential tests passed again.
+Actual loader role creation and actual-login validation remain pending.

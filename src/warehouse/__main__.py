@@ -8,6 +8,7 @@ import psycopg
 from pydantic import ValidationError
 
 from src.warehouse.config import connect, load_settings
+from src.warehouse.credentials import ProvisioningError, provision_loader
 from src.warehouse.migrations import (
     MigrationError,
     apply_migrations,
@@ -19,10 +20,15 @@ from src.warehouse.migrations import (
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Private development warehouse administration")
-    parser.add_argument("command", choices=["inspect", "migrate", "verify", "rehearse"])
+    parser.add_argument(
+        "command", choices=["inspect", "migrate", "verify", "rehearse", "provision-loader"]
+    )
     args = parser.parse_args()
     try:
         settings = load_settings()
+        if args.command == "provision-loader":
+            print(json.dumps(provision_loader(settings), indent=2))
+            return 0
         migrations = read_migrations()
         with connect(settings) as connection:
             result: dict[str, object] = {
@@ -64,6 +70,9 @@ def main() -> int:
             {str(item["loc"][0]) if item["loc"] else "target" for item in error.errors()}
         )
         print("Invalid warehouse configuration fields: " + ", ".join(fields), file=sys.stderr)
+    except ProvisioningError as error:
+        # Provisioning exposes only fixed recovery instructions, never driver detail.
+        print(str(error), file=sys.stderr)
     except (MigrationError, ValueError, OSError):
         print(
             "Warehouse configuration or migration validation failed; review target and history.",

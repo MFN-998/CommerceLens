@@ -66,3 +66,7 @@ M3 storage decision: retain Free and use views initially, per owner choice.
 See [ADR 0004](decisions/0004-development-storage-budget.md) and
 [aggregate load plan](warehouse-load-plan.json). Source landing preserves all rows;
 actual restricted credentials, complete COPY, retry, and corruption checks remain pending.
+
+2026-09-22 credential tooling completed and tested, including private local-file ACLs.
+Actual restricted login provisioning/access checks and the full load remain pending;
+see WORK_STATE for the precise resumption sequence.
