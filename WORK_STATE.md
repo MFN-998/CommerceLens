@@ -1,13 +1,13 @@
 # CommerceLens work state
 
-Updated: 2026-09-21. Repository: `D:\My Projects\CommerceLens`.
+Updated: 2026-09-22. Repository: `D:\My Projects\CommerceLens`.
 Read with AGENTS, master plan, engineering standards, and execution protocol.
 
 ## Project State
 
 - Phases 1–2/audit COMPLETE; Phase 3 M1–M2 COMPLETE; M3 PARTIALLY COMPLETE.
-- Completed M3 units: measured capacity decision, source contract/evidence, landing schema rehearsal.
-- Current task: checkpoint/apply migration 0002, then finish restricted atomic loading in the next unit.
+- Completed M3 units: measured capacity decision, source contract/evidence, landing schema rehearsal and permanent application.
+- Current task: finish restricted loader credentials, then atomic loading and recovery tests.
 - Objective: all nine source tables loaded faithfully, atomically, and reproducibly.
 - Status: SAFE TO RESUME. Full source data has **not** been uploaded.
 
@@ -22,6 +22,9 @@ Read with AGENTS, master plan, engineering standards, and execution protocol.
 - Source-contract module: stable content identity, logical row framing/digests, strict CSV
   text preservation, NUL/shape rejection, exact monetary validation and sums. 27 new tests pass.
 - Prepared aggregate evidence for all 1,550,922 rows; exact sums match M1 observations.
+- Migration 0002 was committed (625dbe8), permanently applied, and replayed with no changes.
+  Resume verification on 2026-09-22 confirmed both migration checksums, nine empty tables,
+  zero registry rows, and denied API-role access. Database size: 11,234,451 bytes.
 - Migration 0002 creates immutable ops.source_loads and nine raw tables. Its live rollback
   test passed: COPY fidelity, expected denials, PK/FK/positive ordinal/non-null constraints,
   server-owned attribution, repeat migration, existing M2 privileges, and cleanup.
@@ -69,37 +72,35 @@ Read with AGENTS, master plan, engineering standards, and execution protocol.
 
 ## Current Repository Condition
 
-STABLE / SAFE TO RESUME. Source contract checkpoint b6acd5b is committed. Migration 0002
-is tested but awaits the pre-apply code checkpoint and permanent application. Only intended
-M3 files are modified. No source records or live fixture residue remain.
+CLEAN / STABLE at resume; SAFE TO RESUME. Source contract b6acd5b and landing schema
+625dbe8 are committed. Live 0001/0002 match checked-in SQL; no pending migration.
+This handoff corrects the interrupted pre-apply record. No source records or fixture residue
+remain. Publish the two existing implementation commits with this recovery checkpoint.
 
 ## Incomplete Work
 
-- Finish the migration checkpoint/apply and verify unchanged replay.
 - Implement reviewed restricted loader credentials/configuration and atomic COPY pipeline;
   never run routine loading as postgres. Keep generated credentials ignored and unlogged.
 - Test interrupted-load rollback, idempotent retry, and corruption with unchanged counts/sums.
 - Apply actual-size ceilings, load all nine sources, reconcile row/text/decimal evidence,
   verify unchanged raw hashes, and checkpoint M3 before M4 dbt models.
 - M4/M5 and populated recovery remain pending. Audit E01–E10 retain their revisit gates.
-- Latest observed account window: 76% used; work narrowed to schema milestone. Refresh on resume.
+- Resumed account window: 10% used (account-wide reading, not a task reservation).
   No reset credit redeemed. Earlier completed phases are not reopened.
 
 ## Exact Next Actions
 
-1. Inspect Git status/history, refresh usage, read ADR 0004 and source/landing contracts;
-   run warehouse inspect and reconcile migration history before changing anything.
-2. If 0002 is pending, apply only its validated committed SQL and check no-op replay.
-3. Implement purpose-specific loader configuration and a restricted LOGIN member of only
+1. Confirm this recovery checkpoint is published; inspect status and refresh usage.
+2. Implement purpose-specific loader configuration and a restricted LOGIN member of only
    commercelens_loader. Test allowed/denied actions using that actual login.
-4. Complete transactional COPY with registry/content/money/capacity checks, rollback and
+3. Complete transactional COPY with registry/content/money/capacity checks, rollback and
    repeat-run tests; only then load all nine sources and record actual storage/evidence.
 
 ## Git State
 
 - Branch feat/warehouse-foundation; initial published baseline 207b74f.
 - Source/capacity checkpoint b6acd5b; M2 implementation aa0104f.
-- Landing pre-apply checkpoint is the commit containing 0002; resolve via Git log below.
+- Landing pre-apply checkpoint 625dbe8; no pending migration on the verified target.
 - Final handoff checkpoint is the commit containing this file; verify clean status and
   origin/feat/warehouse-foundation publication. No main merge/deployment.
 

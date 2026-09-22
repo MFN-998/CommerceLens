@@ -152,3 +152,8 @@ The source registry is inserted before raw rows for immediate foreign keys. The 
 loader must commit only after all nine tables and complete content/money evidence match.
 Restricted login provisioning, full COPY, idempotent loading, failure injection, and actual
 storage reconciliation remain required before M3 is complete.
+
+Resume verification on 2026-09-22 confirmed migration 0002 was permanently applied
+from checkpoint `625dbe8`. Both ledger checksums match the repository; all nine raw
+tables and the registry remain empty, API-role table access is denied, and verify-full
+remains active. Measured database size: 11,234,451 bytes.
