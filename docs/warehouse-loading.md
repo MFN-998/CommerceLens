@@ -109,3 +109,12 @@ cases passed separately in 320.24 seconds using the actual restricted login (exc
 the deliberately rejected administrator case); fixtures were rolled back. Full local
 style/type/build/package/advisory gates passed. Full source upload is the next acceptance
 step; this pre-load checkpoint does not claim a populated warehouse.
+
+## Full load accepted — 2026-09-22
+
+All 1,550,922 rows committed and the complete repeat run returned verified_existing
+with the original identity. Text/count/exact-money checks and unchanged source hashes
+passed. Final raw/database storage: 275,750,912 / 287,026,323 bytes. See the
+[aggregate acceptance receipt](warehouse-load-verification.json). The small decrease
+after first commit is reflected in the distinct measurements; no source rows were removed.
+M4 starts with views; no materialization or production release is implied.

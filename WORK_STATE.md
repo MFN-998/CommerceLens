@@ -5,11 +5,11 @@ Read with AGENTS, master plan, engineering standards, and execution protocol.
 
 ## Project State
 
-- Phases 1–2/audit COMPLETE; Phase 3 M1–M2 COMPLETE; M3 PARTIALLY COMPLETE.
-- Current milestone: restricted login and atomic loader implementation/tests COMPLETE.
-- Current task: checkpoint validated code, then perform full source load and idempotent verification.
-- Objective: all nine source tables faithfully committed, with full text/count/decimal evidence.
-- SAFE TO RESUME. Full Olist upload has not started; only rolled-back synthetic fixtures ran.
+- Phases 1–2/audit COMPLETE; Phase 3 M1–M3 COMPLETE. Phase 3 overall remains IN PROGRESS.
+- Current milestone: full source loading, content reconciliation and repeat verification COMPLETE.
+- Current task: prepare the next bounded M4 dbt tooling/configuration unit.
+- Objective: a tested analytical warehouse; M4 models and M5 marts/recovery are still required.
+- M3 COMPLETE / SAFE TO RESUME at M4. All 1,550,922 source rows are committed privately.
 
 ## Completed Work
 
@@ -32,15 +32,20 @@ Read with AGENTS, master plan, engineering standards, and execution protocol.
   decimal sums; verifies source before/after; enforces one snapshot and actual storage gates.
 - Review fixed the administrator-refusal test to roll back even on a guard regression;
   documented physical-space maintenance after failed COPY and added capacity refusal coverage.
-- No dependency, source-dataset, or schema changes in this unit.
+- Full load committed using restricted login; repeat fully verified the same snapshot,
+  preserving original attribution and adding no rows. Aggregate receipt persisted in docs.
+- M4 candidates resolved/installed in an isolated environment only: dbt-core 1.12.5,
+  dbt-postgres 1.11.0, 111 installed packages compatible and no known advisories.
+  Repository dependency adoption, dbt parse/debug/models have NOT been done.
+- No dependency, source-dataset, or schema changes in the actual repository this unit.
 
 ## Files
 
 - Created: src/warehouse/loading.py, tests/test_warehouse_loading.py,
   tests/test_warehouse_loading_integration.py, tests/test_warehouse_cli.py,
-  docs/warehouse-loading.md.
+  docs/warehouse-loading.md, docs/warehouse-load-verification.json, docs/dbt-setup-plan.md.
 - Modified: src/warehouse/__main__.py, docs/warehouse-development.md,
-  docs/phase-3-plan.md, WORK_STATE.md.
+  docs/phase-3-plan.md, docs/engineering-audit-phase-1-2.md, README.md, WORK_STATE.md.
 - Existing source.py, source evidence, migrations 0001/0002 and original datasets unchanged.
 - No dependencies, deleted/renamed files, schema changes or later-phase implementation.
 - .env.warehouse.loader is protected, ignored and provisioned; never print or recreate it.
@@ -82,41 +87,53 @@ Read with AGENTS, master plan, engineering standards, and execution protocol.
   Full Ruff lint/format (59 files), mypy (21 source files), frontend checks/build,
   package compatibility, Python/npm advisory and history secret scans passed.
   The existing AnyIO warning remains; no checks disabled.
-- Full-size COPY/replay, dbt and deployment: Not yet tested.
+- Full-size COPY and complete replay passed: 1,550,922 rows, same load UUID
+  12051b6f-5396-591b-bc5a-f86148eabb6f. Original manifest and all nine file hashes unchanged.
+  Full logical text digests/counts and exact money independently reconciled.
+  Raw size 275,750,912 bytes; database 287,026,323 bytes at final acceptance.
+  API schema access denied for anon/authenticated/service_role. See aggregate receipt.
+- M4 isolated tooling: lock resolution, installed-package compatibility, dbt --version and
+  advisory scan passed. No dbt project parse/build, transformer login or deployment tested.
 
 ## Current Repository Condition
 
-CLEAN / STABLE at the containing pre-load implementation checkpoint; SAFE TO RESUME.
-Actual restricted login passed permission tests. All synthetic fixture rows rolled back.
-Full-source production-size COPY and replay remain the first unverified acceptance step.
+CLEAN / STABLE at the containing M3 completion checkpoint. All source rows are committed;
+the repeat command verified_existing with unchanged identity and original provenance.
+Source files, migrations, role isolation and existing application remain intact.
+Do not rerun empty-landing fixture tests on this populated target or provision the loader again.
 
 ## Incomplete Work
 
-- Run the full load using the restricted login, then repeat the same command for complete
-  stored-snapshot verification. Record actual bytes, rows, exact money and unchanged source hashes.
-- If interrupted, read docs/warehouse-loading.md: verify committed state before retry.
-  Empty rows can retain allocated space; never disable capacity gates or auto-truncate.
-- M4 dbt models/M5 queries and populated reconstruction remain pending. Free/views first;
-  remeasure before any materialization. Audit E01–E10 retain their documented revisit gates.
-- No known failing check at this checkpoint. No reset credit, paid upgrade, merge or deployment.
+- M4: adopt the tested dbt version candidates in an optional group; validate the actual
+  project environment; implement restricted transformer settings/login and minimal dbt
+  project/profile/source configuration before model implementation. See docs/dbt-setup-plan.md.
+- Then build/test staging and dimensional models with explicit quality flags and retained rows.
+- M5: safe order-grain technical mart, example queries/plans, access and populated reconstruction.
+- Views first. Remeasure storage, rebuild overlap and performance before materialization.
+- E01–E10 audit revisit gates remain; E05/E06 now have partial Phase 3 implementation evidence.
+- No known failing check. No merge, deployment, paid upgrade, reset credit or production-readiness claim.
+- Usage reached 71% during acceptance; completed M3 and documented isolated M4 compatibility
+  proof rather than beginning credential/dependency changes across the actual project.
 
 ## Exact Next Actions
 
-1. Inspect status/history and current usage. Confirm the pre-load checkpoint is published.
-   Read docs/warehouse-loading.md; loader role/file already exist. Do not provision again.
-2. Run `uv run --locked --group warehouse python -m src.warehouse load` and preserve its
-   final result. Progress is not a commit; success is printed only after clean completion.
-3. Run the same command again: expect verified_existing with the same load identity.
-   Reconcile all counts/content/decimal evidence, actual storage and source integrity.
-4. Record M3 completion and checkpoint before starting M4 according to ADR 0003/0004.
+1. Read docs/dbt-setup-plan.md and ADR 0003/0004; inspect Git status/history and current usage.
+   Confirm M3 completion evidence in docs/warehouse-load-verification.json against actual state.
+2. Implement M4 tooling: add optional transform group with dbt-core==1.12.5 and
+   dbt-postgres==1.11.0 to pyproject.toml; resolve/review the single uv.lock, install locked
+   groups, include transform in quality/advisory checks, verify dbt version, and checkpoint.
+3. Implement/test transformer purpose and protected provisioning, then minimal dbt project,
+   secret-safe profile/wrapper and source declarations; run parse/debug and role-boundary tests.
+4. Checkpoint configuration before building staging/core models. Preserve grains and warnings;
+   do not start Phase 4 business analysis or Phase 5 KPI definitions.
 
 ## Git State
 
 - Branch feat/warehouse-foundation; main unchanged/unmerged.
-- Provisioned-login checkpoint 7cbf938; credential implementation e428801.
-- Source/capacity b6acd5b; applied landing schema 625dbe8; M2 foundation aa0104f/207b74f.
-- Atomic-loader implementation is the containing commit. Confirm clean status and publication
-  with Git; `git log -1 --format="%H %s" -- WORK_STATE.md` resolves the checkpoint.
+- Published pre-load code checkpoint 35ba3c5; loader provisioning evidence 7cbf938;
+  credential tooling e428801; applied landing migration 625dbe8.
+- M3 completion evidence is the containing commit. Confirm clean status and publication.
+- Resolve handoff commit with `git log -1 --format="%H %s" -- WORK_STATE.md`.
 
 ## Continuation Commands
 
@@ -125,12 +142,12 @@ Set-Location 'D:\My Projects\CommerceLens'
 git status --short --branch
 git log -5 --oneline
 uv run --locked --group warehouse python -m src.warehouse inspect
+# Full committed-snapshot verification; adds no rows for the same verified source:
 uv run --locked --group warehouse python -m src.warehouse load
-# Repeat load to verify the committed snapshot without adding rows.
 ./scripts/check.ps1 -Security -GitleaksPath '.artifacts/tools/gitleaks/gitleaks.exe'
 ```
 
-Live loading-fixture suite requires an empty isolated target; do not rerun it against
-populated landing. The actual-login access test remains safe after loading. See the guide.
-Never print credentials, source rows, or sensitive database error details.
-
+The load command streams all stored content on verification. Use it when needed, not
+after every documentation edit. Empty-target loading/bootstrap tests need a replacement
+isolated target; the actual-login access test remains safe on this populated database.
+Never print credentials, raw records or sensitive database diagnostics.

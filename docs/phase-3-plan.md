@@ -16,7 +16,7 @@ The phase exit remains a **tested analytical warehouse**, not a deployed analyti
 | --- | --- | --- | --- |
 | M1. Warehouse contracts | ADR with schemas, grains/types, join/quality policies, role boundaries, and recovery contract | Phase 2 evidence reviewed; original decimal/ZIP fields inspected; design and source observations consistent | Complete; implementation still pending |
 | M2. Isolated database foundation | Dedicated dev project; reviewed versioned bootstrap/migrations; secret-free examples and connection guidance | Target/version verified, encrypted connection, repeat migration, intended grants and denied access, API exposure review, disposable recovery test | Complete 2026-09-21: migration applied, replay/permissions/recovery checks passed |
-| M3. Reproducible loading | All nine verified source tables, provenance/load registry, exact monetary ingestion, atomic load | Source/hash/count/content reconciliation, exact decimal checks, idempotent rerun, failed-load rollback, unchanged raw files | Partial: capacity/source contracts complete; landing migration applied/verified; restricted login and atomic loader tests complete; full load pending |
+| M3. Reproducible loading | All nine verified source tables, provenance/load registry, exact monetary ingestion, atomic load | Source/hash/count/content reconciliation, exact decimal checks, idempotent rerun, failed-load rollback, unchanged raw files | Complete 2026-09-22: all 1,550,922 rows committed; full content/count/money and repeat verification passed |
 | M4. dbt staging and dimensions/facts | Pinned compatible dbt/Postgres tools; staging/intermediate/core models and explicit quality flags | dbt build, uniqueness/null/reference/domain tests, source reconciliation, synthetic grain and missing-data cases | Not started |
 | M5. Initial marts and handoff | Order-grain technical mart and reliable example SQL; access/recovery/developer guidance | Independent child aggregation, conserved counts/sums, repeat build, query-plan review, reconstruction/recovery verification, final checks and checkpoint | Not started |
 
@@ -63,13 +63,15 @@ Frontend integration/deployment and production automation remain in their master
 phases. This plan does not reopen or redo Phases 1–2.
 
 M3 storage decision: retain Free and use views initially, per owner choice.
-See [ADR 0004](decisions/0004-development-storage-budget.md) and
-[aggregate load plan](warehouse-load-plan.json). Source landing preserves all rows;
-actual restricted credentials, complete COPY, retry, and corruption checks remain pending.
+See [ADR 0004](decisions/0004-development-storage-budget.md) for limits and
+[loading/recovery guide](warehouse-loading.md) for operational checks.
 
-2026-09-22 credential tooling completed and tested, including private local-file ACLs.
-Actual restricted login provisioning/access checks and the full load remain pending;
-see WORK_STATE for the precise resumption sequence.
+## M3 completed — 2026-09-22
 
-Atomic loader and its recovery tests are implemented; full-data acceptance remains pending.
-See [loading/recovery guide](warehouse-loading.md) and WORK_STATE before running it.
+All nine tables loaded using the restricted login. Complete replay verified the same
+snapshot without duplication. Final raw/database sizes were 275,750,912 / 287,026,323
+bytes, within approved ceilings; API access remains denied. Original source integrity
+is unchanged. [Acceptance evidence](warehouse-load-verification.json) records counts,
+content digests, exact monetary totals, attribution and storage. 
+Next: [M4 dbt setup plan](dbt-setup-plan.md). Tool compatibility was checked in isolation;
+repository adoption, transformer configuration and dbt models remain unimplemented.

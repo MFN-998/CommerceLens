@@ -121,3 +121,13 @@ audit checks pass. They do block claiming that the application is already produc
   npm audit for frontend advisories. An advisory database does not detect every supply-chain risk.
 - [Gitleaks 8.30.1](https://github.com/gitleaks/gitleaks/releases/tag/v8.30.1), official Windows
   release verified against its published SHA-256 checksums. Scans redact finding values.
+
+## Phase 3 follow-up — 2026-09-22
+
+E05/E06 are partially addressed: versioned/checksummed migrations, verified TLS, private
+role boundaries, protected credentials and actual-login tests, atomic complete loading,
+full text/count/decimal reconciliation, idempotent retry and rollback fixtures now exist.
+All 1,550,922 source rows are verified; see [M3 acceptance](warehouse-load-verification.json).
+Dbt/model/join tests, populated reconstruction, deployment network controls and
+protected backup/restore for shared or irreplaceable state remain explicit gates.
+Historical Phase 1–2 observations above retain their original audit-date meaning.

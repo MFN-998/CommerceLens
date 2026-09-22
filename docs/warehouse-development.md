@@ -224,3 +224,8 @@ rows were uploaded. Provisioning must not be rerun against this existing login/f
 See [source loading and recovery](warehouse-loading.md) for the implemented restricted
 load command, complete reconciliation, retry semantics, empty-target tests, and physical
 storage recovery after interruption. Applied migrations and credentials remain unchanged.
+
+M3 completed 2026-09-22: the [full acceptance receipt](warehouse-load-verification.json)
+records the loaded, reconciled and idempotently verified private source snapshot. This
+target is now populated. Use the load command for full verification; empty-target fixture
+suites require a replacement isolated target. Continue with the [M4 setup plan](dbt-setup-plan.md).

@@ -1,0 +1,99 @@
+{
+  "verified_at_utc": "2026-09-22T10:05:28.460138+00:00",
+  "project_ref": "imvahwzlovgmaltuysmb",
+  "server_version": "17.6",
+  "session_user": "commercelens_ingest",
+  "tls_in_use": true,
+  "sslmode": "verify-full",
+  "load_id": "12051b6f-5396-591b-bc5a-f86148eabb6f",
+  "source_fingerprint": "1c315ab0ded33e558c6ed30190fa918699d91c616a3b6bf5900c0107570051db",
+  "manifest_sha256": "aa21797da3ee2e723a182c5899832dd4c436daef0f43a8812bbacace9775bcde",
+  "loaded_by": "commercelens_ingest",
+  "loaded_at": "2026-09-22T09:57:56.736519+00:00",
+  "first_run": {
+    "project_ref": "imvahwzlovgmaltuysmb",
+    "status": "loaded",
+    "load_id": "12051b6f-5396-591b-bc5a-f86148eabb6f",
+    "rows": 1550922,
+    "raw_bytes": 276004864,
+    "database_bytes": 287173779
+  },
+  "repeat_run": {
+    "project_ref": "imvahwzlovgmaltuysmb",
+    "status": "verified_existing",
+    "load_id": "12051b6f-5396-591b-bc5a-f86148eabb6f",
+    "rows": 1550922,
+    "raw_bytes": 275750912,
+    "database_bytes": 287026323
+  },
+  "row_total": 1550922,
+  "tables": {
+    "customers": {
+      "rows": 99441,
+      "content_sha256": "ec944b686fc3c5262932cb5d252a9472c45b7f749c773d7e31bdcf4c244c13ec",
+      "exact_money": {}
+    },
+    "geolocation": {
+      "rows": 1000163,
+      "content_sha256": "f0e9ebda9fd1622bea615cac635fe9e36c8126e1b446584eb7281302f38016b2",
+      "exact_money": {}
+    },
+    "orders": {
+      "rows": 99441,
+      "content_sha256": "8808424af68128316564557dd626c79a8e426db0dcb6221c01e8d53ee06aef3a",
+      "exact_money": {}
+    },
+    "order_items": {
+      "rows": 112650,
+      "content_sha256": "e57f197dac350caaaed699ec886df99bbbbd1ddf1ff092892a4ebe2315635fee",
+      "exact_money": {
+        "price": "13591643.70",
+        "freight_value": "2251909.54"
+      }
+    },
+    "order_payments": {
+      "rows": 103886,
+      "content_sha256": "b83cad7e4b95db9300ef89f2d6f6329a591c0498f6909ba6da24d0eb51888bf9",
+      "exact_money": {
+        "payment_value": "16008872.12"
+      }
+    },
+    "order_reviews": {
+      "rows": 99224,
+      "content_sha256": "93d1a1b03434a61f8f62440560781393658a6f05b3cb6be9c680993ed2a7af98",
+      "exact_money": {}
+    },
+    "products": {
+      "rows": 32951,
+      "content_sha256": "f95e8f85b6b17a7fabc6ec5ef397987a86a02bfb02f1f9afa08c86d2a36296c2",
+      "exact_money": {}
+    },
+    "sellers": {
+      "rows": 3095,
+      "content_sha256": "a80c38132a7c0972b36555859d00f61b3b2f15a8a2c600893c6f4de4c951d3f7",
+      "exact_money": {}
+    },
+    "category_translation": {
+      "rows": 71,
+      "content_sha256": "4652950573c33883192eb2121855d5e0080995137c1f50ad951d9186e076db5f",
+      "exact_money": {}
+    }
+  },
+  "relation_bytes_including_indexes_toast": {
+    "customers": 18849792,
+    "geolocation": 157229056,
+    "orders": 27205632,
+    "order_items": 26206208,
+    "order_payments": 15917056,
+    "order_reviews": 24084480,
+    "products": 5693440,
+    "sellers": 532480,
+    "category_translation": 32768
+  },
+  "raw_bytes": 275750912,
+  "database_bytes": 287026323,
+  "api_schema_access_denied": true,
+  "full_content_verification": "passed before first commit and on complete repeat run",
+  "source_integrity": "original manifest and all nine file hashes unchanged",
+  "initial_models": "views; fresh capacity review required before materialization"
+}
