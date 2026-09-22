@@ -9,8 +9,8 @@ Read with AGENTS, master plan, engineering standards and execution protocol.
 - Current milestone: dbt tooling and offline bootstrap COMPLETE; live setup pending.
 - Current task: establish a pre-provision checkpoint, then verify the transformer account.
 - Objective: tested analytical warehouse; staging/core models and M5 still pending.
-- SAFE TO RESUME. Usage constrained (last observed 14% five-hour / 12% weekly remaining);
-  finish this unit and checkpoint before any larger model implementation.
+- SAFE TO RESUME. Usage constrained (last observed 6% five-hour / 11% weekly remaining);
+  preservation mode: live provisioning deferred so validation/recovery has adequate capacity.
 
 ## Completed Work
 
@@ -94,7 +94,8 @@ Do not rerun empty-target fixtures on this database or reprovision the existing 
 - Latest tooling commit dfecdbc; published M3 acceptance 2604e82, loader 35ba3c5.
 - Bootstrap/docs are the containing checkpoint; verify final status and publication.
 - Resolve handoff commit with git log -1 --format="%H %s" -- WORK_STATE.md.
-- Staged export and post-commit history scans must pass before pushing the feature branch.
+- Bootstrap staged export and post-commit history scans passed before its verified push.
+  Repeat these scans for the final handoff; confirm clean status after publication.
 
 ## Continuation Commands
 
