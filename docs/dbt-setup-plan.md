@@ -83,7 +83,19 @@ passed: 203 tests, 14 opt-in live tests skipped, Ruff, mypy (22 source files), o
 parse, frontend checks/build, 111-package compatibility, advisory and history secret scans.
 The CLI command's Literal annotation was corrected after mypy rejected an inferred string.
 
-This is the pre-provision checkpoint: the transformer credential file does not exist yet;
-actual login/access and dbt debug are Not yet tested. No models or database objects were
+At this historical pre-provision checkpoint, the transformer credential file did not exist;
+actual login/access and dbt debug had not yet been tested. No models or database objects were
 built by this unit. Follow [dbt development](dbt-development.md) and WORK_STATE for the
 next verified operation, then staging/core implementation. Do not repeat tooling adoption.
+
+## Live setup complete — 2026-09-25
+
+Transformer provisioning, actual-role identity/TLS/permissions/view ownership and cleanup,
+the existing loader access regression and real dbt adapter debug all passed. Protected
+credentials exist locally and remain ignored. Postflight confirmed the original load
+registry, matching migrations and zero persistent derived relations. See the dated
+[live acceptance evidence](dbt-development.md#live-setup-accepted--2026-09-25).
+
+Tooling and setup are COMPLETE; M4 models/tests remain pending. Next implement one customer
+staging view and a narrowly selected safe dbt build/test path, with source/lineage/ZIP and
+repeated-customer-identity fixtures and live reconciliation. Checkpoint before more models.

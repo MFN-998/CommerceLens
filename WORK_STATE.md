@@ -1,101 +1,104 @@
 # CommerceLens work state
 
-Updated: 2026-09-22. Repository: `D:\My Projects\CommerceLens`.
+Updated: 2026-09-25. Repository: `D:\My Projects\CommerceLens`.
 Read with AGENTS, master plan, engineering standards and execution protocol.
 
 ## Project State
 
 - Phases 1–2/audit COMPLETE; Phase 3 M1–M3 COMPLETE; M4 IN PROGRESS.
-- Current milestone: dbt tooling and offline bootstrap COMPLETE; live setup pending.
-- Current task: establish a pre-provision checkpoint, then verify the transformer account.
-- Objective: tested analytical warehouse; staging/core models and M5 still pending.
-- SAFE TO RESUME. Usage constrained (last observed 6% five-hour / 11% weekly remaining);
-  preservation mode: live provisioning deferred so validation/recovery has adequate capacity.
+- Current milestone: dbt tooling/bootstrap and live transformer setup COMPLETE.
+- Current task: checkpoint verified live setup; next is one customer staging model.
+- Objective: tested analytical warehouse; M4 models/tests and M5 remain pending.
+- SAFE TO RESUME. Weekly budget constrains scope: 10% at session start, last observed
+  8% weekly / 82% five-hour remaining. No model implementation started this session.
 
 ## Completed Work
 
-- M3: nine source tables / 1,550,922 rows, exact text/count/money and idempotent replay
-  verified; docs/warehouse-load-verification.json holds immutable acceptance evidence.
-- Resumed clean 2604e82, rechecked live migration checksums and load registry identity.
-- dfecdbc adopted pinned optional dbt tooling and passed the full project quality gate.
-- Added restricted transformer purpose/shared provisioning, preserving tested loader
-  safeguards; minimal dbt project/profile, nine raw sources, approved-schema macro.
-- Added isolated parse/debug wrapper, offline/secret-handling regression coverage,
-  rollback-only actual-login integration test and offline parse in the quality gate.
-- Fixed the CLI Literal type inference failure; full gate now passes.
+- Resumed clean published e160563; reconciled stale pending-checkpoint wording with Git.
+- Preflight confirmed intended development project, verify-full TLS, applied migration
+  checksums, original M3 source registry and absence of transformer role/credential file.
+- Provisioned commercelens_transform once using reviewed implementation 6183918.
+- Both actual transformer and existing loader access tests passed; dbt-debug passed.
+- Checked private-file ACL/ignore rules, artifact secret absence, database capacity,
+  unchanged migration/registry metadata and rollback cleanup. Updated phase/setup evidence.
+- Historical M3: all nine source tables / 1,550,922 rows loaded and full idempotent replay
+  verified. docs/warehouse-load-verification.json remains its acceptance evidence.
 
 ## Files
 
-- Created: dbt/dbt_project.yml, dbt/profiles/profiles.yml, dbt/models/sources.yml,
-  dbt/macros/generate_schema_name.sql, src/warehouse/dbt_runner.py,
-  tests/test_warehouse_dbt.py, tests/test_warehouse_transformer_access_integration.py,
-  docs/dbt-development.md.
-- Modified: src/warehouse/{config,credentials,__main__}.py, corresponding config,
-  credentials and CLI tests, scripts/check.ps1, CONTRIBUTING.md, docs/dbt-setup-plan.md,
-  docs/phase-3-plan.md and this file. Tooling checkpoint changed pyproject.toml/uv.lock.
-- Nothing deleted/renamed. Applied migrations and source data unchanged.
-- Protected .env.warehouse/.env.warehouse.loader remain ignored; transformer file absent.
+- Modified: WORK_STATE.md, docs/dbt-development.md, docs/dbt-setup-plan.md,
+  docs/phase-3-plan.md, docs/decisions/0003-warehouse-contract.md.
+- Created locally only: protected ignored .env.warehouse.transformer.
+- No source-code/dependency/migration changes, deletions or renames this session.
+- Existing admin/loader credentials, raw data and dbt configuration preserved.
 
 ## Technical Decisions
 
-- Optional transform group: dbt-core 1.12.5 / dbt-postgres 1.11.0, single manifest/lock.
-  Shared transitive changes pathspec 1.1.1 → 1.0.4 and protobuf 7.36.2 → 6.33.6.
-- Separate NOINHERIT transformer LOGIN; explicit capability role, verify-full/trusted CA,
-  private credential file, no admin fallback, no overwrite and uncertain-commit recovery.
-- Offline parse uses synthetic complete settings with no private-file reads or connection.
-  Debug uses only transformer settings. Fixed safe diagnostics; telemetry/file logs off.
-- One thread, views, only staging/core/marts schema names. No raw writes or API exposure.
-- Free/views policy: raw ceiling 367M bytes, database ceiling 400M; review capacity and
-  performance before materialization. No paid upgrade, source omission or business KPIs.
+- Dedicated NOINHERIT LOGIN, member only of commercelens_transformer; explicit role,
+  trusted CA and verify-full. No administrator fallback or credential overwrite.
+- One thread, views and only staging/core/marts schemas. Raw remains read-only to dbt.
+- Optional pinned dbt Core 1.12.5 / Postgres adapter 1.11.0; one manifest/lock.
+- Safe wrapper currently supports only parse/debug; build/test requires a reviewed extension.
+- Free-plan raw/database ceilings remain 367M/400M bytes. Review capacity/performance
+  before materialization. No paid upgrade, source omission or business KPI definitions.
+- Live permission tests use unconditional rollback. Git rollback does not remove database
+  roles: retain the valid private credentials; never rerun provision-transformer blindly.
 
 ## Validation
 
-- Full -Transform -Security gate passed on 2026-09-22: 203 tests / 14 opt-in live cases
-  skipped; Ruff lint/format; mypy 22 source files; offline dbt parse; frontend formatting,
-  lint/types/build; 111 installed packages compatible; Python/npm advisory scans clean;
-  Git history secret scan clean. Existing documented AnyIO deprecation warning remains.
-- Offline tests exercised actual dbt parsing and a deliberately failed debug with network
-  guards; they verify schema selection and synthetic secret absence, not live credentials.
-- Transformer file absent; ignore rules cover credentials and generated dbt artifacts.
-- Live transformer access/TLS/ownership and dbt debug: Not yet tested. No model build.
-- Historical M3: all 10 live loading/recovery cases, actual loader access, full COPY and
-  verified-existing replay passed. Raw/database bytes 275,750,912 / 287,026,323.
-- This resume rechecked migration checksums and load registry without reloading sources.
-- No E2E/deployment validation applies to this setup unit; no production readiness claim.
+- 2026-09-25: 2 actual-login integration tests passed in 26.05s (transformer and loader).
+  Verified TLS/identity, membership/NOINHERIT/connection limit, explicit role, raw read,
+  denied raw writes/escalation/ledger access, view ownership, API denials and cleanup.
+- Actual dbt-debug passed with restricted credentials and verify-full profile.
+- Windows ACL verified: current owner/SYSTEM/Administrators only, no inherited entries.
+  Initial sandbox ACL inspection was denied; elevated metadata-only verification passed.
+- Read-only postflight: migration hashes match, original load registry unchanged, zero
+  derived relations, database 287,050,899 bytes; no password in 5 generated dbt files.
+- Historical 2026-09-22 full gate: 203 passed / 14 opt-in skipped, Ruff, mypy 22 files,
+  offline parse, frontend format/lint/types/build, 111 compatible packages, advisory and
+  secret scans passed. Existing documented AnyIO warning. Not rerun for documentation-only
+  changes; current live tests supply the previously missing connection/access evidence.
+- Full raw content was not rescanned/reloaded this session. M3 content evidence remains
+  historical (raw/database bytes then 275,750,912 / 287,026,323).
+- No analytical dbt build/data tests, E2E or deployment validation yet.
 
 ## Current Repository Condition
 
-CLEAN / STABLE implementation; documentation and bootstrap pending the containing
-checkpoint at writing. Full gate passed. SAFE TO RESUME; M3 remains populated.
-Do not rerun empty-target fixtures on this database or reprovision the existing loader.
+CLEAN / STABLE implementation and verified live setup; only the listed documentation is
+pending the containing checkpoint at writing. SAFE TO RESUME. No known failing checks.
+M3 remains populated; do not rerun empty-target fixtures against this database.
 
 ## Incomplete Work
 
-- Provision transformer once; verify real identity/TLS, denied privileges, view ownership,
-  cleanup and dbt adapter debug. Credentials/role have not been created by this unit.
-- No staging/core models, dbt data tests/build or M5 marts/SQL/reconstruction yet.
+- M4 staging/core models, dbt data tests/build and M5 technical marts/queries/reconstruction.
+- Extend wrapper for narrowly selected model build/test before executing models; retain
+  private settings, safe diagnostics, approved schemas, one thread and views.
 - Audit E01–E10 revisit gates remain; E05/E06 have documented partial Phase 3 remediation.
-- No known failing checks. No reset credit, paid upgrade, merge or deployment.
+- No usage credit redeemed, paid upgrade, merge, deployment or production readiness claim.
 
 ## Exact Next Actions
 
-1. Read docs/dbt-development.md; inspect status/history and usage. Check whether
-   .env.warehouse.transformer exists (metadata only); provisioning also checks role absence.
-2. With adequate usage for validation/recovery, run provision-transformer once. If file or
-   role exists, reconcile before any retry; never delete/overwrite credentials blindly.
-3. Run the rollback-only transformer access integration test and dbt-debug from the guide.
-   Update this handoff immediately with actual outcome; checkpoint before model work.
-4. Implement staging types/quality flags and core dimensions/facts from ADR 0003 in
-   atomic tested units. Preserve views-first ADR 0004, source counts and child grains.
+1. Inspect usage/status/history and read ADR 0003 plus dbt development acceptance. Inspect
+   src/warehouse/dbt_runner.py and tests/test_warehouse_dbt.py to plan the selected build/test
+   extension. Both restricted accounts already exist: do not provision them again.
+2. Implement one atomic customer staging unit: dbt/models/staging/stg_customers.sql and
+   model/test YAML. Preserve one row per customer_id, lineage, identifiers/ZIP text and
+   city/state meaning; repeated customer_unique_id is valid. Document empty-string/null
+   handling; no arbitrary address, deduplication, geography expansion or KPI policy.
+3. Validate offline fixtures (leading-zero ZIP, repeated identity, missing text/invalid
+   keys), parse and selected live dbt build/tests. Reconcile raw/staging counts, lineage and
+   fields; verify view ownership/API denials. Failed model tests are not accepted builds.
+4. Run applicable full gates and secret scans, document any persistent view and restoration
+   path, update this state and checkpoint before implementing additional staging/core models.
 
 ## Git State
 
 - Branch feat/warehouse-foundation; main unchanged/unmerged.
-- Latest tooling commit dfecdbc; published M3 acceptance 2604e82, loader 35ba3c5.
-- Bootstrap/docs are the containing checkpoint; verify final status and publication.
-- Resolve handoff commit with git log -1 --format="%H %s" -- WORK_STATE.md.
-- Bootstrap staged export and post-commit history scans passed before its verified push.
-  Repeat these scans for the final handoff; confirm clean status after publication.
+- Resumed published e160563; implementation 6183918; tooling dfecdbc; M3 2604e82.
+- Working tree was clean before this session. Only listed documentation is changed.
+- Current acceptance/handoff is the containing commit; resolve it with
+  git log -1 --format="%H %s" -- WORK_STATE.md.
+- Review diff, scan staged export and post-commit history, publish then confirm clean status.
 
 ## Continuation Commands
 
@@ -106,9 +109,8 @@ git log -5 --oneline
 uv sync --locked --group data --group warehouse --group transform
 ./scripts/check.ps1 -Transform -Security -GitleaksPath '.artifacts/tools/gitleaks/gitleaks.exe'
 uv run --locked --group warehouse --group transform python -m src.warehouse dbt-parse
-uv run --locked --group warehouse python -m src.warehouse provision-transformer
 uv run --locked --group warehouse --group transform python -m src.warehouse dbt-debug
 ```
 
-Only provision after the absence/recovery checks above. Actual-login test commands are in
-docs/dbt-development.md. Never print credentials, raw records or sensitive driver errors.
+Actual-login opt-in test commands are in docs/dbt-development.md. Do not print private
+configuration, raw records or driver errors. Development target remains Supabase CommerceLens.

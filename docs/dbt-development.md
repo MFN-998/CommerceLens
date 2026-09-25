@@ -83,3 +83,28 @@ Next implement staging types/quality flags and dimensional models from
 Materialization needs the capacity/performance review in
 [ADR 0004](decisions/0004-development-storage-budget.md). Phase 4 business analysis and
 Phase 5 KPI definitions remain outside this setup milestone.
+
+## Live setup accepted — 2026-09-25
+
+On development project `imvahwzlovgmaltuysmb`, the preflight confirmed matching applied
+migration checksums, the original M3 load registry and absence of transformer role/file.
+Provisioning then created `commercelens_transform` once using implementation `6183918`.
+Its ignored credential file has inheritance disabled and access limited to its current
+owner, SYSTEM and Administrators. Never reprovision this existing account blindly.
+
+Both actual-login tests passed (transformer and existing loader, 2 tests / 26.05 seconds).
+The transformer test verified TLS, NOINHERIT/membership/connection limit, explicit capability
+selection, raw read access, denied raw writes and privilege escalation, view ownership and
+denied API-role access. All probe objects rolled back. Real `dbt-debug` passed through the
+pinned adapter and verify-full profile. This completes setup, not the analytical warehouse.
+
+Read-only postflight reconfirmed migration checksums and the original source load registry.
+There were zero derived relations in staging/core/marts and database size was 287,050,899
+bytes, below the 400,000,000-byte ceiling. No transformer password was found in the five
+generated dbt files checked. Full source content was not rescanned; M3's acceptance remains
+historical evidence. No raw reload, migration, analytical model build or deployment ran.
+
+The full 203-test/style/type/frontend/build/advisory gate last passed on 2026-09-22.
+This live verification changed no implementation or dependency files; only documentation
+and the private local credential file changed. Follow WORK_STATE for the next atomic model
+unit and rerun the full applicable gate when implementing its execution path and SQL.

@@ -1,6 +1,8 @@
 # ADR 0003: Phase 3 warehouse contract and development isolation
 
-Status: Accepted design for M1, 2026-09-20. **Not yet implemented or database-tested.**
+Status: Accepted design for M1, 2026-09-20. Implementation/database testing were pending
+at that design checkpoint. Current completion and evidence are tracked in the
+[Phase 3 plan](../phase-3-plan.md); this ADR is the design contract, not live progress.
 Authority: master-plan Phase 3 and the owner's dedicated Supabase development selection.
 Inputs: [source dictionary](../data_dictionary/initial.md), [quality report](../data-quality-report.md),
 [source observations](../warehouse-source-observations.json), and [ADR 0002](0002-source-quality.md).
