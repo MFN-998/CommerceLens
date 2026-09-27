@@ -67,5 +67,24 @@ References: [dbt data tests](https://docs.getdbt.com/docs/build/data-tests),
 ## Acceptance status
 
 Offline focused checks passed (47); type checking passed (22 implementation files).
-Warehouse/API regression run and live build/repeat/data/ownership checks are pending.
-No customer staging view has been built at this pre-risk code checkpoint.
+Warehouse/API regression passed: 168 tests, 14 opt-in live tests skipped; documented AnyIO
+warning only. Initial parser/options and API fixture-scope errors were fixed before acceptance.
+The retained fixture is at repository-root conftest.py, covering API and warehouse tests.
+
+Live first and repeat builds passed: one view and 12 dbt data tests each. The read-only
+customer integration test passed separately. All 99,441 source rows are retained; types,
+ownership, API-role denials and absence of intermediate/backup relations were verified.
+The repeat build preserved relation OID, owner and grants. Database size was
+287,059,091 bytes. No transformer password was found in repeat artifacts.
+See [acceptance evidence](customer-staging-verification.json).
+
+This atomic customer unit is COMPLETE. Other eight staging sources, core dimensions/facts
+and M5 remain pending. No dataset reload, package upgrade, deletion or deployment occurred.
+The old full source/frontend gate was not rerun because its automatic cleanup requires
+approval/adaptation; current implementation/dependencies do not change those components.
+
+To repeat the read-only acceptance test, set COMMERCE_WAREHOUSE_CUSTOMER_INTEGRATION=1
+and use the retained pytest command above with tests/test_warehouse_customer_integration.py.
+Restore the environment flag afterward. For a compatible SQL fix, edit the tracked model,
+validate, then use the selected build command; do not drop/recreate the view. Incompatible
+schema changes need a separately reviewed non-deleting migration or specific deletion approval.

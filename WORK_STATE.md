@@ -1,104 +1,101 @@
 # CommerceLens work state
 
 Updated: 2026-09-27. Repository: `D:\My Projects\CommerceLens`.
-Read with AGENTS, master plan, engineering standards and execution protocol.
+Read AGENTS, master plan, engineering standards, execution protocol and deletion-and-governance.
 
 ## Project State
 
-- Phases 1–2/audit COMPLETE; Phase 3 M1–M3 COMPLETE; M4 IN PROGRESS.
-- Current milestone: dbt tooling/bootstrap and live transformer setup COMPLETE.
-- Current task: first customer staging view implemented; live validation pending.
-- Objective: tested analytical warehouse; M4 models/tests and M5 remain pending.
-- SAFE TO RESUME. Weekly budget constrains scope: 10% at session start, last observed
-  8% weekly / 82% five-hour remaining. No model implementation started this session.
+- Phases 1–2/audit and Phase 3 M1–M3 COMPLETE. M4 IN PROGRESS; M5 pending.
+- Current milestone: first customer staging view and tests COMPLETE / SAFE TO RESUME.
+- Current task: checkpoint live customer acceptance; next is a bounded additional source model.
+- Objective remains the tested analytical warehouse. No Phase 4 work or exit audit yet.
+- Allowance reset at start (97% five-hour / 100% weekly). Last observed 12% five-hour / 86%
+  weekly before final verification; preserve this completed unit rather than start another.
 
 ## Completed Work
 
-- Resumed clean published e160563; reconciled stale pending-checkpoint wording with Git.
-- Preflight confirmed intended development project, verify-full TLS, applied migration
-  checksums, original M3 source registry and absence of transformer role/credential file.
-- Provisioned commercelens_transform once using reviewed implementation 6183918.
-- Both actual transformer and existing loader access tests passed; dbt-debug passed.
-- Checked private-file ACL/ignore rules, artifact secret absence, database capacity,
-  unchanged migration/registry metadata and rollback cleanup. Updated phase/setup evidence.
-- Historical M3: all nine source tables / 1,550,922 rows loaded and full idempotent replay
-  verified. docs/warehouse-load-verification.json remains its acceptance evidence.
+- Resumed clean 142277c; verified live Supabase/dbt setup was already complete.
+- Recorded permanent deletion approval rule and post-Phase-3/pre-Phase-4 governance gate.
+- Added stg_customers, explicit null handling, source/lineage reconciliation and data tests.
+- Added narrowly selected dbt build/test with result validation; retained per-run artifacts.
+- Added non-deleting Postgres CREATE OR REPLACE view materialization and retained pytest fixture.
+- Built and rebuilt the customer view; live data/identity/access checks passed.
 
 ## Files
 
-- Modified: WORK_STATE.md, docs/dbt-development.md, docs/dbt-setup-plan.md,
-  docs/phase-3-plan.md, docs/decisions/0003-warehouse-contract.md.
-- Created locally only: protected ignored .env.warehouse.transformer.
-- No source-code/dependency/migration changes, deletions or renames this session.
-- Existing admin/loader credentials, raw data and dbt configuration preserved.
+- Created: docs/deletion-and-governance.md, docs/customer-staging.md,
+  docs/customer-staging-verification.json, conftest.py, dbt/macros/materializations/view.sql,
+  dbt/models/staging/stg_customers.sql/yml, three dbt/tests/stg_customers_*.sql files,
+  tests/test_warehouse_customer_staging.py and test_warehouse_customer_integration.py.
+- Modified: AGENTS.md, master plan, engineering standards, phase-3 plan, dbt-development,
+  CONTRIBUTING, WORK_STATE, dbt_project.yml, warehouse CLI/runner and CLI/dbt tests.
+- During implementation tests/conftest.py moved to root conftest.py to cover API tests;
+  neither path was previously tracked. No files/resources deleted. Artifacts retained/ignored.
+- No dependencies, applied migrations, source data or protected credentials changed.
 
 ## Technical Decisions
 
-- Dedicated NOINHERIT LOGIN, member only of commercelens_transformer; explicit role,
-  trusted CA and verify-full. No administrator fallback or credential overwrite.
-- One thread, views and only staging/core/marts schemas. Raw remains read-only to dbt.
-- Optional pinned dbt Core 1.12.5 / Postgres adapter 1.11.0; one manifest/lock.
-- Safe wrapper currently supports only parse/debug; build/test requires a reviewed extension.
-- Free-plan raw/database ceilings remain 367M/400M bytes. Review capacity/performance
-  before materialization. No paid upgrade, source omission or business KPI definitions.
-- Live permission tests use unconditional rollback. Git rollback does not remove database
-  roles: retain the valid private credentials; never rerun provision-transformer blindly.
+- Preserve one row per customer_id; cross-order customer_unique_id may repeat. Preserve
+  literal ZIP/IDs/text/lineage; exact empty text becomes NULL. Fail invalid data without removal.
+- Keep views on Free; raw/database ceilings 367M/400M bytes; no new materialized data copies.
+- Override only Postgres view materialization: CREATE OR REPLACE preserves object identity,
+  ownership/grants/dependents; incompatible columns or non-view replacement fail. No hooks,
+  SQL header or grant overrides. Failed data tests preserve the committed view for diagnosis.
+- Build/test requires exactly approved stg_customers; no arbitrary selectors/full-refresh.
+  Verify expected model/test results, rejecting empty successful selections. Transformer only.
+- Classic parser, test failure storage off, test schema staging, fresh retained artifact dirs.
+- Custom tmp_path uses UUID mkdir; targeted pytest uses capture=sys, no cache/autoload plugins.
+  Existing full check.ps1 includes source fixture and frontend deletion: do not run unapproved.
 
 ## Validation
 
-- 2026-09-25: 2 actual-login integration tests passed in 26.05s (transformer and loader).
-  Verified TLS/identity, membership/NOINHERIT/connection limit, explicit role, raw read,
-  denied raw writes/escalation/ledger access, view ownership, API denials and cleanup.
-- Actual dbt-debug passed with restricted credentials and verify-full profile.
-- Windows ACL verified: current owner/SYSTEM/Administrators only, no inherited entries.
-  Initial sandbox ACL inspection was denied; elevated metadata-only verification passed.
-- Read-only postflight: migration hashes match, original load registry unchanged, zero
-  derived relations, database 287,050,899 bytes; no password in 5 generated dbt files.
-- Historical 2026-09-22 full gate: 203 passed / 14 opt-in skipped, Ruff, mypy 22 files,
-  offline parse, frontend format/lint/types/build, 111 compatible packages, advisory and
-  secret scans passed. Existing documented AnyIO warning. Not rerun for documentation-only
-  changes; current live tests supply the previously missing connection/access evidence.
-- Full raw content was not rescanned/reloaded this session. M3 content evidence remains
-  historical (raw/database bytes then 275,750,912 / 287,026,323).
-- No analytical dbt build/data tests, E2E or deployment validation yet.
+- Ruff lint/format passed (69 Python files); mypy passed (22 implementation files).
+- 47 focused offline checks passed, including real guarded parse/debug and SQL fixtures.
+- Warehouse/API regression: 168 passed / 14 opt-in live tests skipped; known AnyIO warning.
+- Initial option/schema errors and API temp-fixture scope error resolved before acceptance.
+- First and repeat live dbt builds: one view plus 12 data tests passed each. Full source
+  field/lineage multiset reconciliation passed; raw/staging both 99,441 customer rows.
+- Separate live read-only customer integration test passed: physical types, owner, counts,
+  API denial and no swap relations. Repeat retained same relation OID/owner/grants.
+- Database 287,059,091 bytes; no password in repeat artifacts. See JSON evidence.
+- Full source/frontend/advisory gate not rerun: cleanup requires approval/adaptation and no
+  affected frontend/dependency changes. Historical full gate 2026-09-22 remains documented.
+- M3 historical evidence: all nine raw tables / 1,550,922 rows and idempotent replay verified.
+- No model training, E2E/deployment or full governance audit performed.
 
 ## Current Repository Condition
 
-CLEAN / STABLE implementation and verified live setup; only the listed documentation is
-pending the containing checkpoint at writing. SAFE TO RESUME. No known failing checks.
-M3 remains populated; do not rerun empty-target fixtures against this database.
+CLEAN / STABLE implementation at 193be34; customer view exists and is verified. Acceptance
+documentation/evidence pending the containing checkpoint at writing. SAFE TO RESUME.
+Do not delete artifacts, rerun empty-target fixtures, reprovision accounts or reload raw data.
 
 ## Incomplete Work
 
-- M4 staging/core models, dbt data tests/build and M5 technical marts/queries/reconstruction.
-- Extend wrapper for narrowly selected model build/test before executing models; retain
-  private settings, safe diagnostics, approved schemas, one thread and views.
-- Audit E01–E10 revisit gates remain; E05/E06 have documented partial Phase 3 remediation.
-- No usage credit redeemed, paid upgrade, merge, deployment or production readiness claim.
+- Remaining eight staging models, core dimensions/facts and their data tests; then M5 marts,
+  technical queries, performance and reconstruction checks. Customer-only unit is complete.
+- Any full source/frontend gate needs specifically approved deletion or a reviewed retained
+  workflow. No blanket cleanup approval exists. No known current failing customer check.
+- Audit E01–E10 retain their revisit gates. Comprehensive governance audit is required only
+  after all Phase 3 functionality passes; fix Critical/relevant Important issues before Phase 4.
 
 ## Exact Next Actions
 
-1. Inspect usage/status/history and read ADR 0003 plus dbt development acceptance. Inspect
-   src/warehouse/dbt_runner.py and tests/test_warehouse_dbt.py to plan the selected build/test
-   extension. Both restricted accounts already exist: do not provision them again.
-2. Implement one atomic customer staging unit: dbt/models/staging/stg_customers.sql and
-   model/test YAML. Preserve one row per customer_id, lineage, identifiers/ZIP text and
-   city/state meaning; repeated customer_unique_id is valid. Document empty-string/null
-   handling; no arbitrary address, deduplication, geography expansion or KPI policy.
-3. Validate offline fixtures (leading-zero ZIP, repeated identity, missing text/invalid
-   keys), parse and selected live dbt build/tests. Reconcile raw/staging counts, lineage and
-   fields; verify view ownership/API denials. Failed model tests are not accepted builds.
-4. Run applicable full gates and secret scans, document any persistent view and restoration
-   path, update this state and checkpoint before implementing additional staging/core models.
+1. Check usage/status/history; read docs/customer-staging.md and ADR 0003. Do not repeat
+   customer implementation or account setup. Verify metadata only if needed after a gap.
+2. Choose the next small staging source (sellers is a similar literal-text contract), inspect
+   its Phase 2 rules/observations, add SQL/YAML/reconciliation/synthetic tests and update the
+   approved selector intentionally. Preserve the no-delete materialization and private profile.
+3. Run retained relevant checks, then selected build/data/access and repeat verification.
+   Record evidence and checkpoint before wider staging/core work.
+4. Finish M4/M5, then run the required governance audit; Phase 4 cannot start before that gate.
 
 ## Git State
 
 - Branch feat/warehouse-foundation; main unchanged/unmerged.
-- Resumed published e160563; implementation 6183918; tooling dfecdbc; M3 2604e82.
-- Working tree was clean before this session. Only listed documentation is changed.
-- Current acceptance/handoff is the containing commit; resolve it with
+- Live setup 142277c; governance 47e35a7; customer implementation 193be34.
+- This final acceptance is the containing commit; resolve with
   git log -1 --format="%H %s" -- WORK_STATE.md.
-- Review diff, scan staged export and post-commit history, publish then confirm clean status.
+- Scan staged export and post-commit history; publish feature branch and verify clean status.
 
 ## Continuation Commands
 
@@ -106,26 +103,9 @@ M3 remains populated; do not rerun empty-target fixtures against this database.
 Set-Location 'D:\My Projects\CommerceLens'
 git status --short --branch
 git log -5 --oneline
-uv sync --locked --group data --group warehouse --group transform
-./scripts/check.ps1 -Transform -Security -GitleaksPath '.artifacts/tools/gitleaks/gitleaks.exe'
-uv run --locked --group warehouse --group transform python -m src.warehouse dbt-parse
-uv run --locked --group warehouse --group transform python -m src.warehouse dbt-debug
+.venv/Scripts/python.exe -B -m src.warehouse dbt-parse
+.venv/Scripts/python.exe -B -m src.warehouse dbt-test --select stg_customers
 ```
 
-Actual-login opt-in test commands are in docs/dbt-development.md. Do not print private
-configuration, raw records or driver errors. Development target remains Supabase CommerceLens.
-
-Active 2026-09-27: resumed clean 142277c; allowance reset (97% five-hour / 100% weekly).
-Recorded owner deletion rule and post-Phase-3/pre-Phase-4 audit gate. Next atomic unit is
-customer staging with narrowly selected dbt build/tests. Reviewing automatic cleanup before
-executing tests/builds; no deletion approval exists, no model/database change performed yet.
-
-Active customer implementation checkpoint 2026-09-27: selected build/test wrapper, retained
-dbt/pytest artifacts, non-deleting Postgres view materialization, customer SQL/YAML and tests
-implemented. Initial option/schema integration failures were corrected; 47 focused offline
-tests and mypy (22 files) passed. Warehouse/API regression is running. No live view built yet.
-Read docs/customer-staging.md before running commands. Full old check.ps1 includes deletion
-and must not run automatically. Next: finish regression, commit reviewed code, build only
-stg_customers, verify data/grants and repeat-build identity, then final checkpoint.
-
-Pre-build validation 2026-09-27: 168 warehouse/API tests passed, 14 live tests skipped; initial API temp-fixture scope error corrected by placing retained fixture at root conftest.py (file moved, not deleted). Ruff/type checks passed. Read-only customer live test added; execution pending. No live model built.
+Use docs/customer-staging.md for retained regression/build commands. Do not automatically
+run the older cleanup-based full gate. Never print credentials, raw records or driver errors.
