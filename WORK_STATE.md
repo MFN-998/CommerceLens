@@ -7,7 +7,7 @@ Read AGENTS, master plan, engineering standards, execution protocol and deletion
 
 - Phases 1–2 and their audit COMPLETE. Phase 3 M1–M3 COMPLETE; M4 IN PROGRESS; M5 pending.
 - Current milestone: customer and seller staging COMPLETE / SAFE TO RESUME.
-- Current task: checkpoint seller acceptance, then category translation staging.
+- Current task: category translation staging prepared; repository and live validation pending.
 - Overall objective: tested analytical warehouse; no Phase 4 work or comprehensive exit audit yet.
 - Latest allowance observation: 46% five-hour / 76% weekly; recheck before another major unit.
 
@@ -101,3 +101,10 @@ git log -5 --oneline
 
 Use docs/customer-staging.md for retained regression commands and docs/seller-staging.md
 for seller operation. No automatic cleanup; never print credentials, raw rows or driver errors.
+
+Active category unit: seven reviewed model/test files adopted from the scratch candidate,
+approved selector extended, guide added. Customer/seller remain complete. No live category
+build yet. Next run retained regression/style/type checks, checkpoint, then selected build,
+read-only acceptance and repeat verification. Code is PARTIALLY IMPLEMENTED for this unit.
+
+Category repository validation passed: 182 tests, 17 deliberate live skips, known AnyIO warning; Ruff lint/format (75 files), mypy (22 files). Reviewed model/test diff. Selected live build pending after code checkpoint.

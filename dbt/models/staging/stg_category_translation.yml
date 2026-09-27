@@ -1,0 +1,42 @@
+version: 2
+
+models:
+  - name: stg_category_translation
+    description: >-
+      One retained source row per original Portuguese product_category_name.
+      English translations may repeat and are not a unique key. Literal category
+      text, whitespace, case, accents and lineage are preserved. Exactly empty
+      text becomes null; missing mandatory values and duplicate Portuguese keys
+      fail data tests without dropping or repairing rows. Missing translation
+      coverage for products remains a separate Phase 2 warning; this lookup does
+      not invent translations or filter source categories by product usage.
+    config:
+      materialized: view
+      schema: staging
+    columns:
+      - name: _load_id
+        data_type: uuid
+        description: Unchanged immutable source snapshot identity from raw.
+        data_tests:
+          - not_null
+      - name: _source_row
+        data_type: bigint
+        description: Unchanged one-based logical CSV record ordinal within the load.
+        data_tests:
+          - not_null
+      - name: product_category_name
+        data_type: text
+        description: >-
+          Mandatory original Portuguese category and unique lookup key. Preserve
+          literal spelling; exactly empty text becomes null and fails validation.
+        data_tests:
+          - not_null
+          - unique
+      - name: product_category_name_english
+        data_type: text
+        description: >-
+          Mandatory supplied English translation with literal spelling preserved.
+          Exactly empty text becomes null and fails validation. Repeated English
+          values are valid; no unique test applies to this column.
+        data_tests:
+          - not_null
