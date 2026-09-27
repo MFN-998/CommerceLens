@@ -2,7 +2,8 @@
 
 Phase 3 M4 uses dbt to describe SQL transformations and their tests. Source loading remains
 in the existing Python loader; dbt will read that verified raw snapshot and own only the
-derived staging/core/marts objects. This setup creates no analytical models yet.
+derived staging/core/marts objects. Setup acceptance below is historical; current customer implementation is described in
+[the customer staging milestone](customer-staging.md).
 
 ## Install and check
 
@@ -70,7 +71,7 @@ tests the actual dbt adapter connection; it does not prove model correctness or 
 - Anonymous usage reporting and file logging are disabled. The wrapper suppresses subprocess
   output and returns a safe status or exit code; a failed debug may require private focused
   diagnosis of configuration/TLS/connectivity. Never paste raw connection exceptions or
-  credentials into logs/chat. This narrow wrapper currently exposes only parse/debug.
+  credentials into logs/chat. The wrapper now also exposes narrowly selected build/test; see customer-staging.md.
 - Generated `dbt/target`, logs and packages stay ignored. Offline tests inspect generated
   files for the synthetic password. The current wrapper uses synthetic credentials for
   manifests; don't upload artifacts from future live jobs without privacy review.
@@ -108,3 +109,7 @@ The full 203-test/style/type/frontend/build/advisory gate last passed on 2026-09
 This live verification changed no implementation or dependency files; only documentation
 and the private local credential file changed. Follow WORK_STATE for the next atomic model
 unit and rerun the full applicable gate when implementing its execution path and SQL.
+
+Follow [customer staging](customer-staging.md) for retained artifacts and current non-deleting
+validation commands. The earlier full check.ps1 command requires cleanup review/permission
+under the subsequently adopted deletion rule; do not run it unchanged automatically.

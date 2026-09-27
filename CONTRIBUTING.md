@@ -28,6 +28,13 @@ being pushed does not mean it was merged, deployed, or checked by CI.
 
 ## Quality gates
 
+Owner rule (2026-09-25): automatic cleanup also requires specific deletion approval.
+Do not execute the full gate below unchanged without reviewing its generated-resource
+deletions. Use [customer staging checks](docs/customer-staging.md) for current warehouse/API
+changes; preserve old outputs. Full source/frontend checks need approval or a reviewed
+non-deleting workflow before execution.
+
+
 Stop any Next development server in this checkout before running a production build.
 From PowerShell at the repository root:
 

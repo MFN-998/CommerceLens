@@ -15,3 +15,8 @@ models:
   commercelens:
     +materialized: view
     +schema: staging
+
+data_tests:
+  commercelens:
+    +store_failures: false
+    +schema: staging

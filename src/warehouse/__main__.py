@@ -35,14 +35,25 @@ def main() -> int:
             "provision-transformer",
             "dbt-parse",
             "dbt-debug",
+            "dbt-build",
+            "dbt-test",
         ],
     )
+    parser.add_argument("--select", help="One approved model for dbt-build/dbt-test")
     args = parser.parse_args()
     try:
-        if args.command in ("dbt-parse", "dbt-debug"):
-            dbt_command: DbtCommand = "parse" if args.command == "dbt-parse" else "debug"
-            print(json.dumps(run_dbt(dbt_command), indent=2))
+        dbt_commands: dict[str, DbtCommand] = {
+            "dbt-parse": "parse",
+            "dbt-debug": "debug",
+            "dbt-build": "build",
+            "dbt-test": "test",
+        }
+        if args.command in dbt_commands:
+            dbt_result = run_dbt(dbt_commands[args.command], select=args.select)
+            print(json.dumps(dbt_result, indent=2))
             return 0
+        if args.select is not None:
+            raise ValueError("Model selection is only supported for dbt commands")
         if args.command == "load":
             settings = load_settings(purpose="loader")
             print(

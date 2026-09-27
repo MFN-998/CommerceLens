@@ -159,8 +159,8 @@ def test_debug_rejects_admin_settings_before_starting_subprocess(
 
 
 def test_rejects_unapproved_command_before_reading_settings(dbt_root: Path) -> None:
-    with pytest.raises(dbt_runner.DbtError, match="Only dbt parse and debug"):
-        dbt_runner.run_dbt("build", dbt_root)  # type: ignore[arg-type]
+    with pytest.raises(dbt_runner.DbtError, match="Unsupported dbt command"):
+        dbt_runner.run_dbt("clean", dbt_root)  # type: ignore[arg-type]
 
 
 def test_tracked_profile_has_verified_tls_role_and_only_secret_references() -> None:
@@ -236,9 +236,12 @@ def test_real_dbt_parse_without_network_preserves_sources_and_schema_boundaries(
         return actual_run([args[0], "-I", "-c", guard, *args[4:]], **kwargs)
 
     monkeypatch.setattr(dbt_runner.subprocess, "run", guarded_run)
-    assert dbt_runner.run_dbt("parse", dbt_root)["status"] == "passed"
+    result = dbt_runner.run_dbt("parse", dbt_root)
+    assert result["status"] == "passed"
     assert not network_marker.exists()
-    manifest = json.loads((dbt_root / "dbt/target/manifest.json").read_text(encoding="utf-8"))
+    manifest = json.loads(
+        (dbt_root / str(result["artifacts"]) / "target/manifest.json").read_text(encoding="utf-8")
+    )
     sources = {source["name"]: source for source in manifest["sources"].values()}
     assert set(sources) == set(TABLES)
     for name, contract in TABLES.items():
@@ -247,11 +250,13 @@ def test_real_dbt_parse_without_network_preserves_sources_and_schema_boundaries(
         assert set(source["columns"]) == {"_load_id", "_source_row", *contract.columns}
         assert all(source["columns"][column]["data_type"] == "text" for column in contract.columns)
     for node in manifest["nodes"].values():
+        if not node["name"].startswith("probe_"):
+            continue
         assert node["schema"] == node["name"].removeprefix("probe_")
         assert node["config"]["materialized"] == "view"
     # Check every generated artifact, not just the public manifest.
     secret = b"offline-parse-synthetic-password"
-    for path in (dbt_root / "dbt").rglob("*"):
+    for path in dbt_root.rglob("*"):
         if path.is_file():
             assert secret not in path.read_bytes(), path.name
     (dbt_root / "dbt/models/forbidden.sql").write_text(
@@ -307,6 +312,82 @@ def test_real_debug_attempts_verified_connection_and_propagates_failure_safely(
     secret = transformer_settings.password.get_secret_value()
     output = capsys.readouterr()
     assert secret not in str(error.value) + output.out + output.err
-    for path in (dbt_root / "dbt").rglob("*"):
+    for path in dbt_root.rglob("*"):
         if path.is_file():
             assert secret.encode() not in path.read_bytes(), path.name
+
+
+@pytest.mark.parametrize("command", ["build", "test"])
+@pytest.mark.parametrize(
+    "selection",
+    [None, "*", "+stg_customers", "stg_customers+", "raw.customers", "stg_customers other"],
+)
+def test_model_jobs_reject_broad_or_missing_selection_before_settings(
+    command, selection, monkeypatch
+):
+    monkeypatch.setattr(
+        dbt_runner, "load_settings", lambda *a, **kw: pytest.fail("Must reject before secrets")
+    )
+    with pytest.raises(dbt_runner.DbtError, match="exactly one approved model"):
+        dbt_runner.run_dbt(command, select=selection)
+
+
+@pytest.mark.parametrize("command", ["build", "test"])
+def test_selected_model_job_uses_transformer_and_retains_distinct_artifacts(
+    command, dbt_root, transformer_settings, monkeypatch
+):
+    captured = []
+
+    def settings(root, *, purpose):
+        assert purpose == "transformer"
+        return transformer_settings
+
+    def capture(args, **kwargs):
+        captured.append(args)
+        target = Path(args[args.index("--target-path") + 1])
+        target.mkdir()
+        model_id = "model.commercelens.stg_customers"
+        test_id = "test.commercelens.customer_unique"
+        nodes = {
+            model_id: {
+                "resource_type": "model",
+                "config": {"enabled": True, "materialized": "view"},
+            },
+            test_id: {
+                "resource_type": "test",
+                "config": {"enabled": True},
+                "depends_on": {"nodes": [model_id]},
+            },
+        }
+        (target / "manifest.json").write_text(json.dumps({"nodes": nodes}))
+        results = [{"unique_id": test_id, "status": "pass"}]
+        if command == "build":
+            results.append({"unique_id": model_id, "status": "success"})
+        (target / "run_results.json").write_text(json.dumps({"results": results}))
+        return subprocess.CompletedProcess(args, 0)
+
+    monkeypatch.setattr(dbt_runner, "load_settings", settings)
+    monkeypatch.setattr(dbt_runner.subprocess, "run", capture)
+    first = dbt_runner.run_dbt(command, dbt_root, select="stg_customers")
+    retained = dbt_root / first["artifacts"] / "keep.txt"
+    retained.write_text("earlier result", encoding="utf-8")
+    second = dbt_runner.run_dbt(command, dbt_root, select="stg_customers")
+    assert first["artifacts"] != second["artifacts"]
+    assert retained.read_text(encoding="utf-8") == "earlier result"
+    for args in captured:
+        assert args[args.index("--select") + 1] == "stg_customers"
+        assert "--no-use-v2-parser" in args
+        assert "--store-failures" not in args
+        assert "--full-refresh" not in args
+
+
+@pytest.mark.parametrize("command", ["build", "test"])
+def test_success_exit_without_verified_selection_is_rejected(
+    dbt_root, transformer_settings, monkeypatch, command
+):
+    monkeypatch.setattr(dbt_runner, "load_settings", lambda *a, **kw: transformer_settings)
+    monkeypatch.setattr(
+        dbt_runner.subprocess, "run", lambda args, **kw: subprocess.CompletedProcess(args, 0)
+    )
+    with pytest.raises(dbt_runner.DbtError, match="complete selected view/test"):
+        dbt_runner.run_dbt(command, dbt_root, select="stg_customers")

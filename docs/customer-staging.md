@@ -1,0 +1,71 @@
+# Customer staging milestone
+
+Phase 3 M4; implementation prepared 2026-09-27 from verified live setup 142277c.
+Only stg_customers is approved for the selected build/test commands. Other source models,
+dimensions/facts and marts remain pending; no business KPIs or Phase 4 analysis are added.
+
+## Data contract
+
+staging.stg_customers retains one source row per customer_id and both lineage fields.
+customer_unique_id may repeat. IDs, ZIP text/leading zeros, city/state spelling and
+whitespace are preserved. Only exact empty strings become NULL. Missing mandatory data,
+duplicate keys/lineage and invalid formats fail tests without repairing or removing rows.
+Data tests compare complete raw/staging row multisets in both directions with EXCEPT ALL.
+
+## Non-deleting execution
+
+The owner forbids unapproved deletion, including automatically generated resources.
+The project's Postgres view materialization uses CREATE OR REPLACE VIEW rather than the
+standard dbt temporary/backup swap. Existing ownership, grants and dependent objects are
+preserved; replacing a non-view or changing existing column types/order fails. Hooks,
+SQL headers and grant overrides are rejected until separately reviewed. PostgreSQL commits
+the view before dbt data tests: failing tests mean failed acceptance, not automatic rollback
+of a successfully built view. Preserve the relation and diagnose; no automatic drop/cleanup.
+
+Every dbt invocation retains a unique ignored .artifacts/dbt directory. Parse uses synthetic
+settings; build/test use only protected transformer settings. Classic parser is explicit;
+telemetry and file logs stay disabled. Test failure storage is false, with test schema staging.
+Successful build/test status also requires nonempty matching model/test run-results evidence.
+No unrestricted selector, full refresh, clean or package-install command is exposed.
+
+```powershell
+.venv/Scripts/python.exe -B -m src.warehouse dbt-parse
+.venv/Scripts/python.exe -B -m src.warehouse dbt-build --select stg_customers
+.venv/Scripts/python.exe -B -m src.warehouse dbt-test --select stg_customers
+```
+
+## Offline validation without deletion
+
+Use the installed locked environment; direct execution avoids automatic dependency changes.
+The retained tmp_path fixture allocates UUID directories without pytest cleanup or symlinks.
+Run warehouse/API tests with plugin autoload disabled, system-stream capture and no cache.
+Do not run the existing full check.ps1 unchanged: source tests delete generated fixture data
+and Next builds clean generated output. Those paths need specific approval or a separately
+reviewed non-deleting workflow; they were not needed for this data-only change.
+
+```powershell
+$env:PYTEST_DISABLE_PLUGIN_AUTOLOAD = '1'
+$env:PYTHONDONTWRITEBYTECODE = '1'
+$warehouseTests = @(Get-ChildItem -LiteralPath tests -Filter 'test_warehouse*.py' -File | ForEach-Object { $_.FullName })
+.venv/Scripts/python.exe -B -m pytest @warehouseTests api/tests -o 'addopts=-ra' --capture=sys -p no:cacheprovider
+.venv/Scripts/python.exe -B -m ruff check . --no-cache
+.venv/Scripts/python.exe -B -m ruff format --check . --no-cache
+.venv/Scripts/python.exe -B -m mypy --cache-dir=nul
+```
+
+These commands are verified on Windows; nul is the Windows null device. Restore any changed
+environment settings in an interactive shell. Live checks require separate deliberate opt-in;
+do not run existing empty-target/loading fixtures against the populated warehouse.
+
+Offline SQLite SELECT/VALUES cases exercise the actual portable projection with synthetic
+inputs. They do not prove PostgreSQL regex/types/EXCEPT ALL or live privileges. Full gate
+results from 2026-09-22 remain historical; this milestone records its own relevant validation.
+
+References: [dbt data tests](https://docs.getdbt.com/docs/build/data-tests),
+[PostgreSQL CREATE VIEW](https://www.postgresql.org/docs/17/sql-createview.html).
+
+## Acceptance status
+
+Offline focused checks passed (47); type checking passed (22 implementation files).
+Warehouse/API regression run and live build/repeat/data/ownership checks are pending.
+No customer staging view has been built at this pre-risk code checkpoint.

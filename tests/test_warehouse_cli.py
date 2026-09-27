@@ -55,7 +55,8 @@ def test_dbt_cli_never_loads_administrator_configuration(monkeypatch, capsys, co
     def refuse_admin():
         pytest.fail("dbt commands must never request administrator settings")
 
-    def run_dbt(actual_command):
+    def run_dbt(actual_command, *, select):
+        assert select is None
         assert actual_command == command
         return {"command": f"dbt-{command}", "status": "passed"}
 

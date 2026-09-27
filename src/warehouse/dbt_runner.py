@@ -1,16 +1,19 @@
-"""Narrow dbt setup commands with explicit paths and no sensitive diagnostics."""
+"""Narrow dbt commands with explicit paths and no sensitive diagnostics."""
 
 from __future__ import annotations
 
+import json
 import os
 import subprocess
 import sys
 from pathlib import Path
 from typing import Literal
+from uuid import uuid4
 
 from src.warehouse.config import ROOT, WarehouseSettings, load_settings
 
-DbtCommand = Literal["parse", "debug"]
+DbtCommand = Literal["parse", "debug", "build", "test"]
+APPROVED_MODELS = frozenset({"stg_customers"})
 
 
 class DbtError(ValueError):
@@ -56,15 +59,22 @@ def _environment(settings: WarehouseSettings, certificate: Path) -> dict[str, st
     return environment
 
 
-def run_dbt(command: DbtCommand, root: Path = ROOT) -> dict[str, str | bool]:
-    """Parse offline, or debug the dedicated transformer login with verified TLS.
+def run_dbt(
+    command: DbtCommand, root: Path = ROOT, *, select: str | None = None
+) -> dict[str, str | bool]:
+    """Parse offline, or connect using the dedicated transformer login with verified TLS.
 
     Run only the current Python environment's pinned dbt installation. Output is
     discarded, not captured in memory or printed; dbt file logging is disabled.
     Secret-prefixed profile variables additionally enable dbt's own redaction.
     """
-    if command not in ("parse", "debug"):
-        raise DbtError("Only dbt parse and debug are available in the setup milestone")
+    if command not in ("parse", "debug", "build", "test"):
+        raise DbtError("Unsupported dbt command")
+    if command in ("build", "test"):
+        if select not in APPROVED_MODELS:
+            raise DbtError("Choose exactly one approved model for dbt build/test")
+    elif select is not None:
+        raise DbtError("Model selection is only supported for dbt build/test")
     root = root.resolve()
     project = root / "dbt"
     profiles = project / "profiles"
@@ -76,6 +86,9 @@ def run_dbt(command: DbtCommand, root: Path = ROOT) -> dict[str, str | bool]:
     if settings.purpose != "transformer":
         raise DbtError("dbt requires the dedicated transformer configuration")
     certificate = settings.sslrootcert if command == "parse" else settings.certificate_path(root)
+    # Retain each invocation's outputs; never clear an earlier target or log directory.
+    artifacts = root / ".artifacts" / "dbt" / uuid4().hex
+    artifacts.mkdir(parents=True, exist_ok=False)
     args = [
         sys.executable,
         "-I",
@@ -92,15 +105,18 @@ def run_dbt(command: DbtCommand, root: Path = ROOT) -> dict[str, str | bool]:
         "development",
         "--no-send-anonymous-usage-stats",
         "--no-partial-parse",
+        "--no-use-v2-parser",
         "--log-level",
         "none",
         "--log-level-file",
         "none",
         "--log-path",
-        str(project / "logs"),
+        str(artifacts / "logs"),
     ]
-    if command == "parse":
-        args.extend(["--target-path", str(project / "target")])
+    if command != "debug":
+        args.extend(["--target-path", str(artifacts / "target")])
+    if select is not None:
+        args.extend(["--select", select, "--indirect-selection", "eager"])
     try:
         result = subprocess.run(
             args,
@@ -125,4 +141,40 @@ def run_dbt(command: DbtCommand, root: Path = ROOT) -> dict[str, str | bool]:
             f"dbt {command} failed (exit {result.returncode}); check the locked transform "
             "environment and project/configuration. Subprocess detail was not logged."
         )
-    return {"command": f"dbt-{command}", "status": "passed", "offline": command == "parse"}
+    if command in ("build", "test"):
+        _verify_model_results(artifacts / "target", command, str(select))
+    return {
+        "command": f"dbt-{command}",
+        "status": "passed",
+        "offline": command == "parse",
+        "artifacts": str(artifacts.relative_to(root)),
+    }
+
+
+def _verify_model_results(target: Path, command: str, select: str) -> None:
+    """A zero-exit empty selection is not a successful model/test milestone."""
+    try:
+        manifest = json.loads((target / "manifest.json").read_text(encoding="utf-8"))
+        results = json.loads((target / "run_results.json").read_text(encoding="utf-8"))["results"]
+        model_id = f"model.commercelens.{select}"
+        model = manifest["nodes"][model_id]
+        if not model["config"]["enabled"] or model["config"]["materialized"] != "view":
+            raise ValueError
+        expected = {
+            key: "pass"
+            for key, node in manifest["nodes"].items()
+            if node["resource_type"] == "test"
+            and model_id in node["depends_on"]["nodes"]
+            and node["config"]["enabled"]
+        }
+        if not expected:
+            raise ValueError
+        if command == "build":
+            expected[model_id] = "success"
+        actual = {item["unique_id"]: item["status"] for item in results}
+        if len(actual) != len(results) or actual != expected:
+            raise ValueError
+    except (OSError, ValueError, KeyError, TypeError):
+        raise DbtError(
+            "dbt did not verify the complete selected view/test results; artifacts retained"
+        ) from None

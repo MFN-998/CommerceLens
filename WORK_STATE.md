@@ -1,13 +1,13 @@
 # CommerceLens work state
 
-Updated: 2026-09-25. Repository: `D:\My Projects\CommerceLens`.
+Updated: 2026-09-27. Repository: `D:\My Projects\CommerceLens`.
 Read with AGENTS, master plan, engineering standards and execution protocol.
 
 ## Project State
 
 - Phases 1–2/audit COMPLETE; Phase 3 M1–M3 COMPLETE; M4 IN PROGRESS.
 - Current milestone: dbt tooling/bootstrap and live transformer setup COMPLETE.
-- Current task: checkpoint verified live setup; next is one customer staging model.
+- Current task: first customer staging view implemented; live validation pending.
 - Objective: tested analytical warehouse; M4 models/tests and M5 remain pending.
 - SAFE TO RESUME. Weekly budget constrains scope: 10% at session start, last observed
   8% weekly / 82% five-hour remaining. No model implementation started this session.
@@ -119,3 +119,13 @@ Active 2026-09-27: resumed clean 142277c; allowance reset (97% five-hour / 100% 
 Recorded owner deletion rule and post-Phase-3/pre-Phase-4 audit gate. Next atomic unit is
 customer staging with narrowly selected dbt build/tests. Reviewing automatic cleanup before
 executing tests/builds; no deletion approval exists, no model/database change performed yet.
+
+Active customer implementation checkpoint 2026-09-27: selected build/test wrapper, retained
+dbt/pytest artifacts, non-deleting Postgres view materialization, customer SQL/YAML and tests
+implemented. Initial option/schema integration failures were corrected; 47 focused offline
+tests and mypy (22 files) passed. Warehouse/API regression is running. No live view built yet.
+Read docs/customer-staging.md before running commands. Full old check.ps1 includes deletion
+and must not run automatically. Next: finish regression, commit reviewed code, build only
+stg_customers, verify data/grants and repeat-build identity, then final checkpoint.
+
+Pre-build validation 2026-09-27: 168 warehouse/API tests passed, 14 live tests skipped; initial API temp-fixture scope error corrected by placing retained fixture at root conftest.py (file moved, not deleted). Ruff/type checks passed. Read-only customer live test added; execution pending. No live model built.
