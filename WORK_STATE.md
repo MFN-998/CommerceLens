@@ -6,17 +6,19 @@ Read AGENTS, master plan, engineering standards, execution protocol and deletion
 ## Project State
 
 - Phases 1–2 and their audit COMPLETE. Phase 3 M1–M3 COMPLETE; M4 IN PROGRESS; M5 pending.
-- Current milestone: customer and seller staging COMPLETE / SAFE TO RESUME.
-- Current task: category translation staging prepared; repository and live validation pending.
+- Current milestone: customer, seller and category translation staging COMPLETE / SAFE TO RESUME.
+- Current task: seller/category units complete; next implementation is products staging.
 - Overall objective: tested analytical warehouse; no Phase 4 work or comprehensive exit audit yet.
-- Latest allowance observation: 46% five-hour / 76% weekly; recheck before another major unit.
+- Usage is constrained; finish this checkpoint and stop before another implementation unit.
+  Latest observation: 15% five-hour / 71% weekly remaining. Recheck before resuming.
 
 ## Completed Work
 
 - Recovered clean published 1785472; no interrupted code edits. Customer read-only recheck passed.
 - Added seller projection, 11 dbt data tests, synthetic and read-only live tests, narrow selector.
 - Parameterized selected-runner regression across approved models. Retained existing view/profile design.
-- First/repeat seller builds passed; counts, reconciliation, ownership, types and API denials verified.
+- First/repeat seller and category builds passed; counts/reconciliation/types/ownership/API denials verified.
+- Added category projection, eight dbt tests, five synthetic tests and actual-login read-only acceptance.
 - Persisted project-file vs product-data deletion distinction and ongoing cleanliness obligations.
 - Specifically approved obsolete scan copies removed after resolved-path/reparse checks; Git status
   unchanged by cleanup: .artifacts/dbt-{tooling,bootstrap,handoff}-checkpoint-export folders
@@ -26,11 +28,12 @@ Read AGENTS, master plan, engineering standards, execution protocol and deletion
 
 - Added seller SQL/YAML, three dbt/tests/stg_sellers_*.sql, two tests/test_warehouse_seller_*.py,
   docs/seller-staging.md and docs/seller-staging-verification.json.
+- Added category SQL/YAML, three matching dbt tests, two category Python tests, guide and JSON evidence.
 - Modified src/warehouse/dbt_runner.py, tests/test_warehouse_dbt.py, customer guide, phase-3 plan,
   AGENTS.md, docs/deletion-and-governance.md and this handoff.
 - No tracked files deleted/renamed. No dependencies, migrations, source data or credentials changed.
-- Category candidate exists only in the chat scratch directory m4-category-candidate-20260927;
-  it is not integrated or live verified. Read its README and review before adoption.
+- Seller/category scratch candidates were adopted and verified; they remain outside the repo,
+  retained without deletion. Do not re-adopt them or treat them as active implementations.
 
 ## Technical Decisions
 
@@ -39,34 +42,40 @@ Read AGENTS, master plan, engineering standards, execution protocol and deletion
 - Free plan, views-first. Raw/database ceilings 367M/400M bytes. No materialized data copies.
 - Existing CREATE OR REPLACE view materialization preserves identity/owner/grants/dependents;
   incompatible schema replacement fails. Data tests follow view commit; failure is not rollback.
-- Only stg_customers/stg_sellers approved; transformer credentials and verify-full TLS only.
+- Only stg_customers/stg_sellers/stg_category_translation approved; transformer and verify-full TLS only.
+- Portuguese category is the unique key; English translations may repeat. Preserve missing
+  translation coverage warnings; no category/product filter or invented labels.
 - Retain UUID dbt/pytest artifacts, no file logs/telemetry/failure row storage. Existing full
   check.ps1 includes cleanup that needs specific permission or reviewed retained alternatives.
 - Scan complete staged changed files in memory with Gitleaks stdin; no new scan export archives.
 
 ## Validation
 
-- Seller unit: Ruff lint/format passed (72 files), mypy passed (22 implementation files).
-- Warehouse/API regression: 175 passed, 16 deliberately skipped, known AnyIO deprecation warning.
-- First/repeat seller dbt builds: one view plus 11 tests passed each. Full multiset reconciliation
-  passed; both raw/staging retain 3,095 rows. Separate read-only seller integration test passed.
-- Repeat preserved OID/owner/grants; no transformer password found in repeat artifacts.
-- See seller JSON for measured storage and exact test statuses. Customer prior evidence: 99,441
-  rows, 12 tests and repeat acceptance. M3: nine raw tables, 1,550,922 rows; no reload needed.
-- Complete staged implementation contents secret scan passed before 7cc622f. Final docs/history
-  scan and publication pending this checkpoint. Do not claim advisory/full UI gate rerun.
-- Source/frontend/dependency gate was last run 2026-09-22; unchanged here and not rerun.
-- No deployment, E2E or comprehensive post-Phase-3 audit performed.
+- Final Ruff lint/format passed (75 files); mypy passed (22 implementation files).
+- Warehouse/API regression: 182 passed, 17 deliberately skipped; known AnyIO deprecation warning.
+- Real guarded offline dbt parse and selected-runner tests passed for the expanded project.
+- Seller first/repeat builds: 11 tests each, 3,095 rows; category: eight tests each, 71 rows.
+  Full multiset reconciliation passed. Separate live read-only tests passed for both models.
+- Repeat OID/owner/grants preserved and passwords absent from repeat artifacts. Aggregate
+  evidence in seller/category JSON files; storage below 400M bytes. No raw reload.
+- Customer read-only resume check passed. Its prior build evidence retains 99,441 rows/12 tests.
+- M3 acceptance remains nine tables/1,550,922 rows. Do not rerun destructive empty-target fixtures.
+- Complete staged implementation secret scans passed; seller history scan/publication passed.
+  Final acceptance also requires staged-content and history scanning before publication.
+- Full source/frontend/advisory gate not rerun; last historical pass 2026-09-22. No dependency
+  changes, deployment, E2E or comprehensive post-Phase-3 audit this session.
 
 ## Current Repository Condition
 
-CLEAN / STABLE implementation at 7cc622f; seller acceptance documentation/evidence pending
-the containing checkpoint at writing. SAFE TO RESUME. No known failing seller check.
+STABLE / SAFE TO RESUME. Implementation e9b1da6 and the containing acceptance checkpoint
+record both completed units. No known failing current checks. Verify actual Git cleanliness
+and publication on resume; no remaining partial model implementation.
 
 ## Incomplete Work
 
-- Seven remaining staging models, core dimensions/facts and tests; M5 marts/technical queries,
-  performance and reconstruction checks. Category translation is the next small unit.
+- Six staging sources remain: products, orders, order_items, order_payments, order_reviews,
+  geolocation. Then core dimensions/facts/tests, M5 marts/technical queries, performance and
+  reconstruction checks. Products staging is the next unit; it has nullable typed attributes.
 - Existing full check.ps1 cleanup requires permission/adaptation. Do not run empty-target
   live loading fixtures against the populated warehouse or reprovision accounts.
 - Audit E01–E10 keep their revisit gates. Full governance audit only after all Phase 3 passes;
@@ -74,19 +83,20 @@ the containing checkpoint at writing. SAFE TO RESUME. No known failing seller ch
 
 ## Exact Next Actions
 
-1. Inspect usage/status/history and seller acceptance evidence. Finish final scan/checkpoint
-   and publication if not already in Git; do not repeat customer/seller implementation.
-2. Review m4-category-candidate-20260927 in this chat scratch directory, the source contract
-   and ADR 0003. Adopt only its seven model/test files; expand the approved selector.
-3. Run retained regression/parse/style/type checks, code checkpoint, selected live category
-   build and read-only acceptance/repeat checks. Record evidence and checkpoint.
+1. Check allowance, git status and recent history; read category/seller evidence and compare
+   with this handoff. Confirm the containing acceptance commit is published and the tree clean.
+2. Read src/validation/contracts.py TABLES["products"], docs/data-quality-report.md product
+   warnings and ADR 0003. Implement stg_products with nullable typed attributes and explicit
+   quality flags; preserve missing categories, missing dimensions and zero weight as specified.
+3. Add source/lineage/domain/reconciliation and meaningful synthetic tests, extend the narrow
+   selector, run retained checks, checkpoint, then live build/access/repeat acceptance.
 4. Continue remaining M4/M5 units, then required governance gate before Phase 4.
 
 ## Git State
 
 - Branch feat/warehouse-foundation; main unchanged/unmerged.
-- Customer acceptance 1785472; seller implementation 7cc622f.
-- Final acceptance is the containing commit: git log -1 --format="%H %s" -- WORK_STATE.md.
+- Customer acceptance 1785472; seller implementation 7cc622f/acceptance 304bf75.
+- Category implementation e9b1da6; final acceptance is the containing commit: git log -1 --format="%H %s" -- WORK_STATE.md.
 - Scan staged contents/history, push feature branch and confirm clean status after commit.
 
 ## Continuation Commands
@@ -96,15 +106,8 @@ Set-Location 'D:\My Projects\CommerceLens'
 git status --short --branch
 git log -5 --oneline
 .venv/Scripts/python.exe -B -m src.warehouse dbt-parse
-.venv/Scripts/python.exe -B -m src.warehouse dbt-test --select stg_sellers
+.venv/Scripts/python.exe -B -m src.warehouse dbt-test --select stg_category_translation
 ```
 
 Use docs/customer-staging.md for retained regression commands and docs/seller-staging.md
-for seller operation. No automatic cleanup; never print credentials, raw rows or driver errors.
-
-Active category unit: seven reviewed model/test files adopted from the scratch candidate,
-approved selector extended, guide added. Customer/seller remain complete. No live category
-build yet. Next run retained regression/style/type checks, checkpoint, then selected build,
-read-only acceptance and repeat verification. Code is PARTIALLY IMPLEMENTED for this unit.
-
-Category repository validation passed: 182 tests, 17 deliberate live skips, known AnyIO warning; Ruff lint/format (75 files), mypy (22 files). Reviewed model/test diff. Selected live build pending after code checkpoint.
+and docs/category-translation-staging.md for selected model operation. No automatic cleanup; never print credentials, raw rows or driver errors.

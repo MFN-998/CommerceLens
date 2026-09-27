@@ -25,4 +25,11 @@ Read-only acceptance: tests/test_warehouse_category_translation_integration.py w
 COMMERCE_WAREHOUSE_CATEGORY_TRANSLATION_INTEGRATION=1. Enable only the intended test.
 Data tests follow view commit; a failed test requires diagnosis, not a claim of rollback.
 
-Status: prepared; repository validation and live build/acceptance pending.
+Status: COMPLETE. Ruff lint/format (75 files), mypy (22 implementation files), and
+warehouse/API regression passed: 182 tests, 17 deliberately skipped live tests, known
+AnyIO deprecation warning. First/repeat builds each passed one view and all eight
+data tests. Separate live read-only acceptance passed. All 71 rows are retained;
+repeat identity/owner/grants were unchanged, and no transformer password was found in
+repeat artifacts. Database size: 287083667 bytes.
+See [acceptance evidence](category-translation-staging-verification.json). Full
+source/frontend/advisory checks were not rerun for this data-only, dependency-unchanged unit.

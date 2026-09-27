@@ -1,0 +1,48 @@
+{
+  "verified_at_utc": "2026-09-27T18:47:24.881983+00:00",
+  "model": "staging.stg_category_translation",
+  "raw_rows": 71,
+  "staging_rows": 71,
+  "database_bytes": 287083667,
+  "repeat_build": "passed",
+  "relation_identity_owner_and_grants_preserved": true,
+  "password_absent_from_repeat_artifacts": true,
+  "results": [
+    {
+      "node": "model.commercelens.stg_category_translation",
+      "status": "success"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_category_translation__load_id.024a66197a",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_category_translation__source_row.276e866708",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_category_translation_product_category_name.0e044050d1",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_category_translation_product_category_name_english.3ca52616e2",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.stg_category_translation_lineage_unique",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.stg_category_translation_source_domains",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.stg_category_translation_source_reconciliation",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.unique_stg_category_translation_product_category_name.358d1ab0fd",
+      "status": "pass"
+    }
+  ]
+}

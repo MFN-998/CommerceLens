@@ -1,7 +1,8 @@
 # Customer staging milestone
 
 Phase 3 M4; implementation prepared 2026-09-27 from verified live setup 142277c.
-The selected build/test commands now also approve stg_sellers; see [seller staging](seller-staging.md).
+The selected build/test commands also approve stg_sellers and stg_category_translation;
+see [seller](seller-staging.md) and [category translation](category-translation-staging.md) guides.
 Other source models, dimensions/facts and marts remain pending; no business KPIs or Phase 4 analysis are added.
 
 ## Data contract
@@ -78,8 +79,8 @@ The repeat build preserved relation OID, owner and grants. Database size was
 287,059,091 bytes. No transformer password was found in repeat artifacts.
 See [acceptance evidence](customer-staging-verification.json).
 
-This atomic customer unit is COMPLETE. Other eight staging sources, core dimensions/facts
-and M5 remain pending. No dataset reload, package upgrade, deletion or deployment occurred.
+This atomic customer unit is COMPLETE. See the [Phase 3 plan](phase-3-plan.md) for
+current remaining staging/core/M5 work. No dataset reload, package upgrade, deletion or deployment occurred.
 The old full source/frontend gate was not rerun because its automatic cleanup requires
 approval/adaptation; current implementation/dependencies do not change those components.
 
