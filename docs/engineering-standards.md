@@ -146,3 +146,10 @@ See [CONTRIBUTING](../CONTRIBUTING.md) for the repeatable checks and review work
 The [Phase 1–2 audit](engineering-audit-phase-1-2.md) records current coverage, corrected
 issues, and explicit exceptions. Every future phase handoff must carry forward unresolved
 items with an owner (the project maintainer), mitigation, and a concrete revisit/release gate.
+
+## Owner deletion and governance requirements
+
+Follow [deletion safety and the Phase 3 governance gate](deletion-and-governance.md).
+Specific informed approval is required for deletion, including generated/temporary resources
+and indirect tool cleanup. The comprehensive audit runs after Phase 3 is verified and before
+Phase 4; it must not interrupt Phase 3 prematurely.

@@ -114,3 +114,8 @@ uv run --locked --group warehouse --group transform python -m src.warehouse dbt-
 
 Actual-login opt-in test commands are in docs/dbt-development.md. Do not print private
 configuration, raw records or driver errors. Development target remains Supabase CommerceLens.
+
+Active 2026-09-27: resumed clean 142277c; allowance reset (97% five-hour / 100% weekly).
+Recorded owner deletion rule and post-Phase-3/pre-Phase-4 audit gate. Next atomic unit is
+customer staging with narrowly selected dbt build/tests. Reviewing automatic cleanup before
+executing tests/builds; no deletion approval exists, no model/database change performed yet.

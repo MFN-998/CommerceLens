@@ -1668,3 +1668,10 @@ use meaningful validated Git checkpoints, inspect actual state on resume, and pr
 correctness and context when usage is constrained. End sessions COMPLETE or SAFE TO RESUME.
 Do not redo completed phases. This supplements the engineering standards without changing
 the product scope, phase sequence, or requirements for security and production readiness.
+
+## Owner addendum — Deletion safety and governance (2026-09-25)
+
+The [deletion safety and governance requirements](deletion-and-governance.md) are permanent.
+After Phase 3 is complete and verified, perform the specified comprehensive audit, address
+Critical/relevant Important findings and verify Phases 1–3 before Phase 4. Apply the seven
+governance areas continuously thereafter. No phase change or cleanup authorizes deletion.

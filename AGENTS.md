@@ -26,3 +26,8 @@ and handoff unless the project owner explicitly changes them.
 
 Frontend work must also follow `web/AGENTS.md` and its installed Next.js documentation.
 The historical Phase 1–2 audit is in `docs/engineering-audit-phase-1-2.md`.
+
+The permanent [deletion safety and governance gate](docs/deletion-and-governance.md) applies.
+No deletion, including automatic tool cleanup, without specific informed owner approval.
+Perform the comprehensive governance audit only after verified Phase 3 completion and
+resolve its required findings before Phase 4. Apply its principles continuously thereafter.

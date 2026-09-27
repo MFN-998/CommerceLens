@@ -76,3 +76,10 @@ content digests, exact monetary totals, attribution and storage.
 Next: [M4 dbt setup plan](dbt-setup-plan.md). Tooling and offline bootstrap are implemented
 and verified. Restricted transformer provisioning/access and dbt debug passed on 2026-09-25;
 staging/core models remain unimplemented. See [dbt development](dbt-development.md).
+
+## Required exit governance gate
+
+After M1–M5 are complete and verified, perform the owner-required
+[engineering and product-quality audit](deletion-and-governance.md). Fix Critical and
+relevant Important issues, verify Phases 1–3 and document deferred debt before Phase 4.
+This gate is pending; do not execute it during unfinished Phase 3 implementation.
