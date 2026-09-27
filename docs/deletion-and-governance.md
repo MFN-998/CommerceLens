@@ -3,9 +3,9 @@
 Permanent owner requirements adopted 2026-09-25; recorded 2026-09-27.
 They supplement the master plan and engineering standards without redesigning the roadmap.
 
-## Explicit approval before any deletion
+## Explicit approval before development/project resource deletion
 
-Never delete any user-owned file, directory, artifact, configuration, dataset, database-related
+Never delete any development/project file, directory, artifact, configuration, dataset, database-related
 file, generated output, documentation, script, source, environment, backup or other resource
 without specific owner permission after explaining the proposed deletion. This applies even
 to obsolete, duplicate, unused, temporary or regenerable resources. Broad cleanup, refactor,
@@ -19,9 +19,30 @@ or regeneration; (7) affected functionality/configuration/history/data/workflow;
 consequences of declining. Prefer a reversible alternative when deletion is not essential.
 
 Check indirect deletion by test/build/package/database tools too. Automatic cleanup is not
-exempt. Do not run a command known to clear artifacts, caches, test directories or relations
+exempt. Do not run a command known to clear artifacts, caches, test directories or development artifacts
 without a safe non-deleting configuration or the specific approval above. Retain new artifacts
 by default; never replace deletion with an equally destructive overwrite as a workaround.
+
+## Owner clarification: product behavior and ongoing cleanliness
+
+The permission rule governs development/project files and folders, including local files,
+generated repository artifacts, project datasets, backups and configurations. It must never
+disable or weaken legitimate application deletion: accounts/businesses, feedback/reports,
+records/uploads, dashboard items, authorized administration, retention/cleanup or other
+intentional product data-deletion behavior. Implement those normally under the product's
+authorization and ownership model, confirmations/warnings where warranted, referential
+integrity, deliberately designed cascades, appropriate soft/hard deletion, auditability,
+privacy obligations and justified recovery/retention. This is not blanket authorization
+for the development agent to delete project resources or arbitrary database records.
+
+Keep the repository understandable: actively identify obsolete, unused, replaced, duplicate,
+experimental/debug, superseded or unnecessary generated files during ordinary work. Verify
+references/dependencies and explain how disuse was checked, what each resource contains,
+why removal improves maintenance, affected behavior, replacement, recovery and safer options.
+Then ask for specific permission; remove only approved resources and verify afterward.
+If declined or unanswered, retain and record them explicitly rather than silently forgetting.
+For refactors, create/verify the replacement first, check dependencies/tests, then explain
+and request removal of the old resource. Do not perform a broad audit prematurely.
 
 ## Required gate after Phase 3, before Phase 4
 

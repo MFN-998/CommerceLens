@@ -1,0 +1,57 @@
+version: 2
+
+models:
+  - name: stg_sellers
+    description: >-
+      One retained source row per seller_id. Source identifiers, literal ZIP
+      prefixes, city/state spelling and lineage are preserved. Exactly empty
+      source text becomes null; whitespace and case are not normalized. Missing
+      mandatory source values and invalid keys fail data tests without dropping
+      or repairing their rows. No geography join or inferred location is added;
+      missing geolocation coverage does not remove sellers.
+    config:
+      materialized: view
+      schema: staging
+    columns:
+      - name: _load_id
+        data_type: uuid
+        description: Unchanged immutable source snapshot identity from raw.
+        data_tests:
+          - not_null
+      - name: _source_row
+        data_type: bigint
+        description: Unchanged one-based logical CSV record ordinal within the load.
+        data_tests:
+          - not_null
+      - name: seller_id
+        data_type: text
+        description: >-
+          Mandatory 32-character lowercase hexadecimal seller identifier.
+          Literal spelling is preserved; empty text becomes null and fails validation.
+        data_tests:
+          - not_null
+          - unique
+      - name: seller_zip_code_prefix
+        data_type: text
+        description: >-
+          Mandatory literal source ZIP prefix, one to five digits. Leading zeros
+          are preserved; short prefixes are not padded. Empty text becomes null.
+        data_tests:
+          - not_null
+      - name: seller_city
+        data_type: text
+        description: >-
+          Mandatory source city spelling, including accents, case and whitespace.
+          Exactly empty text becomes null; no canonical city is inferred.
+        data_tests:
+          - not_null
+      - name: seller_state
+        data_type: text
+        description: >-
+          Mandatory source Brazilian state abbreviation, preserved without case
+          conversion. Exactly empty text becomes null and fails validation.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [AC, AL, AP, AM, BA, CE, DF, ES, GO, MA, MT, MS, MG, PA, PB, PR, PE, PI, RJ, RN, RS, RO, RR, SC, SP, SE, TO]

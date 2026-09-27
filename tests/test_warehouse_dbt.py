@@ -333,8 +333,9 @@ def test_model_jobs_reject_broad_or_missing_selection_before_settings(
 
 
 @pytest.mark.parametrize("command", ["build", "test"])
+@pytest.mark.parametrize("selected_model", sorted(dbt_runner.APPROVED_MODELS))
 def test_selected_model_job_uses_transformer_and_retains_distinct_artifacts(
-    command, dbt_root, transformer_settings, monkeypatch
+    command, selected_model, dbt_root, transformer_settings, monkeypatch
 ):
     captured = []
 
@@ -346,8 +347,8 @@ def test_selected_model_job_uses_transformer_and_retains_distinct_artifacts(
         captured.append(args)
         target = Path(args[args.index("--target-path") + 1])
         target.mkdir()
-        model_id = "model.commercelens.stg_customers"
-        test_id = "test.commercelens.customer_unique"
+        model_id = f"model.commercelens.{selected_model}"
+        test_id = f"test.commercelens.{selected_model}_unique"
         nodes = {
             model_id: {
                 "resource_type": "model",
@@ -368,14 +369,14 @@ def test_selected_model_job_uses_transformer_and_retains_distinct_artifacts(
 
     monkeypatch.setattr(dbt_runner, "load_settings", settings)
     monkeypatch.setattr(dbt_runner.subprocess, "run", capture)
-    first = dbt_runner.run_dbt(command, dbt_root, select="stg_customers")
+    first = dbt_runner.run_dbt(command, dbt_root, select=selected_model)
     retained = dbt_root / first["artifacts"] / "keep.txt"
     retained.write_text("earlier result", encoding="utf-8")
-    second = dbt_runner.run_dbt(command, dbt_root, select="stg_customers")
+    second = dbt_runner.run_dbt(command, dbt_root, select=selected_model)
     assert first["artifacts"] != second["artifacts"]
     assert retained.read_text(encoding="utf-8") == "earlier result"
     for args in captured:
-        assert args[args.index("--select") + 1] == "stg_customers"
+        assert args[args.index("--select") + 1] == selected_model
         assert "--no-use-v2-parser" in args
         assert "--store-failures" not in args
         assert "--full-refresh" not in args

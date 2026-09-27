@@ -6,8 +6,8 @@ Read AGENTS, master plan, engineering standards, execution protocol and deletion
 ## Project State
 
 - Phases 1–2/audit and Phase 3 M1–M3 COMPLETE. M4 IN PROGRESS; M5 pending.
-- Current milestone: first customer staging view and tests COMPLETE / SAFE TO RESUME.
-- Current task: checkpoint live customer acceptance; next is a bounded additional source model.
+- Current milestone: customer staging COMPLETE at 1785472; seller staging IN PROGRESS.
+- Current task: verify/checkpoint prepared seller SQL and tests, then selected live acceptance.
 - Objective remains the tested analytical warehouse. No Phase 4 work or exit audit yet.
 - Allowance reset at start (97% five-hour / 100% weekly). Last observed 12% five-hour / 86%
   weekly before final verification; preserve this completed unit rather than start another.
@@ -65,8 +65,8 @@ Read AGENTS, master plan, engineering standards, execution protocol and deletion
 
 ## Current Repository Condition
 
-CLEAN / STABLE implementation at 193be34; customer view exists and is verified. Acceptance
-documentation/evidence pending the containing checkpoint at writing. SAFE TO RESUME.
+PARTIALLY IMPLEMENTED seller unit; customer baseline remains verified at 1785472.
+Seller files/selector are saved but not yet repository/live verified. SAFE TO RESUME.
 Do not delete artifacts, rerun empty-target fixtures, reprovision accounts or reload raw data.
 
 ## Incomplete Work
@@ -109,3 +109,20 @@ git log -5 --oneline
 
 Use docs/customer-staging.md for retained regression/build commands. Do not automatically
 run the older cleanup-based full gate. Never print credentials, raw records or driver errors.
+
+Active resume: clean published 1785472; customer milestone fully complete, no partial edits.
+Allowance at resume 99% five-hour / 84% weekly. Next unit is stg_sellers using the existing
+contract/view/test approach. Owner clarified project-file permission vs legitimate product
+data deletion; recorded in AGENTS and governance. Reviewing six obsolete dbt scan exports
+for an explicit cleanup proposal; no deletion approved/performed. Customer read-only check
+and seller candidate validation pending. No phase restart, account setup or redesign needed.
+
+Owner approved removal of exactly six dbt tooling/bootstrap/handoff checkpoint export folders/ZIPs. Removed them after path and reparse-point checks; verified absence and unchanged Git status. No other cleanup authorized. Customer read-only resume check passed.
+
+Seller implementation prepared: seven model/test files, approved selector and parameterized
+runner regression; seller guide added and customer guide linked. No live seller build yet.
+Next: retained Ruff/mypy/warehouse/API checks, review/secret scan and code checkpoint;
+then selected seller build, read-only acceptance and repeat identity/access verification.
+Latest allowance: 46% five-hour / 76% weekly. Category candidate is scratch-only, not integrated.
+
+Seller repository validation passed: Ruff lint/format (72 files), mypy (22 files), warehouse/API 175 passed, 16 deliberately skipped; historical AnyIO warning only. Live seller build/acceptance still pending. Reviewed diff; checkpoint before live creation. Staged complete file contents will be secret-scanned in memory, avoiding new scan export copies.
