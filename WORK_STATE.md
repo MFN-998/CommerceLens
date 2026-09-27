@@ -5,97 +5,89 @@ Read AGENTS, master plan, engineering standards, execution protocol and deletion
 
 ## Project State
 
-- Phases 1–2/audit and Phase 3 M1–M3 COMPLETE. M4 IN PROGRESS; M5 pending.
-- Current milestone: customer staging COMPLETE at 1785472; seller staging IN PROGRESS.
-- Current task: verify/checkpoint prepared seller SQL and tests, then selected live acceptance.
-- Objective remains the tested analytical warehouse. No Phase 4 work or exit audit yet.
-- Allowance reset at start (97% five-hour / 100% weekly). Last observed 12% five-hour / 86%
-  weekly before final verification; preserve this completed unit rather than start another.
+- Phases 1–2 and their audit COMPLETE. Phase 3 M1–M3 COMPLETE; M4 IN PROGRESS; M5 pending.
+- Current milestone: customer and seller staging COMPLETE / SAFE TO RESUME.
+- Current task: checkpoint seller acceptance, then category translation staging.
+- Overall objective: tested analytical warehouse; no Phase 4 work or comprehensive exit audit yet.
+- Latest allowance observation: 46% five-hour / 76% weekly; recheck before another major unit.
 
 ## Completed Work
 
-- Resumed clean 142277c; verified live Supabase/dbt setup was already complete.
-- Recorded permanent deletion approval rule and post-Phase-3/pre-Phase-4 governance gate.
-- Added stg_customers, explicit null handling, source/lineage reconciliation and data tests.
-- Added narrowly selected dbt build/test with result validation; retained per-run artifacts.
-- Added non-deleting Postgres CREATE OR REPLACE view materialization and retained pytest fixture.
-- Built and rebuilt the customer view; live data/identity/access checks passed.
+- Recovered clean published 1785472; no interrupted code edits. Customer read-only recheck passed.
+- Added seller projection, 11 dbt data tests, synthetic and read-only live tests, narrow selector.
+- Parameterized selected-runner regression across approved models. Retained existing view/profile design.
+- First/repeat seller builds passed; counts, reconciliation, ownership, types and API denials verified.
+- Persisted project-file vs product-data deletion distinction and ongoing cleanliness obligations.
+- Specifically approved obsolete scan copies removed after resolved-path/reparse checks; Git status
+  unchanged by cleanup: .artifacts/dbt-{tooling,bootstrap,handoff}-checkpoint-export folders
+  and .artifacts/dbt-{tooling,bootstrap,handoff}-checkpoint.zip files. No other deletion authorized.
 
 ## Files
 
-- Created: docs/deletion-and-governance.md, docs/customer-staging.md,
-  docs/customer-staging-verification.json, conftest.py, dbt/macros/materializations/view.sql,
-  dbt/models/staging/stg_customers.sql/yml, three dbt/tests/stg_customers_*.sql files,
-  tests/test_warehouse_customer_staging.py and test_warehouse_customer_integration.py.
-- Modified: AGENTS.md, master plan, engineering standards, phase-3 plan, dbt-development,
-  CONTRIBUTING, WORK_STATE, dbt_project.yml, warehouse CLI/runner and CLI/dbt tests.
-- During implementation tests/conftest.py moved to root conftest.py to cover API tests;
-  neither path was previously tracked. No files/resources deleted. Artifacts retained/ignored.
-- No dependencies, applied migrations, source data or protected credentials changed.
+- Added seller SQL/YAML, three dbt/tests/stg_sellers_*.sql, two tests/test_warehouse_seller_*.py,
+  docs/seller-staging.md and docs/seller-staging-verification.json.
+- Modified src/warehouse/dbt_runner.py, tests/test_warehouse_dbt.py, customer guide, phase-3 plan,
+  AGENTS.md, docs/deletion-and-governance.md and this handoff.
+- No tracked files deleted/renamed. No dependencies, migrations, source data or credentials changed.
+- Category candidate exists only in the chat scratch directory m4-category-candidate-20260927;
+  it is not integrated or live verified. Read its README and review before adoption.
 
 ## Technical Decisions
 
-- Preserve one row per customer_id; cross-order customer_unique_id may repeat. Preserve
-  literal ZIP/IDs/text/lineage; exact empty text becomes NULL. Fail invalid data without removal.
-- Keep views on Free; raw/database ceilings 367M/400M bytes; no new materialized data copies.
-- Override only Postgres view materialization: CREATE OR REPLACE preserves object identity,
-  ownership/grants/dependents; incompatible columns or non-view replacement fail. No hooks,
-  SQL header or grant overrides. Failed data tests preserve the committed view for diagnosis.
-- Build/test requires exactly approved stg_customers; no arbitrary selectors/full-refresh.
-  Verify expected model/test results, rejecting empty successful selections. Transformer only.
-- Classic parser, test failure storage off, test schema staging, fresh retained artifact dirs.
-- Custom tmp_path uses UUID mkdir; targeted pytest uses capture=sys, no cache/autoload plugins.
-  Existing full check.ps1 includes source fixture and frontend deletion: do not run unapproved.
+- Preserve source grain, keys/ZIP/text and lineage. Exact empty text becomes NULL; invalid and
+  duplicate rows fail tests without removal. Seven seller geography gaps remain warnings.
+- Free plan, views-first. Raw/database ceilings 367M/400M bytes. No materialized data copies.
+- Existing CREATE OR REPLACE view materialization preserves identity/owner/grants/dependents;
+  incompatible schema replacement fails. Data tests follow view commit; failure is not rollback.
+- Only stg_customers/stg_sellers approved; transformer credentials and verify-full TLS only.
+- Retain UUID dbt/pytest artifacts, no file logs/telemetry/failure row storage. Existing full
+  check.ps1 includes cleanup that needs specific permission or reviewed retained alternatives.
+- Scan complete staged changed files in memory with Gitleaks stdin; no new scan export archives.
 
 ## Validation
 
-- Ruff lint/format passed (69 Python files); mypy passed (22 implementation files).
-- 47 focused offline checks passed, including real guarded parse/debug and SQL fixtures.
-- Warehouse/API regression: 168 passed / 14 opt-in live tests skipped; known AnyIO warning.
-- Initial option/schema errors and API temp-fixture scope error resolved before acceptance.
-- First and repeat live dbt builds: one view plus 12 data tests passed each. Full source
-  field/lineage multiset reconciliation passed; raw/staging both 99,441 customer rows.
-- Separate live read-only customer integration test passed: physical types, owner, counts,
-  API denial and no swap relations. Repeat retained same relation OID/owner/grants.
-- Database 287,059,091 bytes; no password in repeat artifacts. See JSON evidence.
-- Full source/frontend/advisory gate not rerun: cleanup requires approval/adaptation and no
-  affected frontend/dependency changes. Historical full gate 2026-09-22 remains documented.
-- M3 historical evidence: all nine raw tables / 1,550,922 rows and idempotent replay verified.
-- No model training, E2E/deployment or full governance audit performed.
+- Seller unit: Ruff lint/format passed (72 files), mypy passed (22 implementation files).
+- Warehouse/API regression: 175 passed, 16 deliberately skipped, known AnyIO deprecation warning.
+- First/repeat seller dbt builds: one view plus 11 tests passed each. Full multiset reconciliation
+  passed; both raw/staging retain 3,095 rows. Separate read-only seller integration test passed.
+- Repeat preserved OID/owner/grants; no transformer password found in repeat artifacts.
+- See seller JSON for measured storage and exact test statuses. Customer prior evidence: 99,441
+  rows, 12 tests and repeat acceptance. M3: nine raw tables, 1,550,922 rows; no reload needed.
+- Complete staged implementation contents secret scan passed before 7cc622f. Final docs/history
+  scan and publication pending this checkpoint. Do not claim advisory/full UI gate rerun.
+- Source/frontend/dependency gate was last run 2026-09-22; unchanged here and not rerun.
+- No deployment, E2E or comprehensive post-Phase-3 audit performed.
 
 ## Current Repository Condition
 
-PARTIALLY IMPLEMENTED seller unit; customer baseline remains verified at 1785472.
-Seller files/selector are saved but not yet repository/live verified. SAFE TO RESUME.
-Do not delete artifacts, rerun empty-target fixtures, reprovision accounts or reload raw data.
+CLEAN / STABLE implementation at 7cc622f; seller acceptance documentation/evidence pending
+the containing checkpoint at writing. SAFE TO RESUME. No known failing seller check.
 
 ## Incomplete Work
 
-- Remaining eight staging models, core dimensions/facts and their data tests; then M5 marts,
-  technical queries, performance and reconstruction checks. Customer-only unit is complete.
-- Any full source/frontend gate needs specifically approved deletion or a reviewed retained
-  workflow. No blanket cleanup approval exists. No known current failing customer check.
-- Audit E01–E10 retain their revisit gates. Comprehensive governance audit is required only
-  after all Phase 3 functionality passes; fix Critical/relevant Important issues before Phase 4.
+- Seven remaining staging models, core dimensions/facts and tests; M5 marts/technical queries,
+  performance and reconstruction checks. Category translation is the next small unit.
+- Existing full check.ps1 cleanup requires permission/adaptation. Do not run empty-target
+  live loading fixtures against the populated warehouse or reprovision accounts.
+- Audit E01–E10 keep their revisit gates. Full governance audit only after all Phase 3 passes;
+  fix Critical/relevant Important issues and verify Phases 1–3 before Phase 4.
 
 ## Exact Next Actions
 
-1. Check usage/status/history; read docs/customer-staging.md and ADR 0003. Do not repeat
-   customer implementation or account setup. Verify metadata only if needed after a gap.
-2. Choose the next small staging source (sellers is a similar literal-text contract), inspect
-   its Phase 2 rules/observations, add SQL/YAML/reconciliation/synthetic tests and update the
-   approved selector intentionally. Preserve the no-delete materialization and private profile.
-3. Run retained relevant checks, then selected build/data/access and repeat verification.
-   Record evidence and checkpoint before wider staging/core work.
-4. Finish M4/M5, then run the required governance audit; Phase 4 cannot start before that gate.
+1. Inspect usage/status/history and seller acceptance evidence. Finish final scan/checkpoint
+   and publication if not already in Git; do not repeat customer/seller implementation.
+2. Review m4-category-candidate-20260927 in this chat scratch directory, the source contract
+   and ADR 0003. Adopt only its seven model/test files; expand the approved selector.
+3. Run retained regression/parse/style/type checks, code checkpoint, selected live category
+   build and read-only acceptance/repeat checks. Record evidence and checkpoint.
+4. Continue remaining M4/M5 units, then required governance gate before Phase 4.
 
 ## Git State
 
 - Branch feat/warehouse-foundation; main unchanged/unmerged.
-- Live setup 142277c; governance 47e35a7; customer implementation 193be34.
-- This final acceptance is the containing commit; resolve with
-  git log -1 --format="%H %s" -- WORK_STATE.md.
-- Scan staged export and post-commit history; publish feature branch and verify clean status.
+- Customer acceptance 1785472; seller implementation 7cc622f.
+- Final acceptance is the containing commit: git log -1 --format="%H %s" -- WORK_STATE.md.
+- Scan staged contents/history, push feature branch and confirm clean status after commit.
 
 ## Continuation Commands
 
@@ -104,25 +96,8 @@ Set-Location 'D:\My Projects\CommerceLens'
 git status --short --branch
 git log -5 --oneline
 .venv/Scripts/python.exe -B -m src.warehouse dbt-parse
-.venv/Scripts/python.exe -B -m src.warehouse dbt-test --select stg_customers
+.venv/Scripts/python.exe -B -m src.warehouse dbt-test --select stg_sellers
 ```
 
-Use docs/customer-staging.md for retained regression/build commands. Do not automatically
-run the older cleanup-based full gate. Never print credentials, raw records or driver errors.
-
-Active resume: clean published 1785472; customer milestone fully complete, no partial edits.
-Allowance at resume 99% five-hour / 84% weekly. Next unit is stg_sellers using the existing
-contract/view/test approach. Owner clarified project-file permission vs legitimate product
-data deletion; recorded in AGENTS and governance. Reviewing six obsolete dbt scan exports
-for an explicit cleanup proposal; no deletion approved/performed. Customer read-only check
-and seller candidate validation pending. No phase restart, account setup or redesign needed.
-
-Owner approved removal of exactly six dbt tooling/bootstrap/handoff checkpoint export folders/ZIPs. Removed them after path and reparse-point checks; verified absence and unchanged Git status. No other cleanup authorized. Customer read-only resume check passed.
-
-Seller implementation prepared: seven model/test files, approved selector and parameterized
-runner regression; seller guide added and customer guide linked. No live seller build yet.
-Next: retained Ruff/mypy/warehouse/API checks, review/secret scan and code checkpoint;
-then selected seller build, read-only acceptance and repeat identity/access verification.
-Latest allowance: 46% five-hour / 76% weekly. Category candidate is scratch-only, not integrated.
-
-Seller repository validation passed: Ruff lint/format (72 files), mypy (22 files), warehouse/API 175 passed, 16 deliberately skipped; historical AnyIO warning only. Live seller build/acceptance still pending. Reviewed diff; checkpoint before live creation. Staged complete file contents will be secret-scanned in memory, avoiding new scan export copies.
+Use docs/customer-staging.md for retained regression commands and docs/seller-staging.md
+for seller operation. No automatic cleanup; never print credentials, raw rows or driver errors.

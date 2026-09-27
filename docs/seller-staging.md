@@ -33,5 +33,11 @@ with COMMERCE_WAREHOUSE_SELLER_INTEGRATION=1. Do not enable unrelated live loadi
 Compatible view rebuilds preserve identity, ownership and grants; tests run after the view
 commit, so a failed data test means failed acceptance and requires diagnosis.
 
-Status: implementation prepared; repository and live acceptance pending. Do not claim
-this unit complete until its live evidence and final checkpoint are recorded.
+Status: COMPLETE. Repository validation passed: 175 warehouse/API tests, 16 opt-in live
+tests skipped, Ruff lint/format (72 files) and mypy (22 implementation files). The known
+AnyIO deprecation warning remains. First and repeat builds each passed one model and
+all 11 data tests. Read-only live acceptance passed. All 3,095 source rows are retained;
+the repeat preserved relation identity, owner and grants, and no transformer password
+was found in its artifacts. Database size: 287059091 bytes.
+See [acceptance evidence](seller-staging-verification.json). No full source/frontend
+gate or dependency-advisory scan was rerun for this data-only, dependency-unchanged unit.

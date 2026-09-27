@@ -1,0 +1,60 @@
+{
+  "verified_at_utc": "2026-09-27T18:42:33.700093+00:00",
+  "model": "staging.stg_sellers",
+  "raw_rows": 3095,
+  "staging_rows": 3095,
+  "database_bytes": 287059091,
+  "repeat_build": "passed",
+  "relation_identity_owner_and_grants_preserved": true,
+  "password_absent_from_repeat_artifacts": true,
+  "results": [
+    {
+      "node": "model.commercelens.stg_sellers",
+      "status": "success"
+    },
+    {
+      "node": "test.commercelens.accepted_values_stg_sellers_seller_state__AC__AL__AP__AM__BA__CE__DF__ES__GO__MA__MT__MS__MG__PA__PB__PR__PE__PI__RJ__RN__RS__RO__RR__SC__SP__SE__TO.59a7e1acea",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_sellers__load_id.6b3430ea7a",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_sellers__source_row.85772675b1",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_sellers_seller_city.cfc9ab3489",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_sellers_seller_id.35d0bce315",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_sellers_seller_state.654a6b0c86",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_sellers_seller_zip_code_prefix.b8f64bcb8b",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.stg_sellers_lineage_unique",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.stg_sellers_source_domains",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.stg_sellers_source_reconciliation",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.unique_stg_sellers_seller_id.cb2e34d4b8",
+      "status": "pass"
+    }
+  ]
+}
