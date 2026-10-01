@@ -1,8 +1,8 @@
 # Customer staging milestone
 
 Phase 3 M4; implementation prepared 2026-09-27 from verified live setup 142277c.
-The selected build/test commands also approve stg_sellers and stg_category_translation;
-see [seller](seller-staging.md) and [category translation](category-translation-staging.md) guides.
+The selected build/test commands also approve stg_sellers, stg_category_translation and
+stg_products; see their guides in the [Phase 3 plan](phase-3-plan.md).
 Other source models, dimensions/facts and marts remain pending; no business KPIs or Phase 4 analysis are added.
 
 ## Data contract

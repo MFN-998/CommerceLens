@@ -1,0 +1,91 @@
+{
+  "verified_at_utc": "2026-10-01T15:09:23.987143+00:00",
+  "model": "staging.stg_products",
+  "raw_rows": 32951,
+  "staging_rows": 32951,
+  "database_bytes": 287100051,
+  "repeat_build": "passed",
+  "relation_identity_owner_and_grants_preserved": true,
+  "password_absent_from_repeat_artifacts": true,
+  "results": [
+    {
+      "node": "model.commercelens.stg_products",
+      "status": "success"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_products__load_id.c6cd919b94",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_products__source_row.be5685e634",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_products_is_missing_category.c328371b26",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_products_is_missing_description_length.3f94d2219d",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_products_is_missing_height.b7249be3ab",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_products_is_missing_length.308a7b9ef5",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_products_is_missing_name_length.fcef83db4d",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_products_is_missing_photos_qty.b56bf1ec1f",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_products_is_missing_weight.9da5fdcd25",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_products_is_missing_width.fbc03dcdf5",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_products_is_zero_weight.8c92ff2910",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_products_product_id.6373b0acf3",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.stg_products_lineage_unique",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.stg_products_source_domains",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.stg_products_source_reconciliation",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.unique_stg_products_product_id.7d950a1467",
+      "status": "pass"
+    }
+  ],
+  "source_quality_flag_counts": {
+    "is_missing_category": 610,
+    "is_missing_name_length": 610,
+    "is_missing_description_length": 610,
+    "is_missing_photos_qty": 610,
+    "is_missing_weight": 2,
+    "is_missing_length": 2,
+    "is_missing_height": 2,
+    "is_missing_width": 2,
+    "is_zero_weight": 4
+  }
+}

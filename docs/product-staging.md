@@ -58,7 +58,13 @@ enable only the intended modules and never unrelated empty-target loading fixtur
 Repository validation passed: Ruff lint/format (79 files), mypy (22 implementation files),
 241 warehouse/API tests with 49 deliberate live skips, and 31 native read-only synthetic
 tests. The planning-time cast failure was corrected and has a dedicated regression test.
-Status: selected live product build and physical/repeat acceptance pending.
+Status: COMPLETE. First and repeat builds each passed one view and all 16 dbt tests.
+Physical/access acceptance passed with the actual restricted transformer login. All
+32,951 rows and expected source-quality counts are preserved. Repeat identity/owner/
+grants were unchanged; no transformer password was found in repeat artifacts. Database
+size: 287100051 bytes, below the 400M-byte ceiling.
+See [acceptance evidence](product-staging-verification.json). Source/frontend/advisory
+checks were not rerun for this dependency-unchanged data-only unit.
 No comprehensive post–Phase 3 governance audit yet; the Phase 3 exit condition is still pending.
 
 References: [PostgreSQL numeric types](https://www.postgresql.org/docs/17/datatype-numeric.html),
