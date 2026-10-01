@@ -1,111 +1,108 @@
 # CommerceLens work state
 
-Updated: 2026-10-01. Repository: `D:\My Projects\CommerceLens`.
-Read AGENTS, master plan, engineering standards, execution protocol and deletion-and-governance.
+Authoritative handoff; verify actual Git/files on resume. No secrets or source records.
+Updated 2026-10-01.
 
 ## Project State
 
-- Phases 1–2 and their audit COMPLETE; Phase 3 M1–M3 COMPLETE, M4 IN PROGRESS, M5 pending.
-- Current milestone: customer/seller/category/product staging COMPLETE / SAFE TO RESUME.
-- Current task: checkpoint/publish product acceptance; next source unit is orders staging.
-- Objective remains a tested analytical warehouse. No Phase 4 or full exit governance audit yet.
-- Allowance at resume 99% five-hour / 55% weekly; last observed 72% / 51%. Recheck before
-  beginning another substantial unit; preserve this verified checkpoint as usage becomes limited.
+- Current phase: Phase 3, Database/SQL/Analytics Engineering.
+- Current milestone/task: M4 orders staging, validated implementation; live acceptance pending.
+- Objective: tested analytical warehouse per master plan/ADR 0003, preserving Phase 2 source
+  meaning and the Free/views-first decision. Phase 4 and the required exit audit have not begun.
 
 ## Completed Work
 
-- Recovered clean b7ec0bb; no partial edits. Read-only existing three views recheck: 3 passed.
-- Added typed product view retaining all 32,951 rows and all source attributes/lineage.
-- Added eight source missingness flags plus zero-weight flag; no filtering/imputation/translation join.
-- Added guarded bigint/double macros, 16 dbt tests, 57 local synthetic and 31 native cases,
-  actual-login physical/type/access acceptance and complete multiset reconciliation.
-- Fixed planner-time unsafe constant cast found by native tests; added dedicated regression.
-  Per-case savepoints prevent one SQL error from poisoning later cases.
-- First and repeat live product builds passed; expected nine flag counts verified against
-  Phase 2 observations. View identity/owner/grants preserved. No source reload or account setup.
+- Phases 1–2 and their professional-practices remediation are complete; do not redo them.
+- M1 contracts, M2 isolated foundation and M3 all-nine-table landing complete.
+  Raw retains 1,550,922 rows; no source reload or migration rerun required.
+- Customer/seller/category translation staging previously accepted: 99,441/3,095/71 rows
+  and 12/11/8 dbt tests. Resume read-only acceptance checks passed for those three models.
+- Products complete/published 7a2e1e6: 32,951 rows, first/repeat 16 dbt tests, 31 native
+  synthetic cases, actual-login physical/access acceptance and repeat identity/grants preserved.
+- Orders source-preserving projection, strict guarded timestamps, 12 missing/reversal flags,
+  25 dbt tests, offline/native and physical acceptance tests implemented. Actual view pending.
+- Six previously approved obsolete local scan copies were removed earlier; no other approval.
 
 ## Files
 
-- Created dbt/macros/source_numeric.sql; dbt/models/staging/stg_products.sql/yml;
-  dbt/tests/stg_products_{lineage_unique,source_domains,source_reconciliation}.sql;
-  tests/test_warehouse_product_{staging,integration,postgres_integration}.py;
-  docs/product-staging.md and docs/product-staging-verification.json.
-- Modified approved selector in src/warehouse/dbt_runner.py, customer guide, Phase 3 plan
-  and this handoff. No tracked files deleted/renamed, dependencies/migrations/credentials changed.
-- Scratch candidates remain outside the actual repo and are not active source inputs; do not
-  re-adopt them. No resource deletion this session; prior six scan-copy approval already completed.
+- Created dbt/macros/source_timestamp.sql, dbt/models/staging/stg_orders.sql/.yml;
+  dbt/tests/stg_orders_lineage_unique/source_domains/source_reconciliation.sql.
+- Created tests/test_warehouse_order_staging.py, test_warehouse_order_integration.py,
+  test_warehouse_order_postgres_integration.py and docs/order-staging.md.
+- Modified src/warehouse/dbt_runner.py (only selected stg_orders addition) and WORK_STATE.md.
+- Products files/guide/evidence already committed. No files deleted/renamed this session.
+- Ignored UUID test/dbt artifacts retained. Scratch candidates are not repository inputs.
 
 ## Technical Decisions
 
-- Preserve original product column names, literal category and lineage. Exact empty becomes
-  NULL. Three nullable count/lengths become bigint without float intermediates or rounding;
-  four nullable physical attributes become double precision. Nonnegative domains permit zero.
-- Missing flags reflect raw missingness, not failed numeric casts. Nonempty unrepresentable
-  values remain as typed NULL and fail a blocking aggregate source-domain test. Raw is immutable.
-- Guard text before immutable casts to avoid planning errors. Grammar/PG representability
-  accepts decimal/scientific input; signed64 and integrality checked exactly. PG float underflow
-  and some Unicode whitespace differ from pandas; explicit failure instead of fabricated zero.
-- No translation join here: dim_product will separately flag missing translation coverage.
-- Free plan views-first; raw/database ceilings 367M/400M bytes. Existing CREATE OR REPLACE
-  materialization preserves objects; incompatible changes fail. View commit precedes data tests;
-  failed acceptance does not imply automatic rollback.
-- Selected runner approves only customer/seller/category/products; dedicated transformer,
-  verify-full TLS, retained UUID artifacts, no telemetry/file logs/failure record storage.
-- Project-resource deletion requires informed approval; legitimate product deletion follows
-  authorization/integrity rules. Full check.ps1 cleanup needs permission/adaptation.
+- Orders retain all eight source fields, lineage, literal IDs/status and every row. Customer
+  reference targets stg_customers; child aggregation belongs to later core/mart units.
+- Five naive timestamps, no invented timezone: canonical ASCII YYYY-MM-DD HH:MM:SS,
+  real calendars, h00-23/m00-59/s00-59 and whole-second Phase 2 bounds
+  1677-09-21 00:12:44 through 2262-04-11 23:47:16. Guard text before CAST.
+- Invalid nonempty input becomes typed NULL and fails blocking domains; raw missing flags
+  remain false. Delivered-missing diagnostics use typed absence; reversals retain events.
+- No event repair, estimate sequencing rule, duration, KPI eligibility or analysis.
+- Restrictive transformer/verify-full TLS and selected runner; no raw writes/credential change.
+  Compatible CREATE OR REPLACE retains views and commits before tests. Failed acceptance
+  is not automatic rollback. No deletion or full refresh.
+- Recommended deferred parser compatibility debt: installed Phase 2 pandas accepts
+  nonpadded dates, leap-second rollover and dynamic now/today. Strict warehouse rejection
+  mitigates this for the verified snapshot. Owner: project maintainer. Revisit/fix before
+  accepting a different source version; do not reopen completed phases or run the full audit.
 
 ## Validation
 
-- Ruff lint/format: 79 files passed. Mypy: 22 implementation files passed.
-- Final warehouse/API regression: 241 passed, 49 deliberately skipped live tests; known AnyIO warning.
-- Native read-only product checks: 31 passed, including signed64 boundaries, fractional integers,
-  malformed/nonfinite/overflow/underflow inputs, source flags and inline-constant planning regression.
-- Initial native run failed extreme-exponent planning, followed by aborted-transaction cascades;
-  diagnosis and guarded operands/savepoint isolation fixed it. No unresolved failure remains.
-- First/repeat product dbt builds each passed 16 tests and one view; 32,951 raw/staging rows.
-- Actual-login read-only physical/access acceptance passed. Repeat owner/OID/grants unchanged;
-  password absent from repeat artifacts. Evidence JSON records storage and exact test statuses.
-- Product flag counts: 610 each missing category/name length/description length/photos;
-  2 each missing weight/length/height/width; 4 zero weights. Warnings overlap; no repair.
-- Customer/seller/category previous acceptance remains 99,441/3,095/71 rows and 12/11/8 tests.
-- M3 nine-table load remains 1,550,922 rows; no rerun needed. No empty-target live tests on populated DB.
-- Complete staged code contents secret scan passed before 5640124. Final docs/history scans
-  and publication are checkpoint gates. No new scan export archives created.
-- Full source/frontend/advisory gate not rerun; prior historical pass 2026-09-22. No dependency
-  changes, deployment, E2E or comprehensive post-Phase-3 audit this session.
+- Orders repository Ruff lint/format passed (83 Python files); mypy passed (22 implementation files).
+- Offline dbt parse passed; retained artifact .artifacts/dbt/70d5b38e2d6e4dbd98f38f93e8a096c3.
+- Warehouse/API regression: 329 passed, 137 deliberately skipped opt-in live tests;
+  known AnyIO deprecation warning only. First command had an interpreter-path typo and
+  did not run tests; corrected command produced these actual results.
+- Native read-only order synthetic cases: 87 passed, actual projection/domain/generic tests,
+  strict calendar/bounds/format, source missingness, all reversals, customer references and
+  inline-constant cast planning. Per-case savepoints prevent cascaded transaction failures.
+- Orders first build, physical/access acceptance and repeat: Not yet tested.
+- Products first/repeat 16 tests, physical/access and 31 native cases accepted earlier today.
+- Initial staged scan flagged checklist prose as a generic key; location/redacted prefix
+  confirmed a false positive. Rephrased the checklist; no scanner rule disabled.
+- Complete staged contents and history secret scans are checkpoint gates, not yet rerun
+  for orders. Dependencies unchanged; full source/frontend/advisory gate last historical
+  pass 2026-09-22, not rerun here because cleanup needs approval/adaptation.
+- No deployment/E2E/full post-Phase-3 governance audit this session.
 
 ## Current Repository Condition
 
-STABLE / SAFE TO RESUME. Implementation 5640124 and the containing acceptance checkpoint
-record completed product staging. No known failing current checks or partial model implementation.
-Verify actual Git cleanliness/publication on resume.
+PARTIALLY IMPLEMENTED / SAFE TO RESUME. Orders code validated; live view not yet accepted.
+No known current test failure. Four existing staging views remain accepted and functional.
+Verify actual Git status and the containing implementation checkpoint before live work.
 
 ## Incomplete Work
 
-- Five staging sources: orders, order_items, order_payments, order_reviews, geolocation.
-  Then core dimensions/facts/tests, M5 marts/technical queries, performance/reconstruction checks.
-- Existing full check.ps1 cleanup needs permission or a reviewed retained alternative.
-- Audit E01–E10 retain revisit gates. Complete/verify all Phase 3, then full governance audit,
-  required corrections/regression before Phase 4. No premature comprehensive audit.
+- Verify the selected orders build, physical permissions and repeat-build row/flag counts;
+  save acceptance evidence. Then four staging sources: items, payments, reviews, geolocation.
+- Core dimensions/facts/tests and M5 technical marts/SQL/performance/reconstruction pending.
+- Audit E01–E10 retain revisit gates; focused parser debt described above. Full check.ps1
+  cleanup needs approval/adaptation. After all Phase 3 verified, perform required full
+  governance audit/corrections/regression before Phase 4.
 
 ## Exact Next Actions
 
-1. Check allowance/status/history; read product guide/evidence. Confirm containing checkpoint
-   published and tree clean. Do not repeat completed models, raw load, migrations or accounts.
-2. Read TABLES["orders"] in src/validation/contracts.py, src/cleaning/staging.py timestamp
-   parsing and src/validation/profile.py lifecycle warnings, plus ADR 0003. Prepare stg_orders:
-   preserve status/events/order/customer keys, timestamp-without-timezone types and explicit
-   missing/reversed lifecycle flags. Treat warning anomalies as retained rows.
-3. Add grain/reference/domain/full-row reconciliation and meaningful native synthetic tests.
-   Validate/checkpoint, then selected live build/access/repeat acceptance and evidence.
-4. Continue remaining M4/M5 units; required governance gate follows full Phase 3 verification.
+1. Check status/recent history/allowance; confirm the orders implementation checkpoint and
+   complete staged/history scans. Do not repeat products or earlier units.
+2. Run selected dbt-build --select stg_orders. It commits the view before its 25 tests.
+   On failure preserve artifacts/view and record it; never drop/reload to conceal failure.
+3. Enable only COMMERCE_WAREHOUSE_ORDER_INTEGRATION=1 for the physical module, then bounded
+   repeat build: retain OID/owner/grants, 99,441 rows, flags, storage and secret-free evidence.
+4. Update order guide, phase plan, selected-model guide and this handoff; scan/commit/push,
+   confirm clean feature branch. Recheck usage before the next atomic source unit.
 
 ## Git State
 
 - Branch feat/warehouse-foundation; main unchanged/unmerged.
-- Previous baseline b7ec0bb; product implementation 5640124.
-- Final acceptance is containing commit: git log -1 --format="%H %s" -- WORK_STATE.md.
-- Scan final staged contents/history; push feature branch and verify clean status at checkpoint.
+- Last published acceptance 7a2e1e6; products implementation 5640124.
+- Orders implementation checkpoint is containing commit:
+  git log -1 --format="%H %s" -- WORK_STATE.md. Confirm actual cleanliness/publication.
+- Last observed usage 61% five-hour / 49% weekly remaining; account-wide, not task reservation.
 
 ## Continuation Commands
 
@@ -113,9 +110,9 @@ Verify actual Git cleanliness/publication on resume.
 Set-Location 'D:\My Projects\CommerceLens'
 git status --short --branch
 git log -5 --oneline
-.venv/Scripts/python.exe -B -m src.warehouse dbt-parse
-.venv/Scripts/python.exe -B -m src.warehouse dbt-test --select stg_products
+.venv/Scripts/python.exe -B -m src.warehouse dbt-build --select stg_orders
 ```
 
-Use docs/customer-staging.md for retained regression commands and docs/product-staging.md
-for product operation. Never print credentials, raw records or driver diagnostics.
+Use docs/customer-staging.md for retained regression commands and docs/order-staging.md
+for orders. No secrets/raw records/driver diagnostics. Project-resource deletion requires
+specific informed permission; legitimate application data deletion follows product/security rules.
