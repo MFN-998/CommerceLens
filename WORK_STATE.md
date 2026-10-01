@@ -6,7 +6,7 @@ Updated 2026-10-01.
 ## Project State
 
 - Current phase: Phase 3, Database/SQL/Analytics Engineering.
-- Current milestone/task: M4 orders staging, validated implementation; live acceptance pending.
+- Current milestone/task: M4 orders staging COMPLETE; next atomic source is order_items.
 - Objective: tested analytical warehouse per master plan/ADR 0003, preserving Phase 2 source
   meaning and the Free/views-first decision. Phase 4 and the required exit audit have not begun.
 
@@ -20,7 +20,7 @@ Updated 2026-10-01.
 - Products complete/published 7a2e1e6: 32,951 rows, first/repeat 16 dbt tests, 31 native
   synthetic cases, actual-login physical/access acceptance and repeat identity/grants preserved.
 - Orders source-preserving projection, strict guarded timestamps, 12 missing/reversal flags,
-  25 dbt tests, offline/native and physical acceptance tests implemented. Actual view pending.
+  25 dbt tests, offline/native and physical acceptance complete. All 99,441 source rows retained.
 - Six previously approved obsolete local scan copies were removed earlier; no other approval.
 
 ## Files
@@ -28,8 +28,9 @@ Updated 2026-10-01.
 - Created dbt/macros/source_timestamp.sql, dbt/models/staging/stg_orders.sql/.yml;
   dbt/tests/stg_orders_lineage_unique/source_domains/source_reconciliation.sql.
 - Created tests/test_warehouse_order_staging.py, test_warehouse_order_integration.py,
-  test_warehouse_order_postgres_integration.py and docs/order-staging.md.
-- Modified src/warehouse/dbt_runner.py (only selected stg_orders addition) and WORK_STATE.md.
+  test_warehouse_order_postgres_integration.py, docs/order-staging.md and aggregate verification JSON.
+- Modified src/warehouse/dbt_runner.py (only selected stg_orders addition), WORK_STATE.md,
+  docs/phase-3-plan.md and docs/customer-staging.md (current selected models/links).
 - Products files/guide/evidence already committed. No files deleted/renamed this session.
 - Ignored UUID test/dbt artifacts retained. Scratch candidates are not repository inputs.
 
@@ -61,25 +62,29 @@ Updated 2026-10-01.
 - Native read-only order synthetic cases: 87 passed, actual projection/domain/generic tests,
   strict calendar/bounds/format, source missingness, all reversals, customer references and
   inline-constant cast planning. Per-case savepoints prevent cascaded transaction failures.
-- Orders first build, physical/access acceptance and repeat: Not yet tested.
+- Orders first/repeat builds each passed one view and 25 tests; 99,441 raw/staging rows.
+  Actual-login physical/access acceptance passed. Repeat OID/owner/grants unchanged.
+  All 12 flag counts match independent raw counts; missing approval/carrier/customer
+  160/1783/2965; delivered-missing 14/2/8; reversals 0/166/0/1359/61/23.
+  Password absent from first/repeat artifacts; database bytes 287116435 <400M.
+  Aggregate evidence: docs/order-staging-verification.json.
 - Products first/repeat 16 tests, physical/access and 31 native cases accepted earlier today.
-- Initial staged scan flagged checklist prose as a generic key; location/redacted prefix
-  confirmed a false positive. Rephrased the checklist; no scanner rule disabled.
-- Complete staged contents and history secret scans are checkpoint gates, not yet rerun
-  for orders. Dependencies unchanged; full source/frontend/advisory gate last historical
+- Complete orders implementation staged contents/history secret scans passed before publication.
+  Initial scanner false positive was checklist prose; rephrased it, no rules disabled.
+  Final acceptance publication requires the same staged/history scans. Dependencies unchanged;
+  full source/frontend/advisory gate last historical
   pass 2026-09-22, not rerun here because cleanup needs approval/adaptation.
 - No deployment/E2E/full post-Phase-3 governance audit this session.
 
 ## Current Repository Condition
 
-PARTIALLY IMPLEMENTED / SAFE TO RESUME. Orders code validated; live view not yet accepted.
-No known current test failure. Four existing staging views remain accepted and functional.
-Verify actual Git status and the containing implementation checkpoint before live work.
+STABLE / SAFE TO RESUME. Products and orders atomic units COMPLETE. Five of nine staging
+sources accepted; Phase 3 remains incomplete. No known current failed checks or partial
+model implementation. Verify actual Git cleanliness/publication on resume.
 
 ## Incomplete Work
 
-- Verify the selected orders build, physical permissions and repeat-build row/flag counts;
-  save acceptance evidence. Then four staging sources: items, payments, reviews, geolocation.
+- Four staging sources: order_items, order_payments, order_reviews, geolocation.
 - Core dimensions/facts/tests and M5 technical marts/SQL/performance/reconstruction pending.
 - Audit E01–E10 retain revisit gates; focused parser debt described above. Full check.ps1
   cleanup needs approval/adaptation. After all Phase 3 verified, perform required full
@@ -87,22 +92,24 @@ Verify actual Git status and the containing implementation checkpoint before liv
 
 ## Exact Next Actions
 
-1. Check status/recent history/allowance; confirm the orders implementation checkpoint and
-   complete staged/history scans. Do not repeat products or earlier units.
-2. Run selected dbt-build --select stg_orders. It commits the view before its 25 tests.
-   On failure preserve artifacts/view and record it; never drop/reload to conceal failure.
-3. Enable only COMMERCE_WAREHOUSE_ORDER_INTEGRATION=1 for the physical module, then bounded
-   repeat build: retain OID/owner/grants, 99,441 rows, flags, storage and secret-free evidence.
-4. Update order guide, phase plan, selected-model guide and this handoff; scan/commit/push,
-   confirm clean feature branch. Recheck usage before the next atomic source unit.
+1. Check usage, Git status/recent history; read docs/order-staging.md and its evidence.
+   Confirm containing acceptance checkpoint published/clean; do not repeat earlier units.
+2. Read TABLES["order_items"] in src/validation/contracts.py, source money ingestion in
+   src/warehouse/loading.py and ADR 0003. Prepare stg_order_items at (order_id, order_item_id),
+   preserving all keys/lineage, exact price/freight (no Float64 or rounding) and shipping date.
+   References target the now-accepted order/product/seller views; preserve source anomalies.
+3. Add meaningful numeric/date/grain/reference/reconciliation tests; retained/native validation,
+   code checkpoint, then selected live build/access/repeat acceptance and evidence.
+4. Continue remaining M4/core/M5 atomic units with usage checkpoints. Required comprehensive
+   governance audit follows full Phase 3 verification, before Phase 4.
 
 ## Git State
 
 - Branch feat/warehouse-foundation; main unchanged/unmerged.
-- Last published acceptance 7a2e1e6; products implementation 5640124.
-- Orders implementation checkpoint is containing commit:
+- Products acceptance 7a2e1e6 and implementation 5640124 published.
+- Orders implementation 418c30f published; acceptance checkpoint is containing commit:
   git log -1 --format="%H %s" -- WORK_STATE.md. Confirm actual cleanliness/publication.
-- Last observed usage 61% five-hour / 49% weekly remaining; account-wide, not task reservation.
+- Last observed usage 48% five-hour / 47% weekly remaining; account-wide, not task reservation.
 
 ## Continuation Commands
 
@@ -110,7 +117,7 @@ Verify actual Git status and the containing implementation checkpoint before liv
 Set-Location 'D:\My Projects\CommerceLens'
 git status --short --branch
 git log -5 --oneline
-.venv/Scripts/python.exe -B -m src.warehouse dbt-build --select stg_orders
+.venv/Scripts/python.exe -B -m src.warehouse dbt-test --select stg_orders
 ```
 
 Use docs/customer-staging.md for retained regression commands and docs/order-staging.md

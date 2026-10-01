@@ -61,11 +61,19 @@ tests; failed acceptance requires diagnosis and does not imply automatic rollbac
 Read-only order checks use COMMERCE_WAREHOUSE_ORDER_INTEGRATION=1 for the intended modules
 only. Never enable unrelated empty-target loading tests against the populated warehouse.
 
-Status: VALIDATED IMPLEMENTATION / LIVE ACCEPTANCE PENDING. Ruff lint/format passed
-(83 Python files), mypy passed (22 implementation files), offline dbt parse passed,
-and warehouse/API regression passed (329 tests, 137 deliberate opt-in skips).
-Native read-only order cases passed (87). Orders first/repeat builds and physical/access
-acceptance are Not yet tested. No orders view acceptance is asserted yet.
+Status: COMPLETE. Ruff lint/format passed (83 Python files), mypy passed
+(22 implementation files), offline dbt parse passed, and warehouse/API regression passed
+(329 tests, 137 deliberate opt-in skips; known AnyIO warning). All 87 native read-only
+order cases and the separate actual-login physical/access acceptance passed.
+First and repeat builds each passed one view and all 25 dbt tests, retaining 99,441 rows.
+Repeat identity/owner/grants were preserved; all diagnostic flag counts matched independent
+raw-source checks. Source-missing approval/carrier/customer counts are
+160/1,783/2,965;
+delivered-missing and reversal counts match the historical observations above.
+No transformer password was found in either build's retained artifacts. Database size:
+287116435 bytes, below the 400M-byte ceiling.
+See [acceptance evidence](order-staging-verification.json). Full source/frontend/advisory
+checks were not rerun for this dependency-unchanged data-only unit.
 The comprehensive post-Phase-3 governance gate remains pending full Phase 3 completion.
 
 Reference: [PostgreSQL date/time types](https://www.postgresql.org/docs/17/datatype-datetime.html),
