@@ -1,0 +1,103 @@
+version: 2
+
+models:
+  - name: stg_products
+    description: >-
+      One retained source row per product_id with unchanged lineage and literal
+      Portuguese category. All eight optional attributes remain nullable; exact
+      empty text becomes null. Original misspelled length columns are retained.
+      Integral decimal/exponent values within signed 64-bit range become bigint
+      without rounding; physical measures use double precision. Rejected nonempty
+      numeric values remain queryable as null and fail the aggregate source-domain
+      test. Negative values remain typed and fail the nonnegative domain. Source
+      missingness flags are independent of parsing, and zero weight remains zero.
+      Category translations and missing-translation coverage belong to dim_product.
+    config:
+      materialized: view
+      schema: staging
+    columns:
+      - name: _load_id
+        data_type: uuid
+        description: Unchanged immutable source snapshot identity from raw.
+        data_tests:
+          - not_null
+      - name: _source_row
+        data_type: bigint
+        description: Unchanged one-based logical CSV record ordinal within the load.
+        data_tests:
+          - not_null
+      - name: product_id
+        data_type: text
+        description: Mandatory source product identifier and unique row key.
+        data_tests:
+          - not_null
+          - unique
+      - name: product_category_name
+        data_type: text
+        description: Nullable literal Portuguese category; preserve spelling and whitespace.
+      - name: product_name_lenght
+        data_type: bigint
+        description: Nullable nonnegative source name length; original misspelling retained.
+      - name: product_description_lenght
+        data_type: bigint
+        description: Nullable nonnegative source description length; original misspelling retained.
+      - name: product_photos_qty
+        data_type: bigint
+        description: Nullable nonnegative source photo count; zero remains zero.
+      - name: product_weight_g
+        data_type: double precision
+        description: Nullable finite nonnegative weight in grams; source zero remains zero.
+      - name: product_length_cm
+        data_type: double precision
+        description: Nullable finite nonnegative package length in centimetres.
+      - name: product_height_cm
+        data_type: double precision
+        description: Nullable finite nonnegative package height in centimetres.
+      - name: product_width_cm
+        data_type: double precision
+        description: Nullable finite nonnegative package width in centimetres.
+      - name: is_missing_category
+        data_type: boolean
+        description: Original source category was NULL or exactly empty text.
+        data_tests:
+          - not_null
+      - name: is_missing_name_length
+        data_type: boolean
+        description: Original source name length was NULL or exactly empty text.
+        data_tests:
+          - not_null
+      - name: is_missing_description_length
+        data_type: boolean
+        description: Original source description length was NULL or exactly empty text.
+        data_tests:
+          - not_null
+      - name: is_missing_photos_qty
+        data_type: boolean
+        description: Original source photo count was NULL or exactly empty text.
+        data_tests:
+          - not_null
+      - name: is_missing_weight
+        data_type: boolean
+        description: Original source weight was NULL or exactly empty text.
+        data_tests:
+          - not_null
+      - name: is_missing_length
+        data_type: boolean
+        description: Original source package length was NULL or exactly empty text.
+        data_tests:
+          - not_null
+      - name: is_missing_height
+        data_type: boolean
+        description: Original source package height was NULL or exactly empty text.
+        data_tests:
+          - not_null
+      - name: is_missing_width
+        data_type: boolean
+        description: Original source package width was NULL or exactly empty text.
+        data_tests:
+          - not_null
+      - name: is_zero_weight
+        data_type: boolean
+        description: Typed source weight equals zero; false for missing or rejected values.
+        data_tests:
+          - not_null

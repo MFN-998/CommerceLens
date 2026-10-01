@@ -1,13 +1,13 @@
 # CommerceLens work state
 
-Updated: 2026-09-27. Repository: `D:\My Projects\CommerceLens`.
+Updated: 2026-10-01. Repository: `D:\My Projects\CommerceLens`.
 Read AGENTS, master plan, engineering standards, execution protocol and deletion-and-governance.
 
 ## Project State
 
 - Phases 1–2 and their audit COMPLETE. Phase 3 M1–M3 COMPLETE; M4 IN PROGRESS; M5 pending.
 - Current milestone: customer, seller and category translation staging COMPLETE / SAFE TO RESUME.
-- Current task: seller/category units complete; next implementation is products staging.
+- Current task: products staging prepared; offline and native synthetic validation before checkpoint/live build.
 - Overall objective: tested analytical warehouse; no Phase 4 work or comprehensive exit audit yet.
 - Usage is constrained; finish this checkpoint and stop before another implementation unit.
   Latest observation: 15% five-hour / 71% weekly remaining. Recheck before resuming.
@@ -111,3 +111,18 @@ git log -5 --oneline
 
 Use docs/customer-staging.md for retained regression commands and docs/seller-staging.md
 and docs/category-translation-staging.md for selected model operation. No automatic cleanup; never print credentials, raw rows or driver errors.
+
+Resume 2026-10-01: verified clean published b7ec0bb, no partially completed edits. Customer/seller/category staging complete. Current allowance 99% five-hour / 55% weekly. Next atomic unit is stg_products with typed nullable attributes and explicit quality flags. Read-only existing-view recheck pending; product candidate is scratch-only until review.
+
+Read-only customer/seller/category resume integration recheck passed: 3 tests. Existing baseline reconciled; no raw reload or model rebuild. Product implementation pending review.
+
+Products unit adopted: source_numeric macros, SQL/YAML, three dbt tests, synthetic/physical/
+native read-only Python tests and product guide. Narrow selector includes only stg_products
+additionally. No dependency/migration/data/credential changes or deletion. Validation not yet
+run on adopted files; no product view built. Current unit PARTIALLY IMPLEMENTED / SAFE TO RESUME.
+Next: retained style/type/regression and opt-in read-only native synthetic tests, code checkpoint;
+then selected live build, physical acceptance and repeat identity/flag/storage verification.
+
+Product validation: Ruff lint/format (79 files), mypy (22), warehouse/API regression 241 passed / 48 deliberate skips. Native synthetic run: 6 passed / 24 failures; first failure extreme exponent, remaining tests shared aborted transaction. No product view built. Resolve guarded parser and isolate cases before code checkpoint/live build.
+
+Native probe confirmed validity functions return false safely. Initial error was planner folding immutable casts in inline VALUES, not validator failure. Hardened helpers cast guarded text first; native fixture uses table-like MATERIALIZED input and per-case savepoints. Rerun repository gates and 31 native cases passed, including inline-constant regression. No product view built yet.

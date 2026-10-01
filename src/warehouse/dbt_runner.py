@@ -13,7 +13,9 @@ from uuid import uuid4
 from src.warehouse.config import ROOT, WarehouseSettings, load_settings
 
 DbtCommand = Literal["parse", "debug", "build", "test"]
-APPROVED_MODELS = frozenset({"stg_customers", "stg_sellers", "stg_category_translation"})
+APPROVED_MODELS = frozenset(
+    {"stg_customers", "stg_sellers", "stg_category_translation", "stg_products"}
+)
 
 
 class DbtError(ValueError):
