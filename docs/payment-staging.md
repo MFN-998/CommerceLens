@@ -54,9 +54,16 @@ two zero-installment rows, nine zero-payment rows and three not_defined methods.
 These are source reconciliation values and overlapping quality observations, not
 revenue, GMV, profit or assertions that payment and item sums must equal.
 
-Status: VALIDATED IMPLEMENTATION / LIVE ACCEPTANCE PENDING. Ruff lint/format
+Status: COMPLETE. Ruff lint/format
 passed (91 Python files), mypy passed (22 implementation files), offline dbt
 parse passed. Warehouse/API regression: 533 passed, 263 deliberate opt-in
 skips; known AnyIO deprecation warning only. Native read-only payment fixtures: 41
-passed. First/repeat builds and physical/access acceptance: Not yet tested.
+passed. First and repeat builds each passed one view and all 16 dbt tests. Actual-login
+read-only physical/access acceptance passed. All 103,886 source rows and the exact
+payment sum 16008872.12 were retained, including two zero-installment, nine zero-value
+and three undefined-method rows. Repeat identity/owner/grants remained unchanged;
+password absent from both retained build artifacts. Database size 287132819
+bytes, below 400M. See [acceptance evidence](payment-staging-verification.json).
+Full source/frontend/advisory checks were not rerun for this dependency-unchanged
+data-only unit; their existing 2026-09-22 results remain historical.
 The comprehensive governance audit follows verified Phase 3 completion, before Phase 4.

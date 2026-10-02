@@ -1,0 +1,155 @@
+{
+  "verified_at_utc": "2026-10-02T05:41:09.750693+00:00",
+  "model": "staging.stg_order_payments",
+  "raw_rows": 103886,
+  "staging_rows": 103886,
+  "payment_sum_source_reconciliation_only": "16008872.12",
+  "zero_installment_rows": 2,
+  "zero_payment_rows": 9,
+  "undefined_method_rows": 3,
+  "database_bytes": 287132819,
+  "first_build": "passed",
+  "repeat_build": "passed",
+  "relation_identity_owner_and_grants_preserved": true,
+  "password_absent_from_first_and_repeat_artifacts": true,
+  "first_results": [
+    {
+      "node": "model.commercelens.stg_order_payments",
+      "status": "success"
+    },
+    {
+      "node": "test.commercelens.accepted_values_stg_order_payments_payment_type__credit_card__boleto__voucher__debit_card__not_defined.5658caf87e",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_order_payments__load_id.2d4dcb097b",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_order_payments__source_row.887af91eab",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_order_payments_is_undefined_payment_type.fc3bde0529",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_order_payments_is_zero_installments.1781a3a689",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_order_payments_is_zero_payment_value.8c70d05298",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_order_payments_order_id.de5ce0ffc7",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_order_payments_payment_installments.20e70e8230",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_order_payments_payment_sequential.75a3e4ef12",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_order_payments_payment_type.243a64d75b",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_order_payments_payment_value.d2fb714004",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.relationships_stg_order_payments_order_id__order_id__ref_stg_orders_.6022349660",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.stg_order_payments_grain",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.stg_order_payments_lineage_unique",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.stg_order_payments_source_domains",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.stg_order_payments_source_reconciliation",
+      "status": "pass"
+    }
+  ],
+  "results": [
+    {
+      "node": "model.commercelens.stg_order_payments",
+      "status": "success"
+    },
+    {
+      "node": "test.commercelens.accepted_values_stg_order_payments_payment_type__credit_card__boleto__voucher__debit_card__not_defined.5658caf87e",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_order_payments__load_id.2d4dcb097b",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_order_payments__source_row.887af91eab",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_order_payments_is_undefined_payment_type.fc3bde0529",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_order_payments_is_zero_installments.1781a3a689",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_order_payments_is_zero_payment_value.8c70d05298",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_order_payments_order_id.de5ce0ffc7",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_order_payments_payment_installments.20e70e8230",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_order_payments_payment_sequential.75a3e4ef12",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_order_payments_payment_type.243a64d75b",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_order_payments_payment_value.d2fb714004",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.relationships_stg_order_payments_order_id__order_id__ref_stg_orders_.6022349660",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.stg_order_payments_grain",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.stg_order_payments_lineage_unique",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.stg_order_payments_source_domains",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.stg_order_payments_source_reconciliation",
+      "status": "pass"
+    }
+  ]
+}
