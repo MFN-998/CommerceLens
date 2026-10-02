@@ -1,0 +1,63 @@
+{
+  "status": "APPROVAL_PENDING",
+  "baseline_commit": "484249b",
+  "repository": "D:/My Projects/CommerceLens",
+  "groups": {
+    "A": {
+      "purpose": "Obsolete isolated validation copy",
+      "bytes": 778127379,
+      "paths": [
+        ".artifacts/engineering-clean-20260920"
+      ]
+    },
+    "B": {
+      "purpose": "Completed source scan/checkpoint copies",
+      "bytes": 13459762,
+      "paths": [
+        ".artifacts/atomic-load-checkpoint-export",
+        ".artifacts/credential-checkpoint-export",
+        ".artifacts/customer-acceptance-20260927-export",
+        ".artifacts/customer-prebuild-20260927-export",
+        ".artifacts/dbt-live-setup-20260925-export",
+        ".artifacts/governance-20260927-export",
+        ".artifacts/m2-final-secret-snapshot",
+        ".artifacts/m2-preapply-secret-snapshot",
+        ".artifacts/m3-acceptance-export",
+        ".artifacts/m3-landing-preapply-scan",
+        ".artifacts/phase3-m1-secret-snapshot",
+        ".artifacts/provisioned-checkpoint-export",
+        ".artifacts/resume-checkpoint-export",
+        ".artifacts/atomic-load-checkpoint.zip",
+        ".artifacts/credential-checkpoint.zip",
+        ".artifacts/customer-acceptance-20260927.zip",
+        ".artifacts/customer-prebuild-20260927.zip",
+        ".artifacts/dbt-live-setup-20260925.zip",
+        ".artifacts/engineering-audit-source.zip",
+        ".artifacts/governance-20260927.zip",
+        ".artifacts/m3-acceptance.zip",
+        ".artifacts/provisioned-checkpoint.zip",
+        ".artifacts/resume-checkpoint.zip"
+      ]
+    },
+    "C": {
+      "purpose": "Duplicate original download",
+      "bytes": 126186995,
+      "paths": [
+        ".artifacts/olist-download-v2"
+      ]
+    },
+    "D": {
+      "purpose": "Obsolete generated test and bootstrap parse output",
+      "bytes": 31280464,
+      "paths": [
+        ".artifacts/pytest",
+        ".artifacts/pytest-offline-loading",
+        ".pytest-tmp",
+        "dbt/target"
+      ]
+    }
+  },
+  "preserved_drafts": ".artifacts/cleanup-preserved-20261002",
+  "total_roots": 29,
+  "total_bytes": 949054600
+}
