@@ -1,0 +1,80 @@
+version: 2
+
+models:
+  - name: stg_order_items
+    description: >-
+      One retained source row per (order_id, order_item_id), preserving all seven
+      source fields and immutable lineage. IDs retain literal lowercase hexadecimal
+      spelling. The positive item sequence uses exact signed-64-bit integral decimal
+      parsing. Shipping deadline uses strict canonical ASCII YYYY-MM-DD HH:MM:SS,
+      real calendar dates and the whole-second Phase 2 bounds 1677-09-21 00:12:44
+      through 2262-04-11 23:47:16 inclusive, as timestamp without time zone.
+      Mandatory price/freight use numeric(18,2) directly from raw text: only ASCII
+      nonnegative digits with an optional one- or two-digit decimal part, at most
+      9999999999999999.99, without signs, exponents, whitespace, rounding or a float
+      intermediate. Zero is valid. Exact empty or rejected text becomes typed null
+      and fails blocking tests without dropping rows. Mandatory relationships target
+      the accepted order, product and seller staging views. No parent purchase join
+      or duration/KPI rule is added. Shipping-before-purchase and shipping deadlines
+      beyond 365 days are contextual flags deferred to fact_order_items.
+    config:
+      materialized: view
+      schema: staging
+    columns:
+      - name: _load_id
+        data_type: uuid
+        description: Unchanged immutable source snapshot identity from raw.
+        data_tests:
+          - not_null
+      - name: _source_row
+        data_type: bigint
+        description: Unchanged one-based logical CSV record ordinal within the load.
+        data_tests:
+          - not_null
+      - name: order_id
+        data_type: text
+        description: Mandatory literal lowercase hexadecimal source order reference.
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_orders')
+                field: order_id
+      - name: order_item_id
+        data_type: bigint
+        description: Mandatory positive item sequence within the order; not globally unique.
+        data_tests:
+          - not_null
+      - name: product_id
+        data_type: text
+        description: Mandatory literal lowercase hexadecimal source product reference.
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_products')
+                field: product_id
+      - name: seller_id
+        data_type: text
+        description: Mandatory literal lowercase hexadecimal source seller reference.
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_sellers')
+                field: seller_id
+      - name: shipping_limit_date
+        data_type: timestamp without time zone
+        description: Mandatory literal seller shipping deadline; source timezone unspecified.
+        data_tests:
+          - not_null
+      - name: price
+        data_type: numeric(18,2)
+        description: Mandatory exact nonnegative source item price in BRL; zero remains zero.
+        data_tests:
+          - not_null
+      - name: freight_value
+        data_type: numeric(18,2)
+        description: Mandatory exact nonnegative source item freight in BRL; zero remains zero.
+        data_tests:
+          - not_null
