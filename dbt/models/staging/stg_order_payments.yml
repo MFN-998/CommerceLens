@@ -1,0 +1,81 @@
+version: 2
+
+models:
+  - name: stg_order_payments
+    description: >-
+      One retained source component per (order_id, payment_sequential), preserving
+      all five source fields and immutable lineage. Order references retain literal
+      lowercase hexadecimal spelling and target the accepted order staging view.
+      Positive sequence and nonnegative installments use exact signed-64-bit
+      integral decimal parsing; component sequences are not globally unique.
+      Payment method is literal credit_card, boleto, voucher, debit_card or
+      not_defined. Amount uses accepted numeric(18,2) raw-text parsing: ASCII
+      nonnegative digits with optional one- or two-digit decimal part, at most
+      9999999999999999.99, with no signs, exponents, whitespace, excess scale,
+      rounding or float intermediate. Exact empty text becomes null; rejected
+      numeric input becomes typed null, and invalid literal keys/methods remain
+      unchanged. These failures block acceptance without dropping rows. Zero installments,
+      zero amounts and literal not_defined are retained and separately flagged;
+      flags are false when their operand is missing or rejected. No imputation,
+      parent join, aggregation, business metric or eligibility rule is added.
+    config:
+      materialized: view
+      schema: staging
+    columns:
+      - name: _load_id
+        data_type: uuid
+        description: Unchanged immutable source snapshot identity from raw.
+        data_tests:
+          - not_null
+      - name: _source_row
+        data_type: bigint
+        description: Unchanged one-based logical CSV record ordinal within the load.
+        data_tests:
+          - not_null
+      - name: order_id
+        data_type: text
+        description: Mandatory literal lowercase hexadecimal source order reference.
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_orders')
+                field: order_id
+      - name: payment_sequential
+        data_type: bigint
+        description: Mandatory positive component sequence within the order; not globally unique.
+        data_tests:
+          - not_null
+      - name: payment_type
+        data_type: text
+        description: Mandatory literal payment method; source not_defined remains not_defined.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [credit_card, boleto, voucher, debit_card, not_defined]
+      - name: payment_installments
+        data_type: bigint
+        description: Mandatory nonnegative source installment count; zero retained and flagged.
+        data_tests:
+          - not_null
+      - name: payment_value
+        data_type: numeric(18,2)
+        description: Mandatory exact nonnegative component amount in BRL; zero retained and flagged.
+        data_tests:
+          - not_null
+      - name: is_zero_installments
+        data_type: boolean
+        description: Typed installment count equals zero; false for missing or rejected input.
+        data_tests:
+          - not_null
+      - name: is_zero_payment_value
+        data_type: boolean
+        description: Typed amount equals zero; false for missing or rejected input.
+        data_tests:
+          - not_null
+      - name: is_undefined_payment_type
+        data_type: boolean
+        description: Exact source method is not_defined; false for missing or other literal input.
+        data_tests:
+          - not_null

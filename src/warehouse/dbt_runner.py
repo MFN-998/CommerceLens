@@ -21,6 +21,7 @@ APPROVED_MODELS = frozenset(
         "stg_products",
         "stg_orders",
         "stg_order_items",
+        "stg_order_payments",
     }
 )
 
