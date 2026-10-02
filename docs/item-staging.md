@@ -57,11 +57,17 @@ Historical source observations: 112,650 items, exact price sum 13591643.70 and f
 2251909.54. These are technical source-column reconciliation values, not GMV, revenue,
 profit or assertions that item and payment sums must equal.
 
-Status: VALIDATED IMPLEMENTATION / LIVE ACCEPTANCE PENDING. Ruff lint/format passed
+Status: COMPLETE. Ruff lint/format passed
 (87 Python files), mypy passed (22 implementation files), offline dbt parse passed.
 Warehouse/API regression passed: 463 tests, 221 deliberate opt-in skips;
 known AnyIO deprecation warning only. Native read-only item cases passed: 83.
-First/repeat builds and physical/access acceptance: Not yet tested.
+First and repeat builds each passed one view and all 16 dbt tests, retaining 112,650 rows.
+Actual-login read-only physical/access acceptance passed. Independent exact raw/view
+price and freight sums match the historical observations above. Repeat identity/owner/
+grants were preserved; transformer password absent from both retained build artifacts.
+Database size: 287124627 bytes, below the 400M-byte ceiling.
+See [acceptance evidence](item-staging-verification.json). Full source/frontend/advisory
+checks were not rerun for this dependency-unchanged data-only unit.
 The comprehensive governance audit remains pending verified Phase 3 completion.
 
 References: [PostgreSQL numeric types](https://www.postgresql.org/docs/17/datatype-numeric.html),
