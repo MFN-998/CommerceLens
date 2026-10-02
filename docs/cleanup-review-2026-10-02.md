@@ -1,9 +1,11 @@
 # Local artifact cleanup review — 2026-10-02
 
-Status: ASSESSMENT COMPLETE / DELETION APPROVAL PENDING. No files have been deleted.
+Status: CLEANUP COMPLETE. Owner approved A/B, retained C and delegated the D decision;
+A/B/D were removed after revalidation. Assessment and pre-deletion checkpoint: 0096260.
 Scope: resource cleanliness only, before resuming geolocation staging. This is not the
 post-Phase 3 engineering/product governance audit. No code, dependencies, database or
 Phase 3 functionality was changed. Source baseline: published commit 484249b.
+The proposal inventory below is retained as the exact historical deletion scope.
 
 ## Findings and practical impact
 
@@ -188,11 +190,28 @@ checks, generated-root link checks and exact three-draft preservation. No source
 review records, private environment values or credentials were published. No tests/builds
 or database actions were needed or run for this resource assessment.
 
-Deletion remains pending specific owner approval of A/B/C/D (or an explicit subset).
-Before acting, validate each approved absolute target is inside the intended repository,
-recheck links/current use and verify preserved-draft hashes. Use one native PowerShell
-filesystem operation flow with literal paths. Afterwards verify only approved roots were
-removed, Git/source and authoritative data remain unchanged, retained evidence/tools and
-backup still exist, and record the decision/result in this report and WORK_STATE.
-If declined, retain the paths and record that decision. Then resume geolocation staging
-from the existing master plan; the comprehensive audit still waits until Phase 3 completes.
+Owner decision on 2026-10-02: delete A and B, keep C, and choose D based on future use.
+D was removed because its existing old contents are not future inputs. Current conftest.py
+creates fresh UUID fixture directories with parents; the supported dbt runner creates
+fresh UUID targets and disables partial parsing. Future generated output may be created
+normally, but this approval does not authorize automatic future artifact deletion.
+
+Execution COMPLETE: 28 exact roots / 43,967 files / 822,867,605 bytes (784.75 MiB)
+removed from A/B/D. Before removal all absolute roots were checked inside the repository,
+with no reparse links or active process use; sizes still matched the reviewed inventory.
+Three unique draft originals and preserved copies matched their recorded SHA-256 values.
+The native PowerShell operation used literal paths, recording each completed removal in
+.artifacts/cleanup-preserved-20261002/cleanup-result.json for interruption recovery.
+
+Post-removal verification PASS: all 28 roots absent; 858 retained tracked/local files
+hash-unchanged, including source, interim data, credentials, current dbt acceptance output,
+tools, audit captures and preserved drafts. All nine authoritative CSVs and all nine
+retained C copies passed manifest size/SHA-256 verification again after removal. Preserved
+draft hashes also passed again. Active environments, Git and the explicitly retained roots
+remain present. Only this report, the proposal JSON and WORK_STATE were modified in Git.
+No tests/builds, package installation, migration or database action ran for this cleanup;
+source/configuration were unchanged, so relevant checks were resource integrity and disuse.
+
+Geolocation staging is the next implementation unit from the existing master plan.
+The recorded documentation wording follow-ups remain pending. The comprehensive
+governance audit still waits until Phase 3 is complete and verified.

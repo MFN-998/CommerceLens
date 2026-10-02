@@ -7,8 +7,9 @@ Updated 2026-10-02. No knowledge required for continuation should depend on chat
 
 - Phase 3 Database/SQL/Analytics Engineering. M4 review staging
   COMPLETE; next source geolocation.
-- Current task: local cleanup assessment COMPLETE; owner deletion decision pending.
-  See docs/cleanup-review-2026-10-02.md and the exact 29-root proposal JSON.
+- Current task: approved local cleanup COMPLETE. A/B/D removed; C retained.
+  See docs/cleanup-review-2026-10-02.md and the proposal JSON for exact scope/results.
+  Next implementation unit: geolocation staging; not started during cleanup.
 - Objective: tested analytical warehouse per master plan and ADR 0003, Free/views-first
   ADR 0004. Phase 4 and the comprehensive exit governance audit have not begun.
 - Approximately 40-50% of Phase 3 warehouse implementation/verification effort remains
@@ -35,9 +36,11 @@ Updated 2026-10-02. No knowledge required for continuation should depend on chat
 
 ## Files
 
-- Cleanup review: new docs/cleanup-review-2026-10-02.md and proposal JSON;
-  ignored .artifacts/cleanup-preserved-20261002 contains three exact historical
-  drafts and hash manifest. Originals retained; nothing deleted.
+- Updated docs/cleanup-review-2026-10-02.md, cleanup-proposal-2026-10-02.json and this handoff.
+- Deleted only the approved 28 ignored A/B/D roots (43,967 files, 784.75 MiB); full paths
+  remain recorded in the review/proposal. C's duplicate dataset download retained.
+- Ignored .artifacts/cleanup-preserved-20261002 retains three exact historical drafts,
+  hash manifest and per-root cleanup execution journal; this backup was not removed.
 
 - New dbt/models/staging/stg_order_reviews.sql/.yml;
   dbt/tests/stg_order_reviews_grain/lineage_unique/source_domains/source_reconciliation.sql.
@@ -45,11 +48,15 @@ Updated 2026-10-02. No knowledge required for continuation should depend on chat
   test_warehouse_review_integration.py; docs/review-staging.md and verification JSON.
 - Modified approved selectors in src/warehouse/dbt_runner.py, WORK_STATE.md
   and phase-3-plan.md/customer-staging.md status/selector guidance.
-- Existing source_numeric/source_timestamp/source_money helpers unchanged. No resource
-  deletion/rename, migration, dependencies, raw data, credentials or application changes.
-  Ignored UUID test/dbt artifacts retained; scratch candidates are not runtime inputs.
+- Existing source_numeric/source_timestamp/source_money helpers and source unchanged.
+  No migration, dependencies, raw data, credentials or application changes. Current UUID
+  dbt acceptance artifacts retained; approved historical test output removed in cleanup.
 
 ## Technical Decisions
+
+- Owner approved A/B removal, retained C and delegated D: remove old generated D output
+  because current runners recreate fresh fixtures/targets. Approval is limited to this
+  exact batch, not future automatic cleanup. No tracked source or accepted warehouse evidence removed.
 
 - Reviews retain (review_id,order_id), seven source fields plus lineage; optional exact-empty
   title/message become NULL, otherwise Unicode/newlines/whitespace/markup remain literal.
@@ -78,9 +85,13 @@ Updated 2026-10-02. No knowledge required for continuation should depend on chat
 
 ## Validation
 
-- Cleanup assessment: read-only sizes/references/Git history, nine duplicate CSV hash/size
-  comparisons and exact draft preservation passed. No new tests/builds/database actions
-  this assessment; earlier Phase 3 test results below remain their actual run results.
+- Cleanup COMPLETE: approved 28 roots revalidated (containment, links, use, sizes),
+  removed and confirmed absent. 858 retained files hash-unchanged. All nine canonical
+  CSVs and nine retained C copies passed manifest size/SHA-256 checks after removal;
+  three preserved draft hashes passed. Active environments/Git/evidence/tools retained.
+- No tests/builds/database actions ran for unchanged source/configuration in cleanup;
+  earlier Phase 3 results below remain their actual historical run results. Cleanup
+  diff/complete staged-contents/history secret checks passed before the checkpoint.
 
 - Ruff lint/format passed (95 Python files); mypy passed 22 implementation files.
 - Offline dbt parse passed; retained artifact .artifacts/dbt/fbe16a3c48c14300912d0855588fa485.
@@ -108,14 +119,14 @@ Updated 2026-10-02. No knowledge required for continuation should depend on chat
 ## Current Repository Condition
 
 STABLE / SAFE TO RESUME. Review atomic unit COMPLETE; eight of nine staging sources accepted.
-Phase 3 incomplete. Cleanup deletion approval pending; no source/implementation change.
+Phase 3 incomplete. Cleanup COMPLETE with owner approval; no source/implementation change.
 No current known failed tests; verify actual Git status.
 
 ## Incomplete Work
 
-- Owner decision on proposed cleanup groups A–D; no deletion without explicit approval.
-  Stale progress/test-location documentation wording recorded in cleanup review;
-  correct it during maintenance, retaining all historical documents.
+- Stale progress/test-location documentation wording recorded in cleanup review;
+  correct it during maintenance, retaining all historical documents. No cleanup decision
+  remains pending; C is intentionally retained as the owner's offline fallback.
 
 - Geolocation staging; five dimensions, int_order_customers and four facts remain pending.
 - M5: technical order-component mart, example SQL, performance/query-plan and
@@ -125,25 +136,24 @@ No current known failed tests; verify actual Git status.
 
 ## Exact Next Actions
 
-1. Read cleanup review/proposal and obtain or inspect the owner's explicit group decision.
-   Do not delete or infer approval. Verify the preserved-draft hashes before any removal.
-2. If approved, revalidate only approved literal target paths/current use/links, remove
-   those roots, verify Git/source/raw data/evidence/backup unchanged and record results.
-   If declined, retain and record that choice. Address documented wording separately.
-3. Confirm a clean recoverable checkpoint, then resume geolocation staging without
-   redoing accepted models, migrations, loads or Phases 1–2. Its implementation is pending.
-4. Follow ADR 0003: preserve all 1,000,163 geographic observations/duplicates, literal ZIPs
+1. Confirm the containing cleanup checkpoint is clean/synced with git status and history;
+   read phase-3-plan.md and ADR 0003's geolocation contract, then inspect accepted staging
+   models/helpers and geolocation source metadata. Geolocation implementation is pending.
+2. Follow ADR 0003: preserve all 1,000,163 geographic observations/duplicates, literal ZIPs
    and explicit broad-Brazil warning; no invented canonical coordinate or duplicate ZIP join.
    Validate/code checkpoint, selected first/physical/repeat acceptance, then core/M5.
-5. Comprehensive governance gate remains after verified Phase 3, before Phase 4.
+3. Address the recorded progress/test-location wording during maintenance; retain historical
+   documents and C. Do not repeat cleanup or delete future generated output automatically.
+4. Comprehensive governance gate remains after verified Phase 3, before Phase 4.
 
 ## Git State
 
 - Branch feat/warehouse-foundation; main unchanged/unmerged. Payment acceptance 7d8ffb6 published.
 - Review implementation a63c7ca / acceptance 484249b published.
-- Cleanup assessment checkpoint is the containing commit:
+- Pre-deletion assessment/checkpoint 0096260 published. Cleanup execution checkpoint
+  is the containing commit:
   git log -1 --format="%H %s" -- WORK_STATE.md. Verify actual clean/synced status.
-- Latest recorded allowance 41% five-hour / 38% weekly remaining; account-wide,
+- Latest recorded allowance 38% five-hour / 37% weekly remaining; account-wide,
   not a task/model reservation. Recheck before substantial units. No reset credits used.
 
 ## Continuation Commands
