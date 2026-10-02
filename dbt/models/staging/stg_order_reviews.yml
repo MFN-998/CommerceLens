@@ -1,0 +1,80 @@
+version: 2
+
+models:
+  - name: stg_order_reviews
+    description: >-
+      One retained source review/order pair at (review_id, order_id); neither ID
+      alone is assumed unique. All seven source fields and immutable lineage are
+      retained without a parent join or selected-review policy. Review/order keys
+      preserve literal lowercase hexadecimal spelling; the mandatory order
+      reference targets the accepted order staging view. Mandatory score uses
+      exact signed-64-bit integral decimal parsing and the source domain 1 through
+      5. Optional title/message convert only exact empty text to null, preserving
+      all other literal text including Unicode, newlines, whitespace, apostrophes
+      and markup. Both mandatory dates use the accepted strict canonical ASCII
+      YYYY-MM-DD HH:MM:SS calendar parser, within whole-second Phase 2 bounds
+      1677-09-21 00:12:44 through 2262-04-11 23:47:16, without inventing a timezone.
+      Rejected numeric/date text becomes typed null; missing mandatory or invalid
+      literal keys block acceptance without dropping rows. Answer-before-creation
+      retains exact events and sets a warning flag, false when either typed event
+      is absent. No date repair, duration, business metric or eligibility rule is
+      added. Multiple-review counts and presence indicators belong to later core
+      and mart aggregation; choosing a review requires a separate future rule.
+    config:
+      materialized: view
+      schema: staging
+    columns:
+      - name: _load_id
+        data_type: uuid
+        description: Unchanged immutable source snapshot identity from raw.
+        data_tests:
+          - not_null
+      - name: _source_row
+        data_type: bigint
+        description: Unchanged one-based logical CSV record ordinal within the load.
+        data_tests:
+          - not_null
+      - name: review_id
+        data_type: text
+        description: Mandatory literal lowercase hexadecimal review key; not individually unique.
+        data_tests:
+          - not_null
+      - name: order_id
+        data_type: text
+        description: Mandatory literal lowercase hexadecimal order reference; multiple reviews retained.
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_orders')
+                field: order_id
+      - name: review_score
+        data_type: bigint
+        description: Mandatory exact integral source score on the 1 through 5 scale.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [1, 2, 3, 4, 5]
+                quote: false
+      - name: review_comment_title
+        data_type: text
+        description: Nullable literal source title; exact empty becomes null without trimming/sanitizing.
+      - name: review_comment_message
+        data_type: text
+        description: Nullable literal source message; exact empty becomes null without trimming/sanitizing.
+      - name: review_creation_date
+        data_type: timestamp without time zone
+        description: Mandatory literal source review creation/survey timestamp; timezone unspecified.
+        data_tests:
+          - not_null
+      - name: review_answer_timestamp
+        data_type: timestamp without time zone
+        description: Mandatory literal source answer timestamp; timezone unspecified.
+        data_tests:
+          - not_null
+      - name: is_answer_before_creation
+        data_type: boolean
+        description: Typed answer precedes creation; false when either event is missing or rejected.
+        data_tests:
+          - not_null
