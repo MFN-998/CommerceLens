@@ -55,9 +55,16 @@ Historical source observations: 99,224 rows; 87,656 missing titles; 58,247 missi
 messages; zero answers before creation; 547 orders with multiple review records.
 These are source reconciliation observations, not customer-satisfaction KPI definitions.
 
-Status: VALIDATED IMPLEMENTATION / LIVE ACCEPTANCE PENDING. Ruff lint/format
+Status: COMPLETE. Ruff lint/format
 passed (95 Python files), mypy passed (22 implementation files); offline dbt
 parse passed. Warehouse/API regression 620 passed / 308 deliberate opt-in skips,
 known AnyIO deprecation warning only. Native read-only review cases 44 passed.
-First/repeat builds and physical/access acceptance: Not yet tested.
+First/repeat builds each passed one view and all 14 dbt tests; actual-login
+read-only physical/access acceptance passed. All 99,224 rows and optional comment
+contents were retained. Source/view counts match: 87,656 missing titles, 58,247
+missing messages, zero reversed answers and 547 orders with multiple reviews.
+Repeat view identity/owner/grants preserved; password absent from retained artifacts.
+Database 287141011 bytes <400M. See [acceptance evidence](review-staging-verification.json).
+Full source/frontend/advisory checks were not rerun for this dependency-unchanged unit;
+2026-09-22 results remain historical.
 The comprehensive governance audit follows verified Phase 3 completion, before Phase 4.

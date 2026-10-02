@@ -1,0 +1,139 @@
+{
+  "verified_at_utc": "2026-10-02T05:53:43.504540+00:00",
+  "model": "staging.stg_order_reviews",
+  "raw_rows": 99224,
+  "staging_rows": 99224,
+  "missing_title_rows": 87656,
+  "missing_message_rows": 58247,
+  "answer_before_creation_rows": 0,
+  "orders_with_multiple_reviews": 547,
+  "database_bytes": 287141011,
+  "first_build": "passed",
+  "repeat_build": "passed",
+  "relation_identity_owner_and_grants_preserved": true,
+  "password_absent_from_first_and_repeat_artifacts": true,
+  "first_results": [
+    {
+      "node": "model.commercelens.stg_order_reviews",
+      "status": "success"
+    },
+    {
+      "node": "test.commercelens.accepted_values_stg_order_reviews_review_score__False__1__2__3__4__5.9409f74301",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_order_reviews__load_id.8ca83fdd57",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_order_reviews__source_row.58070877ef",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_order_reviews_is_answer_before_creation.70dd49a2b3",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_order_reviews_order_id.bcae6ac049",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_order_reviews_review_answer_timestamp.30b6140e54",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_order_reviews_review_creation_date.24ca69a2a3",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_order_reviews_review_id.9ed4569df1",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_order_reviews_review_score.6c9d94292a",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.relationships_stg_order_reviews_order_id__order_id__ref_stg_orders_.cf70bad1f9",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.stg_order_reviews_grain",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.stg_order_reviews_lineage_unique",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.stg_order_reviews_source_domains",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.stg_order_reviews_source_reconciliation",
+      "status": "pass"
+    }
+  ],
+  "results": [
+    {
+      "node": "model.commercelens.stg_order_reviews",
+      "status": "success"
+    },
+    {
+      "node": "test.commercelens.accepted_values_stg_order_reviews_review_score__False__1__2__3__4__5.9409f74301",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_order_reviews__load_id.8ca83fdd57",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_order_reviews__source_row.58070877ef",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_order_reviews_is_answer_before_creation.70dd49a2b3",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_order_reviews_order_id.bcae6ac049",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_order_reviews_review_answer_timestamp.30b6140e54",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_order_reviews_review_creation_date.24ca69a2a3",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_order_reviews_review_id.9ed4569df1",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_order_reviews_review_score.6c9d94292a",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.relationships_stg_order_reviews_order_id__order_id__ref_stg_orders_.cf70bad1f9",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.stg_order_reviews_grain",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.stg_order_reviews_lineage_unique",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.stg_order_reviews_source_domains",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.stg_order_reviews_source_reconciliation",
+      "status": "pass"
+    }
+  ]
+}
