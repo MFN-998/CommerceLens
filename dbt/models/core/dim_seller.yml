@@ -1,0 +1,56 @@
+version: 2
+
+models:
+  - name: dim_seller
+    description: >-
+      One seller_id, retaining all source address fields and immutable lineage.
+      A left join to the unique literal ZIP dimension adds geolocation coverage
+      without choosing a canonical city, state or coordinate. Every seller is
+      retained, including uncovered ZIPs. Missing dimension references or null
+      coverage fail validation rather than being treated as legitimate absence.
+    config:
+      materialized: view
+      schema: core
+    columns:
+      - name: _load_id
+        data_type: uuid
+        description: Unchanged immutable source snapshot identity.
+        data_tests:
+          - not_null
+      - name: _source_row
+        data_type: bigint
+        description: Unchanged one-based source record ordinal.
+        data_tests:
+          - not_null
+      - name: seller_id
+        data_type: text
+        description: Unchanged mandatory lowercase 32-character hexadecimal source key.
+        data_tests:
+          - not_null
+          - unique
+      - name: seller_zip_code_prefix
+        data_type: text
+        description: Literal one-to-five ASCII digit prefix with required unique ZIP-domain reference.
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_location')
+                field: zip_code_prefix
+      - name: seller_city
+        data_type: text
+        description: Source address city, preserving Unicode, case and whitespace without canonicalization.
+        data_tests:
+          - not_null
+      - name: seller_state
+        data_type: text
+        description: Unchanged mandatory source Brazilian state abbreviation, not a selected geolocation state.
+        data_tests:
+          - not_null
+      - name: has_geolocation
+        data_type: boolean
+        description: >-
+          ZIP dimension coverage. False is a retained address without geography
+          evidence; null means a broken required reference/coverage contract.
+        data_tests:
+          - not_null

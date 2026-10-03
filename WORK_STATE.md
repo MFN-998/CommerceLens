@@ -7,8 +7,10 @@ Updated 2026-10-03. Required continuation knowledge must not depend on chat alon
 
 - Phase 3 Database/SQL/Analytics Engineering, M4. ALL NINE SOURCE STAGING MODELS COMPLETE.
 - Geolocation acceptance COMPLETE and published b2f4205.
-- Current milestone: core.dim_location COMPLETE (code/offline/native/first/access/repeat).
-  Next atomic unit: core.dim_seller. No partially implemented seller/core files.
+- Location acceptance COMPLETE, clean published 7bd2d8c.
+- Current unit: core.dim_seller code/offline/native COMPLETE; first live build,
+  physical/access and repeat acceptance PENDING. No seller view built yet.
+  This round is limited to finishing seller acceptance/checkpoint, then wrapping.
 - Objective: tested analytical warehouse per master plan, ADR 0003 and Free/views-first
   ADR 0004. M4 core and M5 remain; Phase 4 and the comprehensive exit audit have not begun.
 - Roughly 30-40% of Phase 3 warehouse implementation/verification effort remains after
@@ -39,6 +41,11 @@ Updated 2026-10-03. Required continuation knowledge must not depend on chat alon
 
 ## Files
 
+- Current new seller unit: dbt/models/core/dim_seller.sql/.yml, seller_dimension_domains/
+  source_reconciliation singular tests, tests/test_warehouse_seller_dimension.py and
+  docs/seller-dimension.md; dedicated _postgres_integration.py and _integration.py
+  seller-dimension tests added. Runner selector/phase/customer guides updated;
+  no deletion/migration/dependency/application/credential work.
 - New dbt/models/core/dim_location.sql/.yml; domains/source_reconciliation/
   join_conservation singular tests; three dedicated location Python test modules
   and docs/location-dimension.md plus aggregate verification JSON. Modified runner
@@ -59,6 +66,12 @@ Updated 2026-10-03. Required continuation knowledge must not depend on chat alon
 
 ## Technical Decisions
 
+- Seller grain remains source seller_id. Preserve all six fields and lineage;
+  a unique location ZIP join adds has_geolocation. Missing reference yields null and
+  blocks acceptance, not a false coverage warning. Independent source reconciliation
+  uses a unique observation ZIP set; no source filtering/canonical geography/policy.
+- Seller ZIP relationship expands eager parent selection. Build seller first before
+  repeating parent location tests that now refer to it. Historical counts remain dated.
 - Geolocation grain is (_load_id,_source_row), not ZIP or five-field distinct value.
   All exact duplicate observations and spelling variants remain; no source joins,
   deduplication, padding, normalization or canonical coordinate/city/state policy.
@@ -87,6 +100,13 @@ Updated 2026-10-03. Required continuation knowledge must not depend on chat alon
 
 ## Validation
 
+- Seller pre-build: 87 focused offline/runner checks passed; retained warehouse/API
+  regression 797 passed / 472 deliberate live opt-in skips, known AnyIO warning only.
+  Native read-only synthetic PostgreSQL: 30 passed. Ruff lint/format passed (108 Python
+  files); mypy passed 22 implementation files. Offline parse passed, retained
+  .artifacts/dbt/c6b2cc865d514c9cb796219ea2b57ed8. Scoped review found no blockers.
+- Seller first/physical/repeat acceptance: Not yet tested. Complete staged-contents/
+  history secret checks required before code checkpoint/publication.
 - Location: 121 focused offline/runner checks passed; retained warehouse/API regression
   767 passed / 441 deliberate opt-in skips, known AnyIO warning only. Native read-only
   synthetic PostgreSQL cases: 59 passed. Ruff lint/format passed (104 Python files),
@@ -130,10 +150,9 @@ Updated 2026-10-03. Required continuation knowledge must not depend on chat alon
 
 ## Current Repository Condition
 
-STABLE / SAFE TO RESUME. All nine source staging models and core.dim_location accepted.
-Location atomic unit COMPLETE; Phase 3 incomplete. No current known failed tests or
-partially implemented core models. Acceptance documentation saved; verify containing
-checkpoint and actual clean/synced Git state.
+STABLE / SAFE TO RESUME. Accepted source/location baseline remains unchanged. Seller
+code and offline/native checks complete; live acceptance pending. No known current
+failed tests or database mutation. Checkpoint verified code before the first build.
 
 ## Incomplete Work
 
@@ -153,26 +172,23 @@ checkpoint and actual clean/synced Git state.
 
 ## Exact Next Actions
 
-1. Confirm clean/synced acceptance checkpoint. Read ADR 0003, accepted stg_sellers,
-   dim_location and location-dimension.md. Implement core.dim_seller at seller_id grain,
-   retaining source address/ZIP/lineage and has_geolocation via a single ZIP-domain join.
-   No canonical geography, filtering or new business policy. No seller files exist yet.
-2. Test exact retained seller fields/rows, unique key, mandatory dimension relationship,
-   valid coverage flags and no fanout. All 3,095 sellers and 7 uncovered source rows
-   must remain; absent dimension rows are a failure, not a coverage warning.
-3. Run scoped offline/native/regression/quality gates, checkpoint code, then selected
-   first/physical/repeat acceptance and checkpoint evidence. Keep artifacts; no raw reload.
-4. Continue remaining M4 units, then M5 query/performance/reconstruction gates. Required
-   comprehensive audit and corrections follow verified Phase 3, before Phase 4.
+1. Confirm clean code checkpoint and database size <400,000,000 bytes; run selected
+   dbt-build --select dim_seller using protected transformer settings. No raw reload.
+2. Run opt-in seller physical/access test and compatible selected repeat build; verify
+   3,095 unchanged source/core rows, 7 uncovered rows, no null coverage, full fields/
+   lineage, identity/grants, API/reader denials, storage and artifact secrecy.
+3. Record evidence/acceptance checkpoint and wrap before allowance exhaustion. Do not
+   start another core unit in this round. Next core unit can resume after reset.
+4. Remaining core/M5/governance work stays within the established phase boundaries.
 
 ## Git State
 
 - Branch feat/warehouse-foundation; main unchanged/unmerged. Review acceptance 484249b.
 - Cleanup 177c71d and geolocation implementation 81f0342 published.
 - Geolocation acceptance b2f4205 and location code 1ad6281 published.
-- Location acceptance checkpoint is the containing commit:
+- Location acceptance 7bd2d8c published; seller code checkpoint is the containing commit:
   git log -1 --format="%H %s" -- WORK_STATE.md. Verify clean/synced status after publication.
-- Last observed allowance 52% five-hour / 93% weekly remaining, account-wide;
+- Last observed allowance 39% five-hour / 91% weekly remaining, account-wide;
   not a reservation for this task/model. Check before new substantial units.
   No purchases, paid changes or reset credits used.
 
@@ -182,7 +198,7 @@ checkpoint and actual clean/synced Git state.
 Set-Location 'D:\My Projects\CommerceLens'
 git status --short --branch
 git log -5 --oneline
-.venv/Scripts/python.exe -B -m src.warehouse dbt-test --select dim_location
+.venv/Scripts/python.exe -B -m src.warehouse dbt-build --select dim_seller
 ```
 
 Use customer-staging.md retained regression instructions and location-dimension.md.

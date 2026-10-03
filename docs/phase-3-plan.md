@@ -17,7 +17,7 @@ The phase exit remains a **tested analytical warehouse**, not a deployed analyti
 | M1. Warehouse contracts | ADR with schemas, grains/types, join/quality policies, role boundaries, and recovery contract | Phase 2 evidence reviewed; original decimal/ZIP fields inspected; design and source observations consistent | Design complete; implementation tracked in M2–M5 |
 | M2. Isolated database foundation | Dedicated dev project; reviewed versioned bootstrap/migrations; secret-free examples and connection guidance | Target/version verified, encrypted connection, repeat migration, intended grants and denied access, API exposure review, disposable recovery test | Complete 2026-09-21: migration applied, replay/permissions/recovery checks passed |
 | M3. Reproducible loading | All nine verified source tables, provenance/load registry, exact monetary ingestion, atomic load | Source/hash/count/content reconciliation, exact decimal checks, idempotent rerun, failed-load rollback, unchanged raw files | Complete 2026-09-22: all 1,550,922 rows committed; full content/count/money and repeat verification passed |
-| M4. dbt staging and dimensions/facts | Pinned compatible dbt/Postgres tools; staging/intermediate/core models and explicit quality flags | dbt build, uniqueness/null/reference/domain tests, source reconciliation, synthetic grain and missing-data cases | In progress: all nine source staging models verified (12/11/8/16/25/16/16/14/12 dbt tests); dim_location first/access/repeat verified (12 dbt tests); remaining core models pending |
+| M4. dbt staging and dimensions/facts | Pinned compatible dbt/Postgres tools; staging/intermediate/core models and explicit quality flags | dbt build, uniqueness/null/reference/domain tests, source reconciliation, synthetic grain and missing-data cases | In progress: all nine source staging models verified (12/11/8/16/25/16/16/14/12 dbt tests); dim_location first/access/repeat verified (12 dbt tests); dim_seller code/offline/native verified, live acceptance pending; other core models pending |
 | M5. Initial marts and handoff | Order-grain technical mart and reliable example SQL; access/recovery/developer guidance | Independent child aggregation, conserved counts/sums, repeat build, query-plan review, reconstruction/recovery verification, final checks and checkpoint | Not started |
 
 Each unit follows implement → validate → document → update WORK_STATE → commit → verify
@@ -80,7 +80,7 @@ See [customer](customer-staging.md), [seller](seller-staging.md),
 [category translation](category-translation-staging.md), [products](product-staging.md),
 [orders](order-staging.md), [order items](item-staging.md), [payments](payment-staging.md),
 [reviews](review-staging.md), [geolocation](geolocation-staging.md),
-[location dimension](location-dimension.md)
+[location dimension](location-dimension.md), [seller dimension](seller-dimension.md)
 and [dbt development](dbt-development.md) guides.
 
 ## Required exit governance gate
