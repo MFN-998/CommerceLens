@@ -6,13 +6,13 @@ CommerceLens is an e-commerce analytics and decision-intelligence portfolio proj
 The planned product brings together reliable data pipelines, SQL analytics, customer
 intelligence, delivery-risk prediction, forecasting, and business recommendations.
 
-**Phases 1–2 complete; Phase 3 warehouse staging in progress.**
+**Phases 1–2 complete; all nine Phase 3 source staging views verified.**
 The repository contains a minimal FastAPI service, Next.js development page, and a
 reproducible Olist data pipeline. The source is historical anonymized data; it is not a
 live business feed. Local staging preserves documented source-quality warnings.
 All 1,550,922 source rows are now loaded in private PostgreSQL with tested atomic
-loading and full-content retry verification. Eight dbt source staging views are accepted;
-geolocation live acceptance, dimensional models and initial analytical marts remain.
+loading and full-content retry verification. All nine dbt source staging views are
+accepted; dimensional models, initial analytical marts and final warehouse checks remain.
 See the [current work state](WORK_STATE.md) for verified progress and continuation.
 
 ## Start here

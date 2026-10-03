@@ -1,183 +1,142 @@
 # CommerceLens work state
 
 Authoritative handoff; verify actual repository, Git and documentation on resume.
-Updated 2026-10-03. No knowledge required for continuation should depend on chat alone.
+Updated 2026-10-03. Required continuation knowledge must not depend on chat alone.
 
 ## Project State
 
-- Phase 3 Database/SQL/Analytics Engineering. M4 review staging
-  COMPLETE; next source geolocation.
-- Current task: geolocation implementation/offline/native gates COMPLETE; live acceptance PENDING.
-  Resume baseline was clean published 177c71d; no interrupted source changes.
-  Approved cleanup complete: A/B/D old outputs removed; C and preserved drafts retained.
-  Selected first build, physical/access and repeat acceptance not yet run.
-- Objective: tested analytical warehouse per master plan and ADR 0003, Free/views-first
-  ADR 0004. Phase 4 and the comprehensive exit governance audit have not begun.
-- Approximately 40-50% of Phase 3 warehouse implementation/verification effort remains
-  after review acceptance. This is a reasoned estimate, not a time forecast or
-  staging-model-count percentage. Required later audit/correction effort remains unknown.
+- Phase 3 Database/SQL/Analytics Engineering, M4. ALL NINE SOURCE STAGING MODELS COMPLETE.
+- Current milestone: geolocation code/native/first/access/repeat acceptance COMPLETE.
+  Next implementation unit: core.dim_location. No partially implemented core files.
+- Objective: tested analytical warehouse per master plan, ADR 0003 and Free/views-first
+  ADR 0004. M4 core and M5 remain; Phase 4 and the comprehensive exit audit have not begun.
+- Roughly 35-45% of Phase 3 warehouse implementation/verification effort remains after
+  source staging. Reasoned range, not a time forecast or model-count percentage;
+  required later audit/correction effort remains unknown.
 
 ## Completed Work
 
-- Phases 1-2 and their professional-practices remediation complete; do not repeat them.
-- M1 contracts, M2 isolated foundation and M3 all-nine-table landing complete:
-  1,550,922 rows. No raw reload, migration replay or account reprovisioning needed.
-- Accepted staging: customers 99,441 / 12 tests, sellers 3,095 / 11,
-  category translation 71 / 8, products 32,951 / 16, orders 99,441 / 25,
-  items 112,650 / 16. Historical checkpoint test counts; later child relationships
-  can expand parent selections through dbt eager indirect test selection.
-- Orders acceptance 698191b; items implementation 923f058 / acceptance 05dc235 published.
-  Order/product/seller physical/access checks rerun today: 3 passed.
-- Payments source-preserving model, three quality flags, 16 dbt data tests,
-  focused offline/native/physical tests and guide saved and validated.
-- Payments implementation 0a1dbb4 / acceptance 7d8ffb6 published: 103,886 rows,
-  16 dbt tests, native 41 cases, physical/access passed; zero/undefined values retained.
-- Review source-preserving composite model, optional text, reversal flag, 14 dbt tests,
-  focused offline/native/physical test modules and guide COMPLETE; all 99,224 rows retained.
+- Phases 1-2 and professional-practices remediation complete; do not repeat them.
+- M1 contracts, M2 isolated foundation, M3 all-nine-table landing complete:
+  1,550,922 rows. No reload, migration replay or account reprovisioning needed.
+- Accepted staging rows / historical dbt test counts: customers 99,441 / 12,
+  sellers 3,095 / 11, category translation 71 / 8, products 32,951 / 16,
+  orders 99,441 / 25, items 112,650 / 16, payments 103,886 / 16,
+  reviews 99,224 / 14, geolocation 1,000,163 / 12. Later child relationships can
+  expand parent test selections through eager indirect selection.
+- Geolocation preserves 19,015 ZIPs, 261,831 excess exact duplicate observations,
+  all 31 broad-Brazil-box outliers and immutable load/ordinal lineage.
+- Approved 2026-10-02 cleanup A/B/D completed and verified; C dataset fallback and
+  three unique drafts retained. Current 2026-10-03 test outputs are new retained
+  artifacts, not additional deletion covered by that previous approval.
+- Known progress/setup/test-location documentation wording corrected, without
+  removing historical plans/evidence. Staged secret scans avoid duplicate exports.
 
 ## Files
 
-- New stg_geolocation.sql/.yml and three singular lineage/domain/reconciliation tests;
-  offline/native/physical geolocation test modules and docs/geolocation-staging.md.
-- Modified src/warehouse/dbt_runner.py approved selector; no helper, dependency,
-  migration, source-data or application changes. No project resources deleted in this unit.
-
-- Updated docs/cleanup-review-2026-10-02.md, cleanup-proposal-2026-10-02.json and this handoff.
-- Deleted only the approved 28 ignored A/B/D roots (43,967 files, 784.75 MiB); full paths
-  remain recorded in the review/proposal. C's duplicate dataset download retained.
-- Ignored .artifacts/cleanup-preserved-20261002 retains three exact historical drafts,
-  hash manifest and per-root cleanup execution journal; this backup was not removed.
-
-- New dbt/models/staging/stg_order_reviews.sql/.yml;
-  dbt/tests/stg_order_reviews_grain/lineage_unique/source_domains/source_reconciliation.sql.
-- New tests/test_warehouse_review_staging.py, test_warehouse_review_postgres_integration.py,
-  test_warehouse_review_integration.py; docs/review-staging.md and verification JSON.
-- Modified approved selectors in src/warehouse/dbt_runner.py, WORK_STATE.md
-  and phase-3-plan.md/customer-staging.md status/selector guidance.
-- Existing source_numeric/source_timestamp/source_money helpers and source unchanged.
-  No migration, dependencies, raw data, credentials or application changes. Current UUID
-  dbt acceptance artifacts retained; approved historical test output removed in cleanup.
+- New dbt/models/staging/stg_geolocation.sql/.yml; three singular tests
+  stg_geolocation_lineage_unique/source_domains/source_reconciliation.sql.
+- New tests/test_warehouse_geolocation_staging.py, native _postgres_integration.py,
+  physical _integration.py; docs/geolocation-staging.md and verification JSON.
+- Modified approved selector in src/warehouse/dbt_runner.py; no helper changes.
+- Updated README, CONTRIBUTING, development/dbt-setup/phase-3/customer-staging docs
+  and cleanup follow-up record. No dependency, migration, raw/interim data, credentials,
+  application, filesystem deletion or deployment changes in this geolocation unit.
+- Retained first/repeat artifacts: .artifacts/dbt/033ad85c890342d683eb9debfe704158
+  and .artifacts/dbt/bfcb642cd6fa413282978a3d61fc5b87.
 
 ## Technical Decisions
 
-- Geolocation preserves all observations/exact duplicates with load/ordinal lineage;
-  ZIP is not unique. Literal one-to-five ASCII-digit ZIP/city/state text, guarded double
-  coordinate types and global range checks preserve existing contracts. Broad-Brazil
-  warning uses inclusive lat[-34,6]/lng[-74,-28], false if either typed coordinate absent.
-  No canonical coordinate, row filtering or duplicate ZIP-to-order join introduced.
-
-- Owner approved A/B removal, retained C and delegated D: remove old generated D output
-  because current runners recreate fresh fixtures/targets. Approval is limited to this
-  exact batch, not future automatic cleanup. No tracked source or accepted warehouse evidence removed.
-
-- Reviews retain (review_id,order_id), seven source fields plus lineage; optional exact-empty
-  title/message become NULL, otherwise Unicode/newlines/whitespace/markup remain literal.
-  Never render untrusted review content as application HTML later. No selected review/join/filter.
-- Score exact bigint 1-5. Creation/answer strict canonical source timestamps without time zone.
-  Reversal flag preserves valid backward events; missing/invalid typed dates give false and
-  mandatory validation failure. Multiple-review counts belong later core/mart (547 orders).
-- Payment grain (order_id,payment_sequential), five source fields plus immutable lineage,
-  three independent booleans; no aggregation/parent join/row filtering. Literal source
-  methods restricted to credit_card/boleto/voucher/debit_card/not_defined.
-- Positive exact signed-64-bit payment sequence; nonnegative exact installments.
-  Payment numeric(18,2) from original raw decimal text matches M3: ASCII nonnegative
-  digits, optional 1-2 decimals, <=9999999999999999.99; no sign/exponent/whitespace,
-  extra scale, Float64 intermediate or rounding. Existing guarded helpers reused.
-- Missing/rejected mandatory values become typed NULL and block acceptance. Zero/undefined
-  observations retained and flagged; numeric NULL yields false zero flags, while literal
-  not_defined stays flagged independently. No repair, eligibility or KPI policy invented.
-- Item shipping-before-purchase/over-365-day context flags remain explicit fact_order_items
-  M4 gate, including four historical over-one-year rows. Durations need valid ordered events.
-- Restricted transformer, verify-full TLS, private warehouse/API denied. Compatible
-  CREATE OR REPLACE preserves view identity/owner/grants. View commit precedes tests;
-  a failed test is failed acceptance, not rollback. Preserve artifacts and diagnose.
-- Recommended deferred Phase 2 parser compatibility debt: pandas accepts nonpadded dates,
-  leap-second rollover and dynamic now/today. Strict warehouse guard mitigates current
-  verified source. Owner: maintainer; fix before accepting a different source version.
+- Geolocation grain is (_load_id,_source_row), not ZIP or five-field distinct value.
+  All exact duplicate observations and spelling variants remain; no source joins,
+  deduplication, padding, normalization or canonical coordinate/city/state policy.
+- ZIP follows existing one-to-five ASCII digits, city/state remain literal text;
+  exact-empty text becomes NULL. Mandatory missing/invalid values fail acceptance.
+- Coordinates reuse guarded nullable_double, global lat[-90,90]/lng[-180,180] domains.
+  NaN/Infinity extensions, invalid/overflow/underflow input becomes NULL, blocking
+  validation. No explicit rounding or repair; double is the accepted binary64 type.
+- is_outside_broad_brazil_bounds is the exploratory inclusive lat[-34,6]/lng[-74,-28]
+  warning; false if either typed coordinate absent. It never determines eligibility.
+- Current dev session extra_float_digits=0 rounds text results to 15 significant
+  digits. Binary fetch/float8send proved stored coordinate correctness; native
+  projections use binary=True with strict independent equality, not relaxed tolerances.
+  No global/server/helper change. Later precise API coordinate reads need binary
+  transport or a reviewed positive session output setting.
+- Core.dim_location next: literal ZIP union of customers/sellers/geolocation; aggregate
+  geography before joining that unique domain. Minimal counters: observation_count,
+  city_variant_count, state_variant_count and outside_broad_brazil_observation_count
+  (geolocation_ prefix for the first three); booleans has_geolocation and
+  is_geolocation_city_ambiguous/is_geolocation_state_ambiguous. Counts/ambiguity describe
+  geo observations only; later customer/seller models retain source geography separately.
+  Missing geo evidence yields zero counters; no chosen coordinate/city/state. See ADR 0003.
+- Restricted transformer, verify-full TLS, private schemas/API denials remain enforced.
+  Compatible CREATE OR REPLACE preserves view identity/owner/grants. View commit precedes
+  tests; failed acceptance is not rollback. Preserve failed view/artifacts and diagnose.
 
 ## Validation
 
-- Geolocation focused offline 134 passed; Ruff lint/format 100 files and mypy 22
-  implementation files passed. Warehouse/API regression 701 passed / 381 opt-in skips;
-  known AnyIO deprecation warning. Offline parse passed: .artifacts/dbt/8cd0a32fc01c4bebba797a8b9cc3a7ed.
-- Initial native run: 71 passed / 1 high-precision equality failed. Diagnosis proved
-  extra_float_digits=0 shortened text results; binary fetch and float8send exactly
-  match the independent expected binary64 value. Model/helper unchanged; native
-  projection now reads binary results with strict assertions. Rerun: all 72 passed.
-
-- Cleanup COMPLETE: approved 28 roots revalidated (containment, links, use, sizes),
-  removed and confirmed absent. 858 retained files hash-unchanged. All nine canonical
-  CSVs and nine retained C copies passed manifest size/SHA-256 checks after removal;
-  three preserved draft hashes passed. Active environments/Git/evidence/tools retained.
-- No tests/builds/database actions ran for unchanged source/configuration in cleanup;
-  earlier Phase 3 results below remain their actual historical run results. Cleanup
-  diff/complete staged-contents/history secret checks passed before the checkpoint.
-
-- Ruff lint/format passed (95 Python files); mypy passed 22 implementation files.
-- Offline dbt parse passed; retained artifact .artifacts/dbt/fbe16a3c48c14300912d0855588fa485.
-- Warehouse/API regression 620 passed / 308 deliberate opt-in skips;
-  known AnyIO deprecation warning only. Native read-only review cases 44 passed.
-- Accepted item first/repeat each one view / 16 tests; native 83 passed, physical/access passed,
-  exact price/freight sums 13591643.70 / 2251909.54; 112,650 retained rows,
-  identity/owner/grants preserved and password absent from artifacts.
-- Payment first/repeat each passed one view and 16 dbt tests; actual-login physical/access
-  check passed. Raw/view 103,886 rows and exact payment sum 16008872.12; quality counts
-  2 zero installments / 9 zero amounts / 3 undefined methods. Identity/owner/grants preserved;
-  password absent from first/repeat artifacts. Database 287132819 bytes <400M.
-  Evidence docs/payment-staging-verification.json; sums are technical reconciliation only.
-- Complete staged contents/history secret scans required before each checkpoint/publication.
-  Published item code/acceptance scans passed; payment results are recorded with its commits.
-- Full source/frontend/advisory gate last passed 2026-09-22; not rerun for unchanged
-  dependencies/data-only work. Full check.ps1 cleanup requires approval/adaptation.
-- No deployment, E2E or comprehensive post-Phase 3 audit this session.
-- Review first/repeat each passed one view / 14 dbt tests; actual-login physical/access passed.
-  Raw/view 99,224 rows; missing title/message 87,656 / 58,247; zero reversed answers,
-  547 orders with multiple reviews. Repeat identity/owner/grants preserved, password absent
-  from retained artifacts; database 287141011 bytes <400M.
-  Evidence docs/review-staging-verification.json; these observations do not define KPIs.
+- 2026-10-03: focused offline geolocation/runner 134 passed. Ruff lint/format passed
+  (100 Python files); mypy passed 22 implementation files. Warehouse/API regression
+  701 passed / 381 deliberate opt-in skips, known AnyIO deprecation warning only.
+- Offline dbt parse passed: .artifacts/dbt/8cd0a32fc01c4bebba797a8b9cc3a7ed.
+- Initial native run 71 passed / 1 high-precision text-transport assertion failed;
+  diagnosed and corrected test transport. Subsequent complete native run: 72 passed.
+- First/repeat each passed one geolocation view / all 12 dbt tests. Actual-login
+  read-only physical/type/ownership/access acceptance: 1 passed. Both raw/view retain
+  1,000,163 rows / 19,015 ZIPs / 261,831 excess duplicate observations / 31 warning flags.
+  Repeat OID/owner/grants preserved; password absent from first/repeat artifacts.
+  Database 287,165,587 bytes <400,000,000; evidence geolocation-staging-verification.json.
+- Implementation complete staged-contents/history secret scans passed before publishing
+  81f0342. Acceptance diff and complete staged-contents/history secret scans passed.
+- Cleanup source/data/credentials/evidence/draft integrity checks passed 2026-10-02;
+  details in cleanup-review-2026-10-02.md. No further deletion authorized by that batch.
+- Full source/frontend/dependency-advisory gate last passed 2026-09-22; not rerun for
+  unchanged dependencies/data-only work. check.ps1 automatic cleanup needs approval
+  or a reviewed retained workflow. No E2E/deployment/comprehensive Phase 3 audit run.
 
 ## Current Repository Condition
 
-STABLE / SAFE TO RESUME. Eight staging sources accepted. Geolocation code/offline/native
-gates COMPLETE; first live build/access/repeat acceptance pending. Phase 3 incomplete.
-No current known failed tests; verify actual Git status.
+STABLE / SAFE TO RESUME. Geolocation atomic unit COMPLETE; all nine source staging
+views accepted. Phase 3 is still incomplete. No current known failed tests.
+Acceptance documentation is saved; verify containing checkpoint and actual Git status.
 
 ## Incomplete Work
 
-- Recommended API coordinate transport gate: current dev session extra_float_digits=0
-  rounds text results; use binary fetch or reviewed positive session output setting
-  before exposing precise coordinate reads. Warehouse values/reconciliation are correct.
-
-- Stale progress/test-location documentation wording recorded in cleanup review;
-  correct it during maintenance, retaining all historical documents. No cleanup decision
-  remains pending; C is intentionally retained as the owner's offline fallback.
-
-- Geolocation staging; five dimensions, int_order_customers and four facts remain pending.
-- M5: technical order-component mart, example SQL, performance/query-plan and
-  reconstruction/recovery proofs. Shipping context/core and multiple-review aggregate gates.
-- Parser compatibility debt before a new source; audit E01-E10 revisit gates remain.
-  Full governance audit/corrections required after verified Phase 3, before Phase 4.
+- Core.dim_location, then remaining four dimensions, int_order_customers and four facts.
+- M5 technical order-component mart, reliable example SQL, measured query-plan/performance
+  and reconstruction/recovery proofs. Independent child aggregation/conservation gates.
+- Items shipping-before-purchase/over-365-day flags are a fact_order_items M4 gate,
+  including four historical over-one-year rows; durations require valid ordered events.
+- Multiple-review counts (547 orders) belong to core/mart; no selected-review policy.
+- Recommended Phase 2 parser compatibility debt: pandas accepts nonpadded dates,
+  leap-second rollover and dynamic now/today. Strict warehouse guard mitigates current
+  source. Owner: maintainer; fix before accepting a different source version.
+- Recommended future API coordinate result-transport gate above; implement before
+  exposing precise coordinate reads. Audit E01-E10 revisit gates remain documented.
+- Full governance audit and required corrections only AFTER verified Phase 3, BEFORE Phase 4.
 
 ## Exact Next Actions
 
-1. Confirm a clean code checkpoint; check current database size <400,000,000 bytes,
-   then selected dbt-build --select stg_geolocation using protected transformer settings.
-2. Run the opt-in geolocation physical/access test, then compatible selected repeat build;
-   verify OID/owner/grants, all 1,000,163 rows, 19,015 ZIPs, 261,831 duplicate observations,
-   31 warning flags and no password in artifacts. Preserve failed artifacts/view; no drop.
-3. Record actual acceptance evidence/checkpoint, then core dimensions/intermediate/facts
-   and M5. No reload/reprovision/migration replay or repeat accepted source implementation.
-4. Comprehensive governance audit only after verified Phase 3, before Phase 4.
+1. Read phase-3-plan.md, ADR 0003 dim_location contract and accepted staging models.
+   Confirm clean/synced checkpoint. Implement core.dim_location with the minimal
+   observation/coverage/ambiguity contract above and dedicated selector/tests/guide.
+2. Verify unique exact three-source ZIP domain, duplicate-preserving per-ZIP counts,
+   nonnegative bounded counters, source totals and boolean consistency. Synthetic
+   duplicates increase observation counts without changing literal variant counts.
+   Unique-domain joins preserve customer/seller rows and 278/7 uncovered source rows.
+3. Validate offline/native gates, checkpoint code, selected first/physical/repeat builds,
+   record evidence/identity/access/storage and checkpoint. No raw reload or view drop.
+4. Continue remaining M4 core units, then M5. Run full governance gate at phase exit.
 
 ## Git State
 
-- Branch feat/warehouse-foundation; main unchanged/unmerged. Payment acceptance 7d8ffb6 published.
-- Review implementation a63c7ca / acceptance 484249b published.
-- Cleanup execution checkpoint 177c71d published; pre-deletion assessment 0096260.
-- Geolocation code checkpoint is the containing commit:
-  git log -1 --format="%H %s" -- WORK_STATE.md. Verify actual clean/synced status.
-- Latest recorded allowance 99% five-hour / 100% weekly remaining; account-wide,
-  not a task/model reservation. Recheck before substantial units. No reset credits used.
+- Branch feat/warehouse-foundation; main unchanged/unmerged. Review acceptance 484249b.
+- Cleanup 177c71d and geolocation implementation 81f0342 published.
+- Geolocation acceptance checkpoint is the containing commit:
+  git log -1 --format="%H %s" -- WORK_STATE.md. Verify clean/synced status after publication.
+- Last observed allowance 75% five-hour / 96% weekly remaining, account-wide;
+  not a reservation for this task/model. Check before new substantial units.
+  No purchases, paid changes or reset credits used.
 
 ## Continuation Commands
 
@@ -185,10 +144,10 @@ No current known failed tests; verify actual Git status.
 Set-Location 'D:\My Projects\CommerceLens'
 git status --short --branch
 git log -5 --oneline
-.venv/Scripts/python.exe -B -m src.warehouse dbt-build --select stg_geolocation
+.venv/Scripts/python.exe -B -m src.warehouse dbt-test --select stg_geolocation
 ```
 
 Use customer-staging.md retained regression instructions and geolocation-staging.md.
-Never print secrets/source records/driver diagnostics. Project-resource deletion requires
-informed explicit approval; legitimate product data deletion follows authorization,
-ownership, confirmation and integrity requirements. No paid changes or reset credits used.
+Never print secrets/source records/driver diagnostics. Project resource deletion needs
+specific informed permission; legitimate product deletion follows authorization,
+ownership, confirmation and integrity requirements. Preserve the owner's retained C.

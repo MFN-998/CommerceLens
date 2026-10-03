@@ -68,11 +68,16 @@ Historical source observations: 1,000,163 observations, 19,015 distinct ZIPs,
 261,831 excess exact duplicates and 31 broad-box outliers. These are source-quality
 observations, not product metrics or a canonical location policy.
 
-Status: CODE/OFFLINE/NATIVE COMPLETE; live first/access/repeat acceptance pending.
-Focused offline checks 134 passed; Ruff lint/format passed (100 Python files), mypy
-passed (22 implementation files). Warehouse/API regression 701 passed / 381 deliberate
-opt-in skips; known AnyIO deprecation warning only. Offline dbt parse passed. Initial
-native run had one transport precision failure; after the binary-result correction,
-all 72 read-only native cases passed. No live view build/access/repeat claimed yet. The full source/frontend/advisory gate is not needed
-for unchanged dependencies and product code; earlier results remain historical.
-The comprehensive governance audit follows verified Phase 3 completion, before Phase 4.
+Status: COMPLETE. Focused offline checks 134 passed; Ruff lint/format passed (100
+Python files), mypy passed (22 implementation files). Warehouse/API regression 701
+passed / 381 deliberate opt-in skips; known AnyIO deprecation warning only. Offline
+parse passed. Initial native precision failure was diagnosed as text result transport;
+after correction all 72 native cases passed without changing the model/helper.
+First/repeat builds each passed one view and all 12 dbt tests; actual-login read-only
+physical/access acceptance passed. All 1,000,163 observations, 19,015 ZIPs, 261,831
+excess duplicates and 31 warning flags reconcile with source. Repeat view identity,
+owner and grants preserved; password absent from retained first/repeat artifacts.
+Database 287165587 bytes <400M. See [acceptance evidence](geolocation-staging-verification.json).
+Full source/frontend/advisory checks were not rerun for unchanged dependencies/product
+code; earlier results remain historical. All nine source staging models are accepted.
+Core models and M5 remain; the governance audit waits until verified Phase 3 completion.

@@ -171,7 +171,9 @@ duplicate instruction set; the application icon and later-phase scaffolding are 
 
 ## Documentation confusion; fix wording, not files
 
-The following are maintenance follow-ups, not deletion targets:
+Historical findings below were maintenance follow-ups, not deletion targets.
+Resolved in the 2026-10-03 geolocation unit: README/phase progress, setup-plan historical
+label, retained fixture-location wording and staged scan guidance now match actual use.
 
 - README.md still says dbt models are next; it should describe eight accepted staging sources.
 - The Phase 3 plan's M1 cell should say design complete and implementation tracked in M2–M5.
@@ -213,5 +215,5 @@ No tests/builds, package installation, migration or database action ran for this
 source/configuration were unchanged, so relevant checks were resource integrity and disuse.
 
 Geolocation staging is the next implementation unit from the existing master plan.
-The recorded documentation wording follow-ups remain pending. The comprehensive
+The recorded documentation wording follow-ups were corrected on 2026-10-03. The comprehensive
 governance audit still waits until Phase 3 is complete and verified.

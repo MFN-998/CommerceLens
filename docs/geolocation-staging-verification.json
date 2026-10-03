@@ -1,0 +1,122 @@
+{
+  "verified_at_utc": "2026-10-03T04:30:39.796411+00:00",
+  "model": "staging.stg_geolocation",
+  "raw_rows": 1000163,
+  "staging_rows": 1000163,
+  "distinct_zip_prefixes": 19015,
+  "outside_broad_brazil_bounds_rows": 31,
+  "excess_exact_duplicate_observations": 261831,
+  "database_bytes": 287165587,
+  "first_build": "passed",
+  "repeat_build": "passed",
+  "relation_identity_owner_and_grants_preserved": true,
+  "password_absent_from_first_and_repeat_artifacts": true,
+  "first_results": [
+    {
+      "node": "model.commercelens.stg_geolocation",
+      "status": "success"
+    },
+    {
+      "node": "test.commercelens.accepted_values_stg_geolocation_geolocation_state__AC__AL__AP__AM__BA__CE__DF__ES__GO__MA__MT__MS__MG__PA__PB__PR__PE__PI__RJ__RN__RS__RO__RR__SC__SP__SE__TO.c6542073cd",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_geolocation__load_id.0d9896b135",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_geolocation__source_row.25eacf2ebc",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_geolocation_geolocation_city.b6f5a6f31a",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_geolocation_geolocation_lat.edb0bf16d6",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_geolocation_geolocation_lng.b779e7808e",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_geolocation_geolocation_state.7a4f106ae8",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_geolocation_geolocation_zip_code_prefix.8015755edf",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_geolocation_is_outside_broad_brazil_bounds.fb0b4e34c0",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.stg_geolocation_lineage_unique",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.stg_geolocation_source_domains",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.stg_geolocation_source_reconciliation",
+      "status": "pass"
+    }
+  ],
+  "results": [
+    {
+      "node": "model.commercelens.stg_geolocation",
+      "status": "success"
+    },
+    {
+      "node": "test.commercelens.accepted_values_stg_geolocation_geolocation_state__AC__AL__AP__AM__BA__CE__DF__ES__GO__MA__MT__MS__MG__PA__PB__PR__PE__PI__RJ__RN__RS__RO__RR__SC__SP__SE__TO.c6542073cd",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_geolocation__load_id.0d9896b135",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_geolocation__source_row.25eacf2ebc",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_geolocation_geolocation_city.b6f5a6f31a",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_geolocation_geolocation_lat.edb0bf16d6",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_geolocation_geolocation_lng.b779e7808e",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_geolocation_geolocation_state.7a4f106ae8",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_geolocation_geolocation_zip_code_prefix.8015755edf",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_stg_geolocation_is_outside_broad_brazil_bounds.fb0b4e34c0",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.stg_geolocation_lineage_unique",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.stg_geolocation_source_domains",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.stg_geolocation_source_reconciliation",
+      "status": "pass"
+    }
+  ]
+}
