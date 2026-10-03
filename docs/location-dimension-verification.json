@@ -1,0 +1,130 @@
+{
+  "verified_at_utc": "2026-10-03T05:17:08.213399+00:00",
+  "model": "core.dim_location",
+  "zip_rows": 19177,
+  "unique_zip_prefixes": 19177,
+  "geolocation_observations": 1000163,
+  "outside_broad_brazil_observations": 31,
+  "zip_prefixes_with_geolocation": 19015,
+  "city_ambiguous_zip_prefixes": 8556,
+  "state_ambiguous_zip_prefixes": 8,
+  "customer_join_rows": 99441,
+  "customer_uncovered_rows": 278,
+  "seller_join_rows": 3095,
+  "seller_uncovered_rows": 7,
+  "database_bytes": 287173779,
+  "first_build": "passed",
+  "repeat_build": "passed",
+  "first_build_elapsed_seconds": 78.768,
+  "repeat_build_elapsed_seconds": 75.849,
+  "relation_identity_owner_and_grants_preserved": true,
+  "password_absent_from_first_and_repeat_artifacts": true,
+  "first_results": [
+    {
+      "node": "model.commercelens.dim_location",
+      "status": "success"
+    },
+    {
+      "node": "test.commercelens.dim_location_domains",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.dim_location_join_conservation",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.dim_location_source_reconciliation",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_dim_location_geolocation_city_variant_count.c8850b3722",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_dim_location_geolocation_observation_count.1f7886903e",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_dim_location_geolocation_state_variant_count.451ead5ef0",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_dim_location_has_geolocation.47f6eaf5ac",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_dim_location_is_geolocation_city_ambiguous.a1ef80f180",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_dim_location_is_geolocation_state_ambiguous.d30ecb237b",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_dim_location_outside_broad_brazil_observation_count.c099d7adf0",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_dim_location_zip_code_prefix.fe1b2cc1eb",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.unique_dim_location_zip_code_prefix.14e93ee054",
+      "status": "pass"
+    }
+  ],
+  "results": [
+    {
+      "node": "model.commercelens.dim_location",
+      "status": "success"
+    },
+    {
+      "node": "test.commercelens.dim_location_domains",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.dim_location_join_conservation",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.dim_location_source_reconciliation",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_dim_location_geolocation_city_variant_count.c8850b3722",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_dim_location_geolocation_observation_count.1f7886903e",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_dim_location_geolocation_state_variant_count.451ead5ef0",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_dim_location_has_geolocation.47f6eaf5ac",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_dim_location_is_geolocation_city_ambiguous.a1ef80f180",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_dim_location_is_geolocation_state_ambiguous.d30ecb237b",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_dim_location_outside_broad_brazil_observation_count.c099d7adf0",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_dim_location_zip_code_prefix.fe1b2cc1eb",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.unique_dim_location_zip_code_prefix.14e93ee054",
+      "status": "pass"
+    }
+  ]
+}

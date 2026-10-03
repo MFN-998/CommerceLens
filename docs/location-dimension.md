@@ -2,7 +2,7 @@
 
 Phase 3 M4, following [ADR 0003](decisions/0003-warehouse-contract.md).
 Source staging is accepted; this unit introduces the first core dimension.
-Current status: code/offline/native COMPLETE; live first/physical/repeat acceptance PENDING.
+Current status: COMPLETE, including first/physical/repeat live acceptance.
 
 ## Contract and purpose
 
@@ -77,5 +77,16 @@ the comprehensive governance audit waits until all of Phase 3 is verified.
 121 focused offline/runner checks and 59 read-only native PostgreSQL cases passed.
 Retained warehouse/API regression: 767 passed / 441 deliberate opt-in skips; known
 AnyIO deprecation warning only. Ruff lint/format passed (104 Python files); mypy
-passed 22 implementation files. Final offline parse passed. Live view build, actual
-physical/access acceptance and repeat identity/grant verification are not yet tested.
+passed 22 implementation files. Final offline parse passed. First/repeat each passed
+one view/all 12 dbt tests; read-only actual-login physical/access acceptance passed.
+
+19,177 unique ZIPs; all 1,000,163 observations / 31 broad-box flags; 8,556 city-ambiguous
+and 8 state-ambiguous ZIPs. Customer/seller joins retain 99,441/3,095 rows and 278/7
+uncovered source rows.
+Repeat identity/owner/grants preserved; password absent from both artifact trees.
+Database 287,173,779 bytes remains below 400 MB. The complete selected
+build suites took 78.768/75.849
+seconds including tests; these are not individual consumer-query timings. M5 retains
+the measured query-plan/performance gate. Initial preflight helper omitted the role
+switch; it was corrected before building, without changing database grants.
+See [aggregate acceptance evidence](location-dimension-verification.json).

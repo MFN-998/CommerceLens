@@ -7,17 +7,20 @@ Updated 2026-10-03. Required continuation knowledge must not depend on chat alon
 
 - Phase 3 Database/SQL/Analytics Engineering, M4. ALL NINE SOURCE STAGING MODELS COMPLETE.
 - Geolocation acceptance COMPLETE and published b2f4205.
-- Current unit: core.dim_location code/offline/native gates COMPLETE.
-  First live build, physical/access and repeat acceptance PENDING. No live location
-  view built yet. Next action is the selected first build after a clean code checkpoint.
+- Current milestone: core.dim_location COMPLETE (code/offline/native/first/access/repeat).
+  Next atomic unit: core.dim_seller. No partially implemented seller/core files.
 - Objective: tested analytical warehouse per master plan, ADR 0003 and Free/views-first
   ADR 0004. M4 core and M5 remain; Phase 4 and the comprehensive exit audit have not begun.
-- Roughly 35-45% of Phase 3 warehouse implementation/verification effort remains after
-  source staging. Reasoned range, not a time forecast or model-count percentage;
+- Roughly 30-40% of Phase 3 warehouse implementation/verification effort remains after
+  source staging and the first core dimension. Reasoned range, not a time forecast
+  or model-count percentage;
   required later audit/correction effort remains unknown.
 
 ## Completed Work
 
+- Location dimension accepted: 19,177 unique ZIPs; all 1,000,163 observations / 31
+  broad-box flags; 8,556 city-ambiguous / 8 state-ambiguous ZIPs. Customer/seller joins
+  retain 99,441/3,095 rows and 278/7 uncovered source rows.
 - Phases 1-2 and professional-practices remediation complete; do not repeat them.
 - M1 contracts, M2 isolated foundation, M3 all-nine-table landing complete:
   1,550,922 rows. No reload, migration replay or account reprovisioning needed.
@@ -38,7 +41,8 @@ Updated 2026-10-03. Required continuation knowledge must not depend on chat alon
 
 - New dbt/models/core/dim_location.sql/.yml; domains/source_reconciliation/
   join_conservation singular tests; three dedicated location Python test modules
-  and docs/location-dimension.md. Modified runner approved selector and phase/
+  and docs/location-dimension.md plus aggregate verification JSON. Modified runner
+  approved selector and phase/
   customer-staging guides. No deletion/dependency/migration/application changes.
 - New dbt/models/staging/stg_geolocation.sql/.yml; three singular tests
   stg_geolocation_lineage_unique/source_domains/source_reconciliation.sql.
@@ -48,7 +52,9 @@ Updated 2026-10-03. Required continuation knowledge must not depend on chat alon
 - Updated README, CONTRIBUTING, development/dbt-setup/phase-3/customer-staging docs
   and cleanup follow-up record. No dependency, migration, raw/interim data, credentials,
   application, filesystem deletion or deployment changes in this geolocation unit.
-- Retained first/repeat artifacts: .artifacts/dbt/033ad85c890342d683eb9debfe704158
+- Retained location first/repeat artifacts: .artifacts/dbt/79e391f8fb2543df9d9822fa18e6c0c6
+  and .artifacts/dbt/232e607e452449ada592e5001bd0bd55.
+- Retained geolocation first/repeat artifacts: .artifacts/dbt/033ad85c890342d683eb9debfe704158
   and .artifacts/dbt/bfcb642cd6fa413282978a3d61fc5b87.
 
 ## Technical Decisions
@@ -68,7 +74,7 @@ Updated 2026-10-03. Required continuation knowledge must not depend on chat alon
   projections use binary=True with strict independent equality, not relaxed tolerances.
   No global/server/helper change. Later precise API coordinate reads need binary
   transport or a reviewed positive session output setting.
-- Core.dim_location next: literal ZIP union of customers/sellers/geolocation; aggregate
+- Accepted core.dim_location: literal ZIP union of customers/sellers/geolocation; aggregate
   geography before joining that unique domain. Minimal counters: observation_count,
   city_variant_count, state_variant_count and outside_broad_brazil_observation_count
   (geolocation_ prefix for the first three); booleans has_geolocation and
@@ -89,8 +95,20 @@ Updated 2026-10-03. Required continuation knowledge must not depend on chat alon
 - Focused review added null consumed geo city/state/flag guard: aggregates ignore nulls;
   mixed valid/null inputs now fail domains. Literal C collation and unique-domain
   joins preserve spelling and avoid per-address observation scans. No broad audit run.
-- Location live first/physical/repeat checks: Not yet tested. Complete staged-contents
-  and history secret checks required before checkpoint/publication.
+- Initial scratch preflight stopped before build with InsufficientPrivilege because
+  it had not SET LOCAL ROLE for core metadata lookup. Corrected helper; grants/code
+  unchanged. Subsequent first/repeat each passed one location view/all 12 dbt tests.
+  Actual-login read-only physical/access check: 1 passed; all API roles and mart reader
+  denied core access. 19,177 unique ZIPs; all 1,000,163 observations / 31
+  broad-box flags; 8,556 city-ambiguous / 8 state-ambiguous ZIPs. Customer/seller joins
+  retain 99,441/3,095 rows and 278/7 uncovered source rows.
+- Location repeat identity/owner/grants preserved; password absent from both artifacts.
+  Database 287,173,779 bytes <400,000,000. Build suite elapsed times
+  78.768/75.849 seconds;
+  these include 12 tests and are not individual application query latency. M5 query-plan
+  and performance acceptance remains pending. Evidence: location-dimension-verification.json.
+- Location implementation complete staged-contents/history secret scans passed before
+  publishing 1ad6281. Acceptance diff and complete staged-contents/history scans passed.
 - 2026-10-03: focused offline geolocation/runner 134 passed. Ruff lint/format passed
   (100 Python files); mypy passed 22 implementation files. Warehouse/API regression
   701 passed / 381 deliberate opt-in skips, known AnyIO deprecation warning only.
@@ -112,13 +130,15 @@ Updated 2026-10-03. Required continuation knowledge must not depend on chat alon
 
 ## Current Repository Condition
 
-STABLE / SAFE TO RESUME. All nine staging sources accepted; location code/offline/
-native checks complete. Phase 3 is incomplete. Location live acceptance pending,
-no known current failed tests. Code checkpoint must precede the first live view build.
+STABLE / SAFE TO RESUME. All nine source staging models and core.dim_location accepted.
+Location atomic unit COMPLETE; Phase 3 incomplete. No current known failed tests or
+partially implemented core models. Acceptance documentation saved; verify containing
+checkpoint and actual clean/synced Git state.
 
 ## Incomplete Work
 
-- Core.dim_location, then remaining four dimensions, int_order_customers and four facts.
+- Remaining dimensions dim_seller/dim_customer/dim_product/dim_date;
+  int_order_customers and four facts. Next: dim_seller, using accepted location coverage.
 - M5 technical order-component mart, reliable example SQL, measured query-plan/performance
   and reconstruction/recovery proofs. Independent child aggregation/conservation gates.
 - Items shipping-before-purchase/over-365-day flags are a fact_order_items M4 gate,
@@ -133,23 +153,26 @@ no known current failed tests. Code checkpoint must precede the first live view 
 
 ## Exact Next Actions
 
-1. Confirm clean code checkpoint, database size <400,000,000 bytes and existing accepted
-   staging views. Run selected dbt-build --select dim_location with protected transformer
-   settings. No reload, migration replay or broad selector needed.
-2. After first build, run opt-in physical location acceptance, then compatible repeat
-   build. Verify exact ZIP domain, observation totals, address row conservation, 278/7
-   uncovered rows, identity/owner/grants, API/reader denials, storage and artifact secrecy.
-3. Record actual acceptance evidence and checkpoint before the next core unit. Native
-   and offline gates are complete; rerun only if changes/failed acceptance require it.
-4. Continue remaining M4 core units, then M5. Run full governance gate at phase exit.
+1. Confirm clean/synced acceptance checkpoint. Read ADR 0003, accepted stg_sellers,
+   dim_location and location-dimension.md. Implement core.dim_seller at seller_id grain,
+   retaining source address/ZIP/lineage and has_geolocation via a single ZIP-domain join.
+   No canonical geography, filtering or new business policy. No seller files exist yet.
+2. Test exact retained seller fields/rows, unique key, mandatory dimension relationship,
+   valid coverage flags and no fanout. All 3,095 sellers and 7 uncovered source rows
+   must remain; absent dimension rows are a failure, not a coverage warning.
+3. Run scoped offline/native/regression/quality gates, checkpoint code, then selected
+   first/physical/repeat acceptance and checkpoint evidence. Keep artifacts; no raw reload.
+4. Continue remaining M4 units, then M5 query/performance/reconstruction gates. Required
+   comprehensive audit and corrections follow verified Phase 3, before Phase 4.
 
 ## Git State
 
 - Branch feat/warehouse-foundation; main unchanged/unmerged. Review acceptance 484249b.
 - Cleanup 177c71d and geolocation implementation 81f0342 published.
-- Geolocation acceptance b2f4205 published; current location code checkpoint is the containing commit:
+- Geolocation acceptance b2f4205 and location code 1ad6281 published.
+- Location acceptance checkpoint is the containing commit:
   git log -1 --format="%H %s" -- WORK_STATE.md. Verify clean/synced status after publication.
-- Last observed allowance 56% five-hour / 93% weekly remaining, account-wide;
+- Last observed allowance 52% five-hour / 93% weekly remaining, account-wide;
   not a reservation for this task/model. Check before new substantial units.
   No purchases, paid changes or reset credits used.
 
@@ -159,10 +182,10 @@ no known current failed tests. Code checkpoint must precede the first live view 
 Set-Location 'D:\My Projects\CommerceLens'
 git status --short --branch
 git log -5 --oneline
-.venv/Scripts/python.exe -B -m src.warehouse dbt-build --select dim_location
+.venv/Scripts/python.exe -B -m src.warehouse dbt-test --select dim_location
 ```
 
-Use customer-staging.md retained regression instructions and geolocation-staging.md.
+Use customer-staging.md retained regression instructions and location-dimension.md.
 Never print secrets/source records/driver diagnostics. Project resource deletion needs
 specific informed permission; legitimate product deletion follows authorization,
 ownership, confirmation and integrity requirements. Preserve the owner's retained C.
