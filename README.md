@@ -12,7 +12,8 @@ reproducible Olist data pipeline. The source is historical anonymized data; it i
 live business feed. Local staging preserves documented source-quality warnings.
 All 1,550,922 source rows are now loaded in private PostgreSQL with tested atomic
 loading and full-content retry verification. All nine dbt source staging views are
-accepted, along with ZIP location, seller, customer identity and product dimensions.
+accepted, along with all five dimensions: location, seller, customer identity,
+product and date.
 Remaining core models, initial analytical marts and final warehouse checks remain.
 See the [current work state](WORK_STATE.md) for verified progress and continuation.
 

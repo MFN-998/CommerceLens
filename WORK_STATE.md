@@ -9,8 +9,9 @@ protocols apply. Synced project references and source datasets remain unchanged.
 - Phase 3 Database/SQL/Analytics Engineering, M4. All nine source staging views accepted.
 - Customer identity COMPLETE, code/acceptance a93cb7f/dca21e9 published clean.
 - Product unit COMPLETE, published acceptance 055ba10 clean/synchronized on resume.
-- Current unit: core.dim_date first build/physical/access COMPLETE; repeat
-  acceptance PENDING. Date view built; source remains unchanged.
+- Current unit: core.dim_date COMPLETE; first/physical/repeat acceptance passed.
+  All five dimensions accepted; exact next unit is int_order_customers.
+  Larger Phase 3 remains SAFE TO RESUME; no partial next model exists.
 - Objective: tested analytical warehouse under Free/views-first ADR 0004; M4 and M5
   remain. Phase 4 and comprehensive exit audit have not begun.
 - Accepted product contract: all 20 staging fields unchanged plus nullable English
@@ -30,6 +31,8 @@ protocols apply. Synced project references and source datasets remain unchanged.
 - Location: 19,177 ZIPs, 19,015 covered, 1,000,163 observations, 31 broad-box flags;
   8,556 city-ambiguous/8 state-ambiguous ZIPs. Joins retain 99,441/3,095 customer/seller
   rows and 278/7 uncovered rows. Geolocation retains 261,831 excess exact duplicates.
+- Date: 755 observed dates across 803,395 events; all eight raw/staged clocks
+  (808,303 positions including NULLs/lineage) conserved. All nine fields verified.
 - Seller: all 3,095 IDs/rows and seven uncovered addresses/lineage retained.
 - Product: 32,951 rows/IDs; all 20 fields/lineage retained, English enrichment verified,
   610 missing-category/13 untranslated/four zero-weight rows preserved.
@@ -42,7 +45,9 @@ protocols apply. Synced project references and source datasets remain unchanged.
 
 - Created date SQL/YAML, date domain/reconciliation SQL tests, three date test modules
   and date-dimension.md; approved runner selector updated. All candidates/artifacts
-  retained. No files deleted or renamed.
+  retained. date-dimension-verification.json added; README/phase/guide updated.
+  First/repeat artifacts: .artifacts/dbt/a2c5c1281a214f3bbb670b77f73b2b83
+  and .artifacts/dbt/3b3f887a9f01495b88acc9f14df5d223. No files deleted or renamed.
 - New product unit: dim_product.sql/.yml, product_dimension_domains/source
   reconciliation tests, three product-dimension Python test modules and guide.
   product-dimension-verification.json added; runner selector, README, work state
@@ -99,8 +104,10 @@ protocols apply. Synced project references and source datasets remain unchanged.
   boundary added to the date consistency test so attributes are checked after
   deriving the small date domain. SQLite 3.50.4 confirmed; 35 focused and 38
   native read-only cases passed again. Final offline parse passed, retained:
-  .artifacts/dbt/14923cd418ec495b9243c3e3f78323f9. Repeat timing PENDING;
-  no test assertion removed. Scoped boundary review approved.
+  .artifacts/dbt/14923cd418ec495b9243c3e3f78323f9. Repeat suite passed in
+  76.572 seconds, versus first 107.963 seconds.
+  No test assertion removed; scoped boundary review approved. Consumer-query
+  performance/recovery remains M5; these timings include data tests.
 - Date: candidates AST-parsed; scoped independent review approved. 35 candidate
   offline cases passed after sandbox collection access was resolved with confined
   collection/escalation (initial attempt collected none; no code failure/mutation).
@@ -110,7 +117,12 @@ protocols apply. Synced project references and source datasets remain unchanged.
   Python files); mypy passed 22 implementation files. Offline dbt parse passed:
   .artifacts/dbt/5cb60ba4980e40efa6e1ce907c7c6e8f. First build passed one view/all
   12 dbt tests (107.963 seconds), retained artifacts .artifacts/dbt/a2c5c1281a214f3bbb670b77f73b2b83.
-  Physical/access: 1 passed. Repeat: Not yet tested. Date code 9975935 published before first build.
+  Physical/access: 1 passed. Repeat: one view/all 12 dbt tests passed.
+  Actual restricted login/verify-full TLS, expected types/owner, all eight raw/staged
+  event multisets and all nine dimension attributes matched; API/reader access denied.
+  Repeat relation identity/owner/grants preserved; password absent from both artifacts.
+  Database 287,222,931 bytes <400,000,000. Date code 9975935 and
+  validation-boundary improvement eaac436 published before their respective builds.
   Preflight 803,395 nonnull events/755 dates (2016-09-04..2020-04-09), raw counts
   unchanged; no date view existed, database 287,222,931 bytes <400,000,000.
 - Product code adopted after all three Python modules passed AST parsing;
@@ -159,14 +171,14 @@ protocols apply. Synced project references and source datasets remain unchanged.
 
 ## Current Repository Condition
 
-STABLE / SAFE TO RESUME. Date code/offline/native checks passed; first/physical acceptance passed,
-repeat pending. No known failed tests, migration or source mutation.
-Verified product baseline 055ba10 preserved; date code checkpoint precedes first
-live build. Phase 3 remains incomplete.
+CLEAN / STABLE at the published date acceptance checkpoint; verify Git on resume.
+Date unit COMPLETE; larger Phase 3 SAFE TO RESUME. No known failed tests, partial
+model, pending migration or source mutation. All five dimensions accepted; next
+unit int_order_customers. No resources deleted, packages or credentials changed.
 
 ## Incomplete Work
 
-- M4: dim_date, int_order_customers and four facts. Four of five dimensions accepted.
+- M4: int_order_customers and four facts. All five dimensions accepted.
 - M5: technical order-component mart, reliable examples, measured query plans/performance
   and reconstruction/recovery proof; aggregate independent children before joins.
 - fact_order_items must retain shipping-before-purchase and >365-day warning flags
@@ -180,13 +192,15 @@ live build. Phase 3 remains incomplete.
 
 ## Exact Next Actions
 
-1. Run compatible date repeat build; first/physical checks passed.
-2. Run date physical/access check, covering all eight raw/staged clocks with lineage
-   including NULL positions, exact date/calendar membership, types and private denials.
-3. Run compatible repeat build; verify identity/owner/grants/source counts/storage
-   and no password in first/repeat artifacts. Save aggregate evidence and acceptance.
-4. Continue int_order_customers/four facts/M5 as allowance permits; keep phase boundaries
-   and the required governance gate after verified Phase 3, before Phase 4.
+1. Check actual usage/Git against containing date acceptance checkpoint; read ADR
+   0003's int_order_customers grain and accepted stg_customers SQL/YAML plus customer
+   identity/location guides. Date evidence is complete; do not rebuild completed phases.
+2. Implement int_order_customers at one source customer_id, preserving customer identity
+   and purchase-associated city/state/ZIP/lineage without choosing a current address.
+3. Validate grain/full source conservation and required identity/ZIP relationships;
+   code checkpoint before first/physical/repeat acceptance and aggregate evidence.
+4. Continue four facts/M5 as allowance permits; retain independent child aggregation,
+   performance/reconstruction checks, then governance gate before Phase 4.
 
 ## Git State
 
@@ -194,9 +208,10 @@ live build. Phase 3 remains incomplete.
 - Published pre-risk baseline: seller acceptance 1320900; customer code a93cb7f.
 - Customer acceptance dca21e9 published; working tree was clean/synced before
   this product unit. Product code/acceptance 5d96701/055ba10 published. Date code
-  checkpoint is the containing commit: git log -1 --format="%H %s" -- WORK_STATE.md;
-  verify clean/synced publication. No merge/deployment performed.
-- Latest observed allowance 82% five-hour/80% weekly remaining on 2026-10-04,
+  9975935 and validation-boundary eaac436 published. Date acceptance is containing
+  commit: git log -1 --format="%H %s" -- WORK_STATE.md; verify clean/synchronized
+  publication. No merge/deployment performed.
+- Latest observed allowance 77% five-hour/79% weekly remaining on 2026-10-04,
   account-wide and not a reservation. Prior session ended at a recoverable checkpoint.
   No paid changes/reset credits used.
 
@@ -209,9 +224,10 @@ git log -5 --oneline
 # Optional accepted-unit check; never reload/restart completed phases.
 .venv/Scripts/python.exe -B -m src.warehouse dbt-test --select dim_customer
 .venv/Scripts/python.exe -B -m src.warehouse dbt-test --select dim_product
+.venv/Scripts/python.exe -B -m src.warehouse dbt-test --select dim_date
 ```
 
 Use customer-staging.md's retained warehouse/API regression workflow and the customer
-and product dimension guides. Never print secrets/source records/driver diagnostics.
+and product/date dimension guides. Never print secrets/source records/driver diagnostics.
 Resource deletion needs specific informed permission; legitimate product deletion follows authorized
 ownership/confirmation/integrity behavior. Preserve owner's retained C and new artifacts.

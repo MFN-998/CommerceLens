@@ -17,7 +17,7 @@ The phase exit remains a **tested analytical warehouse**, not a deployed analyti
 | M1. Warehouse contracts | ADR with schemas, grains/types, join/quality policies, role boundaries, and recovery contract | Phase 2 evidence reviewed; original decimal/ZIP fields inspected; design and source observations consistent | Design complete; implementation tracked in M2–M5 |
 | M2. Isolated database foundation | Dedicated dev project; reviewed versioned bootstrap/migrations; secret-free examples and connection guidance | Target/version verified, encrypted connection, repeat migration, intended grants and denied access, API exposure review, disposable recovery test | Complete 2026-09-21: migration applied, replay/permissions/recovery checks passed |
 | M3. Reproducible loading | All nine verified source tables, provenance/load registry, exact monetary ingestion, atomic load | Source/hash/count/content reconciliation, exact decimal checks, idempotent rerun, failed-load rollback, unchanged raw files | Complete 2026-09-22: all 1,550,922 rows committed; full content/count/money and repeat verification passed |
-| M4. dbt staging and dimensions/facts | Pinned compatible dbt/Postgres tools; staging/intermediate/core models and explicit quality flags | dbt build, uniqueness/null/reference/domain tests, source reconciliation, synthetic grain and missing-data cases | In progress: all nine source staging models verified (12/11/8/16/25/16/16/14/12 dbt tests); dim_location first/access/repeat verified (12 dbt tests); dim_seller first/access/repeat verified (11 dbt tests); dim_customer first/access/repeat verified (4 dbt tests); dim_product first/access/repeat verified (16 dbt tests); dim_date code/offline/native verified, live acceptance pending; other core models pending |
+| M4. dbt staging and dimensions/facts | Pinned compatible dbt/Postgres tools; staging/intermediate/core models and explicit quality flags | dbt build, uniqueness/null/reference/domain tests, source reconciliation, synthetic grain and missing-data cases | In progress: all nine source staging models verified (12/11/8/16/25/16/16/14/12 dbt tests); dim_location first/access/repeat verified (12 dbt tests); dim_seller first/access/repeat verified (11 dbt tests); dim_customer first/access/repeat verified (4 dbt tests); dim_product first/access/repeat verified (16 dbt tests); dim_date first/access/repeat verified (12 dbt tests); other core models pending |
 | M5. Initial marts and handoff | Order-grain technical mart and reliable example SQL; access/recovery/developer guidance | Independent child aggregation, conserved counts/sums, repeat build, query-plan review, reconstruction/recovery verification, final checks and checkpoint | Not started |
 
 Each unit follows implement → validate → document → update WORK_STATE → commit → verify
@@ -75,7 +75,7 @@ is unchanged. [Acceptance evidence](warehouse-load-verification.json) records co
 content digests, exact monetary totals, attribution and storage. 
 Next: [M4 dbt setup plan](dbt-setup-plan.md). Tooling and offline bootstrap are implemented
 and verified. Restricted transformer provisioning/access and dbt debug passed on 2026-09-25;
-All nine source staging models are verified, including geolocation first/access/repeat acceptance on 2026-10-03. Location, seller, customer identity and product dimensions are accepted; date/intermediate/facts remain pending.
+All nine source staging models are verified, including geolocation first/access/repeat acceptance on 2026-10-03. All five dimensions are accepted; order-customer intermediate/facts remain pending.
 See [customer](customer-staging.md), [seller](seller-staging.md),
 [category translation](category-translation-staging.md), [products](product-staging.md),
 [orders](order-staging.md), [order items](item-staging.md), [payments](payment-staging.md),
@@ -92,12 +92,12 @@ After M1–M5 are complete and verified, perform the owner-required
 relevant Important issues, verify Phases 1–3 and document deferred debt before Phase 4.
 This gate is pending; do not execute it during unfinished Phase 3 implementation.
 
-## Progress estimate — 2026-10-03
+## Progress estimate — 2026-10-04
 
 Roughly 30-40% of Phase 3 warehouse implementation/verification effort remains after
-all nine source staging models and four dimensions are accepted. This is a reasoned range, not a time
+all nine source staging models and five dimensions are accepted. This is a reasoned range, not a time
 forecast or model-count percentage. Foundation/loading/dbt/source staging are complete.
-Remaining: date dimension, one order-customer intermediate model, four facts,
+Remaining: one order-customer intermediate model, four facts,
 technical order-component mart, example SQL and performance/reconstruction checks.
 Completed dim_location's unique three-source ZIP domain with observation, coverage
 and ambiguity metadata per ADR 0003; dim_seller preserves all source addresses/
@@ -105,7 +105,9 @@ lineage and seven uncovered rows with tested location coverage. Customer identit
 is accepted at one customer_unique_id without selecting an arbitrary address.
 Product dimension is accepted with all source attributes/flags retained and literal
 translation coverage (610 missing/13 untranslated/four zero-weight rows).
-Next atomic unit: dim_date across retained event dates, standard calendar attributes
-only; no delivered-only eligibility policy or warning-date filtering. No canonical
+Date is accepted at 755 observed dates across all retained event clocks, with
+standard calendar/ISO attributes and no eligibility or warning-date filtering.
+Next atomic unit: int_order_customers retaining one source customer_id and
+purchase-associated identity/address/lineage. No canonical
 coordinate/city/state is introduced. The comprehensive governance audit and required
 corrections follow verified Phase 3 completion, before Phase 4; their effort is unknown.

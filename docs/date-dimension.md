@@ -1,7 +1,7 @@
 # Date dimension
 
 Phase 3 M4, under [ADR 0003](decisions/0003-warehouse-contract.md).
-Status: code/offline/native COMPLETE; first/physical/repeat acceptance pending.
+Status: COMPLETE; first/physical/repeat acceptance verified 2026-10-04.
 
 `core.dim_date` is a private view at one **observed calendar date**, drawn from
 all five order timestamps, item shipping deadlines, and both review timestamps.
@@ -77,8 +77,14 @@ Ruff lint/format passed (120 Python files); mypy passed 22 implementation files;
 offline dbt parse passed. Scoped independent review approved.
 First live build passed one view/all 12 tests in 107.963 seconds. Physical/access
 passed separately (one case). The reviewed consistency boundary subsequently
-passed all 35 offline/38 native cases and a fresh offline parse. Repeat build
-and timing: Not yet tested. Measured suite timing includes tests, not API latency.
+passed all 35 offline/38 native cases and a fresh offline parse. Compatible
+repeat passed all 12 dbt tests in 76.572 seconds, preserving view
+identity/owner/grants. All eight raw/staged clocks including NULLs and lineage
+matched (808,303 event positions, 803,395 nonnull events); all 755 dates/nine
+fields/types/private denials verified. Password absent from both artifacts.
+Database 287,222,931 bytes <400 MB.
+See [aggregate evidence](date-dimension-verification.json). Measured suite
+timing includes tests, not API latency; consumer-query performance/recovery remains M5.
 
 Next core unit after acceptance: `int_order_customers`, preserving each
 order-linked source customer record and address under ADR 0003.
