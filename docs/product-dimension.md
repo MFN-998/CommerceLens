@@ -1,7 +1,7 @@
 # Product dimension
 
 Phase 3 M4, under [ADR 0003](decisions/0003-warehouse-contract.md).
-Status: code/offline/native COMPLETE; first/physical/repeat acceptance PENDING.
+Status: COMPLETE; first/physical/repeat acceptance verified 2026-10-03.
 
 `core.dim_product` retains one source `product_id`, all 20 accepted staging fields
 and their types, including immutable lineage, original length-name spellings,
@@ -22,8 +22,8 @@ English label. They produce a failed grain/conservation check. A matched lookup
 with null English fails the coverage-domain check instead of becoming a warning.
 
 Required lineage/ID/boolean tests and product uniqueness protect the output shape.
-Domains validate ID/ordinal, missing-category flag and category/English/coverage consistency. Full
-bidirectional `EXCEPT ALL` compares all 22 expected fields against actual output;
+Domains validate ID/ordinal, missing-category flag and category/English/coverage
+consistency. Full bidirectional `EXCEPT ALL` compares all 22 expected fields against actual output;
 an independent source-versus-dimension row-count check also catches lookup fanout
 even if the same duplicated lookup appears in expected and actual joins. Original
 numeric parsing/domains remain in the accepted staging boundary; core does not recast.
@@ -64,4 +64,14 @@ known AnyIO warning only. Ruff lint/format passed (116 Python files); mypy passe
 Initial native run: 57 passed/2 failed. Added missing-category flag consistency
 and corrected an overly strict domain expectation about exact English spelling,
 already protected by reconciliation. Subsequent full native run passed.
-First live build, physical/access and repeat acceptance: Not yet tested.
+First and compatible repeat each passed one view/all 16 dbt tests; read-only
+physical/access check passed. All 32,951 products/unique IDs and all 20 original
+staging fields/types retained; independent raw keys/English/coverage matched.
+610 missing-category/13 untranslated/four zero-weight rows preserved. Required
+fields have no nulls; API/mart reader access denied; login/TLS/ownership verified.
+Repeat identity/owner/grants preserved; password absent from both artifacts.
+Database 287,214,739 bytes <400 MB. Complete suites took
+49.741/50.017 seconds including tests; M5 performance/recovery
+remains pending. See [aggregate evidence](product-dimension-verification.json).
+
+Next unit: dim_date under ADR 0003; no date model was started this session.

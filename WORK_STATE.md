@@ -8,12 +8,13 @@ protocols apply. Synced project references and source datasets remain unchanged.
 
 - Phase 3 Database/SQL/Analytics Engineering, M4. All nine source staging views accepted.
 - Customer identity COMPLETE, code/acceptance a93cb7f/dca21e9 published clean.
-- Current unit: core.dim_product code/offline/native COMPLETE; first/physical/repeat
-  live acceptance PENDING. No product dimension view built yet; source unchanged.
+- Current unit: core.dim_product COMPLETE; first/physical/repeat acceptance passed.
+  Session completed customer and product units; larger Phase 3 SAFE TO RESUME.
+  No next model started; exact continuation is core.dim_date.
 - Objective: tested analytical warehouse under Free/views-first ADR 0004; M4 and M5
   remain. Phase 4 and comprehensive exit audit have not begun.
-- Active contract: dim_product, preserving 20 source fields and adding literal English
-  translation/untranslated coverage (22 columns), per reviewed ADR 0003 contract.
+- Accepted product contract: all 20 staging fields unchanged plus nullable English
+  translation/untranslated coverage (22 columns); no invented labels or dropped rows.
 - Roughly 30-40% of Phase 3 warehouse implementation/verification effort remains;
   broad reasoned range, not model count/time forecast. Later audit effort is unknown.
 
@@ -30,6 +31,8 @@ protocols apply. Synced project references and source datasets remain unchanged.
   8,556 city-ambiguous/8 state-ambiguous ZIPs. Joins retain 99,441/3,095 customer/seller
   rows and 278/7 uncovered rows. Geolocation retains 261,831 excess exact duplicates.
 - Seller: all 3,095 IDs/rows and seven uncovered addresses/lineage retained.
+- Product: 32,951 rows/IDs; all 20 fields/lineage retained, English enrichment verified,
+  610 missing-category/13 untranslated/four zero-weight rows preserved.
 - Customer: 96,096 literal identities; independent raw/stage/core membership matched.
   All 99,441 source/staging address/lineage records unchanged; no chosen current address.
 - Approved cleanup A/B/D completed 177c71d; C dataset fallback/three drafts retained.
@@ -39,7 +42,10 @@ protocols apply. Synced project references and source datasets remain unchanged.
 
 - New product unit: dim_product.sql/.yml, product_dimension_domains/source
   reconciliation tests, three product-dimension Python test modules and guide.
-  Runner selector and phase/customer/product staging guides updated; no deletion.
+  product-dimension-verification.json added; runner selector, README, work state
+  and phase/customer/product staging guides updated; no deletion.
+  Product first/repeat artifacts: .artifacts/dbt/2963bc06961a4a3da65e7d25b10d3c51
+  and .artifacts/dbt/7064f7fbbf0d47c0b7a5987a3499f624.
 - Created customer dim_customer.sql/.yml, two customer_dimension_* singular SQL tests,
   three tests/test_warehouse_customer_dimension*.py modules, customer-dimension.md
   and customer-dimension-verification.json. Runner approved selector updated.
@@ -60,9 +66,12 @@ protocols apply. Synced project references and source datasets remain unchanged.
   later int_order_customers preserves them for fact_orders. No surrogate/counter/KPI.
 - Four dbt tests: not-null, unique, ASCII lowercase32hex domain and full bidirectional
   EXCEPT ALL identity membership. Source/dimension duplicate semantics differ deliberately.
-- Next dim_product: retain all staging fields/flags, literal category left join; nullable
+- Accepted dim_product: retain all staging fields/flags, literal category left join; nullable
   English plus is_untranslated_category distinguishes 610 missing/13 untranslated rows.
   Matched lookup with null English or duplicate keys blocks; no dedup/filter/fill labels.
+  Independent source/output cardinality supplements full EXCEPT ALL: a shared bad
+  lookup can fan out both expected/actual joins. Missing-category flag must agree
+  with nullable source category; English spelling is verified by reconciliation.
 - Private schemas/restricted transformer/verify-full TLS persist; no API exposure.
   Compatible CREATE OR REPLACE retains view identity/owner/grants. A view commits before
   tests, so failed acceptance is not rollback: preserve relation/artifacts and diagnose.
@@ -87,9 +96,20 @@ protocols apply. Synced project references and source datasets remain unchanged.
   PostgreSQL: 58 passed. Ruff lint/format passed (116 Python files); mypy passed
   22 implementation files. Final offline parse passed, retained artifacts:
   .artifacts/dbt/f4f3c81e90d946629fa980ca48771ad4. Scoped review corrected both
-  issues; no remaining blocker. First/physical/repeat: Not yet tested; no product
-  view or source mutation. Customer acceptance diff/staged/history scans passed; clean published
-  dca21e9 confirmed before this unit.
+  issues; no remaining blocker. First/repeat each passed one view/all 16 dbt tests;
+  physical/access: 1 passed. All 32,951 source/stage/dimension rows/IDs, 610 missing
+  categories/13 untranslated/four zero-weight rows retained; zero null coverage.
+  Full staged fields/types and independent raw key/English/coverage comparisons
+  passed. Actual login/verify-full TLS, ownership and API/reader denials verified.
+  Repeat identity/owner/grants preserved; password absent from both artifacts.
+  Database 287,214,739 bytes <400,000,000. Complete suite times
+  49.741/50.017 seconds include tests, not application-query latency.
+  M5 performance/recovery remains pending; see product-dimension-verification.json.
+  Product complete staged-contents/history scans passed before code 5d96701.
+  Acceptance diff/full-staged-content and pre-commit history scans passed; independent
+  handoff review approved. Repeat history scan before publication and confirm Git.
+  Customer acceptance diff/staged/history scans passed; clean published dca21e9
+  confirmed before this unit.
 - Customer: 81 focused tests; 819 warehouse/API regression passed /496 deliberately
   opted-out live tests; known AnyIO warning only. Native read-only SQL: 23 passed.
 - Ruff lint/format passed (112 Python files); mypy passed 22 implementation files.
@@ -112,14 +132,15 @@ protocols apply. Synced project references and source datasets remain unchanged.
 
 ## Current Repository Condition
 
-STABLE / SAFE TO RESUME. Product code/offline/native checks complete; live acceptance
-pending. No known current failed tests or product view mutation. Published customer
-acceptance dca21e9 is the pre-risk baseline; code checkpoint precedes first build.
-Phase 3 remains incomplete.
+CLEAN / STABLE at the published acceptance checkpoint; verify Git on resume.
+Customer/product units COMPLETE; larger Phase 3 SAFE TO RESUME. No known current
+failed tests, partial model or pending migration. Product code 5d96701 preceded
+first build. Source/dependencies/credentials unchanged; no resource deletion.
+Next unit intentionally deferred for a bounded recovery handoff, not a failure.
 
 ## Incomplete Work
 
-- M4: dim_product/dim_date, int_order_customers and four facts.
+- M4: dim_date, int_order_customers and four facts. Four of five dimensions accepted.
 - M5: technical order-component mart, reliable examples, measured query plans/performance
   and reconstruction/recovery proof; aggregate independent children before joins.
 - fact_order_items must retain shipping-before-purchase and >365-day warning flags
@@ -133,23 +154,26 @@ Phase 3 remains incomplete.
 
 ## Exact Next Actions
 
-1. Confirm published clean product code checkpoint and size <400,000,000 bytes;
-   run selected dbt-build --select dim_product with protected transformer settings.
-2. Run product physical/access check and compatible repeat build; all 32,951 source
-   rows/IDs, 610 missing/13 untranslated categories and four zero weights retained.
-   Confirm full fields/types, private denials, identity/grants, size and artifacts.
-3. Record evidence/docs/acceptance checkpoint and detailed session report. Wrap this
-   round with dim_date as the exact next unit; do not begin another model now.
-4. Remaining core/M5/governance work retains existing phase boundaries.
+1. On resume, check actual allowance and Git status/history against the containing
+   product acceptance checkpoint. Read ADR 0003's dim_date grain plus staging
+   orders/items/reviews timestamp SQL, flags and guides; verify recorded evidence.
+2. Implement core.dim_date at one calendar date across retained source event dates,
+   with standard calendar attributes only. Keep source timestamps available;
+   do not impose delivered-only/KPI eligibility or silently discard warning dates.
+3. Add meaningful date/domain/grain/source-coverage cases, approved selector and
+   relevant quality gates; code checkpoint before first/physical/repeat builds.
+4. Continue int_order_customers/four facts and M5 with independent child aggregation,
+   performance/recovery proofs, then required governance gate before Phase 4.
 
 ## Git State
 
 - Branch feat/warehouse-foundation; main unchanged/unmerged.
 - Published pre-risk baseline: seller acceptance 1320900; customer code a93cb7f.
 - Customer acceptance dca21e9 published; working tree was clean/synced before
-  this product unit. Product code checkpoint is the containing commit:
-  git log -1 --format="%H %s" -- WORK_STATE.md; verify clean/synced publication.
-- Latest observed allowance 63% five-hour/84% weekly remaining, account-wide; not a
+  this product unit. Product code 5d96701 published. Product acceptance checkpoint
+  is the containing commit: git log -1 --format="%H %s" -- WORK_STATE.md;
+  verify clean/synced publication. No merge/deployment performed.
+- Latest observed allowance 59% five-hour/83% weekly remaining, account-wide; not a
   reservation. Session began after reset at 99%/89%. No paid changes/reset credits used.
 
 ## Continuation Commands
@@ -160,9 +184,10 @@ git status --short --branch
 git log -5 --oneline
 # Optional accepted-unit check; never reload/restart completed phases.
 .venv/Scripts/python.exe -B -m src.warehouse dbt-test --select dim_customer
+.venv/Scripts/python.exe -B -m src.warehouse dbt-test --select dim_product
 ```
 
 Use customer-staging.md's retained warehouse/API regression workflow and the customer
-dimension guide. Never print secrets/source records/driver diagnostics. Resource deletion
-needs specific informed permission; legitimate product deletion follows authorized
+and product dimension guides. Never print secrets/source records/driver diagnostics.
+Resource deletion needs specific informed permission; legitimate product deletion follows authorized
 ownership/confirmation/integrity behavior. Preserve owner's retained C and new artifacts.
