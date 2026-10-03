@@ -1,7 +1,7 @@
 # Customer identity dimension
 
 Phase 3 M4, under [ADR 0003](decisions/0003-warehouse-contract.md).
-Status: code/offline/native COMPLETE; first/physical/repeat acceptance PENDING.
+Status: COMPLETE; first/physical/repeat acceptance verified 2026-10-03.
 
 `core.dim_customer` contains one literal `customer_unique_id` per cross-order
 identity. Its only column is that text identifier. The accepted source has 99,441
@@ -59,4 +59,13 @@ known AnyIO deprecation warning only. Ruff lint/format passed (112 Python files)
 mypy passed 22 implementation files; offline dbt parse passed.
 Initial collection caught a missing test comprehension bracket; corrected before
 these passing runs. Scoped review found no blocking issue.
-First live build, physical/access and repeat acceptance: Not yet tested.
+First and compatible repeat each passed one view/all four dbt tests. Read-only
+actual-login physical/access test passed. Independent full raw/staging comparison
+retains all 99,441 address/lineage records; exact source/staging/dimension identity
+membership retains all 96,096 identities, with zero nulls. Text/C column metadata,
+restricted login, verify-full TLS and API/reader denials verified. Repeat relation
+identity/owner/grants preserved; password absent from both artifact trees.
+Database 287,190,163 bytes <400 MB. Selected build suites took
+22.417/21.895 seconds including tests;
+M5 retains consumer-query performance/recovery acceptance.
+See [aggregate verification evidence](customer-dimension-verification.json).
