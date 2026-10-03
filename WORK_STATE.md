@@ -8,9 +8,9 @@ Updated 2026-10-03. Required continuation knowledge must not depend on chat alon
 - Phase 3 Database/SQL/Analytics Engineering, M4. ALL NINE SOURCE STAGING MODELS COMPLETE.
 - Geolocation acceptance COMPLETE and published b2f4205.
 - Location acceptance COMPLETE, clean published 7bd2d8c.
-- Current unit: core.dim_seller COMPLETE; first/physical/repeat acceptance passed.
-  This session is wrapped at a recoverable checkpoint per the owner's usage request.
-  Resume core.dim_customer after the five-hour reset; do not restart earlier units.
+- Seller acceptance COMPLETE, clean published 1320900; no partial changes on resume.
+- Current unit: core.dim_customer code/offline/native COMPLETE; first/physical/repeat
+  live acceptance PENDING. No customer dimension view built yet. Baseline unchanged.
 - Objective: tested analytical warehouse per master plan, ADR 0003 and Free/views-first
   ADR 0004. M4 core and M5 remain; Phase 4 and the comprehensive exit audit have not begun.
 - Roughly 30-40% of Phase 3 warehouse implementation/verification effort remains after
@@ -44,6 +44,11 @@ Updated 2026-10-03. Required continuation knowledge must not depend on chat alon
 
 ## Files
 
+- New customer unit: dbt/models/core/dim_customer.sql/.yml, domains/source
+  reconciliation singular tests, offline/native/physical customer-dimension
+  Python modules and docs/customer-dimension.md. Modified approved runner selector,
+  phase/customer staging guides and WORK_STATE. No deletion/rename/migration,
+  source dataset, dependency, credentials, application or deployment changes.
 - Current new seller unit: dbt/models/core/dim_seller.sql/.yml, seller_dimension_domains/
   source_reconciliation singular tests, tests/test_warehouse_seller_dimension.py and
   docs/seller-dimension.md; dedicated _postgres_integration.py and _integration.py
@@ -72,6 +77,12 @@ Updated 2026-10-03. Required continuation knowledge must not depend on chat alon
 
 ## Technical Decisions
 
+- Customer dimension is a single literal text customer_unique_id at cross-order
+  identity grain, DISTINCT with C collation. No chosen source lineage/address,
+  source filtering, normalization, counters or business metrics. Order-linked
+  fields remain staging and later int_order_customers. Invalid/null identities
+  stay visible and fail validation. Scoped contract review approved this minimal
+  design under ADR 0003; no new architectural decision or dependency required.
 - Seller grain remains source seller_id. Preserve all six fields and lineage;
   a unique location ZIP join adds has_geolocation. Missing reference yields null and
   blocks acceptance, not a false coverage warning. Independent source reconciliation
@@ -106,6 +117,15 @@ Updated 2026-10-03. Required continuation knowledge must not depend on chat alon
 
 ## Validation
 
+- Initial focused collection failed on a missing comprehension bracket in the new
+  offline test; fixed and AST-parsed all three modules before rerunning. Final
+  customer checks: 81 focused passed; warehouse/API regression 819 passed / 496
+  deliberate live opt-in skips; known AnyIO warning only. Native read-only
+  PostgreSQL cases: 23 passed. Ruff lint/format passed (112 Python files); mypy
+  passed 22 implementation files. Offline parse passed, artifacts retained at
+  .artifacts/dbt/2f4dc0c06e104e5a926ea96225c28621. Scoped review found no blockers.
+  First/physical/repeat acceptance: Not yet tested. No database mutation occurred.
+  Recovery inspection confirmed clean/synced 1320900 and no partial work.
 - Seller pre-build: 87 focused offline/runner checks passed; retained warehouse/API
   regression 797 passed / 472 deliberate live opt-in skips, known AnyIO warning only.
   Native read-only synthetic PostgreSQL: 30 passed. Ruff lint/format passed (108 Python
@@ -166,11 +186,10 @@ Updated 2026-10-03. Required continuation knowledge must not depend on chat alon
 
 ## Current Repository Condition
 
-CLEAN / STABLE at the published acceptance checkpoint; verify Git on resume.
-Seller unit COMPLETE; larger Phase 3 SAFE TO RESUME. Source/location baseline
-unchanged, no known current failed tests. Code checkpoint 9263bf2 preceded the
-first seller view build; no raw reload, migration or resource deletion occurred.
-The next unit is intentionally deferred until reset, not blocked by a failure.
+STABLE / SAFE TO RESUME. Customer code and offline/native checks complete; live
+acceptance pending. No known current failed tests or database mutation.
+The code checkpoint must precede the first selected view build. Seller acceptance 1320900 is the published pre-risk baseline.
+Larger Phase 3 remains incomplete; do not repeat accepted sources/core models.
 
 ## Incomplete Work
 
@@ -191,15 +210,14 @@ The next unit is intentionally deferred until reset, not blocked by a failure.
 
 ## Exact Next Actions
 
-1. After the five-hour reset, read this file and ADR 0003's dim_customer grain;
-   confirm Git status/history against the containing seller acceptance checkpoint.
-   Inspect staging.stg_customers SQL/tests and accepted location/seller evidence;
-   resolve any discrepancy before changing code. Check actual usage first.
-2. Implement only core.dim_customer cross-order identity at customer_unique_id
-   grain. Preserve all identities; no chosen current address. Add focused source/
-   grain/failure checks and approved selector, then code checkpoint before live build.
-3. Verify offline/native, first/physical/repeat acceptance, document and checkpoint.
-   Continue later units only as allowance permits; do not redo accepted staging.
+1. Confirm published clean customer code checkpoint; run selected first build
+   dbt-build --select dim_customer with restricted protected transformer settings.
+   Check size <400,000,000 bytes first; no raw reload or migration replay.
+2. Run customer dimension physical/access test and compatible repeat build; verify
+   all 99,441 unchanged source/staging rows and 96,096 literal identities, exact
+   membership/type/collation, private denials, identity/grants, size and artifacts.
+3. Record evidence, documentation and acceptance checkpoint. Next atomic unit may
+   be dim_product per ADR 0003 only if actual allowance permits a complete unit.
 4. Remaining core/M5/governance work stays within established phase boundaries.
 
 ## Git State
@@ -207,10 +225,12 @@ The next unit is intentionally deferred until reset, not blocked by a failure.
 - Branch feat/warehouse-foundation; main unchanged/unmerged. Review acceptance 484249b.
 - Cleanup 177c71d and geolocation implementation 81f0342 published.
 - Geolocation acceptance b2f4205 and location code 1ad6281 published.
-- Location acceptance 7bd2d8c and seller code 9263bf2 published. Seller acceptance
-  checkpoint is the containing commit: git log -1 --format="%H %s" -- WORK_STATE.md.
-  Verify clean/synced status after publication; main remains unchanged.
-- Last observed allowance 32% five-hour / 89% weekly remaining, account-wide;
+- Location acceptance 7bd2d8c and seller code/acceptance 9263bf2/1320900 published.
+  Customer code checkpoint is the containing commit:
+  git log -1 --format="%H %s" -- WORK_STATE.md. Verify clean/synced publication.
+  main remains unchanged/unmerged.
+- Customer session started after reset with 99% five-hour / 89% weekly remaining.
+  Latest observed 85% five-hour / 87% weekly remaining, account-wide;
   not a reservation for this task/model. Check before new substantial units.
   No purchases, paid changes or reset credits used.
 

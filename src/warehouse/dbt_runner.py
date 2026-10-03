@@ -26,6 +26,7 @@ APPROVED_MODELS = frozenset(
         "stg_geolocation",
         "dim_location",
         "dim_seller",
+        "dim_customer",
     }
 )
 

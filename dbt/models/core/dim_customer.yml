@@ -1,0 +1,22 @@
+version: 2
+
+models:
+  - name: dim_customer
+    description: >-
+      Private core view with one literal cross-order customer_unique_id across
+      source customers and loads. Identity spelling is preserved under C collation.
+      Null and invalid identities are retained to fail validation. No source-row
+      lineage, order-linked customer_id, address, current-location policy or order
+      metrics are selected.
+    config:
+      materialized: view
+      schema: core
+    columns:
+      - name: customer_unique_id
+        data_type: text
+        description: >-
+          Literal mandatory lowercase 32-character ASCII hexadecimal cross-order
+          identity, with C collation and no trimming, case conversion or repair.
+        data_tests:
+          - not_null
+          - unique
