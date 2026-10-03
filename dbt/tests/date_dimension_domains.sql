@@ -1,7 +1,12 @@
 {{ config(severity='error', store_failures=false) }}
 -- NULL-safe comparisons verify every standard attribute against the date itself.
+with actual as materialized (
+    select calendar_date, calendar_year, calendar_quarter, calendar_month,
+        day_of_month, iso_year, iso_week, iso_day_of_week, is_weekend
+    from {{ ref('dim_date') }}
+)
 select count(*) as invalid_date_dimension_rows
-from {{ ref('dim_date') }}
+from actual
 where calendar_date is null
     or calendar_year is distinct from cast(extract(year from calendar_date) as integer)
     or calendar_quarter is distinct from cast(extract(quarter from calendar_date) as integer)

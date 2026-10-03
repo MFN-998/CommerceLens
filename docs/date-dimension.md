@@ -34,7 +34,11 @@ snapshot evidence, not hard-coded production validity bounds.
 Required/unique tests protect the grain. A singular domain check verifies all
 calendar/ISO/weekend attributes, including NULL consistency. Full bidirectional
 `EXCEPT ALL` reconciliation detects missing, extra, duplicated or changed dates
-and attributes. Offline synthetic fixtures exercise actual SQL and configured
+and attributes. The domain test materializes the nine-field date input before
+checking its attributes, preventing predicate pushdown into all source events;
+the same NULL-safe assertions remain. This local validation boundary addresses
+the measured 35.32-second consistency node in the first build, not consumer
+query performance. Offline synthetic fixtures exercise actual SQL and configured
 generic macros with a small documented SQLite date-syntax adapter. Native
 read-only PostgreSQL fixtures independently verify Python calendar/ISO
 expectations. Physical acceptance compares all nine fields to staging, checks
@@ -71,7 +75,10 @@ failure. Adopted focused tests: 100 passed. Warehouse/API regression: 921 passed
 read-only suite: 38 passed, including typed empty results and timezone independence.
 Ruff lint/format passed (120 Python files); mypy passed 22 implementation files;
 offline dbt parse passed. Scoped independent review approved.
-First live build, physical/access and repeat: Not yet tested.
+First live build passed one view/all 12 tests in 107.963 seconds. Physical/access
+passed separately (one case). The reviewed consistency boundary subsequently
+passed all 35 offline/38 native cases and a fresh offline parse. Repeat build
+and timing: Not yet tested. Measured suite timing includes tests, not API latency.
 
 Next core unit after acceptance: `int_order_customers`, preserving each
 order-linked source customer record and address under ADR 0003.

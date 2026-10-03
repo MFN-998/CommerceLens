@@ -9,8 +9,8 @@ protocols apply. Synced project references and source datasets remain unchanged.
 - Phase 3 Database/SQL/Analytics Engineering, M4. All nine source staging views accepted.
 - Customer identity COMPLETE, code/acceptance a93cb7f/dca21e9 published clean.
 - Product unit COMPLETE, published acceptance 055ba10 clean/synchronized on resume.
-- Current unit: core.dim_date code/offline/native COMPLETE; first/physical/repeat
-  acceptance PENDING. No date view built yet; source remains unchanged.
+- Current unit: core.dim_date first build/physical/access COMPLETE; repeat
+  acceptance PENDING. Date view built; source remains unchanged.
 - Objective: tested analytical warehouse under Free/views-first ADR 0004; M4 and M5
   remain. Phase 4 and comprehensive exit audit have not begun.
 - Accepted product contract: all 20 staging fields unchanged plus nullable English
@@ -94,6 +94,13 @@ protocols apply. Synced project references and source datasets remain unchanged.
 
 ## Validation
 
+- First date build passed in 107.963 seconds, close to runner's 120-second bound.
+  Domain node took 35.32 seconds. Reviewed semantics-preserving MATERIALIZED
+  boundary added to the date consistency test so attributes are checked after
+  deriving the small date domain. SQLite 3.50.4 confirmed; 35 focused and 38
+  native read-only cases passed again. Final offline parse passed, retained:
+  .artifacts/dbt/14923cd418ec495b9243c3e3f78323f9. Repeat timing PENDING;
+  no test assertion removed. Scoped boundary review approved.
 - Date: candidates AST-parsed; scoped independent review approved. 35 candidate
   offline cases passed after sandbox collection access was resolved with confined
   collection/escalation (initial attempt collected none; no code failure/mutation).
@@ -101,7 +108,9 @@ protocols apply. Synced project references and source datasets remain unchanged.
   live skips, known AnyIO warning only. Native read-only PostgreSQL 38 passed,
   including two timezones and typed empty results. Ruff lint/format passed (120
   Python files); mypy passed 22 implementation files. Offline dbt parse passed:
-  .artifacts/dbt/5cb60ba4980e40efa6e1ce907c7c6e8f. First/physical/repeat: Not yet tested.
+  .artifacts/dbt/5cb60ba4980e40efa6e1ce907c7c6e8f. First build passed one view/all
+  12 dbt tests (107.963 seconds), retained artifacts .artifacts/dbt/a2c5c1281a214f3bbb670b77f73b2b83.
+  Physical/access: 1 passed. Repeat: Not yet tested. Date code 9975935 published before first build.
   Preflight 803,395 nonnull events/755 dates (2016-09-04..2020-04-09), raw counts
   unchanged; no date view existed, database 287,222,931 bytes <400,000,000.
 - Product code adopted after all three Python modules passed AST parsing;
@@ -150,8 +159,8 @@ protocols apply. Synced project references and source datasets remain unchanged.
 
 ## Current Repository Condition
 
-STABLE / SAFE TO RESUME. Date code/offline/native checks passed; first/physical/
-repeat acceptance pending. No known failed tests, migration or source mutation.
+STABLE / SAFE TO RESUME. Date code/offline/native checks passed; first/physical acceptance passed,
+repeat pending. No known failed tests, migration or source mutation.
 Verified product baseline 055ba10 preserved; date code checkpoint precedes first
 live build. Phase 3 remains incomplete.
 
@@ -171,8 +180,7 @@ live build. Phase 3 remains incomplete.
 
 ## Exact Next Actions
 
-1. Confirm clean/published date code checkpoint and budget <400,000,000 bytes;
-   run selected dbt-build --select dim_date through the protected transformer wrapper.
+1. Run compatible date repeat build; first/physical checks passed.
 2. Run date physical/access check, covering all eight raw/staged clocks with lineage
    including NULL positions, exact date/calendar membership, types and private denials.
 3. Run compatible repeat build; verify identity/owner/grants/source counts/storage
