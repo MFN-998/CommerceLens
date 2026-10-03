@@ -6,8 +6,10 @@ Updated 2026-10-03. Required continuation knowledge must not depend on chat alon
 ## Project State
 
 - Phase 3 Database/SQL/Analytics Engineering, M4. ALL NINE SOURCE STAGING MODELS COMPLETE.
-- Current milestone: geolocation code/native/first/access/repeat acceptance COMPLETE.
-  Next implementation unit: core.dim_location. No partially implemented core files.
+- Geolocation acceptance COMPLETE and published b2f4205.
+- Current unit: core.dim_location code/offline/native gates COMPLETE.
+  First live build, physical/access and repeat acceptance PENDING. No live location
+  view built yet. Next action is the selected first build after a clean code checkpoint.
 - Objective: tested analytical warehouse per master plan, ADR 0003 and Free/views-first
   ADR 0004. M4 core and M5 remain; Phase 4 and the comprehensive exit audit have not begun.
 - Roughly 35-45% of Phase 3 warehouse implementation/verification effort remains after
@@ -34,6 +36,10 @@ Updated 2026-10-03. Required continuation knowledge must not depend on chat alon
 
 ## Files
 
+- New dbt/models/core/dim_location.sql/.yml; domains/source_reconciliation/
+  join_conservation singular tests; three dedicated location Python test modules
+  and docs/location-dimension.md. Modified runner approved selector and phase/
+  customer-staging guides. No deletion/dependency/migration/application changes.
 - New dbt/models/staging/stg_geolocation.sql/.yml; three singular tests
   stg_geolocation_lineage_unique/source_domains/source_reconciliation.sql.
 - New tests/test_warehouse_geolocation_staging.py, native _postgres_integration.py,
@@ -75,6 +81,16 @@ Updated 2026-10-03. Required continuation knowledge must not depend on chat alon
 
 ## Validation
 
+- Location: 121 focused offline/runner checks passed; retained warehouse/API regression
+  767 passed / 441 deliberate opt-in skips, known AnyIO warning only. Native read-only
+  synthetic PostgreSQL cases: 59 passed. Ruff lint/format passed (104 Python files),
+  mypy passed 22 implementation files. Initial lint rejected two long test SQL strings;
+  split without changing SQL and reran successfully. Final offline parse passed: .artifacts/dbt/2edcc933d6c64246b31b3e64bff16f87.
+- Focused review added null consumed geo city/state/flag guard: aggregates ignore nulls;
+  mixed valid/null inputs now fail domains. Literal C collation and unique-domain
+  joins preserve spelling and avoid per-address observation scans. No broad audit run.
+- Location live first/physical/repeat checks: Not yet tested. Complete staged-contents
+  and history secret checks required before checkpoint/publication.
 - 2026-10-03: focused offline geolocation/runner 134 passed. Ruff lint/format passed
   (100 Python files); mypy passed 22 implementation files. Warehouse/API regression
   701 passed / 381 deliberate opt-in skips, known AnyIO deprecation warning only.
@@ -96,9 +112,9 @@ Updated 2026-10-03. Required continuation knowledge must not depend on chat alon
 
 ## Current Repository Condition
 
-STABLE / SAFE TO RESUME. Geolocation atomic unit COMPLETE; all nine source staging
-views accepted. Phase 3 is still incomplete. No current known failed tests.
-Acceptance documentation is saved; verify containing checkpoint and actual Git status.
+STABLE / SAFE TO RESUME. All nine staging sources accepted; location code/offline/
+native checks complete. Phase 3 is incomplete. Location live acceptance pending,
+no known current failed tests. Code checkpoint must precede the first live view build.
 
 ## Incomplete Work
 
@@ -117,24 +133,23 @@ Acceptance documentation is saved; verify containing checkpoint and actual Git s
 
 ## Exact Next Actions
 
-1. Read phase-3-plan.md, ADR 0003 dim_location contract and accepted staging models.
-   Confirm clean/synced checkpoint. Implement core.dim_location with the minimal
-   observation/coverage/ambiguity contract above and dedicated selector/tests/guide.
-2. Verify unique exact three-source ZIP domain, duplicate-preserving per-ZIP counts,
-   nonnegative bounded counters, source totals and boolean consistency. Synthetic
-   duplicates increase observation counts without changing literal variant counts.
-   Unique-domain joins preserve customer/seller rows and 278/7 uncovered source rows.
-3. Validate offline/native gates, checkpoint code, selected first/physical/repeat builds,
-   record evidence/identity/access/storage and checkpoint. No raw reload or view drop.
+1. Confirm clean code checkpoint, database size <400,000,000 bytes and existing accepted
+   staging views. Run selected dbt-build --select dim_location with protected transformer
+   settings. No reload, migration replay or broad selector needed.
+2. After first build, run opt-in physical location acceptance, then compatible repeat
+   build. Verify exact ZIP domain, observation totals, address row conservation, 278/7
+   uncovered rows, identity/owner/grants, API/reader denials, storage and artifact secrecy.
+3. Record actual acceptance evidence and checkpoint before the next core unit. Native
+   and offline gates are complete; rerun only if changes/failed acceptance require it.
 4. Continue remaining M4 core units, then M5. Run full governance gate at phase exit.
 
 ## Git State
 
 - Branch feat/warehouse-foundation; main unchanged/unmerged. Review acceptance 484249b.
 - Cleanup 177c71d and geolocation implementation 81f0342 published.
-- Geolocation acceptance checkpoint is the containing commit:
+- Geolocation acceptance b2f4205 published; current location code checkpoint is the containing commit:
   git log -1 --format="%H %s" -- WORK_STATE.md. Verify clean/synced status after publication.
-- Last observed allowance 75% five-hour / 96% weekly remaining, account-wide;
+- Last observed allowance 56% five-hour / 93% weekly remaining, account-wide;
   not a reservation for this task/model. Check before new substantial units.
   No purchases, paid changes or reset credits used.
 
@@ -144,7 +159,7 @@ Acceptance documentation is saved; verify containing checkpoint and actual Git s
 Set-Location 'D:\My Projects\CommerceLens'
 git status --short --branch
 git log -5 --oneline
-.venv/Scripts/python.exe -B -m src.warehouse dbt-test --select stg_geolocation
+.venv/Scripts/python.exe -B -m src.warehouse dbt-build --select dim_location
 ```
 
 Use customer-staging.md retained regression instructions and geolocation-staging.md.

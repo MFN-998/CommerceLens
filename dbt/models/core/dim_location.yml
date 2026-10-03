@@ -1,0 +1,57 @@
+version: 2
+
+models:
+  - name: dim_location
+    description: >-
+      One literal ZIP prefix in the union of customer, seller and geolocation
+      staging sources. Geography is aggregated before joining the unique domain
+      to prevent observation fanout. Exact duplicate observations count separately;
+      distinct city/state spellings use literal C collation. Address spelling is
+      not normalized or padded. Coverage and ambiguity describe geolocation only,
+      not disagreements with customer/seller addresses. Missing geolocation yields
+      zero counters and false flags. No canonical city, state or coordinate is chosen.
+    config:
+      materialized: view
+      schema: core
+    columns:
+      - name: zip_code_prefix
+        data_type: text
+        description: Literal one-to-five ASCII digit ZIP prefix, preserving leading zeroes.
+        data_tests:
+          - not_null
+          - unique
+      - name: geolocation_observation_count
+        data_type: bigint
+        description: All retained geolocation observations for this ZIP, including exact duplicates.
+        data_tests:
+          - not_null
+      - name: geolocation_city_variant_count
+        data_type: bigint
+        description: Number of distinct literal geolocation city spellings; zero without evidence.
+        data_tests:
+          - not_null
+      - name: geolocation_state_variant_count
+        data_type: bigint
+        description: Number of distinct literal geolocation state values; zero without evidence.
+        data_tests:
+          - not_null
+      - name: outside_broad_brazil_observation_count
+        data_type: bigint
+        description: Retained observations flagged outside the exploratory broad Brazil box.
+        data_tests:
+          - not_null
+      - name: has_geolocation
+        data_type: boolean
+        description: True when at least one geolocation observation exists for this ZIP.
+        data_tests:
+          - not_null
+      - name: is_geolocation_city_ambiguous
+        data_type: boolean
+        description: True when geolocation contains more than one literal city spelling for this ZIP.
+        data_tests:
+          - not_null
+      - name: is_geolocation_state_ambiguous
+        data_type: boolean
+        description: True when geolocation contains more than one state value for this ZIP.
+        data_tests:
+          - not_null
