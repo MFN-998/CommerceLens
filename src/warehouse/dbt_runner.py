@@ -27,6 +27,7 @@ APPROVED_MODELS = frozenset(
         "dim_location",
         "dim_seller",
         "dim_customer",
+        "dim_product",
     }
 )
 

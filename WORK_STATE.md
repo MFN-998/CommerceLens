@@ -7,11 +7,12 @@ protocols apply. Synced project references and source datasets remain unchanged.
 ## Project State
 
 - Phase 3 Database/SQL/Analytics Engineering, M4. All nine source staging views accepted.
-- Current milestone: core.dim_customer COMPLETE; code a93cb7f and first/physical/repeat
-  acceptance passed. Source/location/seller baseline unchanged; no partial code remains.
+- Customer identity COMPLETE, code/acceptance a93cb7f/dca21e9 published clean.
+- Current unit: core.dim_product code/offline/native COMPLETE; first/physical/repeat
+  live acceptance PENDING. No product dimension view built yet; source unchanged.
 - Objective: tested analytical warehouse under Free/views-first ADR 0004; M4 and M5
   remain. Phase 4 and comprehensive exit audit have not begun.
-- Next unit: dim_product, preserving 20 source fields and adding literal English
+- Active contract: dim_product, preserving 20 source fields and adding literal English
   translation/untranslated coverage (22 columns), per reviewed ADR 0003 contract.
 - Roughly 30-40% of Phase 3 warehouse implementation/verification effort remains;
   broad reasoned range, not model count/time forecast. Later audit effort is unknown.
@@ -36,6 +37,9 @@ protocols apply. Synced project references and source datasets remain unchanged.
 
 ## Files
 
+- New product unit: dim_product.sql/.yml, product_dimension_domains/source
+  reconciliation tests, three product-dimension Python test modules and guide.
+  Runner selector and phase/customer/product staging guides updated; no deletion.
 - Created customer dim_customer.sql/.yml, two customer_dimension_* singular SQL tests,
   three tests/test_warehouse_customer_dimension*.py modules, customer-dimension.md
   and customer-dimension-verification.json. Runner approved selector updated.
@@ -73,6 +77,19 @@ protocols apply. Synced project references and source datasets remain unchanged.
 
 ## Validation
 
+- Product code adopted after all three Python modules passed AST parsing;
+  Initial focused124/lint116/mypy22/regression882/parse passed; native57 passed/2
+  failed. Added missing-category/category consistency guard; removed an
+  inappropriate domain assertion about exact English spelling, already
+  protected by reconciliation. Added two offline regression cases.
+  Final corrected checks: 126 focused passed; 884 warehouse/API regression passed
+  /555 deliberate live opt-in skips, known AnyIO warning only. Native read-only
+  PostgreSQL: 58 passed. Ruff lint/format passed (116 Python files); mypy passed
+  22 implementation files. Final offline parse passed, retained artifacts:
+  .artifacts/dbt/f4f3c81e90d946629fa980ca48771ad4. Scoped review corrected both
+  issues; no remaining blocker. First/physical/repeat: Not yet tested; no product
+  view or source mutation. Customer acceptance diff/staged/history scans passed; clean published
+  dca21e9 confirmed before this unit.
 - Customer: 81 focused tests; 819 warehouse/API regression passed /496 deliberately
   opted-out live tests; known AnyIO warning only. Native read-only SQL: 23 passed.
 - Ruff lint/format passed (112 Python files); mypy passed 22 implementation files.
@@ -86,7 +103,7 @@ protocols apply. Synced project references and source datasets remain unchanged.
   287,190,163 bytes <400,000,000. Build suite times 22.417/21.895
   seconds include tests, not individual application-query latency. M5 performance pending.
 - Complete staged-content/history secret scans passed before code a93cb7f publication.
-  Acceptance diff/staged/history checks and clean/synced publication required at checkpoint.
+  Customer acceptance diff/staged/history checks passed before clean publication.
 - Historical accepted core: location first/repeat 12 dbt tests; seller 11 each; physical
   checks passed. See guides/JSON for dated offline/native/regression counts and artifacts.
 - Source/frontend/dependency-advisory gate last passed 2026-09-22; not rerun for unchanged
@@ -95,9 +112,10 @@ protocols apply. Synced project references and source datasets remain unchanged.
 
 ## Current Repository Condition
 
-STABLE / SAFE TO RESUME. Customer unit COMPLETE; Phase 3 remains incomplete. No current
-failed tests or partial implementation. Acceptance documentation/evidence is checkpointed
-in the containing commit; confirm clean/synced Git status after publication/on resume.
+STABLE / SAFE TO RESUME. Product code/offline/native checks complete; live acceptance
+pending. No known current failed tests or product view mutation. Published customer
+acceptance dca21e9 is the pre-risk baseline; code checkpoint precedes first build.
+Phase 3 remains incomplete.
 
 ## Incomplete Work
 
@@ -115,22 +133,23 @@ in the containing commit; confirm clean/synced Git status after publication/on r
 
 ## Exact Next Actions
 
-1. Check actual usage and Git status/history against the containing customer acceptance
-   checkpoint; read ADR 0003, stg_products/category_translation SQL and product guide.
-2. Implement the reviewed 22-field dim_product contract. Include missing/untranslated,
-   literal lookup differences, identical/conflicting duplicate lookup keys, unchanged
-   optional attributes/flags and corrupt output tests. Keep all 32,951 source products.
-3. Run focused/regression/lint/type/parse/native checks; code checkpoint before first
-   selected build, then physical/repeat/access/storage/secrecy checks and acceptance.
-4. Continue dim_date and remaining core/M5 only as allowance permits; preserve checkpoints.
+1. Confirm published clean product code checkpoint and size <400,000,000 bytes;
+   run selected dbt-build --select dim_product with protected transformer settings.
+2. Run product physical/access check and compatible repeat build; all 32,951 source
+   rows/IDs, 610 missing/13 untranslated categories and four zero weights retained.
+   Confirm full fields/types, private denials, identity/grants, size and artifacts.
+3. Record evidence/docs/acceptance checkpoint and detailed session report. Wrap this
+   round with dim_date as the exact next unit; do not begin another model now.
+4. Remaining core/M5/governance work retains existing phase boundaries.
 
 ## Git State
 
 - Branch feat/warehouse-foundation; main unchanged/unmerged.
 - Published pre-risk baseline: seller acceptance 1320900; customer code a93cb7f.
-- Customer acceptance checkpoint: containing commit, resolve with
+- Customer acceptance dca21e9 published; working tree was clean/synced before
+  this product unit. Product code checkpoint is the containing commit:
   git log -1 --format="%H %s" -- WORK_STATE.md; verify clean/synced publication.
-- Latest observed allowance 82% five-hour/86% weekly remaining, account-wide; not a
+- Latest observed allowance 63% five-hour/84% weekly remaining, account-wide; not a
   reservation. Session began after reset at 99%/89%. No paid changes/reset credits used.
 
 ## Continuation Commands

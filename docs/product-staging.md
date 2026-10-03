@@ -33,7 +33,7 @@ must be reconsidered for a new source version with different numeric syntax.
 
 Historical Phase 2 observations: 32,951 products; 610 missing values each in category,
 name length, description length and photo quantity; two missing values each in weight and
-dimensions; four zero weights. Thirteen nonempty product categories lack translation
+dimensions; four zero weights. Thirteen product rows with a nonempty category lack translation
 coverage. Counts overlap and are diagnostic observations, not repaired values or business KPIs.
 
 ## Verification and operation

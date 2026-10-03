@@ -1,0 +1,112 @@
+version: 2
+
+models:
+  - name: dim_product
+    description: >-
+      Private core view with one retained source product_id. All 20 staging fields,
+      including lineage, literal category, nullable attributes and nine missingness
+      or zero flags, remain unchanged. A left join on the literal C-collated category
+      adds the supplied English label and distinguishes a missing category from an
+      untranslated category. No source rows or invalid lookup fanout are hidden by
+      filtering, deduplication, normalization or an invented category policy.
+    config:
+      materialized: view
+      schema: core
+    columns:
+      - name: _load_id
+        data_type: uuid
+        description: Unchanged immutable source snapshot identity.
+        data_tests:
+          - not_null
+      - name: _source_row
+        data_type: bigint
+        description: Unchanged one-based logical source record ordinal within the load.
+        data_tests:
+          - not_null
+      - name: product_id
+        data_type: text
+        description: Unchanged mandatory lowercase 32-character ASCII hexadecimal source key.
+        data_tests:
+          - not_null
+          - unique
+      - name: product_category_name
+        data_type: text
+        description: Nullable literal Portuguese source category, preserving case and whitespace.
+      - name: product_name_lenght
+        data_type: bigint
+        description: Unchanged nullable source name length; original misspelling retained.
+      - name: product_description_lenght
+        data_type: bigint
+        description: Unchanged nullable source description length; original misspelling retained.
+      - name: product_photos_qty
+        data_type: bigint
+        description: Unchanged nullable source photo count; zero remains zero.
+      - name: product_weight_g
+        data_type: double precision
+        description: Unchanged nullable source weight in grams; zero remains zero.
+      - name: product_length_cm
+        data_type: double precision
+        description: Unchanged nullable source package length in centimetres.
+      - name: product_height_cm
+        data_type: double precision
+        description: Unchanged nullable source package height in centimetres.
+      - name: product_width_cm
+        data_type: double precision
+        description: Unchanged nullable source package width in centimetres.
+      - name: is_missing_category
+        data_type: boolean
+        description: Unchanged staging source-category missingness flag.
+        data_tests:
+          - not_null
+      - name: is_missing_name_length
+        data_type: boolean
+        description: Unchanged staging source-name-length missingness flag.
+        data_tests:
+          - not_null
+      - name: is_missing_description_length
+        data_type: boolean
+        description: Unchanged staging source-description-length missingness flag.
+        data_tests:
+          - not_null
+      - name: is_missing_photos_qty
+        data_type: boolean
+        description: Unchanged staging source-photo-count missingness flag.
+        data_tests:
+          - not_null
+      - name: is_missing_weight
+        data_type: boolean
+        description: Unchanged staging source-weight missingness flag.
+        data_tests:
+          - not_null
+      - name: is_missing_length
+        data_type: boolean
+        description: Unchanged staging source-package-length missingness flag.
+        data_tests:
+          - not_null
+      - name: is_missing_height
+        data_type: boolean
+        description: Unchanged staging source-package-height missingness flag.
+        data_tests:
+          - not_null
+      - name: is_missing_width
+        data_type: boolean
+        description: Unchanged staging source-package-width missingness flag.
+        data_tests:
+          - not_null
+      - name: is_zero_weight
+        data_type: boolean
+        description: Unchanged staging zero-weight flag; missing weight remains distinct from zero.
+        data_tests:
+          - not_null
+      - name: product_category_name_english
+        data_type: text
+        description: >-
+          Literal supplied English translation. Null for a missing category or
+          absent lookup; repeated English labels across different categories are valid.
+      - name: is_untranslated_category
+        data_type: boolean
+        description: >-
+          True only when a nonnull source category has no literal lookup match.
+          A missing source category is false and retains a null English label.
+        data_tests:
+          - not_null
