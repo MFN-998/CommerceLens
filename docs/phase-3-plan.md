@@ -14,7 +14,7 @@ The phase exit remains a **tested analytical warehouse**, not a deployed analyti
 
 | Unit | Deliverable | Required exit evidence | State |
 | --- | --- | --- | --- |
-| M1. Warehouse contracts | ADR with schemas, grains/types, join/quality policies, role boundaries, and recovery contract | Phase 2 evidence reviewed; original decimal/ZIP fields inspected; design and source observations consistent | Complete; implementation still pending |
+| M1. Warehouse contracts | ADR with schemas, grains/types, join/quality policies, role boundaries, and recovery contract | Phase 2 evidence reviewed; original decimal/ZIP fields inspected; design and source observations consistent | Design complete; implementation tracked in M2–M5 |
 | M2. Isolated database foundation | Dedicated dev project; reviewed versioned bootstrap/migrations; secret-free examples and connection guidance | Target/version verified, encrypted connection, repeat migration, intended grants and denied access, API exposure review, disposable recovery test | Complete 2026-09-21: migration applied, replay/permissions/recovery checks passed |
 | M3. Reproducible loading | All nine verified source tables, provenance/load registry, exact monetary ingestion, atomic load | Source/hash/count/content reconciliation, exact decimal checks, idempotent rerun, failed-load rollback, unchanged raw files | Complete 2026-09-22: all 1,550,922 rows committed; full content/count/money and repeat verification passed |
 | M4. dbt staging and dimensions/facts | Pinned compatible dbt/Postgres tools; staging/intermediate/core models and explicit quality flags | dbt build, uniqueness/null/reference/domain tests, source reconciliation, synthetic grain and missing-data cases | In progress: customer/seller/category/product/order/item/payment/review staging verified (12/11/8/16/25/16/16/14 dbt tests); geolocation staging and core models pending |
@@ -75,10 +75,11 @@ is unchanged. [Acceptance evidence](warehouse-load-verification.json) records co
 content digests, exact monetary totals, attribution and storage. 
 Next: [M4 dbt setup plan](dbt-setup-plan.md). Tooling and offline bootstrap are implemented
 and verified. Restricted transformer provisioning/access and dbt debug passed on 2026-09-25;
-Customer, seller, category translation, product, order, item, payment and review staging are verified; geolocation staging and core models remain pending.
+Customer, seller, category translation, product, order, item, payment and review staging are verified; geolocation code/offline/native checks are complete, with live acceptance pending; core models remain pending.
 See [customer](customer-staging.md), [seller](seller-staging.md),
 [category translation](category-translation-staging.md), [products](product-staging.md),
-[orders](order-staging.md), [order items](item-staging.md), [payments](payment-staging.md), [reviews](review-staging.md)
+[orders](order-staging.md), [order items](item-staging.md), [payments](payment-staging.md),
+[reviews](review-staging.md), [geolocation](geolocation-staging.md)
 and [dbt development](dbt-development.md) guides.
 
 ## Required exit governance gate

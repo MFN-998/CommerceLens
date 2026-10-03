@@ -1,15 +1,16 @@
 # CommerceLens work state
 
 Authoritative handoff; verify actual repository, Git and documentation on resume.
-Updated 2026-10-02. No knowledge required for continuation should depend on chat alone.
+Updated 2026-10-03. No knowledge required for continuation should depend on chat alone.
 
 ## Project State
 
 - Phase 3 Database/SQL/Analytics Engineering. M4 review staging
   COMPLETE; next source geolocation.
-- Current task: approved local cleanup COMPLETE. A/B/D removed; C retained.
-  See docs/cleanup-review-2026-10-02.md and the proposal JSON for exact scope/results.
-  Next implementation unit: geolocation staging; not started during cleanup.
+- Current task: geolocation implementation/offline/native gates COMPLETE; live acceptance PENDING.
+  Resume baseline was clean published 177c71d; no interrupted source changes.
+  Approved cleanup complete: A/B/D old outputs removed; C and preserved drafts retained.
+  Selected first build, physical/access and repeat acceptance not yet run.
 - Objective: tested analytical warehouse per master plan and ADR 0003, Free/views-first
   ADR 0004. Phase 4 and the comprehensive exit governance audit have not begun.
 - Approximately 40-50% of Phase 3 warehouse implementation/verification effort remains
@@ -36,6 +37,11 @@ Updated 2026-10-02. No knowledge required for continuation should depend on chat
 
 ## Files
 
+- New stg_geolocation.sql/.yml and three singular lineage/domain/reconciliation tests;
+  offline/native/physical geolocation test modules and docs/geolocation-staging.md.
+- Modified src/warehouse/dbt_runner.py approved selector; no helper, dependency,
+  migration, source-data or application changes. No project resources deleted in this unit.
+
 - Updated docs/cleanup-review-2026-10-02.md, cleanup-proposal-2026-10-02.json and this handoff.
 - Deleted only the approved 28 ignored A/B/D roots (43,967 files, 784.75 MiB); full paths
   remain recorded in the review/proposal. C's duplicate dataset download retained.
@@ -53,6 +59,12 @@ Updated 2026-10-02. No knowledge required for continuation should depend on chat
   dbt acceptance artifacts retained; approved historical test output removed in cleanup.
 
 ## Technical Decisions
+
+- Geolocation preserves all observations/exact duplicates with load/ordinal lineage;
+  ZIP is not unique. Literal one-to-five ASCII-digit ZIP/city/state text, guarded double
+  coordinate types and global range checks preserve existing contracts. Broad-Brazil
+  warning uses inclusive lat[-34,6]/lng[-74,-28], false if either typed coordinate absent.
+  No canonical coordinate, row filtering or duplicate ZIP-to-order join introduced.
 
 - Owner approved A/B removal, retained C and delegated D: remove old generated D output
   because current runners recreate fresh fixtures/targets. Approval is limited to this
@@ -84,6 +96,14 @@ Updated 2026-10-02. No knowledge required for continuation should depend on chat
   verified source. Owner: maintainer; fix before accepting a different source version.
 
 ## Validation
+
+- Geolocation focused offline 134 passed; Ruff lint/format 100 files and mypy 22
+  implementation files passed. Warehouse/API regression 701 passed / 381 opt-in skips;
+  known AnyIO deprecation warning. Offline parse passed: .artifacts/dbt/8cd0a32fc01c4bebba797a8b9cc3a7ed.
+- Initial native run: 71 passed / 1 high-precision equality failed. Diagnosis proved
+  extra_float_digits=0 shortened text results; binary fetch and float8send exactly
+  match the independent expected binary64 value. Model/helper unchanged; native
+  projection now reads binary results with strict assertions. Rerun: all 72 passed.
 
 - Cleanup COMPLETE: approved 28 roots revalidated (containment, links, use, sizes),
   removed and confirmed absent. 858 retained files hash-unchanged. All nine canonical
@@ -118,11 +138,15 @@ Updated 2026-10-02. No knowledge required for continuation should depend on chat
 
 ## Current Repository Condition
 
-STABLE / SAFE TO RESUME. Review atomic unit COMPLETE; eight of nine staging sources accepted.
-Phase 3 incomplete. Cleanup COMPLETE with owner approval; no source/implementation change.
+STABLE / SAFE TO RESUME. Eight staging sources accepted. Geolocation code/offline/native
+gates COMPLETE; first live build/access/repeat acceptance pending. Phase 3 incomplete.
 No current known failed tests; verify actual Git status.
 
 ## Incomplete Work
+
+- Recommended API coordinate transport gate: current dev session extra_float_digits=0
+  rounds text results; use binary fetch or reviewed positive session output setting
+  before exposing precise coordinate reads. Warehouse values/reconciliation are correct.
 
 - Stale progress/test-location documentation wording recorded in cleanup review;
   correct it during maintenance, retaining all historical documents. No cleanup decision
@@ -136,24 +160,23 @@ No current known failed tests; verify actual Git status.
 
 ## Exact Next Actions
 
-1. Confirm the containing cleanup checkpoint is clean/synced with git status and history;
-   read phase-3-plan.md and ADR 0003's geolocation contract, then inspect accepted staging
-   models/helpers and geolocation source metadata. Geolocation implementation is pending.
-2. Follow ADR 0003: preserve all 1,000,163 geographic observations/duplicates, literal ZIPs
-   and explicit broad-Brazil warning; no invented canonical coordinate or duplicate ZIP join.
-   Validate/code checkpoint, selected first/physical/repeat acceptance, then core/M5.
-3. Address the recorded progress/test-location wording during maintenance; retain historical
-   documents and C. Do not repeat cleanup or delete future generated output automatically.
-4. Comprehensive governance gate remains after verified Phase 3, before Phase 4.
+1. Confirm a clean code checkpoint; check current database size <400,000,000 bytes,
+   then selected dbt-build --select stg_geolocation using protected transformer settings.
+2. Run the opt-in geolocation physical/access test, then compatible selected repeat build;
+   verify OID/owner/grants, all 1,000,163 rows, 19,015 ZIPs, 261,831 duplicate observations,
+   31 warning flags and no password in artifacts. Preserve failed artifacts/view; no drop.
+3. Record actual acceptance evidence/checkpoint, then core dimensions/intermediate/facts
+   and M5. No reload/reprovision/migration replay or repeat accepted source implementation.
+4. Comprehensive governance audit only after verified Phase 3, before Phase 4.
 
 ## Git State
 
 - Branch feat/warehouse-foundation; main unchanged/unmerged. Payment acceptance 7d8ffb6 published.
 - Review implementation a63c7ca / acceptance 484249b published.
-- Pre-deletion assessment/checkpoint 0096260 published. Cleanup execution checkpoint
-  is the containing commit:
+- Cleanup execution checkpoint 177c71d published; pre-deletion assessment 0096260.
+- Geolocation code checkpoint is the containing commit:
   git log -1 --format="%H %s" -- WORK_STATE.md. Verify actual clean/synced status.
-- Latest recorded allowance 38% five-hour / 37% weekly remaining; account-wide,
+- Latest recorded allowance 99% five-hour / 100% weekly remaining; account-wide,
   not a task/model reservation. Recheck before substantial units. No reset credits used.
 
 ## Continuation Commands
@@ -162,10 +185,10 @@ No current known failed tests; verify actual Git status.
 Set-Location 'D:\My Projects\CommerceLens'
 git status --short --branch
 git log -5 --oneline
-.venv/Scripts/python.exe -B -m src.warehouse dbt-test --select stg_order_reviews
+.venv/Scripts/python.exe -B -m src.warehouse dbt-build --select stg_geolocation
 ```
 
-Use customer-staging.md retained regression instructions and review-staging.md.
+Use customer-staging.md retained regression instructions and geolocation-staging.md.
 Never print secrets/source records/driver diagnostics. Project-resource deletion requires
 informed explicit approval; legitimate product data deletion follows authorization,
 ownership, confirmation and integrity requirements. No paid changes or reset credits used.

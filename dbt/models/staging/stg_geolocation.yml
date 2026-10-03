@@ -1,0 +1,80 @@
+version: 2
+
+models:
+  - name: stg_geolocation
+    description: >-
+      One retained source geolocation observation, identified only by immutable
+      load identity and source-row ordinal. ZIP prefixes and entire source rows
+      may repeat; all observations and exact duplicates are preserved. Literal
+      ZIP/city/state text is not trimmed, padded or normalized. Exactly empty
+      text becomes null; coordinate conversion rejects invalid or unrepresentable
+      decimal input safely. Mandatory missing/invalid values fail data tests
+      without dropping their rows. No join, canonical coordinate or city is
+      inferred. Broad-Brazil bounds are an exploratory warning, not an asserted
+      geographic or business eligibility rule.
+    config:
+      materialized: view
+      schema: staging
+    columns:
+      - name: _load_id
+        data_type: uuid
+        description: Unchanged immutable source snapshot identity from raw.
+        data_tests:
+          - not_null
+      - name: _source_row
+        data_type: bigint
+        description: Unchanged one-based logical CSV record ordinal within the load.
+        data_tests:
+          - not_null
+      - name: geolocation_zip_code_prefix
+        data_type: text
+        description: >-
+          Mandatory literal source ZIP prefix, one to five ASCII digits. Leading
+          zeros are preserved; short prefixes are not padded and ZIP is not a
+          unique key. Exactly empty text becomes null.
+        data_tests:
+          - not_null
+      - name: geolocation_lat
+        data_type: double precision
+        description: >-
+          Mandatory latitude in decimal degrees, globally within [-90, 90].
+          Source decimal text is converted with representability guards; no
+          rounding or coordinate repair is applied. Invalid input becomes null
+          and fails validation; NaN/Infinity source extensions are rejected.
+        data_tests:
+          - not_null
+      - name: geolocation_lng
+        data_type: double precision
+        description: >-
+          Mandatory longitude in decimal degrees, globally within [-180, 180].
+          Source decimal text is converted with representability guards; no
+          rounding or coordinate repair is applied. Invalid input becomes null
+          and fails validation; NaN/Infinity source extensions are rejected.
+        data_tests:
+          - not_null
+      - name: geolocation_city
+        data_type: text
+        description: >-
+          Mandatory source city spelling, including accents, case and whitespace.
+          Exactly empty text becomes null; source variants remain separate observations.
+        data_tests:
+          - not_null
+      - name: geolocation_state
+        data_type: text
+        description: >-
+          Mandatory source Brazilian state abbreviation, preserved without case
+          conversion. Exactly empty text becomes null and fails validation.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [AC, AL, AP, AM, BA, CE, DF, ES, GO, MA, MT, MS, MG, PA, PB, PR, PE, PI, RJ, RN, RS, RO, RR, SC, SP, SE, TO]
+      - name: is_outside_broad_brazil_bounds
+        data_type: boolean
+        description: >-
+          Exploratory warning when both typed coordinates exist and latitude
+          falls outside [-34, 6] or longitude outside [-74, -28]. Boundary values
+          are inside. False when either coordinate is missing or rejected;
+          mandatory data tests still fail those inputs. Outliers remain unchanged.
+        data_tests:
+          - not_null

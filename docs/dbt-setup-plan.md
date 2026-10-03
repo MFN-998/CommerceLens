@@ -1,7 +1,8 @@
 # Phase 3 M4 setup checkpoint plan
 
-Prepared 2026-09-22 after M3 full loading and repeat verification. This is the next
-bounded implementation unit, not a redesign or a claim that dbt models already exist.
+Prepared 2026-09-22 after M3 full loading and repeat verification. This historical
+setup plan describes that bounded implementation unit. Current verified model progress
+is in the [Phase 3 plan](phase-3-plan.md) and [work state](../WORK_STATE.md).
 Use ADR 0003 for logical schemas/grains and ADR 0004 for views-first storage constraints.
 
 ## Tooling adopted — 2026-09-22

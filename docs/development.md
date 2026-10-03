@@ -146,9 +146,12 @@ Data tests exercise acquisition integrity, schema failures, relationships, and c
 Parquet round trips with synthetic fixtures. They do not download Olist or require a
 database. For API-only work, `uv run --locked pytest api/tests` needs no data group.
 
-Pytest scratch files live in `.pytest-tmp`, which pytest clears on each run.
-Do not put source files or personal files there. This avoids a Windows permissions conflict
-with the machine's pre-existing shared pytest temporary folder.
+The current conftest.py retains pytest scratch fixtures in fresh `.artifacts/pytest/<UUID>`
+directories without automatic directory cleanup. Do not put source/personal files there.
+The legacy `.pytest-tmp` setting is not the current tmp_path fixture location. Source
+tests and frontend builds can still delete their own generated output; follow the
+[retained warehouse/API checks](customer-staging.md) for Phase 3 work and review deletion
+behavior before broader commands. This keeps current permission and recovery rules clear.
 
 To run the compiled frontend locally after a successful build:
 

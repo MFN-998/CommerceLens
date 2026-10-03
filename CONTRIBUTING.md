@@ -83,10 +83,12 @@ above is the audited Windows installation, ignored by Git. On another machine in
 release, verify its published checksum, and pass its executable path (or put it on PATH).
 Version 8.30.1 was used for this audit; review newer releases intentionally.
 
-History scans do not cover changes that have not been committed. Before committing, export
-the staged Git tree into an otherwise empty ignored directory and scan that export with
-`gitleaks dir <export-directory> --redact --no-banner`. Inspect any finding locally without
-publishing secret values. Before pushing, rerun the history scan including the new commit.
+History scans do not cover uncommitted changes. Before committing, scan the complete
+contents of all staged added/modified files through `gitleaks stdin --redact --no-banner`;
+a patch-only scan is insufficient. Feeding staged contents in memory avoids redundant
+export copies. An isolated export remains an alternative when necessary, but retain it
+until specifically approved for deletion. Inspect findings without publishing secrets.
+Before pushing, rerun the history scan including the new commit.
 
 For targeted work, individual commands remain available:
 
@@ -101,7 +103,11 @@ npm --prefix web run format:check
 
 Formatting commands change files; check commands do not automatically repair code.
 For API-only tests, `uv run --locked pytest api/tests` remains available. Python tests
-use `.pytest-tmp`, a disposable directory that pytest clears. Never store source there.
+use repository-root conftest.py to retain fixtures in fresh `.artifacts/pytest/<UUID>`
+directories. Do not store source there. The legacy `.pytest-tmp` setting does not describe
+the current retained tmp_path fixture. Some source tests/build tools still delete their
+own generated output; use the reviewed warehouse/API workflow or obtain specific
+approval before running those broader checks.
 On macOS/Linux use the individual commands above, or PowerShell 7 for the gate script;
 cross-platform execution must be verified before being claimed.
 
