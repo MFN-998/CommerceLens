@@ -28,6 +28,7 @@ APPROVED_MODELS = frozenset(
         "dim_seller",
         "dim_customer",
         "dim_product",
+        "dim_date",
     }
 )
 

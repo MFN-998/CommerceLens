@@ -1,16 +1,16 @@
 # CommerceLens work state
 
 Authoritative handoff; reconcile actual repository/Git/documentation before resuming.
-Updated 2026-10-03. Master plan, ADR 0003, engineering standards, execution and deletion
+Updated 2026-10-04. Master plan, ADR 0003, engineering standards, execution and deletion
 protocols apply. Synced project references and source datasets remain unchanged.
 
 ## Project State
 
 - Phase 3 Database/SQL/Analytics Engineering, M4. All nine source staging views accepted.
 - Customer identity COMPLETE, code/acceptance a93cb7f/dca21e9 published clean.
-- Current unit: core.dim_product COMPLETE; first/physical/repeat acceptance passed.
-  Session completed customer and product units; larger Phase 3 SAFE TO RESUME.
-  No next model started; exact continuation is core.dim_date.
+- Product unit COMPLETE, published acceptance 055ba10 clean/synchronized on resume.
+- Current unit: core.dim_date code/offline/native COMPLETE; first/physical/repeat
+  acceptance PENDING. No date view built yet; source remains unchanged.
 - Objective: tested analytical warehouse under Free/views-first ADR 0004; M4 and M5
   remain. Phase 4 and comprehensive exit audit have not begun.
 - Accepted product contract: all 20 staging fields unchanged plus nullable English
@@ -40,6 +40,9 @@ protocols apply. Synced project references and source datasets remain unchanged.
 
 ## Files
 
+- Created date SQL/YAML, date domain/reconciliation SQL tests, three date test modules
+  and date-dimension.md; approved runner selector updated. All candidates/artifacts
+  retained. No files deleted or renamed.
 - New product unit: dim_product.sql/.yml, product_dimension_domains/source
   reconciliation tests, three product-dimension Python test modules and guide.
   product-dimension-verification.json added; runner selector, README, work state
@@ -60,6 +63,11 @@ protocols apply. Synced project references and source datasets remain unchanged.
 
 ## Technical Decisions
 
+- Active dim_date contract: distinct nonnull observed dates from all eight retained
+  order/item/review timestamp columns, nine standard date/calendar/ISO/weekend fields.
+  No generated gap calendar, timezone invention, warning/status/KPI eligibility filter.
+  Optional missing events contribute no date; malformed source parsing still blocks
+  accepted staging validation. Fact timestamps remain available independently.
 - dim_customer is ONLY customer_unique_id text DISTINCT with C collation. Repeating
   order-linked identities collapse at the declared identity grain; null/invalid IDs
   stay visible and block tests. Source addresses/load/ordinal are not chosen arbitrarily;
@@ -86,6 +94,16 @@ protocols apply. Synced project references and source datasets remain unchanged.
 
 ## Validation
 
+- Date: candidates AST-parsed; scoped independent review approved. 35 candidate
+  offline cases passed after sandbox collection access was resolved with confined
+  collection/escalation (initial attempt collected none; no code failure/mutation).
+  Adopted focused suite: 100 passed; warehouse/API regression 921 passed/594 deliberate
+  live skips, known AnyIO warning only. Native read-only PostgreSQL 38 passed,
+  including two timezones and typed empty results. Ruff lint/format passed (120
+  Python files); mypy passed 22 implementation files. Offline dbt parse passed:
+  .artifacts/dbt/5cb60ba4980e40efa6e1ce907c7c6e8f. First/physical/repeat: Not yet tested.
+  Preflight 803,395 nonnull events/755 dates (2016-09-04..2020-04-09), raw counts
+  unchanged; no date view existed, database 287,222,931 bytes <400,000,000.
 - Product code adopted after all three Python modules passed AST parsing;
   Initial focused124/lint116/mypy22/regression882/parse passed; native57 passed/2
   failed. Added missing-category/category consistency guard; removed an
@@ -132,11 +150,10 @@ protocols apply. Synced project references and source datasets remain unchanged.
 
 ## Current Repository Condition
 
-CLEAN / STABLE at the published acceptance checkpoint; verify Git on resume.
-Customer/product units COMPLETE; larger Phase 3 SAFE TO RESUME. No known current
-failed tests, partial model or pending migration. Product code 5d96701 preceded
-first build. Source/dependencies/credentials unchanged; no resource deletion.
-Next unit intentionally deferred for a bounded recovery handoff, not a failure.
+STABLE / SAFE TO RESUME. Date code/offline/native checks passed; first/physical/
+repeat acceptance pending. No known failed tests, migration or source mutation.
+Verified product baseline 055ba10 preserved; date code checkpoint precedes first
+live build. Phase 3 remains incomplete.
 
 ## Incomplete Work
 
@@ -154,27 +171,26 @@ Next unit intentionally deferred for a bounded recovery handoff, not a failure.
 
 ## Exact Next Actions
 
-1. On resume, check actual allowance and Git status/history against the containing
-   product acceptance checkpoint. Read ADR 0003's dim_date grain plus staging
-   orders/items/reviews timestamp SQL, flags and guides; verify recorded evidence.
-2. Implement core.dim_date at one calendar date across retained source event dates,
-   with standard calendar attributes only. Keep source timestamps available;
-   do not impose delivered-only/KPI eligibility or silently discard warning dates.
-3. Add meaningful date/domain/grain/source-coverage cases, approved selector and
-   relevant quality gates; code checkpoint before first/physical/repeat builds.
-4. Continue int_order_customers/four facts and M5 with independent child aggregation,
-   performance/recovery proofs, then required governance gate before Phase 4.
+1. Confirm clean/published date code checkpoint and budget <400,000,000 bytes;
+   run selected dbt-build --select dim_date through the protected transformer wrapper.
+2. Run date physical/access check, covering all eight raw/staged clocks with lineage
+   including NULL positions, exact date/calendar membership, types and private denials.
+3. Run compatible repeat build; verify identity/owner/grants/source counts/storage
+   and no password in first/repeat artifacts. Save aggregate evidence and acceptance.
+4. Continue int_order_customers/four facts/M5 as allowance permits; keep phase boundaries
+   and the required governance gate after verified Phase 3, before Phase 4.
 
 ## Git State
 
 - Branch feat/warehouse-foundation; main unchanged/unmerged.
 - Published pre-risk baseline: seller acceptance 1320900; customer code a93cb7f.
 - Customer acceptance dca21e9 published; working tree was clean/synced before
-  this product unit. Product code 5d96701 published. Product acceptance checkpoint
-  is the containing commit: git log -1 --format="%H %s" -- WORK_STATE.md;
+  this product unit. Product code/acceptance 5d96701/055ba10 published. Date code
+  checkpoint is the containing commit: git log -1 --format="%H %s" -- WORK_STATE.md;
   verify clean/synced publication. No merge/deployment performed.
-- Latest observed allowance 59% five-hour/83% weekly remaining, account-wide; not a
-  reservation. Session began after reset at 99%/89%. No paid changes/reset credits used.
+- Latest observed allowance 82% five-hour/80% weekly remaining on 2026-10-04,
+  account-wide and not a reservation. Prior session ended at a recoverable checkpoint.
+  No paid changes/reset credits used.
 
 ## Continuation Commands
 

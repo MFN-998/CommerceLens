@@ -1,0 +1,62 @@
+version: 2
+
+models:
+  - name: dim_date
+    description: >-
+      Private core view with one observed nonnull calendar date across all five
+      order events, item shipping limit, review creation and review answer events.
+      Timestamp-without-time-zone values contribute their calendar dates without
+      timezone conversion, status filters or warning eligibility rules. No missing
+      dates are generated between observations. Invalid nonempty timestamp parsing
+      remains blocking upstream; NULL event absence contributes no dimension row.
+      Only standard calendar and ISO attributes are selected.
+    config:
+      materialized: view
+      schema: core
+    columns:
+      - name: calendar_date
+        data_type: date
+        description: Distinct nonnull observed event calendar date and dimension key.
+        data_tests:
+          - not_null
+          - unique
+      - name: calendar_year
+        data_type: integer
+        description: Gregorian calendar year extracted from calendar_date.
+        data_tests:
+          - not_null
+      - name: calendar_quarter
+        data_type: integer
+        description: Gregorian quarter from 1 through 4.
+        data_tests:
+          - not_null
+      - name: calendar_month
+        data_type: integer
+        description: Gregorian month from 1 through 12.
+        data_tests:
+          - not_null
+      - name: day_of_month
+        data_type: integer
+        description: Actual day within the observed calendar month.
+        data_tests:
+          - not_null
+      - name: iso_year
+        data_type: integer
+        description: ISO week-numbering year; may differ from calendar_year near New Year.
+        data_tests:
+          - not_null
+      - name: iso_week
+        data_type: integer
+        description: ISO week number from 1 through 53 within iso_year.
+        data_tests:
+          - not_null
+      - name: iso_day_of_week
+        data_type: integer
+        description: ISO weekday with Monday 1 through Sunday 7.
+        data_tests:
+          - not_null
+      - name: is_weekend
+        data_type: boolean
+        description: True precisely for ISO weekday 6 or 7, Saturday or Sunday.
+        data_tests:
+          - not_null
