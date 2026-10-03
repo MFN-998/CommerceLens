@@ -1,0 +1,117 @@
+{
+  "verified_at_utc": "2026-10-03T06:04:15.796227+00:00",
+  "model": "core.dim_seller",
+  "raw_rows": 3095,
+  "staging_rows": 3095,
+  "dimension_rows": 3095,
+  "distinct_seller_ids": 3095,
+  "uncovered_seller_rows": 7,
+  "null_coverage_rows": 0,
+  "database_bytes": 287181971,
+  "first_build": "passed",
+  "repeat_build": "passed",
+  "first_build_elapsed_seconds": 61.648,
+  "repeat_build_elapsed_seconds": 51.264,
+  "relation_identity_owner_and_grants_preserved": true,
+  "password_absent_from_first_and_repeat_artifacts": true,
+  "first_results": [
+    {
+      "node": "model.commercelens.dim_seller",
+      "status": "success"
+    },
+    {
+      "node": "test.commercelens.not_null_dim_seller__load_id.32a5ea62a9",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_dim_seller__source_row.e089bd88c3",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_dim_seller_has_geolocation.e6580c3027",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_dim_seller_seller_city.9affaaf52d",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_dim_seller_seller_id.3da5c751a2",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_dim_seller_seller_state.6a5663c3bb",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_dim_seller_seller_zip_code_prefix.78e26fc472",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.relationships_dim_seller_seller_zip_code_prefix__zip_code_prefix__ref_dim_location_.a91c8c718f",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.seller_dimension_domains",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.seller_dimension_source_reconciliation",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.unique_dim_seller_seller_id.a1add5f830",
+      "status": "pass"
+    }
+  ],
+  "results": [
+    {
+      "node": "model.commercelens.dim_seller",
+      "status": "success"
+    },
+    {
+      "node": "test.commercelens.not_null_dim_seller__load_id.32a5ea62a9",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_dim_seller__source_row.e089bd88c3",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_dim_seller_has_geolocation.e6580c3027",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_dim_seller_seller_city.9affaaf52d",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_dim_seller_seller_id.3da5c751a2",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_dim_seller_seller_state.6a5663c3bb",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_dim_seller_seller_zip_code_prefix.78e26fc472",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.relationships_dim_seller_seller_zip_code_prefix__zip_code_prefix__ref_dim_location_.a91c8c718f",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.seller_dimension_domains",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.seller_dimension_source_reconciliation",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.unique_dim_seller_seller_id.a1add5f830",
+      "status": "pass"
+    }
+  ]
+}

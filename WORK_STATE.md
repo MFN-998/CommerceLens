@@ -8,18 +8,21 @@ Updated 2026-10-03. Required continuation knowledge must not depend on chat alon
 - Phase 3 Database/SQL/Analytics Engineering, M4. ALL NINE SOURCE STAGING MODELS COMPLETE.
 - Geolocation acceptance COMPLETE and published b2f4205.
 - Location acceptance COMPLETE, clean published 7bd2d8c.
-- Current unit: core.dim_seller code/offline/native COMPLETE; first live build,
-  physical/access and repeat acceptance PENDING. No seller view built yet.
-  This round is limited to finishing seller acceptance/checkpoint, then wrapping.
+- Current unit: core.dim_seller COMPLETE; first/physical/repeat acceptance passed.
+  This session is wrapped at a recoverable checkpoint per the owner's usage request.
+  Resume core.dim_customer after the five-hour reset; do not restart earlier units.
 - Objective: tested analytical warehouse per master plan, ADR 0003 and Free/views-first
   ADR 0004. M4 core and M5 remain; Phase 4 and the comprehensive exit audit have not begun.
 - Roughly 30-40% of Phase 3 warehouse implementation/verification effort remains after
-  source staging and the first core dimension. Reasoned range, not a time forecast
+  source staging and accepted location/seller dimensions. Reasoned range, not a time forecast
   or model-count percentage;
   required later audit/correction effort remains unknown.
 
 ## Completed Work
 
+- Seller dimension accepted: all 3,095 source sellers/unique IDs and unchanged
+  lineage/address fields; seven uncovered rows retained, zero null coverage rows.
+  Private access/type checks and compatible repeat identity/owner/grants passed.
 - Location dimension accepted: 19,177 unique ZIPs; all 1,000,163 observations / 31
   broad-box flags; 8,556 city-ambiguous / 8 state-ambiguous ZIPs. Customer/seller joins
   retain 99,441/3,095 rows and 278/7 uncovered source rows.
@@ -45,6 +48,7 @@ Updated 2026-10-03. Required continuation knowledge must not depend on chat alon
   source_reconciliation singular tests, tests/test_warehouse_seller_dimension.py and
   docs/seller-dimension.md; dedicated _postgres_integration.py and _integration.py
   seller-dimension tests added. Runner selector/phase/customer guides updated;
+  docs/seller-dimension-verification.json, WORK_STATE and README updated;
   no deletion/migration/dependency/application/credential work.
 - New dbt/models/core/dim_location.sql/.yml; domains/source_reconciliation/
   join_conservation singular tests; three dedicated location Python test modules
@@ -59,6 +63,8 @@ Updated 2026-10-03. Required continuation knowledge must not depend on chat alon
 - Updated README, CONTRIBUTING, development/dbt-setup/phase-3/customer-staging docs
   and cleanup follow-up record. No dependency, migration, raw/interim data, credentials,
   application, filesystem deletion or deployment changes in this geolocation unit.
+- Retained seller first/repeat artifacts: .artifacts/dbt/4d97d80c8e4b437fb20143f554b0aee2
+  and .artifacts/dbt/a51125dca35e431cb24656113bf5d90c.
 - Retained location first/repeat artifacts: .artifacts/dbt/79e391f8fb2543df9d9822fa18e6c0c6
   and .artifacts/dbt/232e607e452449ada592e5001bd0bd55.
 - Retained geolocation first/repeat artifacts: .artifacts/dbt/033ad85c890342d683eb9debfe704158
@@ -105,8 +111,18 @@ Updated 2026-10-03. Required continuation knowledge must not depend on chat alon
   Native read-only synthetic PostgreSQL: 30 passed. Ruff lint/format passed (108 Python
   files); mypy passed 22 implementation files. Offline parse passed, retained
   .artifacts/dbt/c6b2cc865d514c9cb796219ea2b57ed8. Scoped review found no blockers.
-- Seller first/physical/repeat acceptance: Not yet tested. Complete staged-contents/
-  history secret checks required before code checkpoint/publication.
+- Seller first selected build passed one view and all 11 dbt tests; suite elapsed
+  61.648 seconds. Artifacts: .artifacts/dbt/4d97d80c8e4b437fb20143f554b0aee2.
+  Actual-login read-only physical/type/ownership/access check: 1 passed.
+  Repeat passed one view/all 11 dbt tests; suite elapsed 51.264 seconds.
+  All 3,095 rows/IDs and seven uncovered rows retained; no null coverage.
+  Repeat identity/owner/grants preserved; password absent from both artifacts.
+  Database 287,181,971 bytes <400,000,000. Suite times include tests, not individual
+  application-query latency. M5 performance/recovery gates remain pending.
+  Evidence: docs/seller-dimension-verification.json. Complete staged-contents/
+  history secret scans passed before publishing seller code 9263bf2.
+  Acceptance diff check and complete staged-contents/history secret scans passed.
+  Verify the containing acceptance commit and clean/synced status on resume.
 - Location: 121 focused offline/runner checks passed; retained warehouse/API regression
   767 passed / 441 deliberate opt-in skips, known AnyIO warning only. Native read-only
   synthetic PostgreSQL cases: 59 passed. Ruff lint/format passed (104 Python files),
@@ -150,14 +166,17 @@ Updated 2026-10-03. Required continuation knowledge must not depend on chat alon
 
 ## Current Repository Condition
 
-STABLE / SAFE TO RESUME. Accepted source/location baseline remains unchanged. Seller
-code and offline/native checks complete; live acceptance pending. No known current
-failed tests or database mutation. Checkpoint verified code before the first build.
+CLEAN / STABLE at the published acceptance checkpoint; verify Git on resume.
+Seller unit COMPLETE; larger Phase 3 SAFE TO RESUME. Source/location baseline
+unchanged, no known current failed tests. Code checkpoint 9263bf2 preceded the
+first seller view build; no raw reload, migration or resource deletion occurred.
+The next unit is intentionally deferred until reset, not blocked by a failure.
 
 ## Incomplete Work
 
-- Remaining dimensions dim_seller/dim_customer/dim_product/dim_date;
-  int_order_customers and four facts. Next: dim_seller, using accepted location coverage.
+- Remaining dimensions dim_customer/dim_product/dim_date; int_order_customers
+  and four facts. Next: dim_customer, one customer_unique_id per ADR 0003;
+  cross-order identity only, with no arbitrary current-address selection.
 - M5 technical order-component mart, reliable example SQL, measured query-plan/performance
   and reconstruction/recovery proofs. Independent child aggregation/conservation gates.
 - Items shipping-before-purchase/over-365-day flags are a fact_order_items M4 gate,
@@ -172,23 +191,26 @@ failed tests or database mutation. Checkpoint verified code before the first bui
 
 ## Exact Next Actions
 
-1. Confirm clean code checkpoint and database size <400,000,000 bytes; run selected
-   dbt-build --select dim_seller using protected transformer settings. No raw reload.
-2. Run opt-in seller physical/access test and compatible selected repeat build; verify
-   3,095 unchanged source/core rows, 7 uncovered rows, no null coverage, full fields/
-   lineage, identity/grants, API/reader denials, storage and artifact secrecy.
-3. Record evidence/acceptance checkpoint and wrap before allowance exhaustion. Do not
-   start another core unit in this round. Next core unit can resume after reset.
-4. Remaining core/M5/governance work stays within the established phase boundaries.
+1. After the five-hour reset, read this file and ADR 0003's dim_customer grain;
+   confirm Git status/history against the containing seller acceptance checkpoint.
+   Inspect staging.stg_customers SQL/tests and accepted location/seller evidence;
+   resolve any discrepancy before changing code. Check actual usage first.
+2. Implement only core.dim_customer cross-order identity at customer_unique_id
+   grain. Preserve all identities; no chosen current address. Add focused source/
+   grain/failure checks and approved selector, then code checkpoint before live build.
+3. Verify offline/native, first/physical/repeat acceptance, document and checkpoint.
+   Continue later units only as allowance permits; do not redo accepted staging.
+4. Remaining core/M5/governance work stays within established phase boundaries.
 
 ## Git State
 
 - Branch feat/warehouse-foundation; main unchanged/unmerged. Review acceptance 484249b.
 - Cleanup 177c71d and geolocation implementation 81f0342 published.
 - Geolocation acceptance b2f4205 and location code 1ad6281 published.
-- Location acceptance 7bd2d8c published; seller code checkpoint is the containing commit:
-  git log -1 --format="%H %s" -- WORK_STATE.md. Verify clean/synced status after publication.
-- Last observed allowance 39% five-hour / 91% weekly remaining, account-wide;
+- Location acceptance 7bd2d8c and seller code 9263bf2 published. Seller acceptance
+  checkpoint is the containing commit: git log -1 --format="%H %s" -- WORK_STATE.md.
+  Verify clean/synced status after publication; main remains unchanged.
+- Last observed allowance 32% five-hour / 89% weekly remaining, account-wide;
   not a reservation for this task/model. Check before new substantial units.
   No purchases, paid changes or reset credits used.
 
@@ -198,10 +220,12 @@ failed tests or database mutation. Checkpoint verified code before the first bui
 Set-Location 'D:\My Projects\CommerceLens'
 git status --short --branch
 git log -5 --oneline
-.venv/Scripts/python.exe -B -m src.warehouse dbt-build --select dim_seller
+# Optional accepted-unit validation; do not rebuild/reload completed phases.
+.venv/Scripts/python.exe -B -m src.warehouse dbt-test --select dim_seller
 ```
 
-Use customer-staging.md retained regression instructions and location-dimension.md.
+Use customer-staging.md retained regression instructions, seller-dimension.md and
+ADR 0003. Read staging.stg_customers and its tests before the next implementation.
 Never print secrets/source records/driver diagnostics. Project resource deletion needs
 specific informed permission; legitimate product deletion follows authorization,
 ownership, confirmation and integrity requirements. Preserve the owner's retained C.
