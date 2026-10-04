@@ -3,7 +3,7 @@
 Phase 3 M4; implementation prepared 2026-09-27 from verified live setup 142277c.
 The selected build/test commands also approve stg_sellers, stg_category_translation and
 stg_products, stg_orders, stg_order_items, stg_order_payments, stg_order_reviews and
-stg_geolocation, dim_location, dim_seller, dim_customer, dim_product, dim_date, int_order_customers, fact_orders, fact_order_items and fact_payments; see their guides in the [Phase 3 plan](phase-3-plan.md). All nine
+stg_geolocation, dim_location, dim_seller, dim_customer, dim_product, dim_date, int_order_customers, fact_orders, fact_order_items, fact_payments and fact_reviews; see their guides in the [Phase 3 plan](phase-3-plan.md). All nine
 source staging models, all five dimensions and the order-customer mapping are
 verified. fact_orders/fact_order_items/fact_payments are accepted; reviews and marts remain pending.
 No business KPIs or Phase 4 analysis are added.

@@ -1,0 +1,72 @@
+version: 2
+
+models:
+  - name: fact_reviews
+    description: >-
+      Private core view at (review_id, order_id). Retains all ten accepted
+      staging fields, literal optional comments, lineage, source score/events
+      and reversal warning, plus two directly cast calendar-date roles.
+      Neither ID alone is unique. Required order/date membership is tested
+      separately; no joins, filtering, repair, aggregation, deduplication,
+      selected review, duration or business eligibility is introduced.
+      Missing mandatory input remains queryable and blocks acceptance.
+    config:
+      materialized: view
+      schema: core
+    columns:
+      - name: _load_id
+        data_type: uuid
+        description: Unchanged review source snapshot identity.
+        data_tests:
+          - not_null
+      - name: _source_row
+        data_type: bigint
+        description: Unchanged one-based review source record ordinal.
+        data_tests:
+          - not_null
+      - name: review_id
+        data_type: text
+        description: Literal source review identifier; part of composite pair grain, not individually unique.
+        data_tests:
+          - not_null
+      - name: order_id
+        data_type: text
+        description: Literal source order reference; part of pair grain, mandatory fact_orders membership.
+        data_tests:
+          - not_null
+      - name: review_score
+        data_type: bigint
+        description: Unchanged integral source score, from one through five.
+        data_tests:
+          - not_null
+      - name: review_comment_title
+        data_type: text
+        description: Nullable literal source title; no trimming, rewriting, markup interpretation or truncation.
+      - name: review_comment_message
+        data_type: text
+        description: Nullable literal source message; untrusted text requires safe rendering in a future product layer.
+      - name: review_creation_date
+        data_type: timestamp without time zone
+        description: Unchanged source creation timestamp, with no declared timezone.
+        data_tests:
+          - not_null
+      - name: review_answer_timestamp
+        data_type: timestamp without time zone
+        description: Unchanged source answer timestamp, with no declared timezone.
+        data_tests:
+          - not_null
+      - name: is_answer_before_creation
+        data_type: boolean
+        description: Unchanged staging reversal warning; false if either required typed event is absent.
+        data_tests:
+          - not_null
+      - name: review_creation_calendar_date
+        data_type: date
+        description: Calendar date directly from review_creation_date; required dim_date membership.
+        data_tests:
+          - not_null
+      - name: review_answer_calendar_date
+        data_type: date
+        description: Calendar date directly from review_answer_timestamp; required dim_date membership.
+        data_tests:
+          - not_null
