@@ -68,7 +68,9 @@ grants were preserved; transformer password absent from both retained build arti
 Database size: 287124627 bytes, below the 400M-byte ceiling.
 See [acceptance evidence](item-staging-verification.json). Full source/frontend/advisory
 checks were not rerun for this dependency-unchanged data-only unit.
-The comprehensive governance audit remains pending verified Phase 3 completion.
+The [item fact](fact-order-items.md) now retains this accepted projection and
+adds tested purchase context/provenance and shipping warnings. Payments are
+the next core unit. The governance audit remains pending verified Phase 3 completion.
 
 References: [PostgreSQL numeric types](https://www.postgresql.org/docs/17/datatype-numeric.html),
 [input validation](https://www.postgresql.org/docs/17/functions-info.html#FUNCTIONS-INFO-VALIDITY).

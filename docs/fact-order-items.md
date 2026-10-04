@@ -1,7 +1,7 @@
 # Order-item fact
 
 Phase 3 M4, under [ADR 0003](decisions/0003-warehouse-contract.md).
-Status: source/offline/native COMPLETE; first live/physical/repeat acceptance pending.
+Status: COMPLETE; source/offline/native/first live/physical/repeat acceptance passed.
 
 `core.fact_order_items` is a private view at **(order_id, order_item_id)**.
 All nine accepted staging item fields remain unchanged, including source lineage,
@@ -69,7 +69,17 @@ Read-only preflight confirmed view absent/parents present, 112,650 rows/keys,
 exact source money above, 0 before-purchase/4 beyond-365-day warnings and
 database 287,247,507 bytes <400,000,000. Initial acceptance-helper quoting
 error prevented execution; corrected before preflight, no DB mutation.
-First live/physical/repeat: **Not yet tested**. Publish source checkpoint
-and confirm clean Git before first selected build.
+Source checkpoint `a047ecf` published clean before build. First passed
+one view/all 19 tests in 106.982 seconds; artifacts `.artifacts/dbt/0e137cd093ad41179fb41a17662131a3`.
+Physical/access: **2 passed**. Independent raw/stage/core full 15-field
+multisets, exact source money and both lineages/context/flags/direct date
+matched; inherited numeric typmods/types/collation and restricted actual
+login/role/verify-full TLS/private API/reader denials verified.
+Repeat passed one view/all 19 tests in 106.281 seconds; artifacts
+`.artifacts/dbt/d1371f62447c4a62ac1c279074f56e7e`. All item counts/keys/exact money/
+chronology counts and view identity/owner/grants remained unchanged. Password
+absent from first/repeat artifacts; database 287,255,699 bytes <400,000,000.
+See [aggregate acceptance evidence](fact-order-items-verification.json).
+Next core unit: fact_payments; retain components and existing payment warnings.
 No project resources are deleted. The comprehensive governance audit follows
 verified Phase 3 completion, before Phase 4.

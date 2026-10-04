@@ -1,0 +1,185 @@
+{
+  "verified_at_utc": "2026-10-04T07:25:01.991346+00:00",
+  "model": "core.fact_order_items",
+  "raw_rows": 112650,
+  "staging_rows": 112650,
+  "fact_rows": 112650,
+  "distinct_item_keys": 112650,
+  "price_sum_source_reconciliation_only": "13591643.70",
+  "freight_sum_source_reconciliation_only": "2251909.54",
+  "shipping_before_purchase_rows": 0,
+  "shipping_beyond_365_days_rows": 4,
+  "database_bytes": 287255699,
+  "first_build": "passed",
+  "repeat_build": "passed",
+  "first_build_elapsed_seconds": 106.982,
+  "repeat_build_elapsed_seconds": 106.281,
+  "relation_identity_owner_and_grants_preserved": true,
+  "password_absent_from_first_and_repeat_artifacts": true,
+  "first_artifacts": ".artifacts/dbt/0e137cd093ad41179fb41a17662131a3",
+  "repeat_artifacts": ".artifacts/dbt/d1371f62447c4a62ac1c279074f56e7e",
+  "first_results": [
+    {
+      "node": "model.commercelens.fact_order_items",
+      "status": "success"
+    },
+    {
+      "node": "test.commercelens.fact_order_items_domains",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.fact_order_items_grain",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.fact_order_items_relationships",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.fact_order_items_source_reconciliation",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_order_items__load_id.f0253ccd79",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_order_items__source_row.5baee6836a",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_order_items_freight_value.48910b256a",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_order_items_is_shipping_before_purchase.e10aa932d8",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_order_items_is_shipping_beyond_365_days.f6f3ec1e33",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_order_items_order_id.ce02dc1e7e",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_order_items_order_item_id.c847ce8ea0",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_order_items_order_load_id.012f01ea09",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_order_items_order_purchase_timestamp.d9fa364237",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_order_items_order_source_row.6af7c5e37a",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_order_items_price.1be85cb90b",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_order_items_product_id.54f1977fe9",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_order_items_seller_id.5febc4b883",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_order_items_shipping_calendar_date.b4956ddbfa",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_order_items_shipping_limit_date.7b3fc305fa",
+      "status": "pass"
+    }
+  ],
+  "results": [
+    {
+      "node": "model.commercelens.fact_order_items",
+      "status": "success"
+    },
+    {
+      "node": "test.commercelens.fact_order_items_domains",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.fact_order_items_grain",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.fact_order_items_relationships",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.fact_order_items_source_reconciliation",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_order_items__load_id.f0253ccd79",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_order_items__source_row.5baee6836a",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_order_items_freight_value.48910b256a",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_order_items_is_shipping_before_purchase.e10aa932d8",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_order_items_is_shipping_beyond_365_days.f6f3ec1e33",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_order_items_order_id.ce02dc1e7e",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_order_items_order_item_id.c847ce8ea0",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_order_items_order_load_id.012f01ea09",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_order_items_order_purchase_timestamp.d9fa364237",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_order_items_order_source_row.6af7c5e37a",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_order_items_price.1be85cb90b",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_order_items_product_id.54f1977fe9",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_order_items_seller_id.5febc4b883",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_order_items_shipping_calendar_date.b4956ddbfa",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_order_items_shipping_limit_date.7b3fc305fa",
+      "status": "pass"
+    }
+  ]
+}

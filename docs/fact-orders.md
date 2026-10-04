@@ -134,5 +134,6 @@ M5 must measure consumer query plans/performance and reconstruction/recovery.
 Scoped final handoff review and complete staged-content/history secret scans passed.
 Publish the acceptance checkpoint and confirm clean/synchronized Git before close.
 
-Next fact: `fact_order_items` at `(order_id, order_item_id)`, retaining all item
-components, source precision and documented shipping/attribute warnings.
+The [item fact](fact-order-items.md) is now accepted at its composite grain,
+preserving exact components, source lineage and shipping warnings. Next core
+unit: `fact_payments`; see the [Phase 3 plan](phase-3-plan.md).
