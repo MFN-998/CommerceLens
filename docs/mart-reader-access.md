@@ -1,6 +1,6 @@
 # Private mart reader access
 
-Phase 3 M5. Status: SOURCE VERIFIED; live/repeat verification pending.
+Phase 3 M5. Status: COMPLETE / VERIFIED on 2026-10-04.
 Continues clean mart-computation acceptance a74bd09. No model/data reload is needed.
 
 ## Scope and decision
@@ -46,6 +46,11 @@ tests raw write authorization without executing it; only SQLSTATE 42501 proves d
 This capability proof does not establish authentication or session restrictions for
 a future reader login. Provision and verify that login when the later API consumer exists.
 
+The dedicated login is NOINHERIT: the SQL first verifies its identity, explicitly
+assumes the approved transformer capability, then inspects the target and applies
+the grant. It resets the role before returning; a subsequent warehouse probe must
+explicitly activate the capability again. This preserves the existing role boundary.
+
 The command reports success only after the SQL transaction and connection exit cleanly.
 On interruption/connection failure, verify actual privileges before retrying: a commit
 may already have happened. Do not log driver detail, credentials or source records.
@@ -67,3 +72,31 @@ The complete populated reconstruction proof is still pending M5; this sequence i
 guidance, not a claim of a successful restore. Existing [loading](warehouse-loading.md),
 [mart](order-components.md), [Phase 3 plan](phase-3-plan.md) and WORK_STATE apply.
 Full governance audit follows verified Phase 3 before Phase 4, not this scoped review.
+
+## Acceptance — 2026-10-04
+
+Source checkpoint 0f853c7 and explicit-role correction cc29398 were published clean
+before persistent application. Initial rehearsal/probe permission failures rolled
+back; corrected rehearsal proved SELECT inside its transaction and exact ACL/default
+privilege restoration after rollback. Persistent grant and unchanged reapplication passed.
+
+17 focused offline cases passed; retained warehouse/API regression passed 1,383
+cases with 988 deliberate live skips before the sixth opt-in native case was added.
+Corrected-source focused check passed 17 cases with six live skips. Ruff lint/format
+(148 files), mypy (23 implementations), staged-content/history secret scans passed.
+Six native reader checks passed in 19.50s; after rebuild, the physical metadata/access
+check passed in 5.89s. These cover effective role, exact SELECT, types/aggregates,
+off-target/source/write/schema/API/PUBLIC/grant-option/MAINTAIN denials and actual
+wrong-session helper rejection. No data, fixtures or credentials were created/deleted.
+
+The compatible rebuild passed one view and five dbt tests in 65.783s and preserved
+relation identity, ownership, ACL and default grants. Its retained output is
+.artifacts/dbt/f87f492ec7fd4c78860e9ee8c87109b4; transformer password was absent
+from all output files. Database size was 287,345,811 bytes, below the 400M ceiling.
+This build/test duration is not consumer-query latency. See the aggregate-only
+[acceptance receipt](mart-reader-verification.json).
+
+Historical order-components-verification.json accurately records reader denial before
+this unit. This new receipt supersedes its current-access status; computation/source
+acceptance remains unchanged. Examples, measured consumer plans and full populated
+reconstruction remain M5 work. This is not a production/security certification.

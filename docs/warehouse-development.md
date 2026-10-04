@@ -229,3 +229,11 @@ M3 completed 2026-09-22: the [full acceptance receipt](warehouse-load-verificati
 records the loaded, reconciled and idempotently verified private source snapshot. This
 target is now populated. Use the load command for full verification; empty-target fixture
 suites require a replacement isolated target. Continue with the [M4 setup plan](dbt-setup-plan.md).
+
+## Approved mart access — 2026-10-04
+
+The NOLOGIN reader now has SELECT only on marts.mart_order_components. Use the fixed
+post-model grant command after constructing that mart during recovery; do not change
+foundation defaults or provision a reader password prematurely. The [reader guide](mart-reader-access.md)
+records role activation, effective denials, repeat/rebuild evidence and recovery order.
+Full populated reconstruction remains pending M5.

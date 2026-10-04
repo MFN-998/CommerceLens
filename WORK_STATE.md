@@ -6,200 +6,149 @@ Master plan, engineering standards, execution protocol, deletion rule and ADRs a
 ## Project State
 
 - Phase 3 Database/SQL/Analytics Engineering: M1-M4 COMPLETE; M5 in progress.
-- Current milestone: initial order mart and analytical warehouse handoff.
-- Current task: scoped mart reader access PARTIALLY IMPLEMENTED. Fixed SQL/
-  transformer CLI/guide and six native/13 offline cases adopted; grant NOT YET
-  applied. Source/offline verification passed; native/repeat pending. Mart computation remains
-  verified. Larger M5 requires examples, measured performance and recovery proof.
-- Objective: tested warehouse under Free/views-first ADR 0004, preserving all source
-  rows/quality warnings. No Phase 4 EDA, Phase 5 KPI policy or public deployment yet.
-- Larger Phase 3 remains incomplete. Roughly 10-20% implementation/verification
-  effort remained at M4 acceptance; this broad range is not a time forecast or
-  model-count calculation. Exit governance-audit effort is still unknown.
+- Current milestone: scoped mart reader access COMPLETE / VERIFIED.
+- Current task: reader access accepted; next technical SQL examples and
+  measured consumer query plans. No interrupted implementation remains.
+- Objective: tested private warehouse under Free/views-first ADR 0004, preserving
+  all source rows/warnings. No Phase 4 EDA, Phase 5 KPI policy or public deployment.
+- Larger Phase 3 SAFE TO RESUME; examples, performance, populated reconstruction
+  proof and final handoff remain. Prior 10-20% remaining implementation estimate
+  at M4 was a broad effort range, not a time forecast. Exit audit effort unknown.
 
 ## Completed Work
 
-- Phases 1-2 and their professional-practices retrospective/remediation COMPLETE.
-  See docs/phase-1-status.md, phase-2-status.md and engineering-audit-phase-1-2.md.
-- M1 warehouse contract and M2 private development foundation COMPLETE; migration
-  replay, capabilities/TLS/denials and disposable recovery checks passed 2026-09-21.
-- M3 COMPLETE: nine immutable source tables, 1,550,922 rows, exact text/lineage,
-  content/hash/money reconciliation and idempotent repeat. No reload needed.
-- M4 COMPLETE, published checkpoint 1b67dc5. Nine staging views, five dimensions,
-  int_order_customers and four core facts accepted first/physical/repeat.
-- Key accepted evidence (full fields/types/results in corresponding docs/ JSON):
-
-| Accepted model | Retained evidence |
-| --- | --- |
-| dim_location | 19,177 ZIPs; 19,015 covered; all 1,000,163 observations; 31 broad-box warnings; 8,556 city/8 state ambiguities |
-| dim_seller | 3,095 sellers; seven uncovered addresses retained |
-| dim_customer / int_order_customers | 96,096 identities / 99,441 seven-field purchase-associated customer records; 278 uncovered retained |
-| dim_product | 32,951 rows/22 fields; 610 missing categories, 13 untranslated, four zero weights |
-| dim_date | 755 dates; 803,395 events across eight clocks/808,303 positions including NULLs |
-| fact_orders | 99,441 orders/33 fields; both lineages, five date roles, all lifecycle flags |
-| fact_order_items | 112,650 rows/15 fields; price 13591643.70, freight 2251909.54; warning counts 0/4 |
-| fact_payments | 103,886 components/10 fields; exact 16008872.12; warnings 2/9/3 |
-| fact_reviews | 99,224 pairs/12 fields; missing title/message 87,656/58,247; reversal 0; 547 multiple-review orders |
-
-- M5 accepted mart computation: one-order mart, 33 unchanged parent fields plus 16 independently
-  aggregated component/count/presence/warning fields. Four singular checks and one
-  configured not-null test; three reviewed offline/native/physical Python modules.
-- Scoped source and harness reviews approved. Reader foundation-grant assumption in
-  physical test corrected before execution (marts USAGE already granted, SELECT denied).
-- Prior approved cleanup A/B/D completed 177c71d. Owner retained C dataset fallback/
-  three drafts. Existing/new generated artifacts retained, not covered by old approval.
+- Phases 1-2 and professional-practices retrospective/remediation COMPLETE.
+  See docs/phase-1-status.md, phase-2-status.md, engineering-audit-phase-1-2.md.
+- M1 contract/M2 private development foundation verified, including migration
+  replay, TLS/capabilities/denials and disposable recovery checks (2026-09-21).
+- M3 COMPLETE: nine immutable source tables / 1,550,922 rows; exact text, lineage,
+  full-content/hash/money reconciliation and repeat. No reload needed.
+- M4 COMPLETE at 1b67dc5: nine staging views, five dimensions, order-customer
+  mapping and four facts. Detailed types/warnings/results in model guides/receipts.
+- M5 order mart computation accepted a74bd09 after source dc81385: 99,441 orders,
+  49 fields; independent item/payment/review aggregation avoids child fanout.
+  Components 112,650 / 103,886 / 99,224; 547 multiple-review orders. Missing
+  families 775 / 1 / 768, counts zero/presence false/amount NULL. Exact sums
+  price 13591643.70 / freight 2251909.54 / payments 16008872.12; warnings retained.
+- This session: fixed post-model SELECT grant/CLI, failure-boundary/native tests,
+  reader guide and receipt. Corrected explicit NOINHERIT role activation after
+  safe failed rehearsals; rollback, persistent/repeat grant and rebuild verified.
+- Approved A/B/D cleanup completed 177c71d; retain C fallback/three drafts and
+  generated artifacts. No new obsolete resource needing deletion identified.
 
 ## Files
 
-- Reader unit: warehouse/access/mart_order_components.sql, src/warehouse/access.py
-  and docs/mart-reader-access.md created. CLI and mart physical test expectations
-  updated for the pending scoped grant; tests/test_warehouse_mart_access.py and
-  test_warehouse_mart_reader_integration.py created. No deletion.
-
-- Created dbt/models/marts/mart_order_components.sql/.yml; four
-  dbt/tests/order_components_* checks; docs/order-components.md;
-  tests/test_warehouse_order_components.py, *_postgres_integration.py,
-  *_integration.py. Modified src/warehouse/dbt_runner.py, phase-3-plan.md,
-  WORK_STATE.md. No project resource deleted or renamed.
-- Created docs/order-components-verification.json; README/guide/phase plan updated.
-- No accepted upstream model, migration, dataset, dependency, credentials, API/UI,
-  materialization policy or deployment changes. Scratch candidates and .artifacts
-  outputs are retained. Historical detail remains in docs/Git, not solely chat.
+- Created warehouse/access/mart_order_components.sql, src/warehouse/access.py,
+  tests/test_warehouse_mart_access.py, test_warehouse_mart_reader_integration.py,
+  docs/mart-reader-access.md and mart-reader-verification.json.
+- Modified CLI, order-component physical access expectations, README,
+  docs/phase-3-plan.md, order-components.md, warehouse-development.md, WORK_STATE.md.
+- No files deleted/renamed; no upstream model, dataset, migration, dependency,
+  credential, API/UI, materialization or deployment change. Scratch/.artifacts retained.
 
 ## Technical Decisions
 
-- Reader unit uses a fixed versioned post-model SQL step, not a schema migration
-  that would require the not-yet-built view during fresh bootstrap. Existing
-  transformer capability owns/grants the mart; admin-assumed NOLOGIN reader
-  verifies effective permission. No new credentials/default grants/consumer/API.
-  Atomic guarded SQL rejects privilege drift including column grants/MAINTAIN.
-
-- Independently aggregate each child before literal C LEFT JOINs to orders. All orders
-  and order fields retained; no canonical review/status/business eligibility filter.
-- Absent children: zero counts, false presence, NULL amount sums. Real zero distinct.
-  Exact SUM(numeric) has unconstrained aggregate headroom; no numeric(18,2) recast,
-  float, rounding, imputation or asserted item/freight/payment equality.
-- Long-form union/group test compares each order/component independently, detecting
-  redistributed counts/amounts even when global totals are unchanged. Parent full
-  multiset/grain/domain gates complement it; upstream source gates remain intact.
-- Private schemas outside Data API; restricted transformer and verify-full TLS.
-  Reader has marts USAGE only; explicit approved-mart SELECT and effective positive/
-  negative verification remain a separate M5 access step. No reader credential added.
-- Compatible CREATE OR REPLACE retains relation identity/owner/grants and commits
-  before tests. Failed acceptance is not rollback: preserve artifacts/view, diagnose;
-  no full refresh/DROP/source reload or unapproved project deletion.
-- Views-first/Free ADR 0004: database ceiling 400M, raw ceiling 367M; remeasure
-  storage, overlap and consumer plans before any materialization. DB size is not
-  proof of unlimited WAL/temp space. One source snapshot per target.
-- Runner parse/debug 120s; one-model build/test 180s; SQL 60s/lock 10s/idle 60s,
-  one thread, zero retries, safe error/no sensitive row logging. Physical harness 55s.
+- Fixed versioned grant follows model construction during reconstruction, separate
+  from pre-model schema migrations. Transformer owns/grants the exact mart; no
+  wildcard/default privileges, grant option or new reader login. Login guard first,
+  explicit transformer SET LOCAL ROLE, target/ACL guards, grant, RESET ROLE.
+- Guards fail closed for wrong session/owner/security_invoker/elevated reader/
+  membership or excess schema/table/column/write/MAINTAIN/API/PUBLIC rights.
+- Native existing-admin SET LOCAL ROLE proof verifies NOLOGIN capability, not
+  authentication/session restrictions for a future reader login. Verify a future
+  consumer login when needed; no premature credential provisioning.
+- No access to raw/staging/core/ops or warehouse writes for reader. Intended SELECT
+  uses view-owner underlying-table checks; not a multitenant/row-level boundary.
+- Mart preserves all parent fields/source warnings; no canonical review/status
+  eligibility or official KPI. Exact unconstrained numeric SUM; absence != real zero.
+- Compatible replace preserves identity/owner/grants and commits before tests;
+  failed acceptance is not rollback. Preserve artifacts/view; diagnose without DROP,
+  full refresh, source reload or unapproved project-resource deletion.
+- Free/views-first ADR 0004: database ceiling 400M/raw 367M. Measure storage,
+  rebuild overlap and consumer plans before materializing. Size alone does not
+  prove WAL/temp headroom. Restricted job logins and verify-full TLS unchanged.
+- Runner parse/debug120s, one-model build/test180s; SQL60s/lock10s/idle60s,
+  one thread/zero retries; safe errors/no sensitive row logging.
 
 ## Validation
 
-- First reader rehearsal stopped with InsufficientPrivilege before applying any
-  grant. Diagnosis proved dedicated login lacks marts USAGE until its NOINHERIT
-  transformer capability is explicitly activated; reader SELECT remained false.
-  Corrected SQL sequence: validate login, SET LOCAL ROLE, validate target/ACLs,
-  then GRANT. Snapshot verification uses the same explicit capability sequence.
-  Wrong-session rejection has a native savepoint test; execution pending.
-  Corrected-source focused validation: 17 passed / six explicit live skips.
-  A new native-test long line was split; final Ruff/diff checks passed before
-  correction checkpoint. No persistent grant yet.
-
-- Reader source: 17 focused CLI/transaction tests passed; retained warehouse/API
-  regression 1383 passed / 988 deliberately opted-out live cases. Ruff lint/format
-  148 files and mypy 23 implementation files passed; diff whitespace clean.
-  Scoped source and documentation reviews passed after two wording clarifications.
-  Live grant/rehearsal/effective access/rebuild NOT YET RUN.
-
-- Current mart candidate offline: 85 passed. Adopted mart/runner: 171 passed.
-- Retained warehouse/API regression: 1370 passed, 983 deliberately
-  opted-out live checks. Known AnyIO alias warning only; no failing offline gates.
-- Native read-only PostgreSQL: 71 passed. Actual model/singulars/installed
-  null macro, independent Decimal oracle, 49 fields/native types/C literal keys,
-  2x3x2 fanout, absence/real zero, exact cents, multiple maximum component sums,
-  empty input, wrong/NULL/nonfinite/presence outputs and redistributed totals.
-- Ruff lint/format (144 files) and mypy 22 implementation files passed.
-  Initial native-test import spacing corrected; final lint passed. Offline dbt parse
-  passed, retained .artifacts/dbt/f69941d5631743bc93b5fc6c3f6dbdb8.
-- Preflight passed: four facts present and accepted counts/exact sums/warnings
-  unchanged; mart absent; database 287,288,467 bytes below the 400 MB ceiling.
-- First/repeat each passed one view/all five dbt tests in
-  71.852/66.875s. Retained
-  .artifacts/dbt/2370e48f4fb648a08f029705a4f58d42 and .artifacts/dbt/e105a4fee0d344829b92270c0766a7bf.
-- Physical/access: two read-only tests passed. All 33 parent fields/lineages,
-  all per-order child counts/sums/warnings/presence and independently guarded raw
-  aggregate totals conserved. Exact 49 native types/typmods/collations, private
-  actual login/group/verify-full TLS/owner and API/public/reader SELECT denials passed.
-- Mart has 99,441 orders, 112,650 items, 103,886 payment components, 99,224 review
-  pairs and 547 multiple-review orders. Missing-family orders:
-  items 775, payments 1,
-  reviews 768; missing amounts NULL, counts zero.
-- Exact source sums remain price 13591643.70, freight
-  2251909.54, payments 16008872.12.
-  Warning totals 0/4 items, 2/9/3 payments, 0 reversed reviews unchanged.
-- Repeat preserved relation identity/owner/grants; password absent from both retained
-  artifacts. Database 287,337,619 bytes below 400M. Suite timings include
-  tests and are not consumer latency; measured plans/performance remain M5.
-- Source dc81385 published clean before first build, complete 13-file staged/history
-  secret scans passed (history 64 commits after source). Acceptance five-file staged-content/pre-commit history scans passed; final
-  documentation review approved after minor continuation/status corrections.
-  Rescan corrected staged contents, then post-commit history and clean/upstream Git.
-- Historical M4 full evidence: docs/*-verification.json and matching model guides.
-  Review latest offline 1283/native 52/physical 2/first+repeat 14 dbt tests documented
-  at 1b67dc5; other model-specific details remain in their own dated guides.
-- Full source/frontend/dependency advisory gates last passed 2026-09-22, not rerun for
-  unchanged inputs. E2E/deployment/full governance audit NOT RUN. Unmodified
-  check.ps1 deletes resources; use retained checks or obtain deletion permission.
+- Reader source: 17 focused cases passed. Retained warehouse/API: 1383 passed /
+  988 deliberate live skips (before sixth native guard case). After role correction,
+  focused 17 passed / six live skips. Ruff lint/format 148 files; mypy 23 sources passed.
+  New native-test long line split; final scoped Ruff/format/diff checks passed.
+- Scoped source/harness/doc reviews passed. Rehearsal initially failed safely:
+  NOINHERIT login requires capability before mart inspection; post-command probe
+  requires reactivation after RESET ROLE. No persistent grant from failed rehearsals.
+- Corrected rollback rehearsal: SELECT true inside, false after; exact relation
+  identity/owner/ACL restored and default privileges unchanged. Persistent and
+  unchanged repeated grant passed using existing dedicated transformer.
+- Six read-only reader checks passed in 19.50s: exact SELECT/49 types/aggregates,
+  source/write/off-target schema/table/column/API/PUBLIC/MAINTAIN/grant-option
+  denials and actual wrong-session helper P0001 rejection. No fixture/data writes.
+- Compatible mart rebuild: one view/all five dbt checks passed in 65.783s,
+  identity/owner/ACL/default grants preserved. Retained
+  .artifacts/dbt/f87f492ec7fd4c78860e9ee8c87109b4; password absent in all outputs.
+  Post-build physical metadata/access: one passed in 5.89s. Database 287,345,811
+  bytes below 400M. Build/test timing is not consumer-query latency.
+- Historical computation evidence: docs/order-components-verification.json;
+  current access evidence: docs/mart-reader-verification.json. Historical pre-grant
+  SELECT denial remains accurate at its date; new receipt supersedes current access.
+- Prior computation:85 offline/171 focused/1370 regression(983live skips)/71 native/
+  two physical passed; first/repeat five dbt checks in 71.852/66.875s, parse/Ruff/mypy passed.
+  Other M4 details remain in dated model guides/receipts.
+- Complete staged-content/history scans passed source/correction checkpoints;
+  final documentation review approved after correcting the M5 status row.
+  Acceptance seven-file staged-content/pre-commit history scans passed; final
+  corrected-state rescan and post-commit history/clean-upstream confirmation are
+  required before concluding.
+- Full source/frontend/advisory gates last 2026-09-22, unchanged and not rerun.
+  E2E/deployment/full governance audit NOT RUN. check.ps1 deletes resources;
+  use retained checks or obtain permission. Known AnyIO alias warning only.
 
 ## Current Repository Condition
 
-PARTIALLY IMPLEMENTED: scoped reader source adopted; no live grant yet.
-Mart computation and accepted upstream foundation remain stable. Updated physical
-reader assertions require the pending grant and must not run before it is applied.
-Offline gates passed; native/repeat access checks NOT YET RUN. No credential/data/model/dependency
-change, resource deletion, merge or deployment. Governance/Phase 4 not started.
+CLEAN / STABLE after containing acceptance checkpoint is published and Git confirmed.
+Reader access milestone COMPLETE; larger Phase 3 SAFE TO RESUME. No known reader
+failures/partially implemented changes. No merge/deployment or new reader credentials.
 
 ## Incomplete Work
 
-- M5 scoped reader grant/effective access; reliable technical examples; measured
-  consumer query plans/performance; reconstruction/recovery proof and final handoff.
-- Recommended Phase2 pandas parser debt: accepts nonpadded dates/leap-second rollover/
-  now/today. Strict warehouse guards mitigate; fix before a new source version.
-- Recommended precise API double transport: extra_float_digits=0 rounds text float8
-  output. Stored precision proved via binary fetch/float8send; future coordinate API
-  reads need binary or reviewed output configuration before use.
-- Carry documented E01-E10 audit/revisit/release gates in Phase 1-2 audit/standards.
-  Any later duration requires present ordered source events; no eligibility invented.
-- Governance audit and required corrections only after verified Phase 3, before Phase 4.
-  Git is not a database backup; protected retention/recovery before shared/irreplaceable data.
+- M5 technical examples, measured consumer plans/performance, full populated
+  reconstruction/recovery proof and final handoff. Governance only after verified
+  Phase 3; fix Critical/relevant Important issues before Phase 4.
+- Recommended Phase 2 pandas parser accepts nonpadded dates/leap rollover/now/today.
+  Strict warehouse guards mitigate; revisit before new source version.
+- Recommended future precise coordinate API: extra_float_digits=0 rounds text
+  float8; stored precision verified binary/float8send. Use binary or reviewed output
+  configuration before that consumer. E01-E10 release/revisit gates still apply.
+- Git is not a database backup; protected backup/retention/recovery before shared
+  or irreplaceable data. Future login authentication not yet applicable/tested.
 
 ## Exact Next Actions
 
-1. Confirm this source checkpoint is published/clean; rehearse the fixed grant in
-   a rollback transaction and verify actual ACL/default grants unchanged.
-   No source reload/M4 rebuild.
-2. Preflight actual reader/source/API privileges and target options; use
-   grant-mart-reader through dedicated transformer configuration. Verify effective
-   NOLOGIN reader aggregate reads and source/write/schema/API/grant-option denials.
-3. Reapply the grant, confirm identity/ACL stability; repeat the mart build to
-   verify it preserves granted SELECT. Run updated physical metadata/access check.
-   Record aggregate-only evidence and create clean acceptance checkpoint.
-4. Next M5 examples, measured plans/performance and populated reconstruction proof.
-5. Complete Phase 3/handoff, then comprehensive governance gate before Phase 4.
+1. Read docs/master-plan.md Phase 3 boundary, order-components.md and
+   mart-reader-access.md; inspect existing SQL examples in warehouse/dbt. Add
+   reviewed technical aggregate queries against the approved mart, preserving
+   NULL/zero/warnings and avoiding Phase 4 findings/Phase5 official KPI definitions.
+2. Verify those queries under effective reader; measure representative plans and
+   latency within existing timeouts. Preserve plan artifacts; assess views-first
+   bottlenecks from evidence before considering any materialization change.
+3. Prove populated reconstruction against an isolated approved target with guarded
+   migrations/load/model/grant order and complete reconciliation; never overwrite
+   the accepted source or delete artifacts without permission. Then final M5 handoff.
+4. Complete verified Phase 3, run required comprehensive governance audit/corrections
+   and regressions, document debt, then Phase 4. Do not redo completed M1-M4/mart units.
 
 ## Git State
 
-- Branch feat/warehouse-foundation; main unchanged/unmerged. Clean published resume
-  baseline a74bd09; source dc81385 published clean before live build. Reader
-  source checkpoint is the containing commit, before live permission application. Acceptance
-  checkpoint is the containing commit: git log -1 --format="%H %s" -- WORK_STATE.md.
-  Verify clean/upstream after publication and on resume; no merge/deployment.
-- Complete staged-content/history scans required before publication, history again
-  after commit. Retain outputs; disable auto Git cleanup. Checkpoint includes exact
-  continuation and aggregate evidence; no need for export/source copy artifacts.
-- Latest actual usage 18% five-hour/87% weekly remaining, 2026-10-04.
-  Account-wide observation, not task-cost prediction; recheck before another unit.
+- Branch feat/warehouse-foundation; main unchanged/unmerged. Resume baseline
+  a74bd09. Reader source 0f853c7/correction cc29398 published clean before persistent
+  grant. Acceptance checkpoint is the containing commit:
+  git log -1 --format="%H %s" -- WORK_STATE.md.
+- Verify working tree/upstream clean after publish/on resume. Disable auto Git
+  maintenance/cleanup, stage exact reviewed files, scan full contents/history.
+- Latest actual usage 11% five-hour / 86% weekly remaining, 2026-10-04;
+  account-wide observation, not task-cost prediction. Wrap this unit; recheck on resume.
 
 ## Continuation Commands
 
@@ -207,20 +156,19 @@ change, resource deletion, merge or deployment. Governance/Phase 4 not started.
 Set-Location 'D:\My Projects\CommerceLens'
 git status --short --branch
 git log -5 --oneline
-# Next unit: inspect the existing reader foundation and approved mart contract.
-Get-Content warehouse/migrations/0001_foundation.sql
+Get-Content docs/master-plan.md
 Get-Content docs/order-components.md
-# Optional accepted-unit revalidation only; do not repeat implementation.
-.venv/Scripts/python.exe -B -m src.warehouse dbt-build --select mart_order_components
-.venv/Scripts/python.exe -B -m src.warehouse dbt-test --select mart_order_components
+Get-Content docs/mart-reader-access.md
 $env:PYTEST_DISABLE_PLUGIN_AUTOLOAD='1'
 $env:PYTHONDONTWRITEBYTECODE='1'
-$env:COMMERCE_WAREHOUSE_ORDER_COMPONENTS_INTEGRATION='1'
-.venv/Scripts/python.exe -B -m pytest tests/test_warehouse_order_components_integration.py -o 'addopts=-q' --capture=sys -p no:cacheprovider --tb=short
+# Optional accepted access revalidation only:
+$env:COMMERCE_WAREHOUSE_MART_READER_INTEGRATION='1'
+.venv/Scripts/python.exe -B -m pytest tests/test_warehouse_mart_reader_integration.py -o 'addopts=-q' --capture=sys -p no:cacheprovider --tb=short
+# Disable native opt-ins before retained regression.
+$env:COMMERCE_WAREHOUSE_MART_READER_INTEGRATION='0'
 ```
 
-Use customer-staging.md for retained warehouse/API/Ruff/mypy/parse workflow. Native
-module is tests/test_warehouse_order_components_postgres_integration.py. Disable its
-opt-in before full regression. Never print secrets/source records/driver diagnostics.
-Resource deletion requires informed permission; product deletion follows authorized
-ownership/confirmation/integrity requirements. Preserve C and new artifacts.
+See customer-staging.md for retained warehouse/API/Ruff/mypy gates and reader guide
+for recovery grant command. Never log secrets/source records/driver diagnostics.
+Project resource deletion requires informed permission; authorized product deletion
+remains legitimate. Preserve C and generated artifacts until specifically approved.

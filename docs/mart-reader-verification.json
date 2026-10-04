@@ -1,0 +1,72 @@
+{
+  "verified_at_utc": "2026-10-04T10:16:41.398783+00:00",
+  "model": "marts.mart_order_components",
+  "capability_role": "commercelens_reader",
+  "granted_capability": "SELECT",
+  "new_reader_credentials": false,
+  "rehearsed_transaction_rollback": "passed",
+  "grant_application": "passed",
+  "grant_repeat": "passed",
+  "grant_repeat_identity_owner_acl_unchanged": true,
+  "mart_rebuild": "passed",
+  "rebuild_elapsed_seconds": 65.783,
+  "rebuild_identity_owner_acl_preserved": true,
+  "default_privileges_unchanged": true,
+  "password_absent_from_rebuild_artifacts": true,
+  "database_bytes": 287345811,
+  "rebuild_artifacts": ".artifacts/dbt/f87f492ec7fd4c78860e9ee8c87109b4",
+  "results": [
+    {
+      "node": "model.commercelens.mart_order_components",
+      "status": "success"
+    },
+    {
+      "node": "test.commercelens.not_null_mart_order_components_order_id.ecb6ebb86c",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.order_components_children_reconciliation",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.order_components_domains",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.order_components_grain",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.order_components_orders_reconciliation",
+      "status": "pass"
+    }
+  ],
+  "effective_reader_access_and_denials": "passed",
+  "native_reader_tests": {
+    "passed": 6,
+    "elapsed_seconds": 19.5
+  },
+  "post_rebuild_physical_metadata_access": {
+    "passed": 1,
+    "elapsed_seconds": 5.89
+  },
+  "offline_focused_tests": {
+    "passed": 17
+  },
+  "offline_warehouse_api_regression": {
+    "passed": 1383,
+    "live_skipped": 988,
+    "timing": "before sixth opt-in guard test was added"
+  },
+  "corrected_source_focused_tests": {
+    "passed": 17,
+    "live_skipped": 6
+  },
+  "ruff_lint_format_files": 148,
+  "mypy_source_files": 23,
+  "reader_login_authentication": "not applicable: NOLOGIN capability, admin assumed role",
+  "full_populated_reconstruction": "pending M5",
+  "source_checkpoint": "0f853c7",
+  "corrected_source_checkpoint": "cc29398",
+  "rehearsal_corrections": "Explicitly activate NOINHERIT transformer capability before target inspection and after command RESET ROLE for verification; failed rehearsals rolled back."
+}

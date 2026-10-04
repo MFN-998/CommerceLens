@@ -20,8 +20,8 @@ lifecycle flags and customer/date references. The [item fact](docs/fact-order-it
 is accepted with exact source money and shipping warnings. The [payment fact](docs/fact-payments.md)
 is accepted with all components, exact amounts and source warnings. The
 [review fact](docs/fact-reviews.md) preserves every review/order pair and calendar roles.
-M4 is complete and the initial order mart computation is verified. M5 reader access,
-technical examples, performance measurements, recovery proof and final checks remain.
+M4 is complete; initial order mart computation and [scoped reader access](docs/mart-reader-access.md)
+are verified. M5 technical examples, performance measurements, recovery proof and final checks remain.
 See the [current work state](WORK_STATE.md) for verified progress and continuation.
 
 ## Start here
@@ -114,5 +114,5 @@ recorded in [data setup](data/README.md). Dataset and software licensing are sep
 
 Phase 3 M5: the [order-component mart](docs/order-components.md) computation is verified
 with all source orders, exact independently aggregated components and retained warnings.
-Scoped reader access, technical examples, measured plans/performance and recovery proof
-remain. See [current state](WORK_STATE.md) for the exact next action.
+Scoped reader access is verified; technical examples, measured plans/performance and
+recovery proof remain. See [current state](WORK_STATE.md) for the exact next action.

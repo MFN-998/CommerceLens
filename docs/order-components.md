@@ -42,14 +42,14 @@ without a source reload, full refresh, DROP or unapproved resource deletion.
 
 Views-first/Free [ADR 0004](decisions/0004-development-storage-budget.md) still applies.
 No schema migration, dependency, credential, API/UI or materialization change is needed.
-Reader currently has schema usage only; an explicit approved-mart SELECT grant and
-positive/negative read verification remain a separate M5 access step. No blanket
+The subsequent [scoped reader access step](mart-reader-access.md) is accepted:
+explicit approved-mart SELECT, positive/negative verification and rebuild preservation passed. No blanket
 default grants or browser/Data API exposure are authorized.
 
 ## Remaining M5 work
 
-This unit's computation acceptance is complete. Next apply scoped reader access,
-write reliable technical query examples, measure
+Computation and scoped reader access are complete. Next write reliable technical
+query examples, measure
 query plans/performance, prove reconstruction/recovery, and complete phase handoff.
 The comprehensive governance audit runs after verified Phase 3, before Phase 4.
 Full source/frontend/advisory checks remain historical 2026-09-22 for unchanged inputs;
@@ -82,7 +82,8 @@ below the 400M ceiling. Suite timings are not consumer-query latency. Source
 dc81385 published before live build; [aggregate evidence](order-components-verification.json)
 records node statuses and retained paths. No resource deletion or upstream redo.
 
-Reader SELECT is intentionally still denied pending the next scoped grant unit;
-positive reader access, reliable examples, consumer plans/performance and full
-reconstruction/recovery are not yet verified. Phase 3 is incomplete and the
+The computation receipt records the pre-grant reader denial accurately. The newer
+[mart reader receipt](mart-reader-verification.json) records accepted SELECT and
+effective denials/rebuild preservation. Reliable examples, consumer plans/performance
+and full reconstruction/recovery are not yet verified. Phase 3 is incomplete and the
 required post-Phase 3 governance audit has not begun.
