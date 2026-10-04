@@ -35,3 +35,10 @@ verify obsolete project resources, explain dependencies/impact/recovery/alternat
 request permission; do not silently accumulate clutter.
 Perform the comprehensive governance audit only after verified Phase 3 completion and
 resolve its required findings before Phase 4. Apply its principles continuously thereafter.
+
+Owner phase-chat requirement (2026-10-04): finish Phase 3 in the existing chat;
+after verified completion, start its required governance audit in a new chat/work.
+After that audit gate passes, each later master-plan phase gets a separate new chat.
+Save a verified repository/Git/WORK_STATE handoff before transitions, and follow
+the execution protocol's conditional creation/resume rules. Do not start the audit
+prematurely or carry subsequent phases on in the long Phase 3 chat.

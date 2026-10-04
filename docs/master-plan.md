@@ -1675,3 +1675,11 @@ The [deletion safety and governance requirements](deletion-and-governance.md) ar
 After Phase 3 is complete and verified, perform the specified comprehensive audit, address
 Critical/relevant Important findings and verify Phases 1–3 before Phase 4. Apply the seven
 governance areas continuously thereafter. No phase change or cleanup authorizes deletion.
+
+## Owner addendum — Separate phase chats (2026-10-04)
+
+Complete Phase 3 in its existing chat, then begin the required governance audit
+in a new CommerceLens chat/work task. After its quality gate passes, each future
+master-plan phase starts in its own new chat. Preserve verified repository handoffs,
+the existing scope/architecture and phase boundaries; do not recreate completed work
+or launch future phases prematurely. Follow the [phase-chat handoff protocol](execution-protocol.md#separate-chats-for-phase-handoffs--owner-requirement-2026-10-04).

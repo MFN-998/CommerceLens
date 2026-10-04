@@ -157,3 +157,29 @@ Do not stop useful authorized work prematurely while meaningful safe progress is
 Introducing this protocol does not reopen Phases 1–2. Preserve their completed audited
 baseline in Git, carry forward documented exceptions, initialize the handoff, and continue
 Phase 3 according to the master plan and professional standards.
+
+## Separate chats for phase handoffs — owner requirement 2026-10-04
+
+Finish Phase 3 in its current chat. Once its functionality and exit evidence are
+verified, checkpoint the handoff and start the required post-Phase 3 governance
+audit in a new CommerceLens chat/work task. Do not run that audit in the long
+Phase 3 chat or create/start it before Phase 3 completion.
+
+After the audit's required corrections and regression gate pass, start Phase 4
+in another new chat. Each subsequent master-plan phase gets its own new chat;
+create its successor only when the preceding phase's exit gate is satisfied.
+Do not start all future phases in parallel or change the roadmap's boundaries.
+
+Before each transition, save the completed phase's status/evidence, known debt,
+exact next action, Git checkpoint and external-resource/configuration prerequisites
+in the repository. The new task's prompt must identify the actual repository,
+phase/gate, master plan, AGENTS.md, WORK_STATE.md and relevant phase documents,
+preserve the existing architecture and forbid redoing completed work. Include no
+credentials or source records. The new chat follows the normal verified resume
+procedure; chat history is supplementary. Do not change its model unless requested.
+
+The owner explicitly authorized these conditional new-chat transitions. Use an
+available local project/task creation facility after the gate; record the resulting
+chat identifier/link when available. If creation is unavailable, preserve a
+complete new-chat prompt in project documentation and state that limitation rather
+than silently continuing the next phase or audit in the old chat.

@@ -6,14 +6,19 @@ precedence over chat. Master plan, standards, execution protocol, deletion rule 
 ## Project State
 
 - Phase 3: M1-M4 COMPLETE; M5 mart, reader and technical query unit COMPLETE.
-- Current milestone/task: full-graph runner source/offline unit COMPLETE; prepare
-  isolated migration/load/provision/grant dispatch next, then prove the populated warehouse on a separately approved isolated native target.
+- Current milestone/task: guarded full-graph source remains COMPLETE at edf072b.
+  Isolated migration/load/provision/grant dispatch candidate preparation IN PROGRESS;
+  then prove the populated warehouse on a separately approved isolated native target.
 - Objective: tested private warehouse under Free/views-first ADR 0004, retaining
   all source rows/warnings. Phase 4 EDA, Phase 5 KPI/API and public deployment remain later.
 - Larger Phase 3 SAFE TO RESUME, roughly 10-15% implementation/verification effort
   remaining (reasoned range, not a time/model-count forecast). Exit audit effort unknown.
 
 ## Completed Work
+
+- Current session: recovered clean published edf072b, no partial source work;
+  saved permanent audit/phase new-chat requirement in master plan/protocol/AGENTS.
+  Phase 3 stays here; audit then each subsequent phase starts separately after gates.
 
 - Phases 1-2 and professional-practices retrospective/remediation COMPLETE.
 - M1/M2 contract/private foundation, migration replay, TLS/capability denials and
@@ -29,17 +34,20 @@ precedence over chat. Master plan, standards, execution protocol, deletion rule 
 - Reader accepted 7b3cc8c after explicit NOINHERIT role correction cc29398:
   exact mart SELECT, source/write/off-target/API/PUBLIC/MAINTAIN denials and
   compatible rebuild identity/owner/ACL/default preservation verified.
-- This session: three aggregate-only total/month/bound-period SQL examples,
+- Prior session: three aggregate-only total/month/bound-period SQL examples,
   native independent result oracle and bounded read-only measurement tool.
   Source checkpoint c01ee79 published clean before actual database checks.
   Native results, physical partitions and six measured plans accepted at b82c7d7.
-- This session's second unit: separate guarded full-graph callable/tests, exact20
+- Prior session's second unit: separate guarded full-graph callable/tests, exact20
   views/nine sources/all282 enabled tests, target/file/CA/artifact isolation and
   pinned preserving-view macro. Existing single-model runner remains unchanged.
 - A/B/D cleanup completed earlier at 177c71d. Retain C fallback/three drafts and
   generated artifacts. No new obsolete resource identified; no deletion this session.
 
 ## Files
+
+- Current workflow unit: AGENTS.md, docs/master-plan.md, execution-protocol.md and
+  WORK_STATE.md updated; no implementation/configuration/target change yet.
 
 - New recovery unit: src/warehouse/dbt_reconstruction.py and
   tests/test_warehouse_dbt_reconstruction.py; existing one-model wrapper unchanged.
@@ -126,8 +134,8 @@ precedence over chat. Master plan, standards, execution protocol, deletion rule 
 
 ## Current Repository Condition
 
-CLEAN / STABLE expected after containing source checkpoint/publish; verify actual
-Git on resume. Query and recovery-runner source units COMPLETE; accepted warehouse
+CLEAN / STABLE baseline edf072b confirmed at resume; workflow documentation
+checkpoint pending. Dispatch candidates remain outside the actual repository. Query and recovery-runner source units COMPLETE; accepted warehouse
 stable and unchanged. Larger Phase 3 SAFE TO RESUME with isolated-operation work pending. No live
 measurement in progress or uncertain database change. Preserve all evidence.
 
@@ -159,20 +167,22 @@ measurement in progress or uncertain database change. Preserve all evidence.
    approval after concrete tooling review. Preserve existing credentials/database.
 3. Follow reconstruction plan migration/provision/load/repeat/full graph/post-model
    grant/physical/source/query/access/capacity order. Preserve failed attempts.
-4. Finish Phase 3 handoff, then required governance audit/corrections/regressions
-   and debt recording before Phase 4. Do not redo completed accepted warehouse units.
+4. Finish verified Phase 3 handoff here; create a new CommerceLens chat for the
+   required governance audit/corrections/regressions. After that gate, create a
+   separate Phase 4 chat, and separate chats for each subsequent phase. Repository
+   handoffs, not this long chat, carry context. Do not redo completed warehouse units.
 
 ## Git State
 
 - Branch feat/warehouse-foundation; main unchanged/unmerged. Resume baseline7b3cc8c;
-  query source c01ee79/query acceptance b82c7d7. Recovery source checkpoint is
+  query source c01ee79/query acceptance b82c7d7/recovery source edf072b. Workflow checkpoint is
   the containing commit:
   git log -1 --format="%H %s" -- WORK_STATE.md.
 - Verify clean working tree and HEAD/upstream equality after publish/on resume.
   Disable auto Git maintenance, stage exact files and scan full content/history.
-- Latest actual account-wide usage33% five-hour /76% weekly remaining2026-10-04;
-  observation, not task-cost prediction. Finish/document current unit; defer new
-  cross-cutting dispatch work to next session. No usage exhaustion this session.
+- Latest actual account-wide usage99% five-hour /75% weekly remaining2026-10-04;
+  observation at resumed session/new five-hour window, not task-cost prediction.
+  Continue bounded verified dispatch work, recheck usage before live recovery.
 
 ## Continuation Commands
 
