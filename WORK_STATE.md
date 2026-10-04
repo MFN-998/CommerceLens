@@ -30,9 +30,11 @@ precedence over chat. Master plan, standards, execution protocol, deletion rule 
   inherited plugins/conftest/cache, private outputs discarded, complete three-phase
   case coverage required. Atomic safe receipts retained, no retry/cleanup.
 - Non-secret browser draft CommerceLens-Recovery/Free/Tokyo/DataAPI off is prepared,
-  not created. New credential blank; owner entry/submission and explicit new-project/
-  nine-table source upload/retention approval still required. Free eligibility not
-  guaranteed by one visible organization/project; no paid commitment authorized.
+  owner explicitly APPROVED2026-10-04: one Free/Tokyo project, DataAPI disabled,
+  nine unchanged source tables/1,550,922 rows and retention for reconstruction.
+  Creation/private password entry/submission handed to owner, dashboard confirmation
+  pending; no new project or isolated configuration yet verified. Free eligibility
+  not guaranteed; no paid commitment or project deletion authorized.
 
 - Phases 1-2 and professional-practices retrospective/remediation COMPLETE.
 - M1/M2 contract/private foundation, migration replay, TLS/capability denials and
@@ -101,7 +103,8 @@ precedence over chat. Master plan, standards, execution protocol, deletion rule 
   verify authentication for a future reader login; no such credentials provisioned.
 - Fresh populated proof requires isolated native target: duplicating source in
   accepted database exceeds capacity. No local server/container tools found.
-  Fresh Free Supabase eligibility/project creation/upload/retention not yet approved.
+  Fresh Free Supabase project/upload/retention approved2026-10-04; actual
+  eligibility and created-target dashboard confirmation still pending.
   Full-graph source is now verified; eager one-model tests can reference unbuilt
   children, so recovery uses the fixed full dependency graph. Other operation
   dispatch and isolated acceptance source now verified; native proof pending. Never weaken current acceptance or TLS.
@@ -178,15 +181,16 @@ precedence over chat. Master plan, standards, execution protocol, deletion rule 
 
 CLEAN / STABLE at published c961aff confirmed; local tooling task COMPLETE.
 Final preservation documentation is the containing checkpoint; verify Git on resume.
-Local recovery preparation COMPLETE; new external target approval/configuration pending.
+Local recovery preparation COMPLETE; new target approved; owner creation/private
+configuration pending. Source acceptance and preserved baseline remain unchanged.
 Accepted warehouse unchanged. Larger Phase 3 SAFE TO RESUME: fresh native proof
 and final handoff pending; no uncertain live operation or interrupted build.
 Preserve C, credentials/source data and all generated evidence.
 
 ## Incomplete Work
 
-- Explicit fresh-target creation/upload/retention approval and private
-  configuration, then full populated reconstruction,
+- Owner creation/dashboard confirmation of approved Free recovery project,
+  isolated private configuration, then full populated reconstruction,
   full reconcile/repeat/access/query/size evidence and final M5 handoff.
 - Q01 measured latency/spills; review before future API analytics, not silently ignored.
 - Phase 2 pandas parser accepts loose dates/leap rollover/now/today; strict
@@ -200,11 +204,12 @@ Preserve C, credentials/source data and all generated evidence.
 
 ## Exact Next Actions
 
-1. Obtain owner approval for the prepared CommerceLens-Recovery Free/Tokyo/private
-   project, all nine unchanged source tables and retention; verify current eligibility.
-   Specific approval question sent2026-10-04; no approval received as of this checkpoint.
-   Owner must enter its new password and complete creation privately in the preserved
-   Supabase tab. If Free unavailable, stop for a reviewed alternative; no paid upgrade.
+1. Await owner's dashboard-ready confirmation for approved CommerceLens-Recovery.
+   Owner approval received2026-10-04 for Free/Tokyo/DataAPI off, all nine unchanged
+   source tables and retention. Private new-password entry/submission handed off in
+   preserved Supabase tab; do not request credentials in chat or re-ask this approval.
+   Verify Free eligibility and created project/reference. If unavailable/paid upgrade
+   required, stop for a reviewed alternative. No project deletion authorized.
 2. Recover its actual project reference/connection/public CA details, then create
    isolated protected test-purpose configuration under the proposed outside-repo
    D:\My Projects\CommerceLens-Reconstruction root. Never change original purpose
@@ -223,14 +228,15 @@ Preserve C, credentials/source data and all generated evidence.
 - Branch feat/warehouse-foundation; main unchanged/unmerged. Current resume baseline edf072b;
   query source c01ee79/query acceptance b82c7d7/recovery source edf072b; workflow
   590863b, dispatchera2bed4f and verified final-check sourcec961aff published.
-  Final preservation documentation checkpoint is the containing commit:
+  Pre-approval preservationfd28354 published clean; approved-target handoff
+  checkpoint is the containing commit:
   git log -1 --format="%H %s" -- WORK_STATE.md.
 - Verify clean working tree and HEAD/upstream equality after publish/on resume.
   Disable auto Git maintenance, stage exact files and scan full content/history.
 - Latest actual account-wide usage45% five-hour/67% weekly remaining2026-10-04.
    Earlier 99/75 at reset, 80/72, 72/71 and 47/67 before atomic units. These are observations,
    not task-cost predictions. Preserve the verified source checkpoint; native proof
-   waits target approval/configuration. Recheck usage before any major live unit.
+   waits owner creation/private configuration. Recheck usage before any major live unit.
 
 ## Continuation Commands
 
