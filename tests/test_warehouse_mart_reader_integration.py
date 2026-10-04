@@ -16,6 +16,7 @@ from decimal import Decimal
 import psycopg
 import pytest
 
+from src.warehouse.access import grant_mart_reader
 from src.warehouse.config import connect, load_settings
 
 pytestmark = pytest.mark.skipif(
@@ -301,3 +302,30 @@ def test_real_upstream_select_and_plan_only_write_denials(
         "SELECT current_user, current_setting('transaction_read_only'), "
         "has_table_privilege(current_user,'marts.mart_order_components','SELECT')",
     ).fetchone() == ("commercelens_reader", "on", True)
+
+
+def test_actual_grant_helper_rejects_wrong_session_before_grant(
+    reader_connection: psycopg.Connection,
+) -> None:
+    connection = reader_connection
+    try:
+        # The actual helper adds its own nested transaction. The enclosing
+        # savepoint also restores SET LOCAL changes after the first guard fails.
+        with connection.transaction():
+            grant_mart_reader(connection)
+    except psycopg.Error as error:
+        if (
+            error.sqlstate != "P0001"
+            or error.diag.message_primary
+            != "Mart access requires the dedicated transformer session"
+        ):
+            pytest.fail("Grant helper failed outside the expected session guard.", pytrace=False)
+    else:
+        pytest.fail("Grant helper unexpectedly accepted the reader session.", pytrace=False)
+    assert _diagnostic(
+        connection,
+        "SELECT session_user, current_user, current_setting('transaction_read_only'), "
+        "has_table_privilege(current_user,'marts.mart_order_components','SELECT'), "
+        "has_table_privilege(current_user,'marts.mart_order_components',"
+        "'SELECT WITH GRANT OPTION')",
+    ).fetchone() == ("postgres", "commercelens_reader", "on", True, False)

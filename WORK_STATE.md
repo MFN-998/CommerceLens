@@ -8,7 +8,7 @@ Master plan, engineering standards, execution protocol, deletion rule and ADRs a
 - Phase 3 Database/SQL/Analytics Engineering: M1-M4 COMPLETE; M5 in progress.
 - Current milestone: initial order mart and analytical warehouse handoff.
 - Current task: scoped mart reader access PARTIALLY IMPLEMENTED. Fixed SQL/
-  transformer CLI/guide and five native/13 offline cases adopted; grant NOT YET
+  transformer CLI/guide and six native/13 offline cases adopted; grant NOT YET
   applied. Source/offline verification passed; native/repeat pending. Mart computation remains
   verified. Larger M5 requires examples, measured performance and recovery proof.
 - Objective: tested warehouse under Free/views-first ADR 0004, preserving all source
@@ -95,6 +95,16 @@ Master plan, engineering standards, execution protocol, deletion rule and ADRs a
   one thread, zero retries, safe error/no sensitive row logging. Physical harness 55s.
 
 ## Validation
+
+- First reader rehearsal stopped with InsufficientPrivilege before applying any
+  grant. Diagnosis proved dedicated login lacks marts USAGE until its NOINHERIT
+  transformer capability is explicitly activated; reader SELECT remained false.
+  Corrected SQL sequence: validate login, SET LOCAL ROLE, validate target/ACLs,
+  then GRANT. Snapshot verification uses the same explicit capability sequence.
+  Wrong-session rejection has a native savepoint test; execution pending.
+  Corrected-source focused validation: 17 passed / six explicit live skips.
+  A new native-test long line was split; final Ruff/diff checks passed before
+  correction checkpoint. No persistent grant yet.
 
 - Reader source: 17 focused CLI/transaction tests passed; retained warehouse/API
   regression 1383 passed / 988 deliberately opted-out live cases. Ruff lint/format
@@ -188,7 +198,7 @@ change, resource deletion, merge or deployment. Governance/Phase 4 not started.
 - Complete staged-content/history scans required before publication, history again
   after commit. Retain outputs; disable auto Git cleanup. Checkpoint includes exact
   continuation and aggregate evidence; no need for export/source copy artifacts.
-- Latest actual usage 20% five-hour/88% weekly remaining, 2026-10-04.
+- Latest actual usage 18% five-hour/87% weekly remaining, 2026-10-04.
   Account-wide observation, not task-cost prediction; recheck before another unit.
 
 ## Continuation Commands

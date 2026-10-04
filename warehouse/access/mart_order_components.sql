@@ -9,6 +9,15 @@ BEGIN
        OR current_database() <> 'postgres' THEN
         RAISE EXCEPTION 'Mart access requires the dedicated transformer session';
     END IF;
+END;
+$check$;
+
+SET LOCAL ROLE commercelens_transformer;
+DO $check$
+BEGIN
+    IF current_user <> 'commercelens_transformer' THEN
+        RAISE EXCEPTION 'Approved transformer capability is not active';
+    END IF;
     IF NOT EXISTS (
         SELECT 1 FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace
         JOIN pg_roles r ON r.oid=c.relowner
@@ -69,6 +78,5 @@ BEGIN
 END;
 $check$;
 
-SET LOCAL ROLE commercelens_transformer;
 GRANT SELECT ON TABLE marts.mart_order_components TO commercelens_reader;
 RESET ROLE;
