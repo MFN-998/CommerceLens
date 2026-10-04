@@ -1,7 +1,7 @@
 # Order-component mart milestone
 
 Phase 3 M5, 2026-10-04. Continues completed M4 checkpoint 1b67dc5.
-Status: SOURCE VALIDATED; first live build, physical and repeat acceptance pending.
+Status: COMPUTATION VERIFIED. M5 access/examples/performance/recovery remain.
 
 ## Contract
 
@@ -48,18 +48,41 @@ default grants or browser/Data API exposure are authorized.
 
 ## Remaining M5 work
 
-Finish this unit's offline/native/first/physical/repeat verification and checkpoint.
-Then approve scoped reader access, write reliable technical query examples, measure
+This unit's computation acceptance is complete. Next apply scoped reader access,
+write reliable technical query examples, measure
 query plans/performance, prove reconstruction/recovery, and complete phase handoff.
 The comprehensive governance audit runs after verified Phase 3, before Phase 4.
 Full source/frontend/advisory checks remain historical 2026-09-22 for unchanged inputs;
 E2E, deployment and the comprehensive audit have not run.
 
-Source validation: 85 candidate offline tests, 171 adopted mart/runner tests,
-1370 retained warehouse/API tests (983 deliberate live opt-out skips)
-and 71 native read-only PostgreSQL tests passed. Ruff lint/format and mypy
-22 implementation files passed. Offline parse passed: .artifacts/dbt/f69941d5631743bc93b5fc6c3f6dbdb8.
-Preflight: four accepted facts/counts/exact sums/warnings unchanged; mart absent;
-database 287,288,467 bytes. Source checkpoint precedes live view construction.
-Physical/repeat verification has not run. Detailed older M4 evidence stays in
-each fact/dimension guide and verification JSON; it is not rerun unnecessarily.
+## Accepted computation evidence
+
+85 candidate offline, 171 adopted mart/runner, 1,370 retained warehouse/API
+(983 deliberate live skips), 71 native read-only PostgreSQL and two physical
+read-only tests passed. Ruff lint/format (144 files), mypy (22 implementation
+files) and offline parse passed. Initial test import-spacing issue corrected;
+final lint passed. Known AnyIO alias warning only, no unresolved mart failures.
+
+First/repeat each passed one view/all five dbt tests in
+71.852/66.875s. All 99,441
+orders and 33 unchanged parent fields/lineages conserved, plus every order's
+components. Retained 112,650 items, 103,886 payments, 99,224 review pairs and
+547 multiple-review orders. Exact source price/freight/payment sums:
+13591643.70 / 2251909.54 / 16008872.12.
+Orders without items/payments/reviews: 775 /
+1 / 768. Those
+orders remain, absent sums NULL and counts zero. Warning totals remain 0/4 item,
+2/9/3 payment and zero reversed-review events. These are technical source totals.
+
+Independent raw/core/mart aggregate and complete parent/per-order component
+checks passed, along with native types/typmods/collations/owner, private restricted
+session/TLS and current API/public/reader denials. Repeat preserved identity/owner/
+grants; password absent from both artifacts. Database 287,337,619 bytes
+below the 400M ceiling. Suite timings are not consumer-query latency. Source
+dc81385 published before live build; [aggregate evidence](order-components-verification.json)
+records node statuses and retained paths. No resource deletion or upstream redo.
+
+Reader SELECT is intentionally still denied pending the next scoped grant unit;
+positive reader access, reliable examples, consumer plans/performance and full
+reconstruction/recovery are not yet verified. Phase 3 is incomplete and the
+required post-Phase 3 governance audit has not begun.

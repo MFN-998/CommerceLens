@@ -18,7 +18,7 @@ The phase exit remains a **tested analytical warehouse**, not a deployed analyti
 | M2. Isolated database foundation | Dedicated dev project; reviewed versioned bootstrap/migrations; secret-free examples and connection guidance | Target/version verified, encrypted connection, repeat migration, intended grants and denied access, API exposure review, disposable recovery test | Complete 2026-09-21: migration applied, replay/permissions/recovery checks passed |
 | M3. Reproducible loading | All nine verified source tables, provenance/load registry, exact monetary ingestion, atomic load | Source/hash/count/content reconciliation, exact decimal checks, idempotent rerun, failed-load rollback, unchanged raw files | Complete 2026-09-22: all 1,550,922 rows committed; full content/count/money and repeat verification passed |
 | M4. dbt staging and dimensions/facts | Pinned compatible dbt/Postgres tools; staging/intermediate/core models and explicit quality flags | dbt build, uniqueness/null/reference/domain tests, source reconciliation, synthetic grain and missing-data cases | Complete 2026-10-04: all nine source staging models verified (12/11/8/16/25/16/16/14/12 dbt tests); dim_location first/access/repeat verified (12 dbt tests); dim_seller first/access/repeat verified (11 dbt tests); dim_customer first/access/repeat verified (4 dbt tests); dim_product first/access/repeat verified (16 dbt tests); dim_date first/access/repeat verified (12 dbt tests); int_order_customers first/access/repeat verified (12 dbt tests); fact_orders first/access/repeat verified (33 dbt tests); fact_order_items first/access/repeat verified (19 dbt tests); fact_payments first/access/repeat verified (14 dbt tests); fact_reviews first/access/repeat verified (14 dbt tests) |
-| M5. Initial marts and handoff | Order-grain technical mart and reliable example SQL; access/recovery/developer guidance | Independent child aggregation, conserved counts/sums, repeat build, query-plan review, reconstruction/recovery verification, final checks and checkpoint | In progress: order-component mart source adopted; validation/acceptance pending |
+| M5. Initial marts and handoff | Order-grain technical mart and reliable example SQL; access/recovery/developer guidance | Independent child aggregation, conserved counts/sums, repeat build, query-plan review, reconstruction/recovery verification, final checks and checkpoint | In progress: order-component mart computation accepted; reader access/examples/plans/recovery pending |
 
 Each unit follows implement → validate → document → update WORK_STATE → commit → verify
 Git status. Preserve the last known-good checkpoint before database, dependency, or
@@ -75,7 +75,7 @@ is unchanged. [Acceptance evidence](warehouse-load-verification.json) records co
 content digests, exact monetary totals, attribution and storage. 
 Next: [M4 dbt setup plan](dbt-setup-plan.md). Tooling and offline bootstrap are implemented
 and verified. Restricted transformer provisioning/access and dbt debug passed on 2026-09-25;
-All nine source staging models are verified, including geolocation first/access/repeat acceptance on 2026-10-03. All five dimensions, the order-customer mapping and all four core facts are accepted; M4 complete, M5 pending.
+All nine source staging models are verified, including geolocation first/access/repeat acceptance on 2026-10-03. All five dimensions, the order-customer mapping and all four core facts are accepted; M4 complete; M5 mart computation accepted, with reader access/examples/plans/recovery remaining.
 See [customer](customer-staging.md), [seller](seller-staging.md),
 [category translation](category-translation-staging.md), [products](product-staging.md),
 [orders](order-staging.md), [order items](item-staging.md), [payments](payment-staging.md),
@@ -117,10 +117,11 @@ or business eligibility policy. No canonical coordinate/city/
 state is introduced. The comprehensive governance audit and required
 corrections follow verified Phase 3 completion, before Phase 4; their effort is unknown.
 
-The [order-item fact](fact-order-items.md) is accepted. The [payment fact](fact-payments.md) is accepted. The [review fact](fact-reviews.md) is accepted. M4 is complete; next is M5,
+The [order-item fact](fact-order-items.md) is accepted. The [payment fact](fact-payments.md) is accepted. The [review fact](fact-reviews.md) is accepted. M4 is complete; M5 is in progress:
 one order-grain technical mart with independent child aggregation, query examples,
 measured plans/performance and reconstruction/recovery verification.
 
 M5 continues from clean M4 checkpoint 1b67dc5. The [order-component mart](order-components.md)
-source is adopted; offline/native/live/repeat acceptance is pending. Reader grant,
-examples, measured plans/performance and reconstruction/recovery remain.
+computation is accepted: all 99,441 orders/49 fields, independent components, native/
+physical/first/repeat acceptance passed. Reader grant, examples, measured plans/performance
+and reconstruction/recovery remain. See its guide and aggregate verification JSON.

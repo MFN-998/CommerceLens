@@ -1,0 +1,92 @@
+{
+  "verified_at_utc": "2026-10-04T09:37:52.736881+00:00",
+  "model": "marts.mart_order_components",
+  "field_count": 49,
+  "aggregate_profile": {
+    "orders": 99441,
+    "distinct_order_ids": 99441,
+    "item_rows": 112650,
+    "source_price_sum": "13591643.70",
+    "source_freight_sum": "2251909.54",
+    "shipping_before_purchase_count": 0,
+    "shipping_beyond_365_days_count": 4,
+    "payment_rows": 103886,
+    "source_payment_sum": "16008872.12",
+    "zero_installments_count": 2,
+    "zero_payment_value_count": 9,
+    "undefined_payment_type_count": 3,
+    "review_pairs": 99224,
+    "answer_before_creation_count": 0,
+    "multiple_review_orders": 547,
+    "orders_without_items": 775,
+    "orders_without_payments": 1,
+    "orders_without_reviews": 768
+  },
+  "database_bytes": 287337619,
+  "first_build": "passed",
+  "repeat_build": "passed",
+  "first_build_elapsed_seconds": 71.852,
+  "repeat_build_elapsed_seconds": 66.875,
+  "relation_identity_owner_and_grants_preserved": true,
+  "password_absent_from_first_and_repeat_artifacts": true,
+  "reader_select_grant": "pending separate M5 access unit",
+  "first_artifacts": ".artifacts/dbt/2370e48f4fb648a08f029705a4f58d42",
+  "repeat_artifacts": ".artifacts/dbt/e105a4fee0d344829b92270c0766a7bf",
+  "first_results": [
+    {
+      "node": "model.commercelens.mart_order_components",
+      "status": "success"
+    },
+    {
+      "node": "test.commercelens.not_null_mart_order_components_order_id.ecb6ebb86c",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.order_components_children_reconciliation",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.order_components_domains",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.order_components_grain",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.order_components_orders_reconciliation",
+      "status": "pass"
+    }
+  ],
+  "results": [
+    {
+      "node": "model.commercelens.mart_order_components",
+      "status": "success"
+    },
+    {
+      "node": "test.commercelens.not_null_mart_order_components_order_id.ecb6ebb86c",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.order_components_children_reconciliation",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.order_components_domains",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.order_components_grain",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.order_components_orders_reconciliation",
+      "status": "pass"
+    }
+  ],
+  "physical_read_only_tests": "passed",
+  "physical_test_count": 2,
+  "independent_full_parent_per_order_children_and_raw_aggregate_conservation": true,
+  "native_types_typmods_collations_owner_tls_and_current_private_access": "passed",
+  "scoped_reader_positive_access": "not yet granted or tested; next M5 unit"
+}

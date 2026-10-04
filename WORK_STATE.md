@@ -7,8 +7,9 @@ Master plan, engineering standards, execution protocol, deletion rule and ADRs a
 
 - Phase 3 Database/SQL/Analytics Engineering: M1-M4 COMPLETE; M5 in progress.
 - Current milestone: initial order mart and analytical warehouse handoff.
-- Current task: mart_order_components SOURCE VALIDATED. First live/physical/repeat
-  acceptance pending. No new live mart exists yet; accepted M4 remains unchanged.
+- Current task: mart_order_components COMPUTATION VERIFIED. Source/offline/native/
+  first/physical/repeat acceptance complete. Larger M5/Phase 3 SAFE TO RESUME.
+  Scoped reader SELECT/effective access, examples, performance and recovery remain.
 - Objective: tested warehouse under Free/views-first ADR 0004, preserving all source
   rows/quality warnings. No Phase 4 EDA, Phase 5 KPI policy or public deployment yet.
 - Larger Phase 3 remains incomplete. Roughly 10-20% implementation/verification
@@ -39,7 +40,7 @@ Master plan, engineering standards, execution protocol, deletion rule and ADRs a
 | fact_payments | 103,886 components/10 fields; exact 16008872.12; warnings 2/9/3 |
 | fact_reviews | 99,224 pairs/12 fields; missing title/message 87,656/58,247; reversal 0; 547 multiple-review orders |
 
-- M5 current source: one-order mart, 33 unchanged parent fields plus 16 independently
+- M5 accepted mart computation: one-order mart, 33 unchanged parent fields plus 16 independently
   aggregated component/count/presence/warning fields. Four singular checks and one
   configured not-null test; three reviewed offline/native/physical Python modules.
 - Scoped source and harness reviews approved. Reader foundation-grant assumption in
@@ -54,6 +55,7 @@ Master plan, engineering standards, execution protocol, deletion rule and ADRs a
   tests/test_warehouse_order_components.py, *_postgres_integration.py,
   *_integration.py. Modified src/warehouse/dbt_runner.py, phase-3-plan.md,
   WORK_STATE.md. No project resource deleted or renamed.
+- Created docs/order-components-verification.json; README/guide/phase plan updated.
 - No accepted upstream model, migration, dataset, dependency, credentials, API/UI,
   materialization policy or deployment changes. Scratch candidates and .artifacts
   outputs are retained. Historical detail remains in docs/Git, not solely chat.
@@ -94,7 +96,27 @@ Master plan, engineering standards, execution protocol, deletion rule and ADRs a
   passed, retained .artifacts/dbt/f69941d5631743bc93b5fc6c3f6dbdb8.
 - Preflight passed: four facts present and accepted counts/exact sums/warnings
   unchanged; mart absent; database 287,288,467 bytes below the 400 MB ceiling.
-- First live build, physical/access and repeat acceptance: NOT YET RUN.
+- First/repeat each passed one view/all five dbt tests in
+  71.852/66.875s. Retained
+  .artifacts/dbt/2370e48f4fb648a08f029705a4f58d42 and .artifacts/dbt/e105a4fee0d344829b92270c0766a7bf.
+- Physical/access: two read-only tests passed. All 33 parent fields/lineages,
+  all per-order child counts/sums/warnings/presence and independently guarded raw
+  aggregate totals conserved. Exact 49 native types/typmods/collations, private
+  actual login/group/verify-full TLS/owner and API/public/reader SELECT denials passed.
+- Mart has 99,441 orders, 112,650 items, 103,886 payment components, 99,224 review
+  pairs and 547 multiple-review orders. Missing-family orders:
+  items 775, payments 1,
+  reviews 768; missing amounts NULL, counts zero.
+- Exact source sums remain price 13591643.70, freight
+  2251909.54, payments 16008872.12.
+  Warning totals 0/4 items, 2/9/3 payments, 0 reversed reviews unchanged.
+- Repeat preserved relation identity/owner/grants; password absent from both retained
+  artifacts. Database 287,337,619 bytes below 400M. Suite timings include
+  tests and are not consumer latency; measured plans/performance remain M5.
+- Source dc81385 published clean before first build, complete 13-file staged/history
+  secret scans passed (history 64 commits after source). Acceptance five-file staged-content/pre-commit history scans passed; final
+  documentation review approved after minor continuation/status corrections.
+  Rescan corrected staged contents, then post-commit history and clean/upstream Git.
 - Historical M4 full evidence: docs/*-verification.json and matching model guides.
   Review latest offline 1283/native 52/physical 2/first+repeat 14 dbt tests documented
   at 1b67dc5; other model-specific details remain in their own dated guides.
@@ -104,14 +126,14 @@ Master plan, engineering standards, execution protocol, deletion rule and ADRs a
 
 ## Current Repository Condition
 
-PARTIALLY IMPLEMENTED: validated mart source on stable M4, live acceptance pending.
-No unresolved source test failures; no live mart or accidental prior partial work.
-This source checkpoint is a precise recoverable continuation, not Phase 3 completion.
+CLEAN / STABLE at this acceptance checkpoint after final commit/status verification.
+M4 COMPLETE; M5 mart computation verified; larger Phase 3 SAFE TO RESUME.
+No known failed checks or partially implemented next unit. Reader SELECT is still
+denied pending its scoped access unit; examples/plans/recovery are not yet verified.
+No source reload, migration/dependency/credential mutation, deletion, merge or deployment.
 
 ## Incomplete Work
 
-- First mart build, physical per-order/raw aggregate/type/private access checks and
-  repeat identity/owner/grants/secret-artifact verification, then acceptance checkpoint.
 - M5 scoped reader grant/effective access; reliable technical examples; measured
   consumer query plans/performance; reconstruction/recovery proof and final handoff.
 - Recommended Phase2 pandas parser debt: accepts nonpadded dates/leap-second rollover/
@@ -126,26 +148,34 @@ This source checkpoint is a precise recoverable continuation, not Phase 3 comple
 
 ## Exact Next Actions
 
-1. Confirm usage/Git/source checkpoint and new model files. Run first bounded
-   dbt-build --select mart_order_components. Do not redo M4/reload/reprovision.
-2. Enable COMMERCE_WAREHOUSE_ORDER_COMPONENTS_INTEGRATION=1 only for physical
-   tests/test_warehouse_order_components_integration.py after successful build.
-   Verify all parent fields/per-order children/raw totals/types/current private access.
-3. Repeat selected build and verify unchanged identity/owner/grants/snapshot and
-   absence of the password from retained first/repeat artifacts. Record aggregate JSON.
-4. Update guide/phase plan/WORK_STATE, scan diff/staged/history, commit/publish/confirm
-   clean Git. Then start scoped reader access, examples/plans/reconstruction units.
-5. Finish Phase 3 handoff then comprehensive governance gate before Phase 4.
+1. Check usage and clean/upstream Git against this acceptance; read warehouse/
+   migrations/0001_foundation.sql and docs/order-components.md. Confirm reader
+   currently has marts USAGE only and mart SELECT is denied. Read the accepted
+   mart SQL/YAML/aggregate JSON; no M4 rebuild/source reload/reprovision needed.
+2. Implement the narrow versioned approved-mart SELECT grant, applied only after
+   the model exists. Verify effective reader SELECT and denied raw/core/writes/
+   other schemas/API roles under the admin-assumed reader capability, without
+   adding unnecessary credentials or blanket defaults. Update physical access
+   expectations and reconstruction sequence; test/checkpoint the access unit.
+3. Write reliable technical SQL examples (no business KPI policy), measure actual
+   query plans/performance and capacity. Optimize only from evidence; recheck
+   storage/rebuild overlap before considering materialization under ADR 0004.
+4. Prove reconstruction/recovery from retained source/versioned migrations/dbt;
+   review resource-destructive actions before requesting specific permission.
+5. Complete Phase 3 verification/handoff/checkpoint. Only then perform comprehensive
+   governance audit/required corrections before Phase 4. Carry release/debt gates.
 
 ## Git State
 
-- Branch feat/warehouse-foundation; main unchanged/unmerged. Resume baseline 1b67dc5
-  clean/synchronized. Source checkpoint is the containing commit; identify with
-  git log -1 --format="%H %s" -- WORK_STATE.md. Confirm clean/upstream after publication.
-- No merge/deployment. Complete staged-content/history secret scans required before
-  publication; history again after commit. Retain outputs; disable auto Git cleanup.
-- Last actual usage: 41% five-hour/91% weekly remaining, 2026-10-04.
-  Account-wide observation, not task-cost prediction; check again before another unit.
+- Branch feat/warehouse-foundation; main unchanged/unmerged. Clean published resume
+  baseline 1b67dc5; source dc81385 published clean before live build. Acceptance
+  checkpoint is the containing commit: git log -1 --format="%H %s" -- WORK_STATE.md.
+  Verify clean/upstream after publication and on resume; no merge/deployment.
+- Complete staged-content/history scans required before publication, history again
+  after commit. Retain outputs; disable auto Git cleanup. Checkpoint includes exact
+  continuation and aggregate evidence; no need for export/source copy artifacts.
+- Latest actual usage 37% five-hour/90% weekly remaining, 2026-10-04.
+  Account-wide observation, not task-cost prediction; recheck before another unit.
 
 ## Continuation Commands
 
@@ -153,6 +183,10 @@ This source checkpoint is a precise recoverable continuation, not Phase 3 comple
 Set-Location 'D:\My Projects\CommerceLens'
 git status --short --branch
 git log -5 --oneline
+# Next unit: inspect the existing reader foundation and approved mart contract.
+Get-Content warehouse/migrations/0001_foundation.sql
+Get-Content docs/order-components.md
+# Optional accepted-unit revalidation only; do not repeat implementation.
 .venv/Scripts/python.exe -B -m src.warehouse dbt-build --select mart_order_components
 .venv/Scripts/python.exe -B -m src.warehouse dbt-test --select mart_order_components
 $env:PYTEST_DISABLE_PLUGIN_AUTOLOAD='1'
