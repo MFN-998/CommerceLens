@@ -54,9 +54,10 @@ Use a bound execution such as `connection.execute(sql, {"start": start, "end": e
 Dates must not be interpolated into the SQL text. Monthly grouping also uses the
 unchanged timestamp without inventing a timezone or a current-date default.
 
-Source/static/offline verification passed; SQL not yet executed. Native result verification and measured plans
-under the existing reader are still pending; no performance or populated recovery
-claim is made here. Keep the existing read-only transaction/timeouts and aggregate-only
+Source/static/offline and eleven native result cases passed. Bounded serial plans
+under the existing reader are accepted; server execution was approximately 4-9 seconds
+with temporary spills. See [measurement evidence and Q01](../../docs/warehouse-query-examples.md)
+for limits and the future API performance gate. Populated reconstruction remains pending. Keep the existing read-only transaction/timeouts and aggregate-only
 output policy. The NOLOGIN capability is already verified; a future consumer login
 requires its own authentication/session verification.
 

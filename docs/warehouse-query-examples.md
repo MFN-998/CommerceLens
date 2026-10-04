@@ -1,6 +1,6 @@
 # Technical query examples and measurements
 
-Phase 3 M5. SOURCE VERIFIED; native result verification and measurements pending.
+Phase 3 M5. VERIFIED: source, native results and bounded development measurements.
 Continues accepted mart/reader checkpoint 7b3cc8c. No model or data rebuild is required.
 
 ## Purpose and contracts
@@ -57,9 +57,12 @@ disabled to reduce instrumentation overhead; total execution time remains measur
 See [PostgreSQL EXPLAIN](https://www.postgresql.org/docs/17/sql-explain.html) and
 [read-only transactions](https://www.postgresql.org/docs/17/sql-set-transaction.html).
 
-On failure/interruption preserve the partial receipt/plans; its complete flag stays
-false. No model rebuild, grant change or source reload is needed for measurement.
-Investigate the first failed gate before retrying. Raw driver details are suppressed.
+On failure/interruption preserve and inspect the retained receipt/plans. Failure
+before acceptance normally leaves complete:false; a final file write can be partial
+or acceptance can already be saved before the command return is interrupted. Do
+not infer acceptance from the command outcome alone. No model rebuild, grant change
+or source reload is needed; inspect the first unverified gate before retrying.
+Raw driver details are suppressed.
 
 ## Interpretation and remaining work
 
@@ -70,13 +73,47 @@ Disk Usage fields, typically HashAggregate; a batched Hash node can spill withou
 that field. Check max_hash_batches and root temp counters even when it is zero. Two repetitions characterize
 this run only; they do not establish a percentile distribution.
 
-Views trade storage for computation. Inspect actual scan/sort/hash/spill evidence
-before considering indexes/materialization; keep the existing Free/views-first policy
-and no premature performance changes. Measured results and acceptance are pending.
+The accepted [aggregate receipt](warehouse-query-verification.json) records the
+retained run and all six plan summaries. Source totals and both partitions reconciled;
+mart identity/owner/ACL/defaults and database size 287,345,811 bytes were unchanged.
+Admin and transformer passwords were absent from all retained measurement outputs.
+
+| Query | Result rows | First result read, client seconds | Server execution, two samples (seconds) |
+| --- | ---: | ---: | ---: |
+| Total components | 1 | 11.158 | 8.645 / 8.192 |
+| Observed purchase months | 25 | 7.045 | 7.030 / 6.994 |
+| Bound January 2018 statuses | 6 | 4.809 | 3.985 / 3.972 |
+
+**Q01 — Important before API-facing analytics.** These full 33-aggregate examples
+pass the bounded development timeout; this does not establish interactive readiness.
+All six plans recorded 20,533 shared-buffer hits and no shared reads, but temporary
+traffic remained: 12,627-18,472 blocks read and 13,853-19,699 written. Each had eleven
+leader/worker disk-sort instances totaling 70,144-70,160 KiB of reported sort space,
+hash aggregation up to 21 batches and 11,968-11,984 KiB exposed hash disk usage.
+Those are summed operator statistics, not peak simultaneous disk usage. Block size
+was not measured here, so temp counters are not converted to bytes.
+
+The period query retains 7,269 qualifying orders but still builds roughly 98-99
+thousand child groups. Estimates are materially inaccurate: child groups often
+estimate 200, and one merge join estimates about 16.38 billion versus 56,325 actual
+rows per loop over two loops. These are estimate errors, not observed child fanout;
+the grain and component reconciliation checks passed. One worker was planned but
+none launched on a branch; its cause is unverified. TIMING OFF prevents assigning
+exact elapsed seconds to individual operators.
+
+Retain Free/views-first ADR 0004. Before Phase 5 API use, measure actual projections,
+filters, concurrency and response budgets, then review statistics/indexes or
+materialization/caching only when evidence and storage/rebuild capacity justify it.
+No performance-related schema, configuration or dependency change was made here.
+This scoped finding is not the comprehensive post-Phase 3 governance audit.
 Full populated reconstruction and final handoff remain M5. The comprehensive
 governance audit follows verified Phase 3 completion, before Phase 4.
 
 Source verification: 11 focused offline cases passed; warehouse/API regression
 1,394 passed / 1,000 deliberate live skips. Ruff lint/format154 files, mypy23
 implementations plus the measurement script passed. Optional-fetch/import issues
-were corrected before checkpoint. Actual PostgreSQL query/results/plans not yet run.
+were corrected before checkpoint. Eleven native PostgreSQL cases passed in 18.05s; all three SQL files/all 33 fields,
+empty/NULL/zero/warnings, literal groups, period boundaries, leap dates, UTC/Honolulu
+and large exact-numeric headroom matched an independent oracle. Physical reader
+measurements and scoped full-plan summary review passed; populated reconstruction
+has not yet run.

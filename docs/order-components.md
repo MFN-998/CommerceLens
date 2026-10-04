@@ -1,7 +1,8 @@
 # Order-component mart milestone
 
 Phase 3 M5, 2026-10-04. Continues completed M4 checkpoint 1b67dc5.
-Status: COMPUTATION VERIFIED. M5 access/examples/performance/recovery remain.
+Status: COMPUTATION VERIFIED; scoped reader and technical query measurements accepted.
+M5 populated reconstruction/recovery and final handoff remain.
 
 ## Contract
 
@@ -48,9 +49,9 @@ default grants or browser/Data API exposure are authorized.
 
 ## Remaining M5 work
 
-Computation and scoped reader access are complete. Next write reliable technical
-query examples, measure
-query plans/performance, prove reconstruction/recovery, and complete phase handoff.
+Computation, scoped reader access and [technical query examples/measurements](warehouse-query-examples.md)
+are complete. Prove populated reconstruction/recovery and complete phase handoff.
+Measured query latency/spills are recorded as Q01 for future API workload validation.
 The comprehensive governance audit runs after verified Phase 3, before Phase 4.
 Full source/frontend/advisory checks remain historical 2026-09-22 for unchanged inputs;
 E2E, deployment and the comprehensive audit have not run.
@@ -84,6 +85,6 @@ records node statuses and retained paths. No resource deletion or upstream redo.
 
 The computation receipt records the pre-grant reader denial accurately. The newer
 [mart reader receipt](mart-reader-verification.json) records accepted SELECT and
-effective denials/rebuild preservation. Reliable examples, consumer plans/performance
-and full reconstruction/recovery are not yet verified. Phase 3 is incomplete and the
+effective denials/rebuild preservation. Reliable examples and bounded consumer
+plans are verified separately; populated reconstruction/recovery remains pending. Phase 3 is incomplete and the
 required post-Phase 3 governance audit has not begun.

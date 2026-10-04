@@ -21,7 +21,8 @@ is accepted with exact source money and shipping warnings. The [payment fact](do
 is accepted with all components, exact amounts and source warnings. The
 [review fact](docs/fact-reviews.md) preserves every review/order pair and calendar roles.
 M4 is complete; initial order mart computation and [scoped reader access](docs/mart-reader-access.md)
-are verified. M5 technical examples, performance measurements, recovery proof and final checks remain.
+are verified. [Technical SQL examples and bounded plan measurements](docs/warehouse-query-examples.md)
+are accepted; populated reconstruction proof and final checks remain.
 See the [current work state](WORK_STATE.md) for verified progress and continuation.
 
 ## Start here
@@ -114,5 +115,6 @@ recorded in [data setup](data/README.md). Dataset and software licensing are sep
 
 Phase 3 M5: the [order-component mart](docs/order-components.md) computation is verified
 with all source orders, exact independently aggregated components and retained warnings.
-Scoped reader access is verified; technical examples, measured plans/performance and
-recovery proof remain. See [current state](WORK_STATE.md) for the exact next action.
+Scoped reader access, technical examples and bounded measurements are verified;
+populated reconstruction proof and final handoff remain. Q01 records measured query
+latency/spills for review before API-facing analytics. See [current state](WORK_STATE.md) for the exact next action.
