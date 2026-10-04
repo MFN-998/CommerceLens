@@ -32,6 +32,7 @@ APPROVED_MODELS = frozenset(
         "int_order_customers",
         "fact_orders",
         "fact_order_items",
+        "fact_payments",
     }
 )
 

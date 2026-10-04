@@ -1,0 +1,66 @@
+version: 2
+
+models:
+  - name: fact_payments
+    description: >-
+      Private core view at (order_id, payment_sequential), retaining all ten
+      accepted staging fields, exact numeric(18,2) amount, immutable lineage
+      and zero-installment/value/undefined-method warnings. No parent or child
+      join, filtering, aggregation, deduplication, repair or business eligibility.
+      Missing/rejected required input remains visible and blocks acceptance.
+      Mandatory literal order membership targets fact_orders; no item/payment
+      amount equality or selected payment component is asserted.
+    config:
+      materialized: view
+      schema: core
+    columns:
+      - name: _load_id
+        data_type: uuid
+        description: Unchanged immutable payment source snapshot identity.
+        data_tests:
+          - not_null
+      - name: _source_row
+        data_type: bigint
+        description: Unchanged one-based payment source record ordinal.
+        data_tests:
+          - not_null
+      - name: order_id
+        data_type: text
+        description: Literal source order reference; mandatory membership in fact_orders.
+        data_tests:
+          - not_null
+      - name: payment_sequential
+        data_type: bigint
+        description: Positive source payment sequence within the order; part of composite grain.
+        data_tests:
+          - not_null
+      - name: payment_type
+        data_type: text
+        description: Unchanged source method, including literal not_defined.
+        data_tests:
+          - not_null
+      - name: payment_installments
+        data_type: bigint
+        description: Nonnegative source installment count; zero is retained.
+        data_tests:
+          - not_null
+      - name: payment_value
+        data_type: numeric(18,2)
+        description: Exact nonnegative source payment amount in BRL; no float, rounding or imputation.
+        data_tests:
+          - not_null
+      - name: is_zero_installments
+        data_type: boolean
+        description: Unchanged staging warning for zero installments; false for rejected/missing input.
+        data_tests:
+          - not_null
+      - name: is_zero_payment_value
+        data_type: boolean
+        description: Unchanged staging warning for zero amount; false for rejected/missing input.
+        data_tests:
+          - not_null
+      - name: is_undefined_payment_type
+        data_type: boolean
+        description: Unchanged staging warning for literal not_defined method.
+        data_tests:
+          - not_null

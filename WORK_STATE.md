@@ -16,7 +16,11 @@ protocols apply. Synced project references and source datasets remain unchanged.
   Order-fact acceptance 7a3199e published; clean/synchronized on resume.
   Current unit: fact_order_items COMPLETE. Source/offline/native/first/
   physical/repeat acceptance passed. Source a047ecf published before build.
-  Larger Phase 3 SAFE TO RESUME; payments/reviews have not been started.
+  Current atomic unit: fact_payments IN PROGRESS; contract reviewed against
+  ADR 0003 and accepted staging. Unchanged ten-field projection, no join.
+  Source/offline/native/style/type/parse gates passed; first live/physical/
+  repeat acceptance pending. No payment fact view has been built.
+  Reviews and M5 not started.
 - Objective: tested analytical warehouse under Free/views-first ADR 0004; M4 and M5
   remain. Phase 4 and comprehensive exit audit have not begun.
 - Accepted product contract: all 20 staging fields unchanged plus nullable English
@@ -55,6 +59,10 @@ protocols apply. Synced project references and source datasets remain unchanged.
 
 ## Files
 
+- Payment fact: SQL/YAML, four singular checks and fact-payments.md created;
+  runner selector added, handoff/phase/customer guides updated;
+  three reviewed offline/native/physical test modules adopted. No accepted
+  source/dependency change or resource deletion; generated outputs retained.
 - Item fact: fact_order_items.sql/.yml, four singular tests and
   fact-order-items.md created; runner approved selector added. Candidate
   three offline/native/physical test modules adopted after AST validation.
@@ -97,6 +105,10 @@ protocols apply. Synced project references and source datasets remain unchanged.
 
 ## Technical Decisions
 
+- Payment fact preserves all ten accepted staging fields at (order_id,
+  payment_sequential), including exact money/lineage/three warnings.
+  No joins or business policy; mandatory literal fact_orders membership
+  is validated separately. Four singular and ten required-field checks.
 - Active item fact: private view at (order_id, order_item_id), preserving nine
   staging item fields including exact money. One literal C LEFT JOIN to
   accepted fact_orders adds purchase context and separate order load/ordinal.
@@ -153,6 +165,23 @@ protocols apply. Synced project references and source datasets remain unchanged.
   later precise API reads need binary transport or reviewed session output configuration.
 
 ## Validation
+
+- Payment fact: independent candidate source review approved; main review
+  of synthetic/physical harnesses found no blocker. Three modules AST-
+  checked/adopted; imports spaced for repository Ruff classification.
+  Initial source Ruff lint/format and mypy (22 implementation files)
+  passed; offline parse .artifacts/dbt/6f7b26ba4fd14ffb9be2b953a7a37e57.
+  Read-only preflight passed: core view absent, accepted parents present,
+  103,886 raw/stage rows/keys, exact payment 16008872.12, flags 2/9/3,
+  missing order references 0, database 287,255,699 bytes <400M.
+  Candidate offline 55 passed (0.43s); adopted payment/runner focused
+  137 passed (15.64s), warehouse/API 1222 passed/856 deliberate live
+  skips (27.04s), known AnyIO alias warning only. Native read-only
+  PostgreSQL 45 passed (52.90s); all ten fields/types, exact cents/max,
+  split methods/warnings, literal references/NULLs/domains/mutations/
+  duplicates and typed empty fixtures. Adopted Ruff lint/format passed
+  (136 reported files); mypy 22 implementation files passed.
+  First live/physical/repeat: Not yet tested. No known failed gates.
 
 - Item fact: scoped source/harness reviews approved. Candidate offline 79
   passed; adopted item/runner focused 159 passed (19.11s); regression 1165
@@ -310,11 +339,11 @@ protocols apply. Synced project references and source datasets remain unchanged.
 
 ## Current Repository Condition
 
-CLEAN / STABLE at published item acceptance checkpoint; verify Git on resume.
-fact_order_items COMPLETE; larger Phase 3 SAFE TO RESUME. No known failed
-checks, partial next model, migration, source/dependency/credential change
-or resource deletion. Payments/reviews and M5 remain; exit audit/Phase 4
-have not begun. Preserve accepted models and carried debt/release gates.
+PARTIALLY IMPLEMENTED / SAFE TO RESUME: payment source/offline/native gates
+passed; no payment fact view built. Accepted baseline 0171b40 preserved.
+No known failed checks, migration, source/dependency/credential mutation or
+resource deletion. Publish this source checkpoint clean before first build.
+Reviews/M5 and the exit governance gate remain incomplete.
 
 ## Incomplete Work
 
@@ -333,19 +362,17 @@ have not begun. Preserve accepted models and carried debt/release gates.
 
 ## Exact Next Actions
 
-1. Check usage/Git status/history against this acceptance checkpoint. Read
-   ADR 0003 fact_payments grain/warning rules, accepted stg_order_payments
-   SQL/YAML and payment-staging.md; inspect exact numeric/zero/undefined flags.
-2. Define fact_payments at (order_id, payment_sequential), conserving all
-   103,886 components, exact payment values, lineage, order relationship
-   and accepted zero-installment/value/undefined-type warnings. No business
-   eligibility, invented payment policy or item/payment equality assertion.
-3. Source/offline/native/regression/style/type/parse and reviewed checkpoint
-   before first/physical/repeat acceptance; record exact money and recovery.
-4. fact_reviews (review_id, order_id), then M5 child-aggregated technical
-   order mart/examples/measured plans/performance/reconstruction/recovery.
-5. Comprehensive governance/corrections only after verified Phase 3, before
-   Phase 4; no unapproved project deletion or loss of deferred debt.
+1. Confirm containing payment source checkpoint published and Git clean;
+   selected fact_payments first build must pass one view/all 14 tests.
+2. Run read-only physical payment-fact acceptance: independent raw/staging/
+   core ten-field multisets, exact money/warnings/lineage/native types and
+   restricted access. Enable only COMMERCE_WAREHOUSE_FACT_PAYMENTS_INTEGRATION.
+3. Repeat selected build; confirm all 103,886 components, 16008872.12 sum,
+   flags 2/9/3, view identity/owner/grants, artifact secrecy/storage <400M.
+4. Record evidence/docs/state; full staged/history secret scans/checkpoint/
+   publish; confirm clean Git. Next fact_reviews remains unstarted.
+5. M5 technical child-aggregated mart, examples/measured plans/performance/
+   reconstruction/recovery, then governance after verified Phase 3, before4.
 
 ## Git State
 
@@ -359,9 +386,11 @@ have not begun. Preserve accepted models and carried debt/release gates.
   before their live builds. Order acceptance 7a3199e and item source
   a047ecf published. Item acceptance checkpoint is the containing commit:
   git log -1 --format="%H %s" -- WORK_STATE.md.
+  Item acceptance 0171b40 published. Payment source checkpoint is the
+  containing commit; verify publication and clean Git before first build.
   Confirm clean/synchronized Git after publication and on resume.
   No merge/deployment performed.
-- Latest observed allowance 15% five-hour/63% weekly remaining on 2026-10-04,
+- Latest observed allowance 86% five-hour/98% weekly remaining on 2026-10-04,
   account-wide and not a reservation. Prior session ended at a recoverable checkpoint.
   No paid changes/reset credits used.
 
