@@ -1,0 +1,56 @@
+version: 2
+
+models:
+  - name: int_order_customers
+    description: >-
+      Private core view with one retained order-linked customer_id. All seven
+      staging fields, including source lineage, cross-order identity and the
+      purchase-associated city, state and literal ZIP prefix, remain unchanged.
+      Repeated customer_unique_id values retain their different addresses and
+      load identities. No joins, filters, deduplication, normalization, selected
+      current address, coverage flags or order metrics are added. Required identity
+      and ZIP dimension references fail validation without discarding customers;
+      an existing location with no geolocation evidence remains a valid reference.
+    config:
+      materialized: view
+      schema: core
+    columns:
+      - name: _load_id
+        data_type: uuid
+        description: Unchanged immutable source snapshot identity.
+        data_tests:
+          - not_null
+      - name: _source_row
+        data_type: bigint
+        description: Unchanged one-based logical source record ordinal within the load.
+        data_tests:
+          - not_null
+      - name: customer_id
+        data_type: text
+        description: Unchanged mandatory lowercase 32-character hexadecimal order-linked key.
+        data_tests:
+          - not_null
+          - unique
+      - name: customer_unique_id
+        data_type: text
+        description: Unchanged cross-order identity; repetition across customer_id values is valid.
+        data_tests:
+          - not_null
+      - name: customer_zip_code_prefix
+        data_type: text
+        description: Unchanged mandatory one-to-five ASCII digit ZIP prefix, with leading zeroes.
+        data_tests:
+          - not_null
+      - name: customer_city
+        data_type: text
+        description: Unchanged source city with Unicode, case and whitespace preserved.
+        data_tests:
+          - not_null
+      - name: customer_state
+        data_type: text
+        description: Unchanged mandatory source Brazilian state abbreviation.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [AC, AL, AP, AM, BA, CE, DF, ES, GO, MA, MT, MS, MG, PA, PB, PR, PE, PI, RJ, RN, RS, RO, RR, SC, SP, SE, TO]

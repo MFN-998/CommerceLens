@@ -9,9 +9,10 @@ protocols apply. Synced project references and source datasets remain unchanged.
 - Phase 3 Database/SQL/Analytics Engineering, M4. All nine source staging views accepted.
 - Customer identity COMPLETE, code/acceptance a93cb7f/dca21e9 published clean.
 - Product unit COMPLETE, published acceptance 055ba10 clean/synchronized on resume.
-- Current unit: core.dim_date COMPLETE; first/physical/repeat acceptance passed.
-  All five dimensions accepted; exact next unit is int_order_customers.
-  Larger Phase 3 remains SAFE TO RESUME; no partial next model exists.
+- Date COMPLETE, published acceptance ca44c12 clean/synchronized before this unit.
+  All five dimensions accepted. Current unit: core.int_order_customers IN PROGRESS.
+  Source/offline/native checks COMPLETE; first live/physical/repeat acceptance pending.
+  No mapping view has been built; date ca44c12 remains the live baseline.
 - Objective: tested analytical warehouse under Free/views-first ADR 0004; M4 and M5
   remain. Phase 4 and comprehensive exit audit have not begun.
 - Accepted product contract: all 20 staging fields unchanged plus nullable English
@@ -43,6 +44,9 @@ protocols apply. Synced project references and source datasets remain unchanged.
 
 ## Files
 
+- Mapping: intermediate int_order_customers.sql/.yml, three singular tests, three
+  Python test modules and order-customers.md created; runner/phase/staging guides
+  updated. No files deleted/renamed; candidates and generated artifacts retained.
 - Created date SQL/YAML, date domain/reconciliation SQL tests, three date test modules
   and date-dimension.md; approved runner selector updated. All candidates/artifacts
   retained. date-dimension-verification.json added; README/phase/guide updated.
@@ -68,6 +72,11 @@ protocols apply. Synced project references and source datasets remain unchanged.
 
 ## Technical Decisions
 
+- Active int_order_customers: reusable private core view in intermediate directory,
+  one source customer_id, exactly seven unchanged staging fields/types/collations.
+  Repeated identity with different addresses/lineage remains valid. No join, filter,
+  recast, deduplication, current address or extra coverage/metric is introduced.
+  Literal identity/ZIP parent membership is required; false geolocation is valid.
 - Active dim_date contract: distinct nonnull observed dates from all eight retained
   order/item/review timestamp columns, nine standard date/calendar/ISO/weekend fields.
   No generated gap calendar, timezone invention, warning/status/KPI eligibility filter.
@@ -99,6 +108,14 @@ protocols apply. Synced project references and source datasets remain unchanged.
 
 ## Validation
 
+- Order-customer mapping: scoped contract review approved; 46 candidate offline
+  tests passed. Adopted focused suite 113 passed; warehouse/API regression
+  969 passed/639 deliberate live opt-out skips, known AnyIO warning only.
+  Native read-only PostgreSQL 44 passed. Ruff lint/format passed (124 reported
+  files); mypy passed 22 implementation files. Offline dbt parse passed:
+  .artifacts/dbt/b874d3838e1c44f4b46090388bb16707. No failing mapping checks.
+  First live build/physical/repeat: Not yet tested. Published date ca44c12
+  baseline preserved; no source reload or schema migration required.
 - First date build passed in 107.963 seconds, close to runner's 120-second bound.
   Domain node took 35.32 seconds. Reviewed semantics-preserving MATERIALIZED
   boundary added to the date consistency test so attributes are checked after
@@ -171,10 +188,10 @@ protocols apply. Synced project references and source datasets remain unchanged.
 
 ## Current Repository Condition
 
-CLEAN / STABLE at the published date acceptance checkpoint; verify Git on resume.
-Date unit COMPLETE; larger Phase 3 SAFE TO RESUME. No known failed tests, partial
-model, pending migration or source mutation. All five dimensions accepted; next
-unit int_order_customers. No resources deleted, packages or credentials changed.
+STABLE / MAPPING CODE VERIFIED; LIVE ACCEPTANCE PENDING. Date ca44c12 and all
+five dimensions remain accepted. Mapping source gates passed; no live mapping
+has been built. No source/migration/dependency/credential change or resource
+deletion. Phase 3 remains incomplete.
 
 ## Incomplete Work
 
@@ -192,15 +209,17 @@ unit int_order_customers. No resources deleted, packages or credentials changed.
 
 ## Exact Next Actions
 
-1. Check actual usage/Git against containing date acceptance checkpoint; read ADR
-   0003's int_order_customers grain and accepted stg_customers SQL/YAML plus customer
-   identity/location guides. Date evidence is complete; do not rebuild completed phases.
-2. Implement int_order_customers at one source customer_id, preserving customer identity
-   and purchase-associated city/state/ZIP/lineage without choosing a current address.
-3. Validate grain/full source conservation and required identity/ZIP relationships;
-   code checkpoint before first/physical/repeat acceptance and aggregate evidence.
-4. Continue four facts/M5 as allowance permits; retain independent child aggregation,
-   performance/reconstruction checks, then governance gate before Phase 4.
+1. Confirm this mapping code checkpoint is published and Git is clean. Run the
+   first selected int_order_customers build; verify one view/all 12 dbt tests
+   and retain its .artifacts/dbt directory. Do not rebuild completed phases.
+2. Run the opt-in read-only physical mapping test for full raw/stage/core
+   conservation, inherited types/collation, restricted login/TLS/access.
+3. Repeat the selected build; verify source counts, identity/owner/grants,
+   storage ceiling and artifact secrecy; record aggregate JSON evidence.
+4. Update acceptance guides/WORK_STATE, scan/checkpoint/publish, confirm clean
+   Git. Wrap this unit with fact_orders as the exact next unit, not started.
+5. Four facts/M5 and governance gate remain; aggregate independent children
+   before joins. Comprehensive governance runs only after verified Phase 3.
 
 ## Git State
 
@@ -208,10 +227,11 @@ unit int_order_customers. No resources deleted, packages or credentials changed.
 - Published pre-risk baseline: seller acceptance 1320900; customer code a93cb7f.
 - Customer acceptance dca21e9 published; working tree was clean/synced before
   this product unit. Product code/acceptance 5d96701/055ba10 published. Date code
-  9975935 and validation-boundary eaac436 published. Date acceptance is containing
-  commit: git log -1 --format="%H %s" -- WORK_STATE.md; verify clean/synchronized
-  publication. No merge/deployment performed.
-- Latest observed allowance 77% five-hour/79% weekly remaining on 2026-10-04,
+  9975935, validation-boundary eaac436 and date acceptance ca44c12 published.
+  Mapping code checkpoint is the containing commit; resolve with
+  git log -1 --format="%H %s" -- WORK_STATE.md and verify clean/synchronized
+  publication before live build. No merge/deployment performed.
+- Latest observed allowance 98% five-hour/76% weekly remaining on 2026-10-04,
   account-wide and not a reservation. Prior session ended at a recoverable checkpoint.
   No paid changes/reset credits used.
 
