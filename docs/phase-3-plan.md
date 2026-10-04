@@ -103,7 +103,8 @@ approved fresh-target populated proof and final handoff. Full-graph, isolated
 one-step migration/load/provision/grant and final42-case acceptance tooling are
 now verified offline. Approved Free/Tokyo recovery target and private settings
 are established; PostgreSQL17.11 read-only identity/TLS/empty-state/capacity
-preflight passed. Fresh native migration/load/build/acceptance remain unrun.
+preflight passed. Unchanged migrations/replay/privilege checks and actual restricted
+login authentication also passed; full native load/repeat/build/acceptance remain unrun.
 Technical SQL and bounded plan measurements are now accepted; Q01 retains their
 latency/spill limitation for a future API performance gate.
 Completed dim_location's unique three-source ZIP domain with observation, coverage

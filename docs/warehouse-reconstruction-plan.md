@@ -193,8 +193,8 @@ deprecation warning. Ruff lint/format 160 files and mypy 26 implementations pass
 Scoped review found no blocker. These offline tests simulate subprocess/pytest
 outcomes; **the native 42-case run and populated reconstruction are NOT YET RUN**.
 Local dispatch/full-graph/final-check preparation is complete. Resource approval,
-private admin configuration and the native read-only preflight now passed;
-unchanged migrations are next. Do not reimplement the verified tooling.
+private admin configuration/native preflight and unchanged migrations with replay/
+privilege/actual-purpose authentication checks now passed; full source loading is next. Do not reimplement the verified tooling.
 
 ## Approved target and native preflight — 2026-10-04
 
@@ -235,10 +235,26 @@ collations do not use the changed localized date/SQL-JSON/money-type or
 nondeterministic-collation paths. Require migrations/permissions/build/42 native
 checks to pass on this actual patch; investigate any new failure before proceeding.
 
-Native migrations, role provisioning, source loading, graph construction and final
-acceptance are **NOT YET RUN** on this recovery target. Loader and transformer
-purpose files are not yet created. Preserve failed attempts; no fallback to original
-credentials, no ambient routing, no weaker TLS and no automatic retry/cleanup.
+## Verified recovery foundation — 2026-10-05 local / 2026-10-04 UTC
+
+[Native foundation receipt](warehouse-reconstruction-foundation.json) passed at
+2026-10-04T19:03:24Z. Existing dispatcher applied two unchanged migrations;
+identical replay applied zero. Reconnected ledger versions/checksums match Git.
+The fixed transactional foundation privilege checks passed and left no probe objects.
+All five schema owners, four restricted NOLOGIN/NOINHERIT capability roles,
+five default-ACL entries and the exact eleven physical tables match the contract.
+Nine raw tables and the load registry are empty; no derived views exist yet.
+
+The existing helpers created separate protected loader/transformer purpose files
+outside the repository. Actual native authentication passed for each over verify-full
+TLS, search_path pg_catalog, NOINHERIT and explicit activation of only the intended
+parent capability. Jobs have connection limit2/no elevated flags; memberships
+admin=false/inherit=false/set=true. Reader remains NOLOGIN; no reader credentials.
+Database10,884,787 bytes passes the <=33M first-load gate. Original target unchanged.
+
+Full source loading/repeat, graph construction, mart grant and final acceptance
+are **NOT YET RUN** on this recovery target. Preserve failed attempts; no fallback
+to original credentials, no ambient routing, no weaker TLS and no auto retry/cleanup.
 
 ## Exact construction and verification order
 

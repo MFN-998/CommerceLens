@@ -1,6 +1,6 @@
 # CommerceLens work state
 
-Authoritative handoff. Updated 2026-10-04. Actual Git/files and verified results take
+Authoritative handoff. Updated 2026-10-05 local (2026-10-04 UTC). Actual Git/files and verified results take
 precedence over chat. Master plan, standards, execution protocol, deletion rule and ADRs apply.
 
 ## Project State
@@ -35,8 +35,14 @@ precedence over chat. Master plan, standards, execution protocol, deletion rule 
   owner saved new password privately. No original files/target changed.
   Native read-only preflight passed17.11/170011/TLS verify-full/postgres identity,
   empty warehouse schemas/capabilities/jobs/defaults/ledger,10,491,571 bytes.
-  Migrations/provision/load/build/42-case acceptance NOT YET RUN on new target.
-  Pre-risk checkpoint represents a verified empty target; both projects retained.
+  Preflight checkpoint7768fed published clean0/0 with complete staged-content/
+  pre/post-history scans passed77commits. Both projects retained.
+- Recovery foundation COMPLETE: migrations2/replay0, exact checksums/schema owners/
+  four capability roles/five defaults/eleven physical tables verified. Privilege
+  probes rolled back. Restricted loader/transformer logins provisioned privately;
+  actual TLS authentication, no implicit inheritance and exact parent activation
+  passed. Reader NOLOGIN; database10,884,787 bytes; raw/registry empty.
+  Full load/repeat/build/42-case acceptance NOT YET RUN on new target.
 
 - Phases 1-2 and professional-practices retrospective/remediation COMPLETE.
 - M1/M2 contract/private foundation, migration replay, TLS/capability denials and
@@ -63,6 +69,11 @@ precedence over chat. Master plan, standards, execution protocol, deletion rule 
   generated artifacts. No new obsolete resource identified; no deletion this session.
 
 ## Files
+
+- Foundation unit adds docs/warehouse-reconstruction-foundation.json and updates
+  reconstruction/phase3 guides/WORK_STATE. Outside-repo adds two protected purpose
+  files and aggregate receipt. Database foundation committed on recovery target;
+  no source rows/views loaded yet. No project resources deleted/renamed.
 
 - Current preflight: adds docs/warehouse-reconstruction-preflight.json; updates
   reconstruction/development/phase3 guides and this handoff. Outside-repo isolated
@@ -124,6 +135,14 @@ precedence over chat. Master plan, standards, execution protocol, deletion rule 
   Partial committed builds are preserved/inspected, never automatically cleaned.
 
 ## Validation
+
+- Current foundation unit: native migrations applied2/replay0, privilege checks
+  passed/probes rolled back, exact ledger/schema/roles/defaults/empty-table state
+  and real loader/transformer authentication/activation/TLS passed at19:03:24Z.
+  Safe receipt docs/warehouse-reconstruction-foundation.json; source code unchanged,
+  no new offline tests needed, prior implementation gates remain dated evidence.
+  Full source loading/build/acceptance not run. Containing checkpoint scans/publication
+  and clean upstream must be confirmed; pre-risk baseline7768fed already clean.
 
 - Current unit: actual read-only fresh native preflight passed2026-10-04T18:56:52Z;
   safe aggregate receipt stored outside root and in docs/warehouse-reconstruction-preflight.json.
@@ -198,15 +217,15 @@ precedence over chat. Master plan, standards, execution protocol, deletion rule 
 CLEAN / STABLE at published c961aff confirmed; local tooling task COMPLETE.
 Final preservation documentation is the containing checkpoint; verify Git on resume.
 Local recovery preparation COMPLETE; approved new target and private admin
-configuration/native empty-target preflight verified. First migrations pending. Source acceptance and preserved baseline remain unchanged.
+configuration/native preflight/migrations/permissions/job authentication verified.
+Full source load is next. Source acceptance and preserved baseline remain unchanged.
 Accepted warehouse unchanged. Larger Phase 3 SAFE TO RESUME: fresh native proof
 and final handoff pending; no uncertain live operation or interrupted build.
 Preserve C, credentials/source data and all generated evidence.
 
 ## Incomplete Work
 
-- Apply unchanged migrations to verified fresh recovery target, provision
-  restricted job logins, then full populated reconstruction,
+- Full source load/repeat on verified recovery foundation, then graph reconstruction,
   full reconcile/repeat/access/query/size evidence and final M5 handoff.
 - Q01 measured latency/spills; review before future API analytics, not silently ignored.
 - Phase 2 pandas parser accepts loose dates/leap rollover/now/today; strict
@@ -220,18 +239,17 @@ Preserve C, credentials/source data and all generated evidence.
 
 ## Exact Next Actions
 
-1. Recover clean checkpoint and read native preflight receipt/plan. On approved
-   histbcmlctxmtxusfbzt using D:\My Projects\CommerceLens-Reconstruction, run the
-   fixed `migrate` dispatcher; require applied count2, replay0 and exact checksums.
-   Then `verify` privileges; fixtures must roll back. No source data loaded yet.
-2. Provision restricted loader/transformer purpose files with existing dispatcher,
-   then verify schema/role/default/empty-table state and initial capacity before load.
-   Do not change original files, log credentials, re-ask approved upload/retention,
-   create reader credentials or delete resources. Native version17.11 patch review
-   recorded; require actual existing gates, investigate failures before proceeding.
-3. Follow reconstruction plan full load/verified repeat/full graph/post-model grant/
-   physical/source/query/access/capacity order. Preserve failed attempts, checkpoint
-   each meaningful unit and check usage before major load/build. No phase restart.
+1. Recover clean checkpoint and read recovery foundation receipt/plan. On approved
+   histbcmlctxmtxusfbzt using D:\My Projects\CommerceLens-Reconstruction, run fixed
+   `load` dispatcher with restricted loader; require status loaded/all1,550,922 rows
+   and full content/hash/money/capacity acceptance. Reconnect; identical load must
+   return verified_existing, unchanged deterministic source identity/no duplicates.
+2. Do not repeat completed migration/provision work or overwrite purpose files.
+   All three private files/CA already exist; jobs authenticated. Preserve original
+   target and private files, do not log credentials/create reader login/delete resources.
+3. Check usage before major full graph; follow plan20-view/282-test build, fixed
+   mart grant,42 independent checks and final storage/secret checks. Preserve failed
+   attempts and checkpoint each verified unit. No phase restart or audit yet.
 4. Finish verified Phase 3 handoff here; create a new CommerceLens chat for the
    required governance audit/corrections/regressions. After that gate, create a
    separate Phase 4 chat, and separate chats for each subsequent phase. Repository
@@ -239,15 +257,15 @@ Preserve C, credentials/source data and all generated evidence.
 
 ## Git State
 
-- Branch feat/warehouse-foundation; main unchanged/unmerged. Current resume baseline ed52929;
+- Branch feat/warehouse-foundation; main unchanged/unmerged. Current resume baseline7768fed;
   query source c01ee79/query acceptance b82c7d7/recovery source edf072b; workflow
   590863b, dispatchera2bed4f and verified final-check sourcec961aff published.
   Pre-approval preservationfd28354 published clean; approved-target handoffed52929 published; verified
-  preflight checkpoint is the containing commit:
+  preflight7768fed published clean; native foundation checkpoint is the containing commit:
   git log -1 --format="%H %s" -- WORK_STATE.md.
 - Verify clean working tree and HEAD/upstream equality after publish/on resume.
   Disable auto Git maintenance, stage exact files and scan full content/history.
-- Latest actual account-wide usage30% five-hour/64% weekly remaining2026-10-04.
+- Latest actual account-wide usage25% five-hour/63% weekly remaining2026-10-04.
   Observed values are not task-cost predictions. Reduce next-unit scope as needed;
   preserve checkpoint and recheck before major native load/build.
 

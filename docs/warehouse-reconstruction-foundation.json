@@ -1,0 +1,65 @@
+{
+  "status": "passed",
+  "observed_utc": "2026-10-04T19:03:24.984314+00:00",
+  "project_ref": "histbcmlctxmtxusfbzt",
+  "code_checkpoint": "7768fed",
+  "migration_applied_count": 2,
+  "migration_replay_count": 0,
+  "foundation_privilege_checks": "passed_with_probes_rolled_back",
+  "metadata": {
+    "capability_roles": [
+      "commercelens_loader",
+      "commercelens_owner",
+      "commercelens_reader",
+      "commercelens_transformer"
+    ],
+    "default_acl_count": 5,
+    "database": "postgres",
+    "session_user": "postgres",
+    "server_version": "17.11",
+    "database_bytes": 10884787,
+    "sslmode": "verify-full",
+    "tls_in_use": true,
+    "schemas": {
+      "core": "commercelens_transformer",
+      "marts": "commercelens_transformer",
+      "ops": "commercelens_owner",
+      "raw": "commercelens_owner",
+      "staging": "commercelens_transformer"
+    }
+  },
+  "ledger": [
+    {
+      "version": "0001",
+      "checksum": "5e6401b7522e78b38369e144ac65383daaa46c1e49d04e09c7bf5f4db9dfa34a"
+    },
+    {
+      "version": "0002",
+      "checksum": "5b30809f6838e3e7274698227d8c2ac6409d5c911631ffa2a0b503767654d77a"
+    }
+  ],
+  "raw_table_count": 9,
+  "raw_row_count": 0,
+  "load_registry_row_count": 0,
+  "derived_view_count": 0,
+  "capabilities": "four_NOLOGIN_NOINHERIT_no_elevated_flags_or_parent_memberships",
+  "job_memberships": "exact_parent_no_admin_no_inherit_set_true",
+  "authenticated_purposes": [
+    {
+      "purpose": "loader",
+      "login": "commercelens_ingest",
+      "explicit_capability": "commercelens_loader",
+      "tls_verify_full": true,
+      "no_implicit_inheritance": true
+    },
+    {
+      "purpose": "transformer",
+      "login": "commercelens_transform",
+      "explicit_capability": "commercelens_transformer",
+      "tls_verify_full": true,
+      "no_implicit_inheritance": true
+    }
+  ],
+  "reader_login_created": false,
+  "source_load_attempted": false
+}
