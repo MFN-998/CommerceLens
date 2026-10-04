@@ -99,9 +99,9 @@ Roughly 10-15% of Phase 3 warehouse implementation/verification effort remains a
 all nine source staging models, five dimensions, the customer mapping and all four facts are accepted. This is a reasoned range, not a time
 forecast or model-count percentage. Foundation/loading/dbt/source staging are complete.
 Order mart computation and scoped reader access are now accepted. Remaining:
-isolated independent acceptance procedure, approved fresh-target populated proof
-and final handoff. Full-graph and one-step migration/load/provision/grant source
-tooling are now verified offline; no fresh native reconstruction has been run.
+approved fresh-target populated proof and final handoff. Full-graph, isolated
+one-step migration/load/provision/grant and final42-case acceptance tooling are
+now verified offline; no fresh native reconstruction has been run.
 Technical SQL and bounded plan measurements are now accepted; Q01 retains their
 latency/spill limitation for a future API performance gate.
 Completed dim_location's unique three-source ZIP domain with observation, coverage

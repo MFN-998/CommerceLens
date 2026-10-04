@@ -1,7 +1,7 @@
 # Populated warehouse reconstruction plan
 
 Phase 3 M5. Full-graph runner and isolated-operation dispatcher source/offline
-verification COMPLETE.
+verification COMPLETE; final-check adapter also verified offline.
 **LIVE RECONSTRUCTION NOT EXECUTED; populated proof remains pending.**
 The accepted CommerceLens Supabase target, source files, private configurations,
 certificates and retained artifacts stay protected. This plan reconstructs the
@@ -145,17 +145,71 @@ Tests simulate dispatch and failure outcomes; they do not prove fresh native
 authentication, migrations, loading or full-graph execution. Existing native
 integration tests normally load accepted ROOT settings: do not invoke them against
 the fresh target by swapping original credentials or global environment overrides.
-Review an explicit isolated test-process adapter before running needed independent
-checks, reusing their existing SQL/oracles; exclude empty-landing fixture suites
-after the populated load. This final acceptance procedure remains to be prepared.
+Use the verified final-check adapter below to reuse independent acceptance; never
+enable empty-landing fixture suites after the populated load.
+
+## Isolated final-check adapter — 2026-10-04
+
+`src.warehouse.reconstruction_acceptance.run_reconstruction_acceptance(*,
+settings_root, expected_project_ref)` validates the same isolated admin/transformer
+files and launches one fixed Python process. Its allowlist is all twenty physical
+built-model modules, the native query-example module and the reader module.
+Actual safe collection verified **42 cases across 22 files**: 25 physical, 11
+native query and six reader checks. Collection executed no fixtures or test bodies.
+Module-local settings bindings are replaced before fixtures; connection routines,
+read-only transactions, SQL and independent oracles remain unchanged.
+
+These final checks complement the loader's full content/ordinal/exact-money
+verified repeat and the full-graph runner's twenty models/all 282 enabled tests.
+They do not repeat the already accepted native boundary matrices or empty-target
+bootstrap/COPY fixtures. Inspect the new server version before construction;
+prior boundary evidence is PostgreSQL17, so a different version requires reviewed
+boundary re-evaluation. Existing query-plan measurements and Q01 remain separate
+dated evidence; this adapter does not generate fresh performance claims or plans.
+
+The worker enables only its fixed COMMERCE opt-ins and disables inherited pytest
+plugins/options, conftest, cache and output capture. Python isolated mode fixes
+the code import root; stdout/stderr go to the null device. It rejects static or
+dynamically requested temporary fixtures and an existing/symlink basetemp. Fresh
+UUID artifacts remain under settings_root/.artifacts/reconstruction-acceptance.
+Atomic receipts contain only target reference, file counts and overall outcomes.
+Every collected case needs unique successful setup/call/teardown; missing files,
+duplicates, skips, xfails, failed reports, incomplete receipts or nonzero process
+exit cannot appear successful. No driver output/source values are retained.
+The 600s process budget is unproven on the fresh target; preserve incomplete or
+failed receipts and inspect the failure before any explicit rerun. No auto retry
+or artifact cleanup occurs. This is a final verification tool, not a backup restore.
+
+CLI after populated graph/grant acceptance:
+
+```powershell
+.venv/Scripts/python.exe -B -m src.warehouse.reconstruction_acceptance --run --settings-root 'D:\My Projects\CommerceLens-Reconstruction' --expected-project-ref FRESH_PROJECT_REF
+```
+
+Actual offline validation: adapter+dispatcher 97 passed in 0.82s; retained warehouse/API
+1578 passed in 43.26s, 1000 deliberately skipped live checks and the known AnyIO
+deprecation warning. Ruff lint/format 160 files and mypy 26 implementations passed.
+Scoped review found no blocker. These offline tests simulate subprocess/pytest
+outcomes; **the native 42-case run and populated reconstruction are NOT YET RUN**.
+Local dispatch/full-graph/final-check preparation is complete; the next prerequisite
+is explicit resource approval and private target configuration, not reimplementation.
 
 ## Concrete target approval, after local preparation
 
 Check current Free-project eligibility, organization quota and capacity before
-requesting approval to create **one isolated reconstruction project**. No current
-eligibility, paid plan or project creation is assumed or authorized by this draft.
+requesting approval to create **one isolated reconstruction project**. A dated signed-in dashboard/form inspection
+found the CommerceLens Free
+organization with one visible current project and no displayed quota error. This
+does not prove account-wide eligibility. No paid plan or project creation is
+authorized by the existing project's approval.
 The approval must identify the new target, intended source upload and retention.
 If Free is unavailable, stop and present a reviewed alternative before proceeding.
+The non-secret browser draft is CommerceLens-Recovery, Northeast Asia (Tokyo),
+Data API disabled, no GitHub integration/add-ons. It has not been created; the
+database password is blank. The owner must enter the new credential and submit
+the form themselves. Obtain approval for this project, all nine unchanged Olist
+source tables/1,550,922 rows and retention before upload. Preserve both projects
+unless specific later deletion approval is provided. No paid upgrade is authorized.
 
 Use separate protected configuration files for all three purposes, a separate CA
 certificate path and separate artifact roots. Never replace the accepted target's

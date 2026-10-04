@@ -8,6 +8,7 @@ precedence over chat. Master plan, standards, execution protocol, deletion rule 
 - Phase 3: M1-M4 COMPLETE; M5 mart, reader and technical query unit COMPLETE.
 - Current milestone/task: guarded full-graph source remains COMPLETE at edf072b.
   Isolated migration/load/provision/grant dispatcher COMPLETE and verified;
+  final-check adapter COMPLETE and verified offline;
   then prove the populated warehouse on a separately approved isolated native target.
 - Objective: tested private warehouse under Free/views-first ADR 0004, retaining
   all source rows/warnings. Phase 4 EDA, Phase 5 KPI/API and public deployment remain later.
@@ -24,6 +25,14 @@ precedence over chat. Master plan, standards, execution protocol, deletion rule 
   target rejection, contained absolute CA, credential ACL protection and no
   ambient WAREHOUSE/PG routing. Fixed secret-safe receipts only after clean exit;
   no automatic retry/cleanup. No fresh target or upload performed.
+- Final-check adapter reuses 20 physical modules/native-query/reader oracles in
+  isolated child: exact 22 files/current 42 cases, purpose bindings/CA guarded, no
+  inherited plugins/conftest/cache, private outputs discarded, complete three-phase
+  case coverage required. Atomic safe receipts retained, no retry/cleanup.
+- Non-secret browser draft CommerceLens-Recovery/Free/Tokyo/DataAPI off is prepared,
+  not created. New credential blank; owner entry/submission and explicit new-project/
+  nine-table source upload/retention approval still required. Free eligibility not
+  guaranteed by one visible organization/project; no paid commitment authorized.
 
 - Phases 1-2 and professional-practices retrospective/remediation COMPLETE.
 - M1/M2 contract/private foundation, migration replay, TLS/capability denials and
@@ -50,6 +59,10 @@ precedence over chat. Master plan, standards, execution protocol, deletion rule 
   generated artifacts. No new obsolete resource identified; no deletion this session.
 
 ## Files
+
+- Current acceptance unit adds src/warehouse/reconstruction_acceptance.py and
+  tests/test_warehouse_reconstruction_acceptance.py; reconstruction/phase plans
+  and this handoff updated after actual offline validation.
 
 - Current unit adds src/warehouse/reconstruction.py and
   tests/test_warehouse_reconstruction.py; modifies reconstruction plan, phase-3
@@ -91,7 +104,7 @@ precedence over chat. Master plan, standards, execution protocol, deletion rule 
   Fresh Free Supabase eligibility/project creation/upload/retention not yet approved.
   Full-graph source is now verified; eager one-model tests can reference unbuilt
   children, so recovery uses the fixed full dependency graph. Other operation
-  dispatch source is now verified; isolated independent acceptance adapter pending. Never weaken current acceptance or TLS.
+  dispatch and isolated acceptance source now verified; native proof pending. Never weaken current acceptance or TLS.
 - Separate graph callable requires outside-repo purpose settings/test environment,
   explicit fresh reference/protected-target rejection and no ambient WAREHOUSE
   override. Fixed macros/source/model/test contracts and full result/invocation
@@ -100,6 +113,15 @@ precedence over chat. Master plan, standards, execution protocol, deletion rule 
   Partial committed builds are preserved/inspected, never automatically cleaned.
 
 ## Validation
+
+- Final-check+dispatcher 97 passed in 0.82s; retained warehouse/API 1578 passed in 43.26s,
+  1000 deliberate live skips, known AnyIO warning. Ruff lint/format 160 files and
+  mypy 26 implementations passed. Safe real collection verified42 current cases
+  across22files without fixture/test execution. Scoped review passed; test cases
+  are simulated subprocess/pytest evidence, not fresh native proof. No unresolved
+  source failures. Dispatchera2bed4f complete-content/pre/post-history scans passed,
+  published clean HEAD/upstream0/0. Final-check five-file staged-content/history scans must pass before publication;
+  verify post-commit scan and clean upstream before ending the session.
 
 - Current dispatcher:293 focused passed27.24s; warehouse/API1534 passed37.97s,
   1000 deliberate live skips, known AnyIO deprecation warning. Ruff lint/format158
@@ -154,15 +176,16 @@ precedence over chat. Master plan, standards, execution protocol, deletion rule 
 
 ## Current Repository Condition
 
-CLEAN / STABLE expected after containing dispatcher checkpoint; verify Git on resume.
+CLEAN / STABLE expected after containing verified acceptance checkpoint/publish.
+Local recovery preparation COMPLETE; new external target approval/configuration pending.
 Accepted warehouse unchanged. Larger Phase 3 SAFE TO RESUME: fresh native proof
 and final handoff pending; no uncertain live operation or interrupted build.
 Preserve C, credentials/source data and all generated evidence.
 
 ## Incomplete Work
 
-- Isolated independent acceptance adapter/procedure, then separately approved
-  fresh-target populated reconstruction,
+- Explicit fresh-target creation/upload/retention approval and private
+  configuration, then full populated reconstruction,
   full reconcile/repeat/access/query/size evidence and final M5 handoff.
 - Q01 measured latency/spills; review before future API analytics, not silently ignored.
 - Phase 2 pandas parser accepts loose dates/leap rollover/now/today; strict
@@ -176,13 +199,16 @@ Preserve C, credentials/source data and all generated evidence.
 
 ## Exact Next Actions
 
-1. Read docs/warehouse-reconstruction-plan.md and verified reconstruction.py;
-   complete explicit isolated native acceptance adapter/procedure around existing
-   model/source/query/reader oracles. Never alter original purpose files or globally
-   override WAREHOUSE variables; do not enable empty-landing checks after loading.
-   Dispatcher/full-graph source complete; do not redo accepted target models/load.
-2. Check actual Free eligibility and obtain specific new-target/upload/retention
-   approval after concrete tooling review. Preserve existing credentials/database.
+1. Obtain owner approval for the prepared CommerceLens-Recovery Free/Tokyo/private
+   project, all nine unchanged source tables and retention; verify current eligibility.
+   Owner must enter its new password and complete creation privately in the preserved
+   Supabase tab. If Free unavailable, stop for a reviewed alternative; no paid upgrade.
+2. Recover its actual project reference/connection/public CA details, then create
+   isolated protected test-purpose configuration under the proposed outside-repo
+   D:\My Projects\CommerceLens-Reconstruction root. Never change original purpose
+   files or globally override WAREHOUSE/PG environment. Inspect version/empty state/
+   initial capacity before unchanged migration/provision/load. Different PostgreSQL
+   version requires boundary re-evaluation. Tooling complete; do not redo it.
 3. Follow reconstruction plan migration/provision/load/repeat/full graph/post-model
    grant/physical/source/query/access/capacity order. Preserve failed attempts.
 4. Finish verified Phase 3 handoff here; create a new CommerceLens chat for the
@@ -192,15 +218,16 @@ Preserve C, credentials/source data and all generated evidence.
 
 ## Git State
 
-- Branch feat/warehouse-foundation; main unchanged/unmerged. Resume baseline7b3cc8c;
-  query source c01ee79/query acceptance b82c7d7/recovery source edf072b. Workflow checkpoint590863b published. Dispatcher checkpoint is the containing commit:
+- Branch feat/warehouse-foundation; main unchanged/unmerged. Current resume baseline edf072b;
+  query source c01ee79/query acceptance b82c7d7/recovery source edf072b; workflow
+  590863b and dispatchera2bed4f published. Final-check checkpoint is the containing commit:
   git log -1 --format="%H %s" -- WORK_STATE.md.
 - Verify clean working tree and HEAD/upstream equality after publish/on resume.
   Disable auto Git maintenance, stage exact files and scan full content/history.
-- Latest actual account-wide usage99% five-hour /75% weekly remaining2026-10-04;
-  observation at resumed session/new five-hour window, not task-cost prediction.
-  Later actual reading80% five-hour/72% weekly; check before native work.
-  Continue bounded verified dispatch work, recheck usage before live recovery.
+- Latest actual account-wide usage47% five-hour/67% weekly remaining2026-10-04.
+   Earlier 99/75 at reset, 80/72 and 72/71 before atomic units. These are observations,
+   not task-cost predictions. Preserve the verified source checkpoint; native proof
+   waits target approval/configuration. Recheck usage before any major live unit.
 
 ## Continuation Commands
 
@@ -213,7 +240,7 @@ Get-Content WORK_STATE.md
 Get-Content docs/warehouse-reconstruction-plan.md
 $env:PYTEST_DISABLE_PLUGIN_AUTOLOAD='1'
 $env:PYTHONDONTWRITEBYTECODE='1'
-.venv/Scripts/python.exe -B -m pytest tests/test_warehouse_reconstruction.py tests/test_warehouse_dbt_reconstruction.py tests/test_warehouse_dbt.py -o 'addopts=-q' --capture=sys -p no:cacheprovider --tb=short
+.venv/Scripts/python.exe -B -m pytest tests/test_warehouse_reconstruction_acceptance.py tests/test_warehouse_reconstruction.py tests/test_warehouse_dbt_reconstruction.py tests/test_warehouse_dbt.py -o 'addopts=-q' --capture=sys -p no:cacheprovider --tb=short
 # Optional accepted query revalidation, not required to repeat on unchanged source:
 $env:COMMERCE_WAREHOUSE_QUERY_EXAMPLES_INTEGRATION='1'
 .venv/Scripts/python.exe -B -m pytest tests/test_warehouse_query_examples_postgres_integration.py -o 'addopts=-q' --capture=sys -p no:cacheprovider --tb=short
