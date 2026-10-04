@@ -135,6 +135,7 @@ Scoped final handoff review and complete staged-content/history secret scans pas
 Publish the acceptance checkpoint and confirm clean/synchronized Git before close.
 
 The [item fact](fact-order-items.md) is now accepted at its composite grain,
-preserving exact components, source lineage and shipping warnings. Next core
-unit: `fact_reviews`; the [payment fact](fact-payments.md) is accepted.
+preserving exact components, source lineage and shipping warnings. Next
+work: M5 technical mart/examples/performance/recovery. [Payment](fact-payments.md)
+and [review](fact-reviews.md) facts are accepted; M4 complete.
 See the [Phase 3 plan](phase-3-plan.md).

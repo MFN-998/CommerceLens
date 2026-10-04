@@ -44,18 +44,23 @@ Historical source: 99,224 pairs, 87,656 missing titles, 58,247 missing messages,
 zero reversed answers and 547 orders with multiple reviews. These source
 observations are not satisfaction metrics or a selected-review policy.
 
-Status: source/offline/native COMPLETE; first/physical/repeat pending.
-Scoped source/harness review approved. Candidate offline 59 passed (0.51s);
-adopted review/runner 143 passed; warehouse/API 1283 passed with 910
-deliberate live skips and the known AnyIO warning. Native read-only 52
-passed; actual SQL/calendar roles and configured required macros verified.
-A synthetic baseline ID was corrected to valid hex before execution.
-Ruff lint/format and mypy (22 implementation files) passed. Offline parse:
-`.artifacts/dbt/d71b5d9b05624b4c99e3946101205900`. Preflight confirmed
-view absent/parents present, expected source/stage counts and database
-287,263,891 bytes; raw reversal comparison remains physical acceptance.
-Publish source checkpoint clean before first build. First/physical/repeat:
-**Not yet tested**.
-Full source/frontend/advisory checks remain historical 2026-09-22 for this
-dependency-unchanged unit. E2E/deployment/full governance audit have not run.
-Governance follows verified Phase 3 completion, before Phase 4.
+Status: COMPLETE. Candidate offline 59, adopted review/runner 143,
+warehouse/API 1283 (910 deliberate live skips), native read-only PostgreSQL 52
+and physical/access 2 tests passed. Ruff lint/format 140 reported files, mypy 22
+implementation files and offline parse passed. Known AnyIO warning only.
+Source 23101c2 published clean before first build. First/repeat each passed
+one view/all 14 dbt tests in 65.287/68.7 seconds. All 99,224 pairs, literal
+optional comments, lineage/events/score/reversal warning and both direct
+calendar roles conserved. Missing titles/messages 87,656/58,247, reversals 0
+and multiple-review orders 547 match independently guarded raw/staging/core
+multisets and aggregates. Native metadata, timestamp bounds, required order/
+date memberships and restricted actual login/role/verify-full TLS/private
+API/reader denials passed. Repeat preserved view identity/owner/grants;
+password absent from first/repeat artifacts. Database 287,288,467 bytes <400M.
+See [aggregate evidence](fact-reviews-verification.json) for nodes/artifact paths.
+Suite timings are not consumer latency; M5 measured plans/recovery remain.
+
+M4 is complete; M5 mart/examples/performance/reconstruction remain. Full
+source/frontend/advisory gate remains historical 2026-09-22 for unchanged
+dependencies; E2E/deployment/full governance audit not run. The required audit
+follows verified Phase 3 completion, before Phase 4. No project resource deleted.

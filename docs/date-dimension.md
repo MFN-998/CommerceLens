@@ -87,5 +87,8 @@ See [aggregate evidence](date-dimension-verification.json). Measured suite
 timing includes tests, not API latency; consumer-query performance/recovery remains M5.
 
 The [order-customer mapping](order-customers.md) and [order fact](fact-orders.md)
-are now accepted. The next core unit is `fact_order_items`; see the
-[Phase 3 plan](phase-3-plan.md) for current continuation.
+are now accepted. All four core facts are accepted; M4 is complete. See
+the [Phase 3 plan](phase-3-plan.md) for M5 continuation.
+
+The accepted [review fact](fact-reviews.md) now references both creation and
+answer calendar dates directly, preserving all review/order pairs and warnings.

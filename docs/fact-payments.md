@@ -61,6 +61,6 @@ latency; M5 measured plans/performance/reconstruction remain pending.
 
 Full source/frontend/advisory checks were not rerun for this unchanged
 dependency/data-only unit; their 2026-09-22 results remain historical. E2E/
-deployment/full governance audit have not run. Next core unit: fact_reviews,
-then M5. Governance follows verified Phase 3 completion, before Phase 4.
+deployment/full governance audit have not run. The [review fact](fact-reviews.md)
+is accepted; M4 complete, M5 remains. Governance follows verified Phase 3 completion, before Phase 4.
 No project resources were deleted; no dependency/migration/reload occurred.

@@ -81,6 +81,7 @@ chronology counts and view identity/owner/grants remained unchanged. Password
 absent from first/repeat artifacts; database 287,255,699 bytes <400,000,000.
 See [aggregate acceptance evidence](fact-order-items-verification.json).
 The [payment fact](fact-payments.md) is accepted, retaining all components and
-source warnings. Next core unit: fact_reviews.
+source warnings. The [review fact](fact-reviews.md) is accepted; M4 complete,
+M5 technical mart/examples/performance/recovery remain.
 No project resources are deleted. The comprehensive governance audit follows
 verified Phase 3 completion, before Phase 4.

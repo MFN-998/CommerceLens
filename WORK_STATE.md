@@ -6,7 +6,7 @@ protocols apply. Synced project references and source datasets remain unchanged.
 
 ## Project State
 
-- Phase 3 Database/SQL/Analytics Engineering, M4. All nine source staging views accepted.
+- Phase 3 Database/SQL/Analytics Engineering: M4 complete; next milestone M5.
 - Customer identity COMPLETE, code/acceptance a93cb7f/dca21e9 published clean.
 - Product unit COMPLETE, published acceptance 055ba10 clean/synchronized on resume.
 - Date COMPLETE, published acceptance ca44c12 clean/synchronized before this unit.
@@ -18,20 +18,23 @@ protocols apply. Synced project references and source datasets remain unchanged.
   physical/repeat acceptance passed. Source a047ecf published before build.
   Current atomic unit: fact_payments COMPLETE. Source e50d47c published;
   source/offline/native/first/physical/repeat acceptance passed.
-  Current atomic unit: fact_reviews IN PROGRESS, reviewed source adopted.
-  Twelve fields: ten unchanged staging fields plus direct creation/answer
-  calendar dates. All review/order pairs retained; no joins or policy.
-  Source/offline/native/style/type/parse gates passed; first live/physical/
-  repeat acceptance pending. No review fact built; M5 not started.
-- Objective: tested analytical warehouse under Free/views-first ADR 0004; M4 and M5
-  remain. Phase 4 and comprehensive exit audit have not begun.
+  Current atomic unit: fact_reviews COMPLETE; source 23101c2 published
+  before build. Source/offline/native/first/physical/repeat acceptance passed.
+  M4 COMPLETE: nine staging views, five dimensions, customer mapping and
+  four facts accepted. Larger Phase 3 SAFE TO RESUME; M5 not started.
+- Objective: tested analytical warehouse under Free/views-first ADR 0004; M5
+  remains. Phase 4 and comprehensive exit audit have not begun.
 - Accepted product contract: all 20 staging fields unchanged plus nullable English
   translation/untranslated coverage (22 columns); no invented labels or dropped rows.
-- Roughly 15-25% of Phase 3 warehouse implementation/verification effort remains;
+- Roughly 10-20% of Phase 3 warehouse implementation/verification effort remains;
   broad reasoned range, not model count/time forecast. Later audit effort is unknown.
 
 ## Completed Work
 
+- Review fact/M4: all 99,224 pairs/twelve fields conserved, literal nullable
+  comments/lineage/score/events/reversal warning and direct calendar roles.
+  Missing titles/messages 87,656/58,247, reversals 0, multiple-review
+  orders 547 retained. No selected review, duration or eligibility policy.
 - Payment fact: all 103,886 composite components/ten fields conserved with
   exact source amount 16008872.12 and zero-installment/value/undefined
   warning counts 2/9/3. No joins/aggregation/imputation/eligibility.
@@ -65,9 +68,9 @@ protocols apply. Synced project references and source datasets remain unchanged.
 ## Files
 
 - Review fact: SQL/YAML, four singular checks and fact-reviews.md created;
-  runner selector and handoff/phase/customer guidance updated. Synthetic
-  three reviewed test modules adopted after syntax checks; imports spaced
-  for repository style. No source reload, dependencies or deletion.
+  runner selector, three reviewed test modules and handoff/phase/customer
+  guidance updated. Aggregate review evidence created; README/review/date/
+  core guides updated. No reload/dependency/credential change or deletion.
 
 - Payment fact: SQL/YAML, four singular checks and fact-payments.md created;
   runner selector added, handoff/phase/customer guides updated;
@@ -183,22 +186,33 @@ protocols apply. Synced project references and source datasets remain unchanged.
 
 ## Validation
 
-- Review fact: independent source review approved; main harness review
-  found no blocker. Three AST-checked modules adopted. Initial source
-  Ruff lint/format and mypy (22 implementation files) passed. Offline
-  parse .artifacts/dbt/d71b5d9b05624b4c99e3946101205900 passed. Read-only
-  preflight: view absent/parents present; raw/stage 99,224 pairs/keys,
-  missing titles/messages 87,656/58,247, stage reversals 0, multiple-review
-  orders 547, missing order refs 0, size 287,263,891 bytes <400M. Raw reversal
-  not measured in preflight; independent physical acceptance pending.
-  Candidate offline 59 passed (0.51s); adopted review/runner 143
-  passed; warehouse/API 1283 passed/910 deliberate live skips, known
-  AnyIO alias warning only. Native read-only PostgreSQL 52 passed;
-  all twelve fields, literal optional text, Python calendar roles,
-  reversals/equality/NULLs, pair grain and required memberships/mutations.
-  Baseline fixture's nonhex review ID corrected before execution; no
-  model change required. Adopted Ruff lint/format and mypy (22
-  implementation files) passed. First/physical/repeat: Not yet tested.
+- Review fact: independent source/main harness/final handoff reviews approved.
+  Candidate offline 59 passed (0.51s); adopted review/runner 143 passed
+  (15.56s); warehouse/API 1283 passed/910 deliberate live skips (29.50s),
+  known AnyIO alias warning only. Native read-only PostgreSQL 52 passed
+  (61.55s), all twelve fields, literal comments, Python naive dates under
+  two timezones/collations, pair grain/reversals/NULLs/membership/mutations.
+  Nonhex baseline fixture ID corrected before execution, no model change.
+  Ruff lint/format (140 reported files), mypy (22 implementation files),
+  offline parse .artifacts/dbt/d71b5d9b05624b4c99e3946101205900 passed.
+  Preflight passed; raw reversal was not measured there, independently
+  verified in physical acceptance. Source 23101c2 published clean after
+  complete 14-file staged/history scans. First/repeat each passed one
+  view/all 14 tests in 65.287/68.7s. Physical/access 2 passed:
+  independent guarded raw/staging/core full ten/twelve-field multisets,
+  literal comments, both lineage fields/events/reversal/direct dates, expected
+  native types/typmods/collations, source bounds, required order/date
+  membership and restricted login/role/verify-full TLS/private API/reader
+  denials. Counts/missingness/reversals/multiple-review orders conserved;
+  repeat preserved view OID/owner/grants and password absent from artifacts.
+  Database 287,288,467 bytes <400M. Paths/results in fact-reviews-verification.json.
+  No known failed review gates remain; source/accepted models unchanged.
+  M4 accepted individually across nineteen models; full source/frontend/
+  advisory gate remains historical, no E2E/deployment/full exit audit run.
+  Scoped final acceptance diff/handoff reviewed; complete eleven-file
+  staged-content/history scans passed. Publish containing checkpoint
+  and confirm clean/synchronized Git before handoff.
+
 
 - Payment fact: independent candidate source and main harness/final handoff
   reviews approved. Candidate offline 55 passed (0.43s); adopted payment/
@@ -380,21 +394,21 @@ protocols apply. Synced project references and source datasets remain unchanged.
 
 ## Current Repository Condition
 
-PARTIALLY IMPLEMENTED / SAFE TO RESUME: review source/offline/native gates
-passed; no review fact built. Accepted baseline 2829ce2 preserved; no known
-failed checks, migration, source/dependency/credential mutation or deletion.
-Publish source checkpoint and confirm clean Git before first selected build.
-M5 and the exit governance gate remain pending.
+CLEAN / STABLE at published M4 acceptance checkpoint; verify Git on resume.
+Payment/review units COMPLETE; M4 COMPLETE; larger Phase 3 SAFE TO RESUME.
+M5 not started. No failed checks, partial next model, migration, source/
+dependency/credential mutation or resource deletion. Governance/Phase 4 pending.
 
 ## Incomplete Work
 
-- M4: fact_reviews remains; all nine staging models, five dimensions,
-  mapping, fact_orders/fact_order_items/fact_payments accepted.
+- M4 complete: all nine staging models, five dimensions, mapping and
+  all four facts accepted. Do not restart or redo them.
 - M5: technical order-component mart, reliable examples, measured query plans/performance
   and reconstruction/recovery proof; aggregate independent children before joins.
 - Shipping warnings are accepted in fact_order_items; later durations
   still require present ordered events. No business eligibility added.
-- Multiple-review counts for 547 orders belong in core/mart; no selected-review policy.
+- Review fact retains all pairs; M5 must independently aggregate review
+  counts, preserving 547 multiple-review orders, without selected-review policy.
 - Recommended Phase2 parser debt: pandas accepts nonpadded dates/leap-second rollover/
   now/today. Strict warehouse guard mitigates; maintainer fixes before new source version.
 - Recommended precise API double transport gate above, before coordinate reads.
@@ -403,29 +417,35 @@ M5 and the exit governance gate remain pending.
 
 ## Exact Next Actions
 
-1. Confirm containing review source checkpoint published and Git clean.
-   First selected fact_reviews build must pass one view/all 14 data tests.
-2. Run read-only physical acceptance with only
-   COMMERCE_WAREHOUSE_FACT_REVIEWS_INTEGRATION=1; independent raw/staging/core
-   twelve fields, comments/lineage/events/warnings/calendar/types and access.
-3. Repeat selected build; preserve 99,224 pairs, missing title/message counts
-   87,656/58,247, zero reversals and 547 multiple-review orders; verify view
-   identity/owner/grants, artifact secrecy and database size below 400M.
-4. Record acceptance/M4 completion, scan/checkpoint/publish and confirm Git.
-5. M5 technical child-aggregated mart/examples/measured plans/performance/
-   reconstruction/recovery; governance only after Phase 3, before Phase 4.
+1. Check usage/Git/history against this M4 checkpoint. Read ADR 0003's
+   mart_order_components contract, phase-3-plan.md M5 and accepted four fact
+   SQL/YAML/guides; inspect existing role/recovery contracts. No M4 rebuild,
+   source reload, role reprovision or old phase implementation is needed.
+2. Scope M5 at one order: independently aggregate each child before LEFT
+   JOIN to fact_orders. Preserve all 99,441 orders; expose counts, exact
+   source price/freight/payment amounts and quality/presence indicators.
+   Zero child count must differ from real zero amounts; absent sums remain
+   NULL. Retain multiple-review counts; no KPI/selected-review eligibility.
+3. Implement/verify bounded mart unit with fanout/missing-child/money/quality
+   fixtures, source conservation, private reader access and first/repeat
+   acceptance; checkpoint. Recheck capacity before any materialization.
+4. Reliable technical query examples and measured plans/performance; prove
+   reconstruction/recovery using retained source and versioned migrations/
+   dbt. Review any destructive resource actions before requesting permission.
+5. Complete Phase 3 verification/docs/checkpoint, then comprehensive governance
+   audit and required corrections before Phase 4; carry deferred debt forward.
 
 ## Git State
 
-- Branch feat/warehouse-foundation; main unchanged/unmerged. Accepted item
-  checkpoint 0171b40 and payment source e50d47c are published; Git was clean
-  before first payment build. Payment acceptance checkpoint is the containing
-  commit: git log -1 --format="%H %s" -- WORK_STATE.md. Verify clean and
-  synchronized Git after publication and on resume. No merge/deployment.
-- Latest observed allowance 69% five-hour/95% weekly remaining on
-  2026-10-04, account-wide and not a reservation. No paid changes/reset
-  credits used. Payment accepted at 2829ce2; review source checkpoint is
-  the containing commit. Publish clean before first review build.
+- Branch feat/warehouse-foundation; main unchanged/unmerged. Payment source
+  e50d47c and review source 23101c2 published clean before their live builds.
+  Payment acceptance 2829ce2 published after verified builds. M4/review
+  acceptance checkpoint is the containing commit:
+  git log -1 --format="%H %s" -- WORK_STATE.md. Confirm clean/synchronized Git
+  after publication and on resume. No merge/deployment.
+- Latest observed allowance 64% five-hour/94% weekly remaining on
+  2026-10-04, account-wide and not a reservation. No paid/reset credits used.
+  Both fact units finished; M5 deliberately not started this session.
 
 ## Continuation Commands
 
@@ -441,6 +461,7 @@ git log -5 --oneline
 .venv/Scripts/python.exe -B -m src.warehouse dbt-test --select fact_orders
 .venv/Scripts/python.exe -B -m src.warehouse dbt-test --select fact_order_items
 .venv/Scripts/python.exe -B -m src.warehouse dbt-test --select fact_payments
+.venv/Scripts/python.exe -B -m src.warehouse dbt-test --select fact_reviews
 ```
 
 Use customer-staging.md's retained warehouse/API regression workflow and the customer

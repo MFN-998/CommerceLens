@@ -68,3 +68,7 @@ Database 287141011 bytes <400M. See [acceptance evidence](review-staging-verific
 Full source/frontend/advisory checks were not rerun for this dependency-unchanged unit;
 2026-09-22 results remain historical.
 The comprehensive governance audit follows verified Phase 3 completion, before Phase 4.
+
+The private [review fact](fact-reviews.md) is accepted, retaining all ten
+fields and adding direct creation/answer calendar roles. M4 is complete;
+M5 aggregates review counts without selecting a canonical review.

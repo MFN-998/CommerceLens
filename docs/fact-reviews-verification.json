@@ -1,0 +1,146 @@
+{
+  "verified_at_utc": "2026-10-04T08:55:50.933267+00:00",
+  "model": "core.fact_reviews",
+  "raw_rows": 99224,
+  "staging_rows": 99224,
+  "fact_rows": 99224,
+  "distinct_review_order_pairs": 99224,
+  "missing_title_rows": 87656,
+  "missing_message_rows": 58247,
+  "answer_before_creation_rows": 0,
+  "orders_with_multiple_reviews": 547,
+  "missing_order_references": 0,
+  "database_bytes": 287288467,
+  "first_build": "passed",
+  "repeat_build": "passed",
+  "first_build_elapsed_seconds": 65.287,
+  "repeat_build_elapsed_seconds": 68.7,
+  "relation_identity_owner_and_grants_preserved": true,
+  "password_absent_from_first_and_repeat_artifacts": true,
+  "first_artifacts": ".artifacts/dbt/a255e17bf0e5418caf8f83f75c3fd6a2",
+  "repeat_artifacts": ".artifacts/dbt/96992d6c82634cccb31fd5947934e0ef",
+  "first_results": [
+    {
+      "node": "model.commercelens.fact_reviews",
+      "status": "success"
+    },
+    {
+      "node": "test.commercelens.fact_reviews_domains",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.fact_reviews_grain",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.fact_reviews_relationships",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.fact_reviews_source_reconciliation",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_reviews__load_id.4dd90014ad",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_reviews__source_row.3748d7bb9b",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_reviews_is_answer_before_creation.4e787b7de0",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_reviews_order_id.7f8f3b96a9",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_reviews_review_answer_calendar_date.ed928722d3",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_reviews_review_answer_timestamp.0efc571617",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_reviews_review_creation_calendar_date.e25647f8f1",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_reviews_review_creation_date.7eb4ccf408",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_reviews_review_id.4dfe63e834",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_reviews_review_score.8508a12db1",
+      "status": "pass"
+    }
+  ],
+  "results": [
+    {
+      "node": "model.commercelens.fact_reviews",
+      "status": "success"
+    },
+    {
+      "node": "test.commercelens.fact_reviews_domains",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.fact_reviews_grain",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.fact_reviews_relationships",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.fact_reviews_source_reconciliation",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_reviews__load_id.4dd90014ad",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_reviews__source_row.3748d7bb9b",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_reviews_is_answer_before_creation.4e787b7de0",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_reviews_order_id.7f8f3b96a9",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_reviews_review_answer_calendar_date.ed928722d3",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_reviews_review_answer_timestamp.0efc571617",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_reviews_review_creation_calendar_date.e25647f8f1",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_reviews_review_creation_date.7eb4ccf408",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_reviews_review_id.4dfe63e834",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_reviews_review_score.8508a12db1",
+      "status": "pass"
+    }
+  ]
+}
