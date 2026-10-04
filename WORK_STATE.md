@@ -6,8 +6,8 @@ precedence over chat. Master plan, standards, execution protocol, deletion rule 
 ## Project State
 
 - Phase 3: M1-M4 COMPLETE; M5 mart, reader and technical query unit COMPLETE.
-- Current milestone/task: prepare guarded full-graph reconstruction tooling, then
-  prove the populated warehouse on a separately approved isolated native target.
+- Current milestone/task: full-graph runner source/offline unit COMPLETE; prepare
+  isolated migration/load/provision/grant dispatch next, then prove the populated warehouse on a separately approved isolated native target.
 - Objective: tested private warehouse under Free/views-first ADR 0004, retaining
   all source rows/warnings. Phase 4 EDA, Phase 5 KPI/API and public deployment remain later.
 - Larger Phase 3 SAFE TO RESUME, roughly 10-15% implementation/verification effort
@@ -32,11 +32,17 @@ precedence over chat. Master plan, standards, execution protocol, deletion rule 
 - This session: three aggregate-only total/month/bound-period SQL examples,
   native independent result oracle and bounded read-only measurement tool.
   Source checkpoint c01ee79 published clean before actual database checks.
-  Native results, physical partitions and six measured plans now accepted.
+  Native results, physical partitions and six measured plans accepted at b82c7d7.
+- This session's second unit: separate guarded full-graph callable/tests, exact20
+  views/nine sources/all282 enabled tests, target/file/CA/artifact isolation and
+  pinned preserving-view macro. Existing single-model runner remains unchanged.
 - A/B/D cleanup completed earlier at 177c71d. Retain C fallback/three drafts and
   generated artifacts. No new obsolete resource identified; no deletion this session.
 
 ## Files
+
+- New recovery unit: src/warehouse/dbt_reconstruction.py and
+  tests/test_warehouse_dbt_reconstruction.py; existing one-model wrapper unchanged.
 
 - Created warehouse/queries (three SQL + README), scripts/measure_warehouse_queries.py,
   two query tests, docs/warehouse-query-examples.md, warehouse-query-verification.json
@@ -68,10 +74,28 @@ precedence over chat. Master plan, standards, execution protocol, deletion rule 
 - Fresh populated proof requires isolated native target: duplicating source in
   accepted database exceeds capacity. No local server/container tools found.
   Fresh Free Supabase eligibility/project creation/upload/retention not yet approved.
-  Fixed full-graph bootstrap still needs guarded tooling because eager selected
-  tests may reference unbuilt models. Never weaken current acceptance or TLS.
+  Full-graph source is now verified; eager one-model tests can reference unbuilt
+  children, so recovery uses the fixed full dependency graph. Other operation
+  dispatch remains unfinished. Never weaken current acceptance or TLS.
+- Separate graph callable requires outside-repo purpose settings/test environment,
+  explicit fresh reference/protected-target rejection and no ambient WAREHOUSE
+  override. Fixed macros/source/model/test contracts and full result/invocation
+  checks fail closed. Compiled macro dependencies may grow; definitions stay pinned.
+  Graph1200s budget unproven; per-statement60s and one-thread/retries0 unchanged.
+  Partial committed builds are preserved/inspected, never automatically cleaned.
 
 ## Validation
+
+- Recovery source: focused new/existing-runner 173 passed; warehouse/API
+  1481 passed /1000 deliberate live skips. Ruff lint/format156 files,
+  mypy24 implementations passed. Guarded real offline parse20/282/9 and historical
+  build-manifest compatibility passed; simulated results are not live build proof.
+  Missing/changed preserving macro and startup ValueError review findings corrected;
+  target/containment/env/coverage/status/invocation/failure/retention cases verified.
+  Initial sandbox run blocked retained fixture directories; approved rerun passed
+  (173/23.87s; regression1481/38.24s). No source-test failure remained. Scoped final
+  review passed both corrections. No accepted credentials/database access/live graph.
+  Known AnyIO warning only.
 
 - Query offline11 passed. Retained warehouse/API1394 passed /1000 deliberate
   live skips, 34.31s; known AnyIO alias warning. Ruff lint/format154 files and
@@ -92,23 +116,26 @@ precedence over chat. Master plan, standards, execution protocol, deletion rule 
 - Prior reader: six read-only checks; persistent/repeated exact grant; compatible
   mart rebuild one view/five dbt checks in65.783s, post-build physical check passed.
   Other historical mart/M4 results remain in dated guides/receipts.
-- Query source staged-content/history scans passed (69 commits after source).
-  Acceptance seven-file staged-content/history scans passed before commit. Verify
-  post-commit history scan and clean upstream after publishing this checkpoint.
+- Query source/acceptance complete staged-content/pre/post-commit history scans
+  passed; b82c7d7 published with clean tree/HEAD-upstream0/0. Recovery source four-file
+  full staged-content/history scans passed before commit. Verify post-commit
+  history scan and clean upstream after publishing the containing checkpoint.
 - Full source/frontend/advisory gates historical2026-09-22, unchanged/not rerun.
   Populated reconstruction, E2E/deployment and full governance audit NOT YET RUN.
   check.ps1 deletes resources; use retained checks unless deletion approved.
 
 ## Current Repository Condition
 
-CLEAN / STABLE expected after containing acceptance checkpoint and publish; verify
-actual Git on resume. Query unit COMPLETE, larger Phase 3 SAFE TO RESUME. No live
+CLEAN / STABLE expected after containing source checkpoint/publish; verify actual
+Git on resume. Query and recovery-runner source units COMPLETE; accepted warehouse
+stable and unchanged. Larger Phase 3 SAFE TO RESUME with isolated-operation work pending. No live
 measurement in progress or uncertain database change. Preserve all evidence.
 
 ## Incomplete Work
 
-- Fixed full-graph/isolated configuration/target guards and complete manifest
-  coverage tooling, then separately approved fresh-target populated reconstruction,
+- Isolated admin/loader/transformer configuration and migration/load/provision/grant
+  target guards/orchestration (full-graph callable verified), then separately
+  approved fresh-target populated reconstruction,
   full reconcile/repeat/access/query/size evidence and final M5 handoff.
 - Q01 measured latency/spills; review before future API analytics, not silently ignored.
 - Phase 2 pandas parser accepts loose dates/leap rollover/now/today; strict
@@ -122,10 +149,12 @@ measurement in progress or uncertain database change. Preserve all evidence.
 
 ## Exact Next Actions
 
-1. Inspect src/warehouse/dbt_runner.py and docs/warehouse-reconstruction-plan.md;
-   prepare the smallest fixed twenty-view/full-enabled-test bootstrap path with
-   isolated purpose files, explicit expected target and protected-target rejection.
-   Validate offline dispatch/failure/manifest coverage before a live target exists.
+1. Inspect src/warehouse/config.py, credentials.py, loading.py, migrations.py and
+   access.py; add the smallest isolated-operation dispatch around existing functions,
+   explicitly matching a fresh expected reference and rejecting protected target for
+   each purpose. Verify absolute isolated CA handling/protected files/no fallback,
+   uncertain commit/retry and capacity guards offline before any new hosted target.
+   Reuse verified dbt_reconstruction callable; no accepted-target rebuild/reload.
 2. Check actual Free eligibility and obtain specific new-target/upload/retention
    approval after concrete tooling review. Preserve existing credentials/database.
 3. Follow reconstruction plan migration/provision/load/repeat/full graph/post-model
@@ -136,12 +165,14 @@ measurement in progress or uncertain database change. Preserve all evidence.
 ## Git State
 
 - Branch feat/warehouse-foundation; main unchanged/unmerged. Resume baseline7b3cc8c;
-  query source c01ee79. Acceptance is the containing commit:
+  query source c01ee79/query acceptance b82c7d7. Recovery source checkpoint is
+  the containing commit:
   git log -1 --format="%H %s" -- WORK_STATE.md.
 - Verify clean working tree and HEAD/upstream equality after publish/on resume.
   Disable auto Git maintenance, stage exact files and scan full content/history.
-- Latest actual account-wide usage67% five-hour /81% weekly remaining2026-10-04;
-  observation, not task-cost prediction. Recheck before larger new units.
+- Latest actual account-wide usage33% five-hour /76% weekly remaining2026-10-04;
+  observation, not task-cost prediction. Finish/document current unit; defer new
+  cross-cutting dispatch work to next session. No usage exhaustion this session.
 
 ## Continuation Commands
 
@@ -154,6 +185,7 @@ Get-Content WORK_STATE.md
 Get-Content docs/warehouse-reconstruction-plan.md
 $env:PYTEST_DISABLE_PLUGIN_AUTOLOAD='1'
 $env:PYTHONDONTWRITEBYTECODE='1'
+.venv/Scripts/python.exe -B -m pytest tests/test_warehouse_dbt_reconstruction.py tests/test_warehouse_dbt.py -o 'addopts=-q' --capture=sys -p no:cacheprovider --tb=short
 # Optional accepted query revalidation, not required to repeat on unchanged source:
 $env:COMMERCE_WAREHOUSE_QUERY_EXAMPLES_INTEGRATION='1'
 .venv/Scripts/python.exe -B -m pytest tests/test_warehouse_query_examples_postgres_integration.py -o 'addopts=-q' --capture=sys -p no:cacheprovider --tb=short

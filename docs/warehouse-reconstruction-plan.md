@@ -1,6 +1,7 @@
 # Populated warehouse reconstruction plan
 
-Phase 3 M5 draft. **NOT EXECUTED; reconstruction proof remains pending.**
+Phase 3 M5. Full-graph runner source/offline verification COMPLETE.
+**LIVE RECONSTRUCTION NOT EXECUTED; populated proof remains pending.**
 The accepted CommerceLens Supabase target, source files, private configurations,
 certificates and retained artifacts stay protected. This plan reconstructs the
 development warehouse from immutable source and versioned code; it does not prove
@@ -8,11 +9,12 @@ a populated backup restore, point-in-time recovery or future reader-login securi
 
 ## Prepare locally before requesting a target
 
-1. Review and checkpoint a bounded reconstruction workflow against the exact twenty
-   approved views. The current runner permits one selected model with eager indirect
-   tests; from an empty graph these can reference children not yet constructed.
-   Prepare a dependency-safe full-graph or bounded batch path, verify exact model/test
-   manifests, and run the complete enabled tests once their dependencies exist.
+1. Complete the remaining isolated configuration/orchestration work around the
+   verified full-graph runner. The broader reconstruction workflow uses the exact twenty
+   approved views. The normal single-model CLI uses eager indirect tests; from an
+   empty graph these can reference children not yet constructed. Use the verified
+   full-graph callable below and verify exact model/test manifests and the complete
+   enabled tests once dependencies exist.
    Do not bypass the runner, suppress failing tests or weaken existing acceptance.
 2. Test isolated configuration dispatch for admin, loader and transformer, verified
    certificate paths, retained artifact directories, target identity and failure/retry
@@ -26,6 +28,61 @@ Local database/container tools are unavailable in the feasibility assessment.
 An alternate engine would require an adapter and separate proof of native money,
 timestamp, role/ACL and dbt behavior. A fresh native Supabase Free project therefore
 requires the least additional tooling if it is available and eligible.
+
+## Guarded full-graph source unit — 2026-10-04
+
+`src.warehouse.dbt_reconstruction.run_dbt_graph(command, *, settings_root,
+expected_project_ref)` is a separate callable for `build` or `test` only. It keeps
+code/project/profile paths fixed, leaves the accepted one-model wrapper unchanged,
+and accepts no caller selector, SQL, materialization, profile or flags. It is not
+yet exposed as a CLI and does not orchestrate migrations/loading/provisioning/grants.
+
+The explicit settings directory must exist outside the code repository and cannot
+contain that repository. Load only its transformer purpose file, require test
+environment and the expected native project identity, reject the protected
+`imvahwzlovgmaltuysmb` target and all ambient WAREHOUSE overrides. The resolved
+purpose file, CA and UUID artifact paths must remain inside that isolated directory;
+there is no fallback to accepted credentials or certificates.
+
+Synthetic offline parse precedes live dispatch. The graph requires exactly twenty
+approved view names/aliases/schemas, nine raw/postgres sources and all enabled
+blocking tests with zero-failure thresholds and no failure storage/filter/limit.
+Reject unexpected executable resources, disabled nodes, hooks and wrong references.
+Require the reviewed preserving-view macro's pinned definition and all six local
+macro definitions; missing/changed override cannot silently activate dbt's normal
+backup/cleanup behavior. Compare code, checksums, config, columns and relation
+dependencies between preflight/live; compilation-added macro dependency lists are
+excluded because they legitimately grow. Macro definitions remain compared.
+
+Build requires every approved view success and every enabled test pass/zero failures;
+test requires every enabled test pass/zero failures without asserting model builds.
+Reject missing/extra/duplicate/failed/warned/skipped/stale-invocation evidence, even
+after subprocess zero exit. The current accepted graph has 20 views and 282 tests.
+
+One thread, zero retries, verify-full TLS, existing dedicated capability and
+SQL60s/lock10s/idle60s remain fixed. Parse budget120s; whole graph budget1200s
+is a conservative upper bound, **unproven on a fresh Free target**, not a completion
+promise or consumer latency target. Builds commit views incrementally; failure or
+timeout requires reconnect/inspection, retained artifacts and explicit continuation,
+without automatic DROP, full refresh, cleanup, credential replacement or source reset.
+Artifacts remain under settings_root/.artifacts/dbt-reconstruction/UUID, separately
+in preflight/target and live/target. Startup/configuration errors are fixed and safe.
+
+Actual source validation: focused recovery/existing-runner 173 passed in 23.87s;
+retained warehouse/API 1481 passed in 38.24s with 1000 deliberate live skips.
+Ruff lint/format 156 files and mypy24 implementation files passed.
+Network-blocked real parsing verifies the unmodified graph; subsequent result
+evidence in that test is explicitly simulated, not a native build. A separate dated
+read-only comparison against the retained accepted build manifest matched the
+real preflight model/test/source contracts after excluding runtime macro-list growth.
+Initial sandbox execution could not create retained fixture directories; the approved
+rerun passed. No source-test failure remained. No accepted private credentials,
+warehouse data or live graph were used for this unit.
+
+**Still required before target approval:** isolated admin/loader/transformer
+configuration dispatch, CA/credential protection, migration/load/provision/grant
+guards and failure/retry orchestration. Do not run existing ROOT-based CLI commands
+with a presumed alternate target or create the hosted target before that preparation.
 
 ## Concrete target approval, after local preparation
 
