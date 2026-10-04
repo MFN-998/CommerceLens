@@ -101,7 +101,9 @@ forecast or model-count percentage. Foundation/loading/dbt/source staging are co
 Order mart computation and scoped reader access are now accepted. Remaining:
 approved fresh-target populated proof and final handoff. Full-graph, isolated
 one-step migration/load/provision/grant and final42-case acceptance tooling are
-now verified offline; no fresh native reconstruction has been run.
+now verified offline. Approved Free/Tokyo recovery target and private settings
+are established; PostgreSQL17.11 read-only identity/TLS/empty-state/capacity
+preflight passed. Fresh native migration/load/build/acceptance remain unrun.
 Technical SQL and bounded plan measurements are now accepted; Q01 retains their
 latency/spill limitation for a future API performance gate.
 Completed dim_location's unique three-source ZIP domain with observation, coverage

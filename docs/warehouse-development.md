@@ -2,7 +2,10 @@
 
 Phase 3 M2 uses the owner's existing **CommerceLens** Supabase project as a dedicated
 development target. Its dashboard branch label `main / PRODUCTION` is Supabase terminology;
-this is not a CommerceLens production deployment. Do not create a duplicate project.
+this is not a CommerceLens production deployment. Preserve this accepted target.
+M5's separately approved CommerceLens-Recovery project is only for populated
+reconstruction verification; use its [isolated workflow](warehouse-reconstruction-plan.md),
+never the ordinary repository-purpose credentials/CLI below.
 
 ## Verified target and scope
 

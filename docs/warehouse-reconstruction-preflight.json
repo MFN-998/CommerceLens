@@ -1,0 +1,29 @@
+{
+  "status": "passed",
+  "mode": "read_only_preflight",
+  "observed_utc": "2026-10-04T18:56:52.596057+00:00",
+  "code_checkpoint": "ed52929",
+  "project_ref": "histbcmlctxmtxusfbzt",
+  "configured_host": "db.histbcmlctxmtxusfbzt.supabase.co",
+  "configured_user": "postgres",
+  "server_version_num": 170011,
+  "metadata": {
+    "capability_roles": [],
+    "default_acl_count": 0,
+    "database": "postgres",
+    "session_user": "postgres",
+    "server_version": "17.11",
+    "database_bytes": 10491571,
+    "sslmode": "verify-full",
+    "tls_in_use": true,
+    "schemas": {}
+  },
+  "migration_ledger_absent": true,
+  "warehouse_job_role_count": 0,
+  "dashboard_verified": {
+    "free": true,
+    "region": "ap-northeast-1",
+    "data_api_enabled": false
+  },
+  "database_modified": false
+}

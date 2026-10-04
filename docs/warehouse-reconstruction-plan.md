@@ -132,7 +132,8 @@ Set-Location 'D:\My Projects\CommerceLens'
 .venv/Scripts/python.exe -B -m src.warehouse.reconstruction inspect --settings-root 'D:\My Projects\CommerceLens-Reconstruction' --expected-project-ref FRESH_PROJECT_REF
 ```
 
-The settings path is proposed, not created. The fresh reference is not invented.
+The isolated settings path now exists; the actual approved fresh reference is
+`histbcmlctxmtxusfbzt`. All examples require that verified reference.
 Change only the fixed step argument after verifying each receipt. Missing or unknown
 arguments fail safely; no selector/custom SQL/profile options are accepted.
 
@@ -191,31 +192,53 @@ Actual offline validation: adapter+dispatcher 97 passed in 0.82s; retained wareh
 deprecation warning. Ruff lint/format 160 files and mypy 26 implementations passed.
 Scoped review found no blocker. These offline tests simulate subprocess/pytest
 outcomes; **the native 42-case run and populated reconstruction are NOT YET RUN**.
-Local dispatch/full-graph/final-check preparation is complete; the next prerequisite
-is explicit resource approval and private target configuration, not reimplementation.
+Local dispatch/full-graph/final-check preparation is complete. Resource approval,
+private admin configuration and the native read-only preflight now passed;
+unchanged migrations are next. Do not reimplement the verified tooling.
 
-## Concrete target approval, after local preparation
+## Approved target and native preflight — 2026-10-04
 
-Check current Free-project eligibility, organization quota and capacity before
-requesting approval to create **one isolated reconstruction project**. A dated signed-in dashboard/form inspection
-found the CommerceLens Free
-organization with one visible current project and no displayed quota error. This
-does not prove account-wide eligibility. No paid plan or project creation is
-authorized by the existing project's approval.
-The approval must identify the new target, intended source upload and retention.
-If Free is unavailable, stop and present a reviewed alternative before proceeding.
-The non-secret browser draft is CommerceLens-Recovery, Northeast Asia (Tokyo),
-Data API disabled, no GitHub integration/add-ons. It has not been created; the
-database password is blank. The owner must enter the new credential and submit
-the form themselves. Obtain approval for this project, all nine unchanged Olist
-source tables/1,550,922 rows and retention before upload. Preserve both projects
-unless specific later deletion approval is provided. No paid upgrade is authorized.
+Owner specifically approved one CommerceLens-Recovery Free/Tokyo project, Data API
+disabled, all nine unchanged source tables/1,550,922 rows and retention. The owner
+entered the new password and submitted creation, then saved it privately in the
+separate admin file. No paid upgrade or deletion of either project is authorized.
+Actual dashboard confirms CommerceLens FREE, Tokyo/Nano, reference
+`histbcmlctxmtxusfbzt` and Enable Data API OFF/no schemas queryable.
 
-Use separate protected configuration files for all three purposes, a separate CA
-certificate path and separate artifact roots. Never replace the accepted target's
-files, environment or artifacts. Privately configure the approved target from its
-actual connection details; preserve hostname verification and private schema/API
-boundaries. Target creation does not authorize deleting either project afterward.
+Separate settings root: `D:\My Projects\CommerceLens-Reconstruction`.
+Protected `.env.warehouse` uses test/admin, the actual direct host
+`db.histbcmlctxmtxusfbzt.supabase.co`, port5432/database postgres/user postgres.
+Its public CA is `.credentials/supabase-ca.crt`; observed official dashboard URL
+and verified SHA256 `700723581420dd1ac98fd7e9ac529f0ef210eadcaf87fc868a3ad7d114c2f3b7`
+match the trusted published CA. Initial Python HTTPS preparation stopped before
+file creation; existing empty directories were retained, Windows HTTPS download
+succeeded, and exclusive creation/protection completed without replacement/deletion.
+No private content or connection string is recorded here or in Git.
+
+[Native preflight receipt](warehouse-reconstruction-preflight.json) passed at
+2026-10-04T18:56:52Z on source checkpoint ed52929: PostgreSQL17.11/170011,
+session/current user and database postgres, verify-full TLS active, all five
+warehouse schemas absent, all six warehouse capability/job roles absent,
+zero warehouse defaults, ledger absent and database10,491,571 bytes (below33M).
+Read-only checks changed no database objects. Original settings/target remain intact.
+
+Scoped review of the official [17.11](https://www.postgresql.org/docs/17/release-17-11.html),
+[17.10](https://www.postgresql.org/docs/17/release-17-10.html),
+[17.9](https://www.postgresql.org/docs/17/release-17-9.html),
+[17.8](https://www.postgresql.org/docs/17/release-17-8.html) and
+[17.7](https://www.postgresql.org/docs/17/release-17-7.html) patch notes did not
+identify a need to redo Phase3's full parser/boundary matrices. This is a scoped
+inference, not blanket version certification. Stored-expression type privileges
+will be exercised by the restricted native build; existing Decimal/oracle checks
+cover relevant money behavior. Fixed numeric dates/naive timestamps and literal C
+collations do not use the changed localized date/SQL-JSON/money-type or
+nondeterministic-collation paths. Require migrations/permissions/build/42 native
+checks to pass on this actual patch; investigate any new failure before proceeding.
+
+Native migrations, role provisioning, source loading, graph construction and final
+acceptance are **NOT YET RUN** on this recovery target. Loader and transformer
+purpose files are not yet created. Preserve failed attempts; no fallback to original
+credentials, no ambient routing, no weaker TLS and no automatic retry/cleanup.
 
 ## Exact construction and verification order
 

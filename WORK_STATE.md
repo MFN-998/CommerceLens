@@ -29,12 +29,14 @@ precedence over chat. Master plan, standards, execution protocol, deletion rule 
   isolated child: exact 22 files/current 42 cases, purpose bindings/CA guarded, no
   inherited plugins/conftest/cache, private outputs discarded, complete three-phase
   case coverage required. Atomic safe receipts retained, no retry/cleanup.
-- Non-secret browser draft CommerceLens-Recovery/Free/Tokyo/DataAPI off is prepared,
-  owner explicitly APPROVED2026-10-04: one Free/Tokyo project, DataAPI disabled,
-  nine unchanged source tables/1,550,922 rows and retention for reconstruction.
-  Creation/private password entry/submission handed to owner, dashboard confirmation
-  pending; no new project or isolated configuration yet verified. Free eligibility
-  not guaranteed; no paid commitment or project deletion authorized.
+- Current recovery unit: owner approved/created Free/Tokyo CommerceLens-Recovery,
+  actualref histbcmlctxmtxusfbzt; dashboard confirms Data API disabled/Nano.
+  Isolated outside-repo protected admin file and verified public CA prepared;
+  owner saved new password privately. No original files/target changed.
+  Native read-only preflight passed17.11/170011/TLS verify-full/postgres identity,
+  empty warehouse schemas/capabilities/jobs/defaults/ledger,10,491,571 bytes.
+  Migrations/provision/load/build/42-case acceptance NOT YET RUN on new target.
+  Pre-risk checkpoint represents a verified empty target; both projects retained.
 
 - Phases 1-2 and professional-practices retrospective/remediation COMPLETE.
 - M1/M2 contract/private foundation, migration replay, TLS/capability denials and
@@ -61,6 +63,11 @@ precedence over chat. Master plan, standards, execution protocol, deletion rule 
   generated artifacts. No new obsolete resource identified; no deletion this session.
 
 ## Files
+
+- Current preflight: adds docs/warehouse-reconstruction-preflight.json; updates
+  reconstruction/development/phase3 guides and this handoff. Outside-repo isolated
+  root adds protected admin file, public CA, non-secret preparation/native receipts.
+  No files deleted/renamed; no original environment/model/migration/data change.
 
 - Current acceptance unit adds src/warehouse/reconstruction_acceptance.py and
   tests/test_warehouse_reconstruction_acceptance.py; reconstruction/phase plans
@@ -104,7 +111,8 @@ precedence over chat. Master plan, standards, execution protocol, deletion rule 
 - Fresh populated proof requires isolated native target: duplicating source in
   accepted database exceeds capacity. No local server/container tools found.
   Fresh Free Supabase project/upload/retention approved2026-10-04; actual
-  eligibility and created-target dashboard confirmation still pending.
+  creation/Free/Tokyo/DataAPIoff and native17.11 empty-target preflight verified.
+  Scoped official patch-note review requires existing native gates, no phase redo.
   Full-graph source is now verified; eager one-model tests can reference unbuilt
   children, so recovery uses the fixed full dependency graph. Other operation
   dispatch and isolated acceptance source now verified; native proof pending. Never weaken current acceptance or TLS.
@@ -116,6 +124,14 @@ precedence over chat. Master plan, standards, execution protocol, deletion rule 
   Partial committed builds are preserved/inspected, never automatically cleaned.
 
 ## Validation
+
+- Current unit: actual read-only fresh native preflight passed2026-10-04T18:56:52Z;
+  safe aggregate receipt stored outside root and in docs/warehouse-reconstruction-preflight.json.
+  Dashboard Data API OFF/Free/Tokyo verified; native17.11 identity/TLS/empty-state/
+  capacity passed. No migration/provision/load/build/acceptance yet. Documentation/
+  private setup only; implementation/dependencies unchanged, prior source gates
+  remain dated evidence, not rerun. Complete staged-content/history scans and clean
+  published Git state must be verified for containing checkpoint.
 
 - Final-check+dispatcher 97 passed in 0.82s; retained warehouse/API 1578 passed in 43.26s,
   1000 deliberate live skips, known AnyIO warning. Ruff lint/format 160 files and
@@ -181,16 +197,16 @@ precedence over chat. Master plan, standards, execution protocol, deletion rule 
 
 CLEAN / STABLE at published c961aff confirmed; local tooling task COMPLETE.
 Final preservation documentation is the containing checkpoint; verify Git on resume.
-Local recovery preparation COMPLETE; new target approved; owner creation/private
-configuration pending. Source acceptance and preserved baseline remain unchanged.
+Local recovery preparation COMPLETE; approved new target and private admin
+configuration/native empty-target preflight verified. First migrations pending. Source acceptance and preserved baseline remain unchanged.
 Accepted warehouse unchanged. Larger Phase 3 SAFE TO RESUME: fresh native proof
 and final handoff pending; no uncertain live operation or interrupted build.
 Preserve C, credentials/source data and all generated evidence.
 
 ## Incomplete Work
 
-- Owner creation/dashboard confirmation of approved Free recovery project,
-  isolated private configuration, then full populated reconstruction,
+- Apply unchanged migrations to verified fresh recovery target, provision
+  restricted job logins, then full populated reconstruction,
   full reconcile/repeat/access/query/size evidence and final M5 handoff.
 - Q01 measured latency/spills; review before future API analytics, not silently ignored.
 - Phase 2 pandas parser accepts loose dates/leap rollover/now/today; strict
@@ -204,20 +220,18 @@ Preserve C, credentials/source data and all generated evidence.
 
 ## Exact Next Actions
 
-1. Await owner's dashboard-ready confirmation for approved CommerceLens-Recovery.
-   Owner approval received2026-10-04 for Free/Tokyo/DataAPI off, all nine unchanged
-   source tables and retention. Private new-password entry/submission handed off in
-   preserved Supabase tab; do not request credentials in chat or re-ask this approval.
-   Verify Free eligibility and created project/reference. If unavailable/paid upgrade
-   required, stop for a reviewed alternative. No project deletion authorized.
-2. Recover its actual project reference/connection/public CA details, then create
-   isolated protected test-purpose configuration under the proposed outside-repo
-   D:\My Projects\CommerceLens-Reconstruction root. Never change original purpose
-   files or globally override WAREHOUSE/PG environment. Inspect version/empty state/
-   initial capacity before unchanged migration/provision/load. Different PostgreSQL
-   version requires boundary re-evaluation. Tooling complete; do not redo it.
-3. Follow reconstruction plan migration/provision/load/repeat/full graph/post-model
-   grant/physical/source/query/access/capacity order. Preserve failed attempts.
+1. Recover clean checkpoint and read native preflight receipt/plan. On approved
+   histbcmlctxmtxusfbzt using D:\My Projects\CommerceLens-Reconstruction, run the
+   fixed `migrate` dispatcher; require applied count2, replay0 and exact checksums.
+   Then `verify` privileges; fixtures must roll back. No source data loaded yet.
+2. Provision restricted loader/transformer purpose files with existing dispatcher,
+   then verify schema/role/default/empty-table state and initial capacity before load.
+   Do not change original files, log credentials, re-ask approved upload/retention,
+   create reader credentials or delete resources. Native version17.11 patch review
+   recorded; require actual existing gates, investigate failures before proceeding.
+3. Follow reconstruction plan full load/verified repeat/full graph/post-model grant/
+   physical/source/query/access/capacity order. Preserve failed attempts, checkpoint
+   each meaningful unit and check usage before major load/build. No phase restart.
 4. Finish verified Phase 3 handoff here; create a new CommerceLens chat for the
    required governance audit/corrections/regressions. After that gate, create a
    separate Phase 4 chat, and separate chats for each subsequent phase. Repository
@@ -225,18 +239,18 @@ Preserve C, credentials/source data and all generated evidence.
 
 ## Git State
 
-- Branch feat/warehouse-foundation; main unchanged/unmerged. Current resume baseline edf072b;
+- Branch feat/warehouse-foundation; main unchanged/unmerged. Current resume baseline ed52929;
   query source c01ee79/query acceptance b82c7d7/recovery source edf072b; workflow
   590863b, dispatchera2bed4f and verified final-check sourcec961aff published.
-  Pre-approval preservationfd28354 published clean; approved-target handoff
-  checkpoint is the containing commit:
+  Pre-approval preservationfd28354 published clean; approved-target handoffed52929 published; verified
+  preflight checkpoint is the containing commit:
   git log -1 --format="%H %s" -- WORK_STATE.md.
 - Verify clean working tree and HEAD/upstream equality after publish/on resume.
   Disable auto Git maintenance, stage exact files and scan full content/history.
-- Latest actual account-wide usage45% five-hour/67% weekly remaining2026-10-04.
-   Earlier 99/75 at reset, 80/72, 72/71 and 47/67 before atomic units. These are observations,
-   not task-cost predictions. Preserve the verified source checkpoint; native proof
-   waits owner creation/private configuration. Recheck usage before any major live unit.
+- Latest actual account-wide usage30% five-hour/64% weekly remaining2026-10-04.
+  Observed values are not task-cost predictions. Reduce next-unit scope as needed;
+  preserve checkpoint and recheck before major native load/build.
+
 
 ## Continuation Commands
 
