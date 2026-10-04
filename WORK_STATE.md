@@ -6,9 +6,10 @@ Master plan, engineering standards, execution protocol, deletion rule and ADRs a
 ## Project State
 
 - Phase 3 Database/SQL/Analytics Engineering: M1-M4 COMPLETE; M5 in progress.
-- Current milestone: scoped mart reader access COMPLETE / VERIFIED.
-- Current task: reader access accepted; next technical SQL examples and
-  measured consumer query plans. No interrupted implementation remains.
+- Current milestone: technical SQL examples and measured query plans IN PROGRESS.
+- Current task: three aggregate-only SQL candidates, native result-oracle tests
+  and bounded read-only performance tooling being prepared. Source adopted; offline/static
+  validation passed; native/performance NOT YET RUN; reader/mart baseline remains accepted. No source reload/redesign.
 - Objective: tested private warehouse under Free/views-first ADR 0004, preserving
   all source rows/warnings. No Phase 4 EDA, Phase 5 KPI policy or public deployment.
 - Larger Phase 3 SAFE TO RESUME; examples, performance, populated reconstruction
@@ -37,6 +38,10 @@ Master plan, engineering standards, execution protocol, deletion rule and ADRs a
   generated artifacts. No new obsolete resource needing deletion identified.
 
 ## Files
+
+- Current query unit created warehouse/queries (three SQL + README),
+  scripts/measure_warehouse_queries.py, two query tests, docs/warehouse-query-examples.md
+  and warehouse-reconstruction-plan.md. No dependency/model/data/configuration change.
 
 - Created warehouse/access/mart_order_components.sql, src/warehouse/access.py,
   tests/test_warehouse_mart_access.py, test_warehouse_mart_reader_integration.py,
@@ -71,6 +76,17 @@ Master plan, engineering standards, execution protocol, deletion rule and ADRs a
   one thread/zero retries; safe errors/no sensitive row logging.
 
 ## Validation
+
+- Query source/offline: 11 focused cases passed; retained warehouse/API1394 passed /
+  1000 deliberate live skips. Initial script typecheck found two unchecked optional
+  database fetches; explicit missing-result guards added. Import spacing corrected.
+  Final Ruff lint/format154 files, mypy23 implementation files + one measurement
+  script, diff whitespace and focused11 recheck passed. Native11 cases and
+  physical measurements NOT YET RUN.
+
+- Current query unit: scoped candidate source/harness reviews and AST/Ruff checks
+  passed; adopted source runtime/full gates NOT YET RUN. All native fixtures are
+  typed read-only CTEs; no persistent tables/rows or permission changes.
 
 - Reader source: 17 focused cases passed. Retained warehouse/API: 1383 passed /
   988 deliberate live skips (before sixth native guard case). After role correction,
@@ -107,11 +123,17 @@ Master plan, engineering standards, execution protocol, deletion rule and ADRs a
 
 ## Current Repository Condition
 
-CLEAN / STABLE after containing acceptance checkpoint is published and Git confirmed.
-Reader access milestone COMPLETE; larger Phase 3 SAFE TO RESUME. No known reader
-failures/partially implemented changes. No merge/deployment or new reader credentials.
+PARTIALLY IMPLEMENTED: query source/offline/static accepted; native/performance checks
+pending. Accepted mart/reader/upstream foundation remains stable; no database
+changes, model rebuild, dependency/configuration change or deletion.
 
 ## Incomplete Work
+
+- Recovery feasibility confirmed: full populated proof requires a fresh isolated
+  target; another landing in the accepted database exceeds storage ceilings. No
+  local PostgreSQL/Docker server tools found. Separate Free Supabase target choice/
+  eligibility/approval still missing. Fixed full-graph dbt bootstrap needs reviewed
+  tooling because eager one-model tests can reference unbuilt children.
 
 - M5 technical examples, measured consumer plans/performance, full populated
   reconstruction/recovery proof and final handoff. Governance only after verified
@@ -126,13 +148,11 @@ failures/partially implemented changes. No merge/deployment or new reader creden
 
 ## Exact Next Actions
 
-1. Read docs/master-plan.md Phase 3 boundary, order-components.md and
-   mart-reader-access.md; inspect existing SQL examples in warehouse/dbt. Add
-   reviewed technical aggregate queries against the approved mart, preserving
-   NULL/zero/warnings and avoiding Phase 4 findings/Phase5 official KPI definitions.
-2. Verify those queries under effective reader; measure representative plans and
-   latency within existing timeouts. Preserve plan artifacts; assess views-first
-   bottlenecks from evidence before considering any materialization change.
+1. Verify containing query-source checkpoint is clean/published. Run native11
+   typed fixture cases, then serial read-only
+   measurements via scripts.measure_warehouse_queries --run; retain all outputs.
+2. Validate source totals/month/status partitions, inspect actual plans/spills,
+   document views-first implications and checkpoint accepted query evidence.
 3. Prove populated reconstruction against an isolated approved target with guarded
    migrations/load/model/grant order and complete reconciliation; never overwrite
    the accepted source or delete artifacts without permission. Then final M5 handoff.
@@ -142,13 +162,14 @@ failures/partially implemented changes. No merge/deployment or new reader creden
 ## Git State
 
 - Branch feat/warehouse-foundation; main unchanged/unmerged. Resume baseline
-  a74bd09. Reader source 0f853c7/correction cc29398 published clean before persistent
+  7b3cc8c. Reader source 0f853c7/correction cc29398 published clean before persistent
   grant. Acceptance checkpoint is the containing commit:
   git log -1 --format="%H %s" -- WORK_STATE.md.
 - Verify working tree/upstream clean after publish/on resume. Disable auto Git
   maintenance/cleanup, stage exact reviewed files, scan full contents/history.
-- Latest actual usage 11% five-hour / 86% weekly remaining, 2026-10-04;
-  account-wide observation, not task-cost prediction. Wrap this unit; recheck on resume.
+- Latest actual usage 76% five-hour / 82% weekly remaining, 2026-10-04;
+  account-wide observation, not task-cost prediction. New window reset; proceed in
+  bounded verified milestones and recheck periodically.
 
 ## Continuation Commands
 
