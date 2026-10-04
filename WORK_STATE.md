@@ -12,12 +12,20 @@ precedence over chat. Master plan, standards, execution protocol, deletion rule 
   then prove the populated warehouse on a separately approved isolated native target.
 - Objective: tested private warehouse under Free/views-first ADR 0004, retaining
   all source rows/warnings. Phase 4 EDA, Phase 5 KPI/API and public deployment remain later.
-- Larger Phase 3 SAFE TO RESUME, roughly 10-15% implementation/verification effort
+- Larger Phase 3 SAFE TO RESUME, roughly 5-10% implementation/verification effort
   remaining (reasoned range, not a time/model-count forecast). Exit audit effort unknown.
 
 ## Completed Work
 
-- Current session: recovered clean published edf072b with no partial source;
+- Recovery full source unit COMPLETE: first loaded/all1,550,922 rows; reconnected
+  repeat verified_existing/all rows with full ordinal/text-digest/exact-money proof.
+  One unchanged registry identity/source evidence/timestamp/manifest; no duplicates.
+  Final metadata verifies per-table counts,17.11/TLS/private API/PUBLIC denials,
+  no derived views and raw/database275,988,480 / 286,848,691 bytes (within367M/400M).
+  Immutable source/provenance unchanged. No uncertain operation/source failure;
+  fixed full graph/reader/final acceptance not run. Aggregate evidence retained.
+
+- Current session: recovered clean published ed52929 with no partial source;
   workflow checkpoint590863b records new-chat requirement. Phase 3 stays here;
   only after verified completion create audit chat, then each later phase separately.
 - Isolated one-step dispatcher wraps existing migration/load/provision/grant and
@@ -42,7 +50,7 @@ precedence over chat. Master plan, standards, execution protocol, deletion rule 
   probes rolled back. Restricted loader/transformer logins provisioned privately;
   actual TLS authentication, no implicit inheritance and exact parent activation
   passed. Reader NOLOGIN; database10,884,787 bytes; raw/registry empty.
-  Full load/repeat/build/42-case acceptance NOT YET RUN on new target.
+  Full source load/repeat now COMPLETE; graph/42-case acceptance pending.
 
 - Phases 1-2 and professional-practices retrospective/remediation COMPLETE.
 - M1/M2 contract/private foundation, migration replay, TLS/capability denials and
@@ -69,6 +77,11 @@ precedence over chat. Master plan, standards, execution protocol, deletion rule 
   generated artifacts. No new obsolete resource identified; no deletion this session.
 
 ## Files
+
+- Load unit adds docs/warehouse-reconstruction-load.json; updates reconstruction/
+  phase3 guides/WORK_STATE. Retained isolated start/result/registry/aggregate markers;
+  nine recovery raw tables populated, one registry row. No source/config/model/
+  migration/dependency change, project-resource deletion/rename or original DB write.
 
 - Foundation unit adds docs/warehouse-reconstruction-foundation.json and updates
   reconstruction/phase3 guides/WORK_STATE. Outside-repo adds two protected purpose
@@ -136,7 +149,19 @@ precedence over chat. Master plan, standards, execution protocol, deletion rule 
 
 ## Validation
 
-- Current foundation unit: native migrations applied2/replay0, privilege checks
+- Current load unit: first/repeat/native metadata passed; safe detailed receipt
+  docs/warehouse-reconstruction-load.json. Full per-table ordinal/text digests/
+  exact money validated by existing loader both runs; final metadata checks registry
+  equality/provenance/counts/TLS/storage and schema/table/column denials. No third
+  full content scan. Raw/database275,988,480 / 286,848,691 bytes; limits passed.
+  Unchanged source implementation: prior offline/static evidence not rerun.
+  Recovery graph/282dbt/42independent checks NOT YET RUN. Complete staged-content
+  scan4files, all retained recovery artifact scan and pre-commit history78commits
+  passed; staged diff check passed. Post-commit history/publication/clean upstream
+  must be confirmed for containing checkpoint/on resume. Foundation2c2b123 already
+  scanned78commits/published clean0/0. No secrets found by these dated tools.
+
+- Earlier foundation milestone: native migrations applied2/replay0, privilege checks
   passed/probes rolled back, exact ledger/schema/roles/defaults/empty-table state
   and real loader/transformer authentication/activation/TLS passed at19:03:24Z.
   Safe receipt docs/warehouse-reconstruction-foundation.json; source code unchanged,
@@ -144,7 +169,7 @@ precedence over chat. Master plan, standards, execution protocol, deletion rule 
   Full source loading/build/acceptance not run. Containing checkpoint scans/publication
   and clean upstream must be confirmed; pre-risk baseline7768fed already clean.
 
-- Current unit: actual read-only fresh native preflight passed2026-10-04T18:56:52Z;
+- Earlier preflight milestone: actual read-only fresh native preflight passed2026-10-04T18:56:52Z;
   safe aggregate receipt stored outside root and in docs/warehouse-reconstruction-preflight.json.
   Dashboard Data API OFF/Free/Tokyo verified; native17.11 identity/TLS/empty-state/
   capacity passed. No migration/provision/load/build/acceptance yet. Documentation/
@@ -214,19 +239,20 @@ precedence over chat. Master plan, standards, execution protocol, deletion rule 
 
 ## Current Repository Condition
 
-CLEAN / STABLE at published c961aff confirmed; local tooling task COMPLETE.
+CLEAN / STABLE source and verified recovery snapshot; meaningful load unit COMPLETE.
 Final preservation documentation is the containing checkpoint; verify Git on resume.
 Local recovery preparation COMPLETE; approved new target and private admin
 configuration/native preflight/migrations/permissions/job authentication verified.
-Full source load is next. Source acceptance and preserved baseline remain unchanged.
+Full source load/repeat verified; fixed graph build is next. Accepted original
+warehouse and source baseline unchanged. Recovery holds one verified snapshot.
 Accepted warehouse unchanged. Larger Phase 3 SAFE TO RESUME: fresh native proof
-and final handoff pending; no uncertain live operation or interrupted build.
+model graph and final handoff pending; no uncertain live operation or interrupted build.
 Preserve C, credentials/source data and all generated evidence.
 
 ## Incomplete Work
 
-- Full source load/repeat on verified recovery foundation, then graph reconstruction,
-  full reconcile/repeat/access/query/size evidence and final M5 handoff.
+- Fixed20-view/282-test native recovery graph, mart grant,42 independent physical/
+  query/reader checks, final capacity/artifact secret checks and M5/Phase3 handoff.
 - Q01 measured latency/spills; review before future API analytics, not silently ignored.
 - Phase 2 pandas parser accepts loose dates/leap rollover/now/today; strict
   warehouse guards mitigate. Revisit before new source version.
@@ -239,17 +265,16 @@ Preserve C, credentials/source data and all generated evidence.
 
 ## Exact Next Actions
 
-1. Recover clean checkpoint and read recovery foundation receipt/plan. On approved
-   histbcmlctxmtxusfbzt using D:\My Projects\CommerceLens-Reconstruction, run fixed
-   `load` dispatcher with restricted loader; require status loaded/all1,550,922 rows
-   and full content/hash/money/capacity acceptance. Reconnect; identical load must
-   return verified_existing, unchanged deterministic source identity/no duplicates.
-2. Do not repeat completed migration/provision work or overwrite purpose files.
-   All three private files/CA already exist; jobs authenticated. Preserve original
-   target and private files, do not log credentials/create reader login/delete resources.
-3. Check usage before major full graph; follow plan20-view/282-test build, fixed
-   mart grant,42 independent checks and final storage/secret checks. Preserve failed
-   attempts and checkpoint each verified unit. No phase restart or audit yet.
+1. Recover clean checkpoint and read reconstruction-load receipt/plan. Check usage,
+   then fixed dbt-build-graph dispatcher on histbcmlctxmtxusfbzt with isolated root
+   D:\My Projects\CommerceLens-Reconstruction; require20 model successes and all282
+   tests pass. Full graph not run yet; preserve partial artifacts if interrupted.
+2. Do not repeat migration/provision/COPY work: foundation and full load/repeat
+   already verified. All three purpose files/CA exist; never overwrite or use
+   original ROOT credentials, global routing, reader login or automatic cleanup.
+3. After build, fixed grant-mart-reader,42-case independent acceptance, final sizes
+   and artifact/source secret checks. Verify all native results/capacity/access;
+   checkpoint and finish final Phase3 handoff. Preserve failures; no phase redo.
 4. Finish verified Phase 3 handoff here; create a new CommerceLens chat for the
    required governance audit/corrections/regressions. After that gate, create a
    separate Phase 4 chat, and separate chats for each subsequent phase. Repository
@@ -257,15 +282,16 @@ Preserve C, credentials/source data and all generated evidence.
 
 ## Git State
 
-- Branch feat/warehouse-foundation; main unchanged/unmerged. Current resume baseline7768fed;
+- Branch feat/warehouse-foundation; main unchanged/unmerged. Current resume baseline2c2b123;
   query source c01ee79/query acceptance b82c7d7/recovery source edf072b; workflow
   590863b, dispatchera2bed4f and verified final-check sourcec961aff published.
   Pre-approval preservationfd28354 published clean; approved-target handoffed52929 published; verified
-  preflight7768fed published clean; native foundation checkpoint is the containing commit:
+  preflight7768fed/foundation2c2b123 published clean; verified source-load checkpoint
+  is the containing commit:
   git log -1 --format="%H %s" -- WORK_STATE.md.
 - Verify clean working tree and HEAD/upstream equality after publish/on resume.
   Disable auto Git maintenance, stage exact files and scan full content/history.
-- Latest actual account-wide usage25% five-hour/63% weekly remaining2026-10-04.
+- Latest actual account-wide usage19% five-hour/62% weekly remaining2026-10-05 local.
   Observed values are not task-cost predictions. Reduce next-unit scope as needed;
   preserve checkpoint and recheck before major native load/build.
 
@@ -279,6 +305,8 @@ git log -5 --oneline
 Get-Content docs/master-plan.md
 Get-Content WORK_STATE.md
 Get-Content docs/warehouse-reconstruction-plan.md
+# Next native unit: approved recovery target ONLY, not ordinary ROOT settings.
+.venv/Scripts/python.exe -B -m src.warehouse.reconstruction dbt-build-graph --settings-root 'D:\My Projects\CommerceLens-Reconstruction' --expected-project-ref histbcmlctxmtxusfbzt
 $env:PYTEST_DISABLE_PLUGIN_AUTOLOAD='1'
 $env:PYTHONDONTWRITEBYTECODE='1'
 .venv/Scripts/python.exe -B -m pytest tests/test_warehouse_reconstruction_acceptance.py tests/test_warehouse_reconstruction.py tests/test_warehouse_dbt_reconstruction.py tests/test_warehouse_dbt.py -o 'addopts=-q' --capture=sys -p no:cacheprovider --tb=short

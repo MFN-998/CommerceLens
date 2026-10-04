@@ -2,7 +2,8 @@
 
 Phase 3 M5. Full-graph runner and isolated-operation dispatcher source/offline
 verification COMPLETE; final-check adapter also verified offline.
-**LIVE RECONSTRUCTION NOT EXECUTED; populated proof remains pending.**
+**LIVE RECONSTRUCTION PARTIALLY VERIFIED: foundation/source loading/repeat passed;
+full model graph, mart access and final independent acceptance remain pending.**
 The accepted CommerceLens Supabase target, source files, private configurations,
 certificates and retained artifacts stay protected. This plan reconstructs the
 development warehouse from immutable source and versioned code; it does not prove
@@ -194,7 +195,8 @@ Scoped review found no blocker. These offline tests simulate subprocess/pytest
 outcomes; **the native 42-case run and populated reconstruction are NOT YET RUN**.
 Local dispatch/full-graph/final-check preparation is complete. Resource approval,
 private admin configuration/native preflight and unchanged migrations with replay/
-privilege/actual-purpose authentication checks now passed; full source loading is next. Do not reimplement the verified tooling.
+privilege/actual-purpose authentication checks and full source loading/repeat now
+passed; the fixed full graph is next. Do not reimplement the verified tooling.
 
 ## Approved target and native preflight — 2026-10-04
 
@@ -252,9 +254,33 @@ parent capability. Jobs have connection limit2/no elevated flags; memberships
 admin=false/inherit=false/set=true. Reader remains NOLOGIN; no reader credentials.
 Database10,884,787 bytes passes the <=33M first-load gate. Original target unchanged.
 
-Full source loading/repeat, graph construction, mart grant and final acceptance
-are **NOT YET RUN** on this recovery target. Preserve failed attempts; no fallback
-to original credentials, no ambient routing, no weaker TLS and no auto retry/cleanup.
+## Verified recovery source load/repeat — 2026-10-05 local
+
+[Native source receipt](warehouse-reconstruction-load.json) records successful first
+`loaded` and reconnected `verified_existing` on the approved target, using the
+restricted loader. Both runs reconciled all nine tables/1,550,922 rows, every
+stored ordinal and framed original-text digest, and exact numeric sums before
+acceptance. Receipt table hashes/money are the immutable evidence validated by
+these native runs; the final metadata check did not perform a third full digest scan.
+
+The one registry row, deterministic load UUID/fingerprint, manifest digest,
+source-file evidence, original load timestamp/by, dataset and contract1 are
+unchanged across repeat. Original local manifest/all nine byte hashes remain valid.
+Fresh metadata verifies individual table counts, no derived views, verify-full TLS
+and17.11. Current raw/database bytes are **275,988,480 / 286,848,691**, below367M/400M.
+anon/authenticated/service_role lack schema USAGE/CREATE, all table privileges
+including MAINTAIN and all column privileges across five schemas/nine raw+two ops
+tables. PUBLIC has no schema/table/column grants. Dashboard Data API stays disabled.
+
+Foundation checkpoint2c2b123 was published clean before the upload; start/result/
+before-repeat/aggregate markers remain in the isolated .artifacts directory.
+No uncertain commit, duplicate load or source failure remains. Original target,
+purpose files, model code and datasets unchanged; no resource deletion/cleanup.
+
+**Next:** fixed twenty-view/282-test graph build, mart grant and42-case final
+acceptance. They are NOT YET RUN on this target. Storage alone does not prove
+WAL/temp headroom or API latency; Q01 remains a later workload gate. Preserve
+failures, no fallback/ambient routing/weaker TLS/automatic retry or cleanup.
 
 ## Exact construction and verification order
 

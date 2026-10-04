@@ -93,9 +93,9 @@ After M1–M5 are complete and verified, perform the owner-required
 relevant Important issues, verify Phases 1–3 and document deferred debt before Phase 4.
 This gate is pending; do not execute it during unfinished Phase 3 implementation.
 
-## Progress estimate — 2026-10-04
+## Progress estimate — 2026-10-05
 
-Roughly 10-15% of Phase 3 warehouse implementation/verification effort remains after
+Roughly 5-10% of Phase 3 warehouse implementation/verification effort remains after
 all nine source staging models, five dimensions, the customer mapping and all four facts are accepted. This is a reasoned range, not a time
 forecast or model-count percentage. Foundation/loading/dbt/source staging are complete.
 Order mart computation and scoped reader access are now accepted. Remaining:
@@ -104,7 +104,8 @@ one-step migration/load/provision/grant and final42-case acceptance tooling are
 now verified offline. Approved Free/Tokyo recovery target and private settings
 are established; PostgreSQL17.11 read-only identity/TLS/empty-state/capacity
 preflight passed. Unchanged migrations/replay/privilege checks and actual restricted
-login authentication also passed; full native load/repeat/build/acceptance remain unrun.
+login authentication and the complete1,550,922-row load/repeat also passed.
+Native20-view/282-test build, mart grant,42-case acceptance and final handoff remain.
 Technical SQL and bounded plan measurements are now accepted; Q01 retains their
 latency/spill limitation for a future API performance gate.
 Completed dim_location's unique three-source ZIP domain with observation, coverage
