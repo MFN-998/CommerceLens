@@ -1,0 +1,187 @@
+version: 2
+models:
+- name: mart_order_components
+  description: Private one-order technical mart. Preserves all 33 fact_orders fields and independently
+    aggregates items, payments and reviews before literal LEFT JOINs. Exact unconstrained numeric
+    sums preserve cents and aggregate headroom. Missing children have zero counts, false presence
+    and NULL sums. No selected review, monetary equality, filtering, duration or business KPI eligibility.
+  config:
+    materialized: view
+    schema: marts
+  columns:
+  - name: _load_id
+    data_type: uuid
+    description: Unchanged fact_orders field. Unchanged immutable source snapshot identity from raw.
+  - name: _source_row
+    data_type: bigint
+    description: Unchanged fact_orders field. Unchanged one-based logical CSV record ordinal within
+      the load.
+  - name: order_id
+    data_type: text
+    description: Unchanged fact_orders field. Mandatory literal lowercase hexadecimal source order
+      key.
+    data_tests:
+    - not_null
+  - name: customer_id
+    data_type: text
+    description: Unchanged fact_orders field. Mandatory order-linked source customer reference, preserving
+      spelling.
+  - name: order_status
+    data_type: text
+    description: Unchanged fact_orders field. Exact source lifecycle status; do not infer or normalize
+      completion.
+  - name: order_purchase_timestamp
+    data_type: timestamp without time zone
+    description: Unchanged fact_orders field. Mandatory purchase timestamp; source timezone unspecified.
+  - name: order_approved_at
+    data_type: timestamp without time zone
+    description: Unchanged fact_orders field. Nullable approval timestamp, when recorded in the source.
+  - name: order_delivered_carrier_date
+    data_type: timestamp without time zone
+    description: Unchanged fact_orders field. Nullable recorded carrier handoff timestamp.
+  - name: order_delivered_customer_date
+    data_type: timestamp without time zone
+    description: Unchanged fact_orders field. Nullable recorded actual customer delivery timestamp.
+  - name: order_estimated_delivery_date
+    data_type: timestamp without time zone
+    description: Unchanged fact_orders field. Mandatory source delivery estimate; not an actual lifecycle
+      event.
+  - name: is_missing_approval
+    data_type: boolean
+    description: Unchanged fact_orders field. Approval source text was NULL or exactly empty, independent
+      of parsing.
+  - name: is_missing_carrier_delivery
+    data_type: boolean
+    description: Unchanged fact_orders field. Carrier handoff source text was NULL or exactly empty,
+      independent of parsing.
+  - name: is_missing_customer_delivery
+    data_type: boolean
+    description: Unchanged fact_orders field. Customer delivery source text was NULL or exactly empty,
+      independent of parsing.
+  - name: is_delivered_missing_approval
+    data_type: boolean
+    description: Unchanged fact_orders field. Exact delivered status has no typed approval event;
+      rejected text also fails domains.
+  - name: is_delivered_missing_carrier_delivery
+    data_type: boolean
+    description: Unchanged fact_orders field. Exact delivered status has no typed carrier event;
+      rejected text also fails domains.
+  - name: is_delivered_missing_customer_delivery
+    data_type: boolean
+    description: Unchanged fact_orders field. Exact delivered status has no typed customer event;
+      rejected text also fails domains.
+  - name: is_approval_before_purchase
+    data_type: boolean
+    description: Unchanged fact_orders field. Typed approval precedes purchase; false when either
+      event is absent.
+  - name: is_carrier_delivery_before_purchase
+    data_type: boolean
+    description: Unchanged fact_orders field. Typed carrier handoff precedes purchase; false when
+      either event is absent.
+  - name: is_customer_delivery_before_purchase
+    data_type: boolean
+    description: Unchanged fact_orders field. Typed customer delivery precedes purchase; false when
+      either event is absent.
+  - name: is_carrier_delivery_before_approval
+    data_type: boolean
+    description: Unchanged fact_orders field. Typed carrier handoff precedes approval; false when
+      either event is absent.
+  - name: is_customer_delivery_before_approval
+    data_type: boolean
+    description: Unchanged fact_orders field. Typed customer delivery precedes approval; false when
+      either event is absent.
+  - name: is_customer_delivery_before_carrier_delivery
+    data_type: boolean
+    description: Unchanged fact_orders field. Typed customer delivery precedes carrier handoff; false
+      when either event is absent.
+  - name: customer_unique_id
+    data_type: text
+    description: Unchanged fact_orders field. Unchanged cross-order identity from the order-linked
+      customer mapping.
+  - name: customer_zip_code_prefix
+    data_type: text
+    description: Unchanged fact_orders field. Unchanged purchase-associated literal ZIP prefix, including
+      leading zeroes.
+  - name: customer_city
+    data_type: text
+    description: Unchanged fact_orders field. Unchanged purchase-associated source city, including
+      case, accents and whitespace.
+  - name: customer_state
+    data_type: text
+    description: Unchanged fact_orders field. Unchanged purchase-associated source state abbreviation.
+  - name: customer_load_id
+    data_type: uuid
+    description: Unchanged fact_orders field. Original customer mapping snapshot lineage, distinct
+      from order _load_id.
+  - name: customer_source_row
+    data_type: bigint
+    description: Unchanged fact_orders field. Original customer mapping source ordinal, distinct
+      from order _source_row.
+  - name: purchase_calendar_date
+    data_type: date
+    description: Unchanged fact_orders field. Calendar date from order_purchase_timestamp, without
+      timezone conversion; NULL exactly when that typed event is absent. References dim_date.calendar_date.
+  - name: approval_calendar_date
+    data_type: date
+    description: Unchanged fact_orders field. Calendar date from order_approved_at, without timezone
+      conversion; NULL exactly when that typed event is absent. References dim_date.calendar_date.
+  - name: carrier_delivery_calendar_date
+    data_type: date
+    description: Unchanged fact_orders field. Calendar date from order_delivered_carrier_date, without
+      timezone conversion; NULL exactly when that typed event is absent. References dim_date.calendar_date.
+  - name: customer_delivery_calendar_date
+    data_type: date
+    description: Unchanged fact_orders field. Calendar date from order_delivered_customer_date, without
+      timezone conversion; NULL exactly when that typed event is absent. References dim_date.calendar_date.
+  - name: estimated_delivery_calendar_date
+    data_type: date
+    description: Unchanged fact_orders field. Calendar date from order_estimated_delivery_date, without
+      timezone conversion; NULL exactly when that typed event is absent. References dim_date.calendar_date.
+  - name: item_count
+    data_type: bigint
+    description: Number of retained source item rows; zero when absent.
+  - name: source_price_sum
+    data_type: numeric
+    description: Exact source item-price sum in BRL; NULL when no items, no KPI policy.
+  - name: source_freight_sum
+    data_type: numeric
+    description: Exact source freight sum in BRL; NULL when no items.
+  - name: shipping_before_purchase_count
+    data_type: bigint
+    description: Retained item rows flagged shipping before purchase.
+  - name: shipping_beyond_365_days_count
+    data_type: bigint
+    description: Retained item rows flagged shipping more than 365 elapsed days after purchase.
+  - name: has_items
+    data_type: boolean
+    description: True exactly when item_count is positive.
+  - name: payment_count
+    data_type: bigint
+    description: Number of retained source payment components; zero when absent.
+  - name: source_payment_sum
+    data_type: numeric
+    description: Exact source payment sum in BRL; NULL when no payments, no amount-equality policy.
+  - name: zero_installments_count
+    data_type: bigint
+    description: Retained payment components with zero installments.
+  - name: zero_payment_value_count
+    data_type: bigint
+    description: Retained payment components with a measured zero value.
+  - name: undefined_payment_type_count
+    data_type: bigint
+    description: Retained payment components with literal not_defined method.
+  - name: has_payments
+    data_type: boolean
+    description: True exactly when payment_count is positive.
+  - name: review_count
+    data_type: bigint
+    description: All retained review/order pairs, without selecting a canonical review.
+  - name: answer_before_creation_count
+    data_type: bigint
+    description: Retained review pairs flagged answer before creation.
+  - name: has_reviews
+    data_type: boolean
+    description: True exactly when review_count is positive.
+  - name: has_multiple_reviews
+    data_type: boolean
+    description: True exactly when review_count exceeds one.
