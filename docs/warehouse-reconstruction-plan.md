@@ -1,6 +1,7 @@
 # Populated warehouse reconstruction plan
 
-Phase 3 M5. Full-graph runner source/offline verification COMPLETE.
+Phase 3 M5. Full-graph runner and isolated-operation dispatcher source/offline
+verification COMPLETE.
 **LIVE RECONSTRUCTION NOT EXECUTED; populated proof remains pending.**
 The accepted CommerceLens Supabase target, source files, private configurations,
 certificates and retained artifacts stay protected. This plan reconstructs the
@@ -9,7 +10,7 @@ a populated backup restore, point-in-time recovery or future reader-login securi
 
 ## Prepare locally before requesting a target
 
-1. Complete the remaining isolated configuration/orchestration work around the
+1. Use the verified isolated-operation dispatcher around existing helpers and the
    verified full-graph runner. The broader reconstruction workflow uses the exact twenty
    approved views. The normal single-model CLI uses eager indirect tests; from an
    empty graph these can reference children not yet constructed. Use the verified
@@ -34,8 +35,10 @@ requires the least additional tooling if it is available and eligible.
 `src.warehouse.dbt_reconstruction.run_dbt_graph(command, *, settings_root,
 expected_project_ref)` is a separate callable for `build` or `test` only. It keeps
 code/project/profile paths fixed, leaves the accepted one-model wrapper unchanged,
-and accepts no caller selector, SQL, materialization, profile or flags. It is not
-yet exposed as a CLI and does not orchestrate migrations/loading/provisioning/grants.
+and accepts no caller selector, SQL, materialization, profile or flags. The callable
+itself does not
+orchestrate migrations/loading/provisioning/grants; the fixed dispatcher below
+provides one-step CLI access without changing this runner or its accepted counterpart.
 
 The explicit settings directory must exist outside the code repository and cannot
 contain that repository. Load only its transformer purpose file, require test
@@ -79,10 +82,72 @@ Initial sandbox execution could not create retained fixture directories; the app
 rerun passed. No source-test failure remained. No accepted private credentials,
 warehouse data or live graph were used for this unit.
 
-**Still required before target approval:** isolated admin/loader/transformer
-configuration dispatch, CA/credential protection, migration/load/provision/grant
-guards and failure/retry orchestration. Do not run existing ROOT-based CLI commands
-with a presumed alternate target or create the hosted target before that preparation.
+## Isolated-operation dispatcher — 2026-10-04
+
+`src.warehouse.reconstruction.run_reconstruction_step(step, *, settings_root,
+expected_project_ref)` dispatches exactly one fixed operation around existing
+helpers. No pipeline engine, new SQL/model, dependency or configuration fallback
+is introduced. Code, migrations, immutable source and mart grant SQL remain fixed
+in the CommerceLens repository. Only private settings, CA and graph artifacts
+belong to the separate settings directory.
+
+| Step | Required purpose | Action |
+| --- | --- | --- |
+| inspect | admin | Restricted aggregate operational metadata |
+| migrate | admin | Apply pending unchanged checksummed migrations |
+| verify | admin | Transactional foundation privilege checks; fixtures rolled back |
+| provision-loader | admin | New restricted loader login and protected local purpose file |
+| provision-transformer | admin | New restricted transformer login and protected local purpose file |
+| load | loader | Full immutable source verification/load or deterministic verified repeat |
+| dbt-build-graph | transformer | Fixed twenty-view/full-enabled-test build |
+| dbt-test-graph | transformer | Full enabled tests without model rebuild |
+| grant-mart-reader | transformer | Fixed post-model mart-only SELECT grant |
+
+Require an existing settings directory outside the code repository, test
+environment and exact explicit fresh reference, rejecting the protected project.
+Every purpose file is contained, regular, singly linked and protected before
+reading settings; hard-link aliases cannot trigger permission changes outside the root;
+provisioning rejects an existing credential destination without replacing it.
+The CA resolves inside the isolated root and becomes absolute for existing native
+helpers, preventing their normal repository-root resolution from selecting an old CA.
+Reject all ambient WAREHOUSE_* and PG* variables before private-file or connection
+work. libpq can use hostaddr to choose a different network address even with an
+explicit hostname; see [PostgreSQL connection parameters](https://www.postgresql.org/docs/17/libpq-connect.html).
+Do not weaken hostname verification or silently clear the user's environment.
+
+Prepare the complete source plan and migration files before opening the relevant
+connection. Existing transactional identity, content/digest, monetary, replay,
+capacity and least-privilege checks stay in their original helpers. Return only
+an allowlisted receipt after the connection/provision/build context exits cleanly;
+driver/configuration details, source records and passwords are not printed.
+An error or interruption may leave committed views, a completed load with an
+uncertain acknowledgement, or a saved private file. Reconnect and inspect before
+the next explicit step: there is no automatic retry, DROP, reset or deletion.
+
+CLI example, **only after a fresh target and upload/retention have been approved**:
+
+```powershell
+Set-Location 'D:\My Projects\CommerceLens'
+# Replace FRESH_PROJECT_REF with the actual approved target reference; never a password.
+.venv/Scripts/python.exe -B -m src.warehouse.reconstruction inspect --settings-root 'D:\My Projects\CommerceLens-Reconstruction' --expected-project-ref FRESH_PROJECT_REF
+```
+
+The settings path is proposed, not created. The fresh reference is not invented.
+Change only the fixed step argument after verifying each receipt. Missing or unknown
+arguments fail safely; no selector/custom SQL/profile options are accepted.
+
+Actual validation: focused dispatcher/configuration/credentials/existing runners
+293 passed in 27.24s; retained warehouse/API 1534 passed /1000 deliberately skipped
+live tests in 37.97s. After review's hard-link correction, all54 dispatcher tests
+passed in0.44s, including a real linked-file regression. Ruff lint/format158 files
+and mypy25 implementations passed again. Scoped review confirmed the correction.
+Tests simulate dispatch and failure outcomes; they do not prove fresh native
+authentication, migrations, loading or full-graph execution. Existing native
+integration tests normally load accepted ROOT settings: do not invoke them against
+the fresh target by swapping original credentials or global environment overrides.
+Review an explicit isolated test-process adapter before running needed independent
+checks, reusing their existing SQL/oracles; exclude empty-landing fixture suites
+after the populated load. This final acceptance procedure remains to be prepared.
 
 ## Concrete target approval, after local preparation
 
