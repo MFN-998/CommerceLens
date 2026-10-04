@@ -7,6 +7,7 @@ import sys
 import psycopg
 from pydantic import ValidationError
 
+from src.warehouse.access import grant_mart_reader
 from src.warehouse.config import ROOT, connect, load_settings
 from src.warehouse.credentials import ProvisioningError, provision_loader, provision_transformer
 from src.warehouse.dbt_runner import DbtCommand, DbtError, run_dbt
@@ -37,6 +38,7 @@ def main() -> int:
             "dbt-debug",
             "dbt-build",
             "dbt-test",
+            "grant-mart-reader",
         ],
     )
     parser.add_argument("--select", help="One approved model for dbt-build/dbt-test")
@@ -54,6 +56,12 @@ def main() -> int:
             return 0
         if args.select is not None:
             raise ValueError("Model selection is only supported for dbt commands")
+        if args.command == "grant-mart-reader":
+            settings = load_settings(purpose="transformer")
+            with connect(settings) as connection:
+                access_result = grant_mart_reader(connection)
+            print(json.dumps({"command": args.command, **access_result}, indent=2))
+            return 0
         if args.command == "load":
             settings = load_settings(purpose="loader")
             print(

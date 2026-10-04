@@ -7,9 +7,10 @@ Master plan, engineering standards, execution protocol, deletion rule and ADRs a
 
 - Phase 3 Database/SQL/Analytics Engineering: M1-M4 COMPLETE; M5 in progress.
 - Current milestone: initial order mart and analytical warehouse handoff.
-- Current task: mart_order_components COMPUTATION VERIFIED. Source/offline/native/
-  first/physical/repeat acceptance complete. Larger M5/Phase 3 SAFE TO RESUME.
-  Scoped reader SELECT/effective access, examples, performance and recovery remain.
+- Current task: scoped mart reader access PARTIALLY IMPLEMENTED. Fixed SQL/
+  transformer CLI/guide and five native/13 offline cases adopted; grant NOT YET
+  applied. Source/offline verification passed; native/repeat pending. Mart computation remains
+  verified. Larger M5 requires examples, measured performance and recovery proof.
 - Objective: tested warehouse under Free/views-first ADR 0004, preserving all source
   rows/quality warnings. No Phase 4 EDA, Phase 5 KPI policy or public deployment yet.
 - Larger Phase 3 remains incomplete. Roughly 10-20% implementation/verification
@@ -50,6 +51,11 @@ Master plan, engineering standards, execution protocol, deletion rule and ADRs a
 
 ## Files
 
+- Reader unit: warehouse/access/mart_order_components.sql, src/warehouse/access.py
+  and docs/mart-reader-access.md created. CLI and mart physical test expectations
+  updated for the pending scoped grant; tests/test_warehouse_mart_access.py and
+  test_warehouse_mart_reader_integration.py created. No deletion.
+
 - Created dbt/models/marts/mart_order_components.sql/.yml; four
   dbt/tests/order_components_* checks; docs/order-components.md;
   tests/test_warehouse_order_components.py, *_postgres_integration.py,
@@ -61,6 +67,12 @@ Master plan, engineering standards, execution protocol, deletion rule and ADRs a
   outputs are retained. Historical detail remains in docs/Git, not solely chat.
 
 ## Technical Decisions
+
+- Reader unit uses a fixed versioned post-model SQL step, not a schema migration
+  that would require the not-yet-built view during fresh bootstrap. Existing
+  transformer capability owns/grants the mart; admin-assumed NOLOGIN reader
+  verifies effective permission. No new credentials/default grants/consumer/API.
+  Atomic guarded SQL rejects privilege drift including column grants/MAINTAIN.
 
 - Independently aggregate each child before literal C LEFT JOINs to orders. All orders
   and order fields retained; no canonical review/status/business eligibility filter.
@@ -83,6 +95,12 @@ Master plan, engineering standards, execution protocol, deletion rule and ADRs a
   one thread, zero retries, safe error/no sensitive row logging. Physical harness 55s.
 
 ## Validation
+
+- Reader source: 17 focused CLI/transaction tests passed; retained warehouse/API
+  regression 1383 passed / 988 deliberately opted-out live cases. Ruff lint/format
+  148 files and mypy 23 implementation files passed; diff whitespace clean.
+  Scoped source and documentation reviews passed after two wording clarifications.
+  Live grant/rehearsal/effective access/rebuild NOT YET RUN.
 
 - Current mart candidate offline: 85 passed. Adopted mart/runner: 171 passed.
 - Retained warehouse/API regression: 1370 passed, 983 deliberately
@@ -126,11 +144,11 @@ Master plan, engineering standards, execution protocol, deletion rule and ADRs a
 
 ## Current Repository Condition
 
-CLEAN / STABLE at this acceptance checkpoint after final commit/status verification.
-M4 COMPLETE; M5 mart computation verified; larger Phase 3 SAFE TO RESUME.
-No known failed checks or partially implemented next unit. Reader SELECT is still
-denied pending its scoped access unit; examples/plans/recovery are not yet verified.
-No source reload, migration/dependency/credential mutation, deletion, merge or deployment.
+PARTIALLY IMPLEMENTED: scoped reader source adopted; no live grant yet.
+Mart computation and accepted upstream foundation remain stable. Updated physical
+reader assertions require the pending grant and must not run before it is applied.
+Offline gates passed; native/repeat access checks NOT YET RUN. No credential/data/model/dependency
+change, resource deletion, merge or deployment. Governance/Phase 4 not started.
 
 ## Incomplete Work
 
@@ -148,33 +166,29 @@ No source reload, migration/dependency/credential mutation, deletion, merge or d
 
 ## Exact Next Actions
 
-1. Check usage and clean/upstream Git against this acceptance; read warehouse/
-   migrations/0001_foundation.sql and docs/order-components.md. Confirm reader
-   currently has marts USAGE only and mart SELECT is denied. Read the accepted
-   mart SQL/YAML/aggregate JSON; no M4 rebuild/source reload/reprovision needed.
-2. Implement the narrow versioned approved-mart SELECT grant, applied only after
-   the model exists. Verify effective reader SELECT and denied raw/core/writes/
-   other schemas/API roles under the admin-assumed reader capability, without
-   adding unnecessary credentials or blanket defaults. Update physical access
-   expectations and reconstruction sequence; test/checkpoint the access unit.
-3. Write reliable technical SQL examples (no business KPI policy), measure actual
-   query plans/performance and capacity. Optimize only from evidence; recheck
-   storage/rebuild overlap before considering materialization under ADR 0004.
-4. Prove reconstruction/recovery from retained source/versioned migrations/dbt;
-   review resource-destructive actions before requesting specific permission.
-5. Complete Phase 3 verification/handoff/checkpoint. Only then perform comprehensive
-   governance audit/required corrections before Phase 4. Carry release/debt gates.
+1. Confirm this source checkpoint is published/clean; rehearse the fixed grant in
+   a rollback transaction and verify actual ACL/default grants unchanged.
+   No source reload/M4 rebuild.
+2. Preflight actual reader/source/API privileges and target options; use
+   grant-mart-reader through dedicated transformer configuration. Verify effective
+   NOLOGIN reader aggregate reads and source/write/schema/API/grant-option denials.
+3. Reapply the grant, confirm identity/ACL stability; repeat the mart build to
+   verify it preserves granted SELECT. Run updated physical metadata/access check.
+   Record aggregate-only evidence and create clean acceptance checkpoint.
+4. Next M5 examples, measured plans/performance and populated reconstruction proof.
+5. Complete Phase 3/handoff, then comprehensive governance gate before Phase 4.
 
 ## Git State
 
 - Branch feat/warehouse-foundation; main unchanged/unmerged. Clean published resume
-  baseline 1b67dc5; source dc81385 published clean before live build. Acceptance
+  baseline a74bd09; source dc81385 published clean before live build. Reader
+  source checkpoint is the containing commit, before live permission application. Acceptance
   checkpoint is the containing commit: git log -1 --format="%H %s" -- WORK_STATE.md.
   Verify clean/upstream after publication and on resume; no merge/deployment.
 - Complete staged-content/history scans required before publication, history again
   after commit. Retain outputs; disable auto Git cleanup. Checkpoint includes exact
   continuation and aggregate evidence; no need for export/source copy artifacts.
-- Latest actual usage 37% five-hour/90% weekly remaining, 2026-10-04.
+- Latest actual usage 20% five-hour/88% weekly remaining, 2026-10-04.
   Account-wide observation, not task-cost prediction; recheck before another unit.
 
 ## Continuation Commands

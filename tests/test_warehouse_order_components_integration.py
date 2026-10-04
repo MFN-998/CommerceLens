@@ -347,8 +347,8 @@ def test_order_component_native_shape_owner_session_and_current_private_access(
         "NOT has_table_privilege(rolname,'marts.mart_order_components', "
         "'SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER')) "
         "FROM pg_roles WHERE rolname IN "
-        "('anon','authenticated','service_role','commercelens_reader')",
-    ).fetchone() == (4, True)
+        "('anon','authenticated','service_role')",
+    ).fetchone() == (3, True)
     assert _diagnostic(
         connection,
         "SELECT count(*), bool_and(NOT has_schema_privilege('commercelens_reader',oid, "
@@ -359,7 +359,7 @@ def test_order_component_native_shape_owner_session_and_current_private_access(
         "SELECT has_schema_privilege('commercelens_reader','marts','USAGE'), "
         "has_schema_privilege('commercelens_reader','marts','CREATE'), "
         "has_table_privilege('commercelens_reader','marts.mart_order_components','SELECT')",
-    ).fetchone() == (True, False, False)
+    ).fetchone() == (True, False, True)
     assert _diagnostic(
         connection,
         "SELECT count(*), bool_and(NOT has_schema_privilege(rolname,'marts','USAGE,CREATE')) "
@@ -369,9 +369,17 @@ def test_order_component_native_shape_owner_session_and_current_private_access(
         connection,
         "SELECT count(*) FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace "
         "WHERE n.nspname IN ('raw','staging','core','marts') "
-        "AND c.relkind IN ('r','p','v','m','f') AND has_table_privilege("
+        "AND c.relkind IN ('r','p','v','m','f') "
+        "AND c.oid<>'marts.mart_order_components'::regclass AND has_table_privilege("
         "'commercelens_reader',c.oid,'SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER')",
     ).fetchone() == (0,)
+    assert _diagnostic(
+        connection,
+        "SELECT has_table_privilege('commercelens_reader','marts.mart_order_components', "
+        "'INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER,MAINTAIN,SELECT WITH GRANT OPTION'), "
+        "has_any_column_privilege('commercelens_reader','marts.mart_order_components', "
+        "'INSERT,UPDATE,REFERENCES,SELECT WITH GRANT OPTION')",
+    ).fetchone() == (False, False)
     assert _diagnostic(
         connection,
         "SELECT (SELECT count(*) FROM pg_class c, "
