@@ -43,17 +43,24 @@ Historical source: 103,886 components; exact payment sum 16008872.12; two
 zero-installment, nine zero-value and three not_defined components. These are
 overlapping source-quality observations, not revenue or GMV definitions.
 
-Status: source/offline/native COMPLETE; first live/physical/repeat pending.
-Scoped source/harness reviews approved. Candidate offline 55 passed (0.43s);
-adopted payment/runner focused 137 passed (15.64s); warehouse/API regression
-1222 passed/856 deliberate live opt-out skips (27.04s), known AnyIO warning
-only. Native read-only PostgreSQL 45 passed (52.90s). Adopted Ruff lint/format
-136 reported files and mypy 22 implementation files passed. Offline parse
-retained: `.artifacts/dbt/6f7b26ba4fd14ffb9be2b953a7a37e57`. Read-only
-preflight confirmed expected counts/sum/flags, zero missing orders and
-database 287,255,699 bytes <400M; view absent and parents present.
-Publish a reviewed source checkpoint and confirm clean Git before first build.
-First live/physical/repeat: **Not yet tested**.
-Full source/frontend/advisory checks remain historical 2026-09-22 for this unchanged
-dependency/data-only unit. E2E/deployment/full governance audit are not performed;
-the governance gate follows verified Phase 3 completion, before Phase 4.
+Status: COMPLETE. Scoped source/harness reviews approved; offline 55,
+adopted payment/runner 137, warehouse/API 1222 (856 deliberate live skips),
+native read-only PostgreSQL 45 and physical/access 2 tests passed. Ruff
+lint/format 136 reported files, mypy 22 implementation files and offline dbt
+parse passed. Known AnyIO alias deprecation warning only.
+Source checkpoint e50d47c published clean before first build. First/repeat
+each passed one view/all 14 dbt tests in 55.391/57.386 seconds. All 103,886
+components/keys, exact 16008872.12 amount and flags 2/9/3 conserved. Independent
+guarded raw/staging/core complete ten-field multisets match; native types/
+typmods/collations, restricted actual login/role/verify-full TLS and private
+API/reader denials verified. Repeat preserves relation identity/owner/grants;
+password absent from both retained artifact sets. Database 287,263,891 bytes
+is below 400,000,000. See [aggregate evidence](fact-payments-verification.json)
+for result nodes and retained artifact paths. Suite timings are not consumer
+latency; M5 measured plans/performance/reconstruction remain pending.
+
+Full source/frontend/advisory checks were not rerun for this unchanged
+dependency/data-only unit; their 2026-09-22 results remain historical. E2E/
+deployment/full governance audit have not run. Next core unit: fact_reviews,
+then M5. Governance follows verified Phase 3 completion, before Phase 4.
+No project resources were deleted; no dependency/migration/reload occurred.

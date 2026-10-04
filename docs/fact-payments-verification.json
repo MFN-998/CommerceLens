@@ -1,0 +1,146 @@
+{
+  "verified_at_utc": "2026-10-04T08:24:25.821845+00:00",
+  "model": "core.fact_payments",
+  "raw_rows": 103886,
+  "staging_rows": 103886,
+  "fact_rows": 103886,
+  "distinct_payment_keys": 103886,
+  "payment_sum_source_reconciliation_only": "16008872.12",
+  "zero_installment_rows": 2,
+  "zero_value_rows": 9,
+  "undefined_method_rows": 3,
+  "missing_order_references": 0,
+  "database_bytes": 287263891,
+  "first_build": "passed",
+  "repeat_build": "passed",
+  "first_build_elapsed_seconds": 55.391,
+  "repeat_build_elapsed_seconds": 57.386,
+  "relation_identity_owner_and_grants_preserved": true,
+  "password_absent_from_first_and_repeat_artifacts": true,
+  "first_artifacts": ".artifacts/dbt/30830c14a34f4e8db90a5d3c497d0993",
+  "repeat_artifacts": ".artifacts/dbt/6378bfbfc21747fbbf50a5d93d89fa20",
+  "first_results": [
+    {
+      "node": "model.commercelens.fact_payments",
+      "status": "success"
+    },
+    {
+      "node": "test.commercelens.fact_payments_domains",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.fact_payments_grain",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.fact_payments_relationships",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.fact_payments_source_reconciliation",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_payments__load_id.ea2a027110",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_payments__source_row.d249d5480d",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_payments_is_undefined_payment_type.2301357047",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_payments_is_zero_installments.de4118dd2b",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_payments_is_zero_payment_value.296cf036e8",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_payments_order_id.8191cf0e70",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_payments_payment_installments.55f3082a7e",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_payments_payment_sequential.1c39e53231",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_payments_payment_type.c0dc9e6ae6",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_payments_payment_value.6bc2b68997",
+      "status": "pass"
+    }
+  ],
+  "results": [
+    {
+      "node": "model.commercelens.fact_payments",
+      "status": "success"
+    },
+    {
+      "node": "test.commercelens.fact_payments_domains",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.fact_payments_grain",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.fact_payments_relationships",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.fact_payments_source_reconciliation",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_payments__load_id.ea2a027110",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_payments__source_row.d249d5480d",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_payments_is_undefined_payment_type.2301357047",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_payments_is_zero_installments.de4118dd2b",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_payments_is_zero_payment_value.296cf036e8",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_payments_order_id.8191cf0e70",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_payments_payment_installments.55f3082a7e",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_payments_payment_sequential.1c39e53231",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_payments_payment_type.c0dc9e6ae6",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_payments_payment_value.6bc2b68997",
+      "status": "pass"
+    }
+  ]
+}

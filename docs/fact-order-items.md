@@ -80,6 +80,7 @@ Repeat passed one view/all 19 tests in 106.281 seconds; artifacts
 chronology counts and view identity/owner/grants remained unchanged. Password
 absent from first/repeat artifacts; database 287,255,699 bytes <400,000,000.
 See [aggregate acceptance evidence](fact-order-items-verification.json).
-Next core unit: fact_payments; retain components and existing payment warnings.
+The [payment fact](fact-payments.md) is accepted, retaining all components and
+source warnings. Next core unit: fact_reviews.
 No project resources are deleted. The comprehensive governance audit follows
 verified Phase 3 completion, before Phase 4.

@@ -136,4 +136,5 @@ Publish the acceptance checkpoint and confirm clean/synchronized Git before clos
 
 The [item fact](fact-order-items.md) is now accepted at its composite grain,
 preserving exact components, source lineage and shipping warnings. Next core
-unit: `fact_payments`; see the [Phase 3 plan](phase-3-plan.md).
+unit: `fact_reviews`; the [payment fact](fact-payments.md) is accepted.
+See the [Phase 3 plan](phase-3-plan.md).

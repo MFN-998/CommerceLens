@@ -16,20 +16,21 @@ protocols apply. Synced project references and source datasets remain unchanged.
   Order-fact acceptance 7a3199e published; clean/synchronized on resume.
   Current unit: fact_order_items COMPLETE. Source/offline/native/first/
   physical/repeat acceptance passed. Source a047ecf published before build.
-  Current atomic unit: fact_payments IN PROGRESS; contract reviewed against
-  ADR 0003 and accepted staging. Unchanged ten-field projection, no join.
-  Source/offline/native/style/type/parse gates passed; first live/physical/
-  repeat acceptance pending. No payment fact view has been built.
-  Reviews and M5 not started.
+  Current atomic unit: fact_payments COMPLETE. Source e50d47c published;
+  source/offline/native/first/physical/repeat acceptance passed.
+  Larger Phase 3 SAFE TO RESUME; fact_reviews and M5 not started.
 - Objective: tested analytical warehouse under Free/views-first ADR 0004; M4 and M5
   remain. Phase 4 and comprehensive exit audit have not begun.
 - Accepted product contract: all 20 staging fields unchanged plus nullable English
   translation/untranslated coverage (22 columns); no invented labels or dropped rows.
-- Roughly 20-30% of Phase 3 warehouse implementation/verification effort remains;
+- Roughly 15-25% of Phase 3 warehouse implementation/verification effort remains;
   broad reasoned range, not model count/time forecast. Later audit effort is unknown.
 
 ## Completed Work
 
+- Payment fact: all 103,886 composite components/ten fields conserved with
+  exact source amount 16008872.12 and zero-installment/value/undefined
+  warning counts 2/9/3. No joins/aggregation/imputation/eligibility.
 - Item fact: all 112,650 item keys/15 fields conserved; exact source price
   13591643.70/freight 2251909.54, both lineages/context/direct shipping date
   and 0-before/4-beyond-365-day warnings retained. No eligibility policy.
@@ -62,7 +63,9 @@ protocols apply. Synced project references and source datasets remain unchanged.
 - Payment fact: SQL/YAML, four singular checks and fact-payments.md created;
   runner selector added, handoff/phase/customer guides updated;
   three reviewed offline/native/physical test modules adopted. No accepted
-  source/dependency change or resource deletion; generated outputs retained.
+  source/dependency change or resource deletion. Aggregate payment evidence
+  created; README/staging/core/phase guides updated; outputs retained.
+
 - Item fact: fact_order_items.sql/.yml, four singular tests and
   fact-order-items.md created; runner approved selector added. Candidate
   three offline/native/physical test modules adopted after AST validation.
@@ -166,22 +169,29 @@ protocols apply. Synced project references and source datasets remain unchanged.
 
 ## Validation
 
-- Payment fact: independent candidate source review approved; main review
-  of synthetic/physical harnesses found no blocker. Three modules AST-
-  checked/adopted; imports spaced for repository Ruff classification.
-  Initial source Ruff lint/format and mypy (22 implementation files)
-  passed; offline parse .artifacts/dbt/6f7b26ba4fd14ffb9be2b953a7a37e57.
-  Read-only preflight passed: core view absent, accepted parents present,
-  103,886 raw/stage rows/keys, exact payment 16008872.12, flags 2/9/3,
-  missing order references 0, database 287,255,699 bytes <400M.
-  Candidate offline 55 passed (0.43s); adopted payment/runner focused
-  137 passed (15.64s), warehouse/API 1222 passed/856 deliberate live
-  skips (27.04s), known AnyIO alias warning only. Native read-only
-  PostgreSQL 45 passed (52.90s); all ten fields/types, exact cents/max,
-  split methods/warnings, literal references/NULLs/domains/mutations/
-  duplicates and typed empty fixtures. Adopted Ruff lint/format passed
-  (136 reported files); mypy 22 implementation files passed.
-  First live/physical/repeat: Not yet tested. No known failed gates.
+- Payment fact: independent candidate source and main harness/final handoff
+  reviews approved. Candidate offline 55 passed (0.43s); adopted payment/
+  runner 137 passed (15.64s); warehouse/API 1222 passed/856 deliberate live
+  skips (27.04s), known AnyIO alias warning only. Native read-only 45
+  passed (52.90s), complete ten-field preservation/mutations, exact cents/
+  maximum numeric, split methods/warnings, NULLs/literal membership/domains/
+  grain/empty fixtures. Ruff lint/format 136 reported files and mypy 22
+  implementation files passed; offline parse retained
+  .artifacts/dbt/6f7b26ba4fd14ffb9be2b953a7a37e57. Preflight passed with
+  absent view/accepted parents and expected 103,886 keys/sum/flags.
+  Complete 14-file staged-content/history scans passed before source
+  e50d47c published clean. First/repeat each passed one view/all 14 tests
+  in 55.391/57.386s. Physical 2 passed (24.69s): independent guarded
+  raw/staging/core complete multisets/lineage/exact money/flags, native
+  types/typmods/collations, restricted actual login/role/verify-full TLS/
+  private API/reader denials. Repeat preserved counts/sum/flags/view OID/
+  owner/grants; password absent from first/repeat artifacts. Database
+  287,263,891 bytes <400M. Artifact paths/results in fact-payments-verification.json.
+  No known failed payment checks remain; accepted models/raw unchanged.
+  Suite runtime is not consumer latency; M5 plans/recovery remain pending.
+  Scoped final acceptance diff/handoff reviewed; complete nine-file
+  staged-content/history secret scans passed. Publish containing
+  checkpoint and confirm clean/synchronized Git. No resource deletion.
 
 - Item fact: scoped source/harness reviews approved. Candidate offline 79
   passed; adopted item/runner focused 159 passed (19.11s); regression 1165
@@ -294,7 +304,7 @@ protocols apply. Synced project references and source datasets remain unchanged.
   Preflight 803,395 nonnull events/755 dates (2016-09-04..2020-04-09), raw counts
   unchanged; no date view existed, database 287,222,931 bytes <400,000,000.
 - Product code adopted after all three Python modules passed AST parsing;
-  Initial focused124/lint116/mypy22/regression882/parse passed; native57 passed/2
+  Initial focused124/lint116/mypy 22/regression882/parse passed; native57 passed/2
   failed. Added missing-category/category consistency guard; removed an
   inappropriate domain assertion about exact English spelling, already
   protected by reconciliation. Added two offline regression cases.
@@ -339,16 +349,15 @@ protocols apply. Synced project references and source datasets remain unchanged.
 
 ## Current Repository Condition
 
-PARTIALLY IMPLEMENTED / SAFE TO RESUME: payment source/offline/native gates
-passed; no payment fact view built. Accepted baseline 0171b40 preserved.
-No known failed checks, migration, source/dependency/credential mutation or
-resource deletion. Publish this source checkpoint clean before first build.
-Reviews/M5 and the exit governance gate remain incomplete.
+CLEAN / STABLE at published payment acceptance checkpoint; verify Git on resume.
+fact_payments COMPLETE; larger Phase 3 SAFE TO RESUME. No known failed checks,
+partial next model, migration, source/dependency/credential change or resource
+deletion. Review fact/M5/exit governance gate remain; Phase 4 has not begun.
 
 ## Incomplete Work
 
-- M4: fact_payments/fact_reviews remain; all nine staging models, five
-  dimensions, mapping, fact_orders and fact_order_items accepted.
+- M4: fact_reviews remains; all nine staging models, five dimensions,
+  mapping, fact_orders/fact_order_items/fact_payments accepted.
 - M5: technical order-component mart, reliable examples, measured query plans/performance
   and reconstruction/recovery proof; aggregate independent children before joins.
 - Shipping warnings are accepted in fact_order_items; later durations
@@ -362,37 +371,32 @@ Reviews/M5 and the exit governance gate remain incomplete.
 
 ## Exact Next Actions
 
-1. Confirm containing payment source checkpoint published and Git clean;
-   selected fact_payments first build must pass one view/all 14 tests.
-2. Run read-only physical payment-fact acceptance: independent raw/staging/
-   core ten-field multisets, exact money/warnings/lineage/native types and
-   restricted access. Enable only COMMERCE_WAREHOUSE_FACT_PAYMENTS_INTEGRATION.
-3. Repeat selected build; confirm all 103,886 components, 16008872.12 sum,
-   flags 2/9/3, view identity/owner/grants, artifact secrecy/storage <400M.
-4. Record evidence/docs/state; full staged/history secret scans/checkpoint/
-   publish; confirm clean Git. Next fact_reviews remains unstarted.
-5. M5 technical child-aggregated mart, examples/measured plans/performance/
-   reconstruction/recovery, then governance after verified Phase 3, before4.
+1. Check usage/Git/history against this payment acceptance checkpoint. Read
+   ADR 0003 review grain, stg_order_reviews SQL/YAML, review-staging.md and
+   date-dimension.md. No payment rebuild/reload is needed.
+2. Define fact_reviews at (review_id,order_id), preserving all 99,224 pairs,
+   ten accepted staging fields (literal optional comments/lineage/score/
+   events/reversal flag) and required order membership. Consider direct
+   creation/answer calendar roles to accepted dim_date. Neither ID is unique
+   alone; no selected-review/duration/eligibility policy. Multiple-review
+   counts for 547 orders belong in the independently aggregated M5 mart.
+3. Source/offline/native/regression/style/type/parse, reviewed source
+   checkpoint, then first/physical/repeat acceptance and published handoff.
+4. M5 technical child-aggregated order mart, reliable examples, measured
+   query plans/performance and reconstruction/recovery proof.
+5. Governance/corrections only after verified Phase 3, before Phase 4.
+   No unapproved project deletion; preserve retained C/deferred debt.
 
 ## Git State
 
-- Branch feat/warehouse-foundation; main unchanged/unmerged.
-- Published pre-risk baseline: seller acceptance 1320900; customer code a93cb7f.
-- Customer acceptance dca21e9 published; working tree was clean/synced before
-  this product unit. Product code/acceptance 5d96701/055ba10 published. Date code
-  9975935, validation-boundary eaac436 and date acceptance ca44c12 published.
-  Mapping code 0badc24 and acceptance b7ea96b published; clean/synchronized
-  on resume. Fact-orders source b57a416 and runner budget 8c170b6 published
-  before their live builds. Order acceptance 7a3199e and item source
-  a047ecf published. Item acceptance checkpoint is the containing commit:
-  git log -1 --format="%H %s" -- WORK_STATE.md.
-  Item acceptance 0171b40 published. Payment source checkpoint is the
-  containing commit; verify publication and clean Git before first build.
-  Confirm clean/synchronized Git after publication and on resume.
-  No merge/deployment performed.
-- Latest observed allowance 86% five-hour/98% weekly remaining on 2026-10-04,
-  account-wide and not a reservation. Prior session ended at a recoverable checkpoint.
-  No paid changes/reset credits used.
+- Branch feat/warehouse-foundation; main unchanged/unmerged. Accepted item
+  checkpoint 0171b40 and payment source e50d47c are published; Git was clean
+  before first payment build. Payment acceptance checkpoint is the containing
+  commit: git log -1 --format="%H %s" -- WORK_STATE.md. Verify clean and
+  synchronized Git after publication and on resume. No merge/deployment.
+- Latest observed allowance 82% five-hour/97% weekly remaining on
+  2026-10-04, account-wide and not a reservation. No paid changes/reset
+  credits used. Completed payment unit; next model has not been started.
 
 ## Continuation Commands
 
@@ -407,6 +411,7 @@ git log -5 --oneline
 .venv/Scripts/python.exe -B -m src.warehouse dbt-test --select int_order_customers
 .venv/Scripts/python.exe -B -m src.warehouse dbt-test --select fact_orders
 .venv/Scripts/python.exe -B -m src.warehouse dbt-test --select fact_order_items
+.venv/Scripts/python.exe -B -m src.warehouse dbt-test --select fact_payments
 ```
 
 Use customer-staging.md's retained warehouse/API regression workflow and the customer

@@ -17,7 +17,8 @@ product and date. The [order-customer mapping](docs/order-customers.md) is also
 accepted, preserving identity, purchase-associated address and source lineage.
 The [order fact](docs/fact-orders.md) is accepted at one order with retained
 lifecycle flags and customer/date references. The [item fact](docs/fact-order-items.md)
-is accepted with exact source money and shipping warnings. Payments/reviews, initial
+is accepted with exact source money and shipping warnings. The [payment fact](docs/fact-payments.md)
+is accepted with all components, exact amounts and source warnings. Reviews, initial
 analytical marts and final warehouse checks remain.
 See the [current work state](WORK_STATE.md) for verified progress and continuation.
 

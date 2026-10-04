@@ -67,3 +67,6 @@ bytes, below 400M. See [acceptance evidence](payment-staging-verification.json).
 Full source/frontend/advisory checks were not rerun for this dependency-unchanged
 data-only unit; their existing 2026-09-22 results remain historical.
 The comprehensive governance audit follows verified Phase 3 completion, before Phase 4.
+
+The private [payment fact](fact-payments.md) is now accepted, preserving all
+components, exact source amounts, lineage and warning flags at the same grain.
