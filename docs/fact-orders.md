@@ -1,7 +1,7 @@
 # Order fact
 
 Phase 3 M4, under [ADR 0003](decisions/0003-warehouse-contract.md).
-Status: source/offline/native/first live/physical COMPLETE; repeat retry pending.
+Status: COMPLETE; source/offline/native/first live/physical/repeat acceptance passed.
 
 `core.fact_orders` is a private view at **one `order_id`**. It preserves all 22
 accepted `stg_orders` columns, including literal status, five timestamps, every
@@ -105,21 +105,34 @@ types/collation and private API/reader denials verified. Repeat acceptance **FAI
 `.artifacts/dbt/8b6d4807b6544cb89fa67dd409a029c0` contain no complete
 `run_results.json`. Exact suppressed reason was not retained. The first
 115.488-second workload makes the existing 120-second overall budget a
-likely cause; diagnosis/repeat acceptance remain pending. View and all
+possible cause; the original failure's cause remains unconfirmed. View and all
 artifacts are preserved; no model/source change or rollback/deletion performed.
 
 Scoped review approved a workload budget correction: parse/debug remain at
 120 seconds; exact approved build/test suites allow 180 seconds. Individual
 SQL 60s/lock 10s/idle transaction 60s, one thread, zero retries and every
 result/privacy gate remain unchanged. Initial runner checks had three debug
-mock failures (assumed target-path absent from debug), corrected to shared
+mock failures (assumed target-path was available for debug), corrected to shared
 log-path. Final runner 78 passed; warehouse/API 1084 passed/738 deliberate
 live skips, known AnyIO warning only. Ruff lint/format 128 files, mypy 22
 source files and offline parse passed. Retained parse artifacts:
 `.artifacts/dbt/536178186f66417d93d5cbdec0686329`. Corrected fixture
-lint/format and scoped independent review passed. Publish this recoverable
-checkpoint before repeat retry; acceptance is still pending.
-Accepted models remain unchanged. Build-suite timing is not consumer latency.
+lint/format and scoped independent review passed. The reviewed runner
+checkpoint `8c170b6` was published clean before repeat retry.
+Repeat retry passed one view/all 33 tests in 115.521 seconds.
+Artifacts: `.artifacts/dbt/063713da68cf4298af22596a04a52285`. All 99,441 orders/
+96,096 identities/278 uncovered rows, lifecycle flags and NULL-date counts
+were conserved: 160 missing approval, 1,783 missing carrier delivery and
+2,965 missing customer delivery. Relation identity/ownership/grants remained
+unchanged; password absent from first/successful-repeat artifacts. Database
+287,247,507 bytes is below the 400,000,000-byte ceiling. See
+[aggregate acceptance evidence](fact-orders-verification.json). The failed
+attempt remains retained; no unresolved fact-order acceptance failure remains.
+
+Accepted models remain unchanged. Suite timing is not consumer latency;
+M5 must measure consumer query plans/performance and reconstruction/recovery.
+Scoped final handoff review and complete staged-content/history secret scans passed.
+Publish the acceptance checkpoint and confirm clean/synchronized Git before close.
 
 Next fact: `fact_order_items` at `(order_id, order_item_id)`, retaining all item
 components, source precision and documented shipping/attribute warnings.

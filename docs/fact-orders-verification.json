@@ -1,0 +1,332 @@
+{
+  "verified_at_utc": "2026-10-04T06:15:57.439124+00:00",
+  "model": "core.fact_orders",
+  "raw_rows": 99441,
+  "staging_rows": 99441,
+  "fact_rows": 99441,
+  "distinct_order_ids": 99441,
+  "distinct_order_customer_ids": 99441,
+  "distinct_customer_identities": 96096,
+  "missing_approval_dates": 160,
+  "missing_carrier_delivery_dates": 1783,
+  "missing_customer_delivery_dates": 2965,
+  "source_quality_flag_counts": {
+    "is_missing_approval": 160,
+    "is_missing_carrier_delivery": 1783,
+    "is_missing_customer_delivery": 2965,
+    "is_delivered_missing_approval": 14,
+    "is_delivered_missing_carrier_delivery": 2,
+    "is_delivered_missing_customer_delivery": 8,
+    "is_approval_before_purchase": 0,
+    "is_carrier_delivery_before_purchase": 166,
+    "is_customer_delivery_before_purchase": 0,
+    "is_carrier_delivery_before_approval": 1359,
+    "is_customer_delivery_before_approval": 61,
+    "is_customer_delivery_before_carrier_delivery": 23
+  },
+  "fact_flags_match_staging_and_accepted_source_counts": true,
+  "uncovered_geolocation_order_rows": 278,
+  "database_bytes": 287247507,
+  "first_build": "passed",
+  "repeat_build": "passed",
+  "first_build_elapsed_seconds": 115.488,
+  "repeat_build_elapsed_seconds": 115.521,
+  "relation_identity_owner_and_grants_preserved": true,
+  "password_absent_from_first_and_repeat_artifacts": true,
+  "first_artifacts": ".artifacts/dbt/ef1e2c522e704d11857a907edcb9da56",
+  "repeat_artifacts": ".artifacts/dbt/063713da68cf4298af22596a04a52285",
+  "first_results": [
+    {
+      "node": "model.commercelens.fact_orders",
+      "status": "success"
+    },
+    {
+      "node": "test.commercelens.accepted_values_fact_orders_customer_state__AC__AL__AP__AM__BA__CE__DF__ES__GO__MA__MT__MS__MG__PA__PB__PR__PE__PI__RJ__RN__RS__RO__RR__SC__SP__SE__TO.e2d8d353c3",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.accepted_values_fact_orders_order_status__created__approved__invoiced__processing__shipped__delivered__unavailable__canceled.f66576777b",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.fact_orders_domains",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.fact_orders_relationships",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.fact_orders_source_reconciliation",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders__load_id.ccdc45a3a2",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders__source_row.c82bbb0210",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders_customer_city.fdbc0aae16",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders_customer_id.9c2270d0dc",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders_customer_load_id.60a7a9c966",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders_customer_source_row.03f57e0f5b",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders_customer_state.21eba439ba",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders_customer_unique_id.910a27cae4",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders_customer_zip_code_prefix.3dfe717553",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders_estimated_delivery_calendar_date.1a722d61cf",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders_is_approval_before_purchase.d123c2252a",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders_is_carrier_delivery_before_approval.8537de9296",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders_is_carrier_delivery_before_purchase.11c60e0223",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders_is_customer_delivery_before_approval.7b7dc6d39c",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders_is_customer_delivery_before_carrier_delivery.76e1fbf2db",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders_is_customer_delivery_before_purchase.64b8b01c76",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders_is_delivered_missing_approval.456465e811",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders_is_delivered_missing_carrier_delivery.94a1ed45c4",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders_is_delivered_missing_customer_delivery.977bcdf3be",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders_is_missing_approval.493e23fe3e",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders_is_missing_carrier_delivery.e6151ff071",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders_is_missing_customer_delivery.0b0b8a9099",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders_order_estimated_delivery_date.95fbd996e3",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders_order_id.6ba6d3f0a0",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders_order_purchase_timestamp.a8f5dc0434",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders_order_status.6a291ae0c1",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders_purchase_calendar_date.4780d8e522",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.unique_fact_orders_order_id.93a68b4064",
+      "status": "pass"
+    }
+  ],
+  "results": [
+    {
+      "node": "model.commercelens.fact_orders",
+      "status": "success"
+    },
+    {
+      "node": "test.commercelens.accepted_values_fact_orders_customer_state__AC__AL__AP__AM__BA__CE__DF__ES__GO__MA__MT__MS__MG__PA__PB__PR__PE__PI__RJ__RN__RS__RO__RR__SC__SP__SE__TO.e2d8d353c3",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.accepted_values_fact_orders_order_status__created__approved__invoiced__processing__shipped__delivered__unavailable__canceled.f66576777b",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.fact_orders_domains",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.fact_orders_relationships",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.fact_orders_source_reconciliation",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders__load_id.ccdc45a3a2",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders__source_row.c82bbb0210",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders_customer_city.fdbc0aae16",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders_customer_id.9c2270d0dc",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders_customer_load_id.60a7a9c966",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders_customer_source_row.03f57e0f5b",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders_customer_state.21eba439ba",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders_customer_unique_id.910a27cae4",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders_customer_zip_code_prefix.3dfe717553",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders_estimated_delivery_calendar_date.1a722d61cf",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders_is_approval_before_purchase.d123c2252a",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders_is_carrier_delivery_before_approval.8537de9296",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders_is_carrier_delivery_before_purchase.11c60e0223",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders_is_customer_delivery_before_approval.7b7dc6d39c",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders_is_customer_delivery_before_carrier_delivery.76e1fbf2db",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders_is_customer_delivery_before_purchase.64b8b01c76",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders_is_delivered_missing_approval.456465e811",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders_is_delivered_missing_carrier_delivery.94a1ed45c4",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders_is_delivered_missing_customer_delivery.977bcdf3be",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders_is_missing_approval.493e23fe3e",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders_is_missing_carrier_delivery.e6151ff071",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders_is_missing_customer_delivery.0b0b8a9099",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders_order_estimated_delivery_date.95fbd996e3",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders_order_id.6ba6d3f0a0",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders_order_purchase_timestamp.a8f5dc0434",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders_order_status.6a291ae0c1",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.not_null_fact_orders_purchase_calendar_date.4780d8e522",
+      "status": "pass"
+    },
+    {
+      "node": "test.commercelens.unique_fact_orders_order_id.93a68b4064",
+      "status": "pass"
+    }
+  ],
+  "interrupted_repeat": {
+    "status": "failed",
+    "error_type": "DbtError",
+    "exact_cause": "not retained; unconfirmed",
+    "complete_run_results": false,
+    "artifacts": ".artifacts/dbt/8b6d4807b6544cb89fa67dd409a029c0",
+    "view_and_artifacts_preserved": true
+  },
+  "runner_budget_checkpoint": "8c170b6",
+  "setup_job_timeout_seconds": 120,
+  "selected_model_job_timeout_seconds": 180,
+  "statement_timeout_seconds": 60,
+  "lock_timeout_seconds": 10,
+  "idle_transaction_timeout_seconds": 60,
+  "offline_regression_passed": 1084,
+  "deliberate_live_opt_out_skips": 738,
+  "physical_acceptance_passed": 2,
+  "native_readonly_cases_passed": 97
+}

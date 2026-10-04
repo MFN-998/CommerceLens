@@ -15,7 +15,9 @@ loading and full-content retry verification. All nine dbt source staging views a
 accepted, along with all five dimensions: location, seller, customer identity,
 product and date. The [order-customer mapping](docs/order-customers.md) is also
 accepted, preserving identity, purchase-associated address and source lineage.
-Four fact models, initial analytical marts and final warehouse checks remain.
+The [order fact](docs/fact-orders.md) is accepted at one order with retained
+lifecycle flags and customer/date references. Three child facts, initial
+analytical marts and final warehouse checks remain.
 See the [current work state](WORK_STATE.md) for verified progress and continuation.
 
 ## Start here

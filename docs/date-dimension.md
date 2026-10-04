@@ -86,5 +86,6 @@ Database 287,222,931 bytes <400 MB.
 See [aggregate evidence](date-dimension-verification.json). Measured suite
 timing includes tests, not API latency; consumer-query performance/recovery remains M5.
 
-Next core unit after acceptance: `int_order_customers`, preserving each
-order-linked source customer record and address under ADR 0003.
+The [order-customer mapping](order-customers.md) and [order fact](fact-orders.md)
+are now accepted. The next core unit is `fact_order_items`; see the
+[Phase 3 plan](phase-3-plan.md) for current continuation.

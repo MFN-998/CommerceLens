@@ -85,6 +85,6 @@ All five accepted dimensions are preserved.
 Build-suite timing is not consumer-query latency; M5 performance/recovery remains
 pending. No known failed mapping checks or partial next model remains.
 
-Next core unit: `fact_orders`, retaining all orders and lifecycle/quality flags
-at one order, through this mapping and accepted dimensions; no child fanout or
-business eligibility policy.
+The [order fact](fact-orders.md) now uses this accepted mapping, preserving
+all orders and lifecycle flags without child fanout or business eligibility.
+The next core unit is `fact_order_items`; see the [Phase 3 plan](phase-3-plan.md).

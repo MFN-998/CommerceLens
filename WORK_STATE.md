@@ -10,15 +10,15 @@ protocols apply. Synced project references and source datasets remain unchanged.
 - Customer identity COMPLETE, code/acceptance a93cb7f/dca21e9 published clean.
 - Product unit COMPLETE, published acceptance 055ba10 clean/synchronized on resume.
 - Date COMPLETE, published acceptance ca44c12 clean/synchronized before this unit.
-  All five dimensions and mapping accepted; mapping acceptance b7ea96b published
-  clean/synchronized on resume. Current unit: core.fact_orders IN PROGRESS.
-  Scoped 33-field source/offline/native and first live build COMPLETE.
-  Physical COMPLETE; repeat pending. Source b57a416 published before build.
+  All five dimensions/mapping accepted; current unit: core.fact_orders COMPLETE.
+  Source/offline/native/first live/physical/repeat acceptance passed. Source
+  b57a416 and bounded runner correction 8c170b6 published before live builds.
+  Larger Phase 3 SAFE TO RESUME. Next fact_order_items has not been started.
 - Objective: tested analytical warehouse under Free/views-first ADR 0004; M4 and M5
   remain. Phase 4 and comprehensive exit audit have not begun.
 - Accepted product contract: all 20 staging fields unchanged plus nullable English
   translation/untranslated coverage (22 columns); no invented labels or dropped rows.
-- Roughly 30-40% of Phase 3 warehouse implementation/verification effort remains;
+- Roughly 25-35% of Phase 3 warehouse implementation/verification effort remains;
   broad reasoned range, not model count/time forecast. Later audit effort is unknown.
 
 ## Completed Work
@@ -33,6 +33,8 @@ protocols apply. Synced project references and source datasets remain unchanged.
 - Location: 19,177 ZIPs, 19,015 covered, 1,000,163 observations, 31 broad-box flags;
   8,556 city-ambiguous/8 state-ambiguous ZIPs. Joins retain 99,441/3,095 customer/seller
   rows and 278/7 uncovered rows. Geolocation retains 261,831 excess exact duplicates.
+- Order fact: all 99,441 orders/33 fields conserved with 96,096 identities,
+  both lineages, five date roles, all lifecycle flags and 278 uncovered rows.
 - Mapping: all 99,441 order-linked customer records/96,096 identities conserved
   across raw/stage/core, with seven unchanged fields and all 278 uncovered rows.
 - Date: 755 observed dates across 803,395 events; all eight raw/staged clocks
@@ -49,7 +51,10 @@ protocols apply. Synced project references and source datasets remain unchanged.
 
 - Fact orders: fact_orders.sql/.yml, three singular SQL tests and fact-orders.md
   created; three fact-order Python test modules adopted. Runner/phase/staging
-  guides updated. No file deletion/rename; candidates/artifacts retained.
+  guides/README updated; fact-orders-verification.json created. Artifacts:
+  .artifacts/dbt/ef1e2c522e704d11857a907edcb9da56 and
+  .artifacts/dbt/063713da68cf4298af22596a04a52285. Interrupted
+  repeat 8b6d4807b6544cb89fa67dd409a029c0 also retained. No deletion/rename.
 - Mapping: intermediate int_order_customers.sql/.yml, three singular tests, three
   Python test modules and order-customers.md created; runner/phase/staging guides
   updated. order-customers-verification.json added; README/identity guide updated.
@@ -106,7 +111,7 @@ protocols apply. Synced project references and source datasets remain unchanged.
 - dim_customer is ONLY customer_unique_id text DISTINCT with C collation. Repeating
   order-linked identities collapse at the declared identity grain; null/invalid IDs
   stay visible and block tests. Source addresses/load/ordinal are not chosen arbitrarily;
-  later int_order_customers preserves them for fact_orders. No surrogate/counter/KPI.
+  accepted int_order_customers preserves them for fact_orders. No surrogate/counter/KPI.
 - Four dbt tests: not-null, unique, ASCII lowercase32hex domain and full bidirectional
   EXCEPT ALL identity membership. Source/dimension duplicate semantics differ deliberately.
 - Accepted dim_product: retain all staging fields/flags, literal category left join; nullable
@@ -129,38 +134,43 @@ protocols apply. Synced project references and source datasets remain unchanged.
 
 ## Validation
 
-- Fact-orders scoped SQL/YAML review approved. Read-only preflight passed:
-  view absent, accepted parents present, 99,441 raw orders/unique IDs; database
-  287,222,931 bytes <400,000,000. Offline parse passed; retained artifacts
-  .artifacts/dbt/8d56aa1f4d9e4a0892645244105d12c8. Source adopted; offline
-  candidate test suite 104 passed (1.97 seconds); scoped source/harness/helper
-  review approved. Runner suite 69 passed (15.28 seconds). Test candidates
-  AST-parsed/adopted. Adopted fact tests 104 passed; warehouse/API regression
-  1075 passed/738 deliberate live opt-out skips, known AnyIO warning
-  only. Native read-only PostgreSQL 97 passed. Ruff lint/format passed
-  (128 reported files); mypy passed 22 implementation files. Scoped
-  native/physical review approved. Initial adopted lint found two import-group
-  spacing issues; corrected, all subsequent quality checks passed. No behavior
-  change. First build passed one view/all 33 tests in 115.488 seconds.
-  Retained artifacts: .artifacts/dbt/ef1e2c522e704d11857a907edcb9da56.
-  Physical/access: 2 passed. All 33 fields/both lineages, independent raw
-  lifecycle flags, source counts, 278 uncovered rows and optional NULL dates
-  conserved; inherited types/collation, actual restricted login/role/TLS and
-  private API/reader denials verified. Repeat acceptance FAILED with DbtError;
-  interrupted artifacts .artifacts/dbt/8b6d4807b6544cb89fa67dd409a029c0
-  contain manifest but no complete run_results. Exact suppressed reason was
-  not retained; likely 120-second command budget after first115.488 seconds.
-  View/artifacts and first/physical evidence preserved; acceptance pending.
-  Reviewed 120/180 setup/model-suite budget implemented and validated.
-  Initial runner check: 75 passed/3 debug mock failures; mock assumed
-  target-path absent from debug. Corrected to shared log-path; final runner
-  78 passed (17.98 seconds), warehouse/API 1084 passed/738 deliberate live
-  skips, known AnyIO alias warning only. Ruff lint/format 128 files and
-  mypy 22 source files passed; corrected fixture lint/format also passed.
-  Offline parse passed: .artifacts/dbt/536178186f66417d93d5cbdec0686329.
-  Scoped independent runner review approved after fixture correction.
-  Pre-retry checkpoint pending publication. No data assertion failure
-  established; repeat failed/pending. Source/accepted models unchanged.
+- Fact orders: source/offline/native/physical reviews approved. Read-only
+  preflight passed (view absent/parents present, 99,441 raw orders/IDs,
+  database 287,222,931 bytes). Initial offline parse passed:
+  .artifacts/dbt/8d56aa1f4d9e4a0892645244105d12c8. Offline candidate/adopted
+  104 passed each; native read-only PostgreSQL 97 passed. Initial regression
+  1075 passed/738 deliberate live skips, known AnyIO warning only. Initial
+  adopted lint found two import-spacing issues; fixed, lint/format 128 files
+  and mypy 22 source files passed. Source b57a416 published before first build.
+  First: one view/all 33 tests passed in 115.488 seconds; artifacts:
+  .artifacts/dbt/ef1e2c522e704d11857a907edcb9da56. Physical/access 2 passed:
+  independent raw/stage/core 33-field multisets, both lineages/flags/NULL
+  dates, inherited types/collation, actual restricted login/role/verify-full
+  TLS and private API/reader denials verified. Interrupted repeat failed
+  with DbtError and no complete run_results; exact suppressed reason unknown.
+  Retained .artifacts/dbt/8b6d4807b6544cb89fa67dd409a029c0; view preserved.
+  First suite left little margin in old overall 120-second budget; scoped
+  120/180 setup/model-suite correction reviewed/validated/published 8c170b6.
+  No data assertion/query timeout limit weakened. Initial runner fixture
+  75 passed/3 debug mock failures (assumed target-path available) fixed via
+  log-path; final runner 78 passed (17.98s), regression 1084 passed/738 live
+  opt-out skips (36.00s), known AnyIO warning only. Ruff lint/format 128
+  files, corrected fixture checks and mypy 22 source files passed. Revised
+  offline parse passed: .artifacts/dbt/536178186f66417d93d5cbdec0686329.
+  Repeat retry: one view/all 33 tests passed in 115.521 seconds;
+  artifacts .artifacts/dbt/063713da68cf4298af22596a04a52285. All 99,441
+  orders/96,096 identities/278 uncovered rows, original flags and optional
+  NULL-date counts conserved. Relation identity/owner/grants unchanged;
+  password absent from first/successful-repeat artifacts. Database 287,247,507
+  bytes <400,000,000. No unresolved fact-order acceptance failures remain;
+  failed attempt remains recorded. See fact-orders-verification.json.
+  Suite timings include data tests and network, not consumer-query latency.
+  M5 performance/reconstruction remains pending. Complete eight-file staged
+  contents/history secret scans and scoped independent handoff review passed.
+  Source/runner published after their scans. Repeat final scans after these
+  wording updates; publish containing acceptance commit and confirm Git.
+  No merge/deployment performed; live privacy/access evidence is scoped.
+
 - Order-customer mapping: scoped contract review approved; 46 candidate offline
   tests passed. Adopted focused suite 113 passed; warehouse/API regression
   969 passed/639 deliberate live opt-out skips, known AnyIO warning only.
@@ -251,14 +261,16 @@ protocols apply. Synced project references and source datasets remain unchanged.
 
 ## Current Repository Condition
 
-FUNCTIONAL / FIRST AND PHYSICAL VERIFIED; REPEAT REQUIRES FOLLOW-UP. One view
-and all 33 tests passed on first build; accepted models preserved. Repeat
-failed/pending; bounded runner correction validated. No source/migration/
-dependency/credential change or resource deletion. Phase 3 remains incomplete.
+CLEAN / STABLE at the published acceptance checkpoint; verify Git on resume.
+fact_orders COMPLETE; larger Phase 3 SAFE TO RESUME. All prior accepted
+models preserved. No unresolved failed tests, pending migration or partial
+next model. No source mutation/resource deletion/dependency/credential change.
+Three child facts/M5 remain; Phase 4 and the exit audit have not begun.
 
 ## Incomplete Work
 
-- M4: four facts remain. All nine staging models/five dimensions/mapping accepted.
+- M4: fact_order_items, fact_payments and fact_reviews remain. All nine staging
+  models/five dimensions/mapping/fact_orders accepted.
 - M5: technical order-component mart, reliable examples, measured query plans/performance
   and reconstruction/recovery proof; aggregate independent children before joins.
 - fact_order_items must retain shipping-before-purchase and >365-day warning flags
@@ -272,17 +284,20 @@ dependency/credential change or resource deletion. Phase 3 remains incomplete.
 
 ## Exact Next Actions
 
-1. Read handoff/Git; source b57a416 published. First selected build passed
-   one view/all 33 tests; retain artifacts and do not repeat first build.
-2. Physical/access 2 passed; raw/stage/core full fields, both lineages, flags,
-   dates, inherited types/collation and private access verified.
-3. Publish validated 120/180-second runner budget checkpoint after staged/history
-   secret scans. Confirm clean Git, then run the selected repeat build;
-   conserve source/identity/NULL-date/flag counts,
-   view identity/owner/grants, storage and artifact secrecy. Record evidence.
-4. Update acceptance docs/work state, scan/checkpoint/publish and confirm Git.
-   Wrap current unit with fact_order_items as next; do not start another fact.
-5. Three other facts and M5 remain, then governance after verified Phase 3.
+1. Check usage, Git status/recent commits against this acceptance checkpoint.
+   Read ADR 0003's fact_order_items grain/warning rules, accepted
+   stg_order_items SQL/YAML, item-staging.md and fact-orders.md. Inspect
+   item types/flags and shipping chronology; do not redo accepted models.
+2. Define/implement fact_order_items at (order_id, order_item_id), conserving
+   all 112,650 components, exact price/freight, lineage and order/product/seller
+   relationships. Retain shipping-before-purchase and >365-day warnings.
+3. Validate full row/money conservation, grain/references and missing/reversed
+   event cases; source checkpoint before first/physical/repeat acceptance.
+   Expose no durations without present ordered events or business eligibility.
+4. Payments/reviews facts, then M5 technical mart/examples/measured plans/
+   performance/reconstruction checks; aggregate independent children first.
+5. Comprehensive governance/corrections only after verified Phase 3, before
+   Phase 4. Carry debt/release gates forward and preserve project resources.
 
 ## Git State
 
@@ -292,13 +307,12 @@ dependency/credential change or resource deletion. Phase 3 remains incomplete.
   this product unit. Product code/acceptance 5d96701/055ba10 published. Date code
   9975935, validation-boundary eaac436 and date acceptance ca44c12 published.
   Mapping code 0badc24 and acceptance b7ea96b published; clean/synchronized
-  on resume. Fact-orders source b57a416 published before first build. Runner
-  budget checkpoint is the containing commit; resolve
-  git log -1 --format="%H %s" -- WORK_STATE.md and confirm clean/synchronized
-  publication before repeat retry.
+  on resume. Fact-orders source b57a416 and runner budget 8c170b6 published
+  before their live builds. Acceptance checkpoint is the containing commit:
+  git log -1 --format="%H %s" -- WORK_STATE.md.
   Confirm clean/synchronized Git after publication and on resume.
   No merge/deployment performed.
-- Latest observed allowance 51% five-hour/69% weekly remaining on 2026-10-04,
+- Latest observed allowance 46% five-hour/68% weekly remaining on 2026-10-04,
   account-wide and not a reservation. Prior session ended at a recoverable checkpoint.
   No paid changes/reset credits used.
 
@@ -313,10 +327,11 @@ git log -5 --oneline
 .venv/Scripts/python.exe -B -m src.warehouse dbt-test --select dim_product
 .venv/Scripts/python.exe -B -m src.warehouse dbt-test --select dim_date
 .venv/Scripts/python.exe -B -m src.warehouse dbt-test --select int_order_customers
+.venv/Scripts/python.exe -B -m src.warehouse dbt-test --select fact_orders
 ```
 
 Use customer-staging.md's retained warehouse/API regression workflow and the customer
-and product/date dimension plus order-customers guides. Never print secrets/
+and product/date dimension plus order-customers/fact-orders guides. Never print secrets/
 source records/driver diagnostics.
 Resource deletion needs specific informed permission; legitimate product deletion follows authorized
 ownership/confirmation/integrity behavior. Preserve owner's retained C and new artifacts.

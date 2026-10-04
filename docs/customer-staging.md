@@ -5,8 +5,8 @@ The selected build/test commands also approve stg_sellers, stg_category_translat
 stg_products, stg_orders, stg_order_items, stg_order_payments, stg_order_reviews and
 stg_geolocation, dim_location, dim_seller, dim_customer, dim_product, dim_date, int_order_customers and fact_orders; see their guides in the [Phase 3 plan](phase-3-plan.md). All nine
 source staging models, all five dimensions and the order-customer mapping are
-verified. Four facts and marts remain pending; no business KPIs or Phase 4 analysis
-are added.
+verified. fact_orders is also accepted; three child facts and marts remain pending.
+No business KPIs or Phase 4 analysis are added.
 
 ## Data contract
 
