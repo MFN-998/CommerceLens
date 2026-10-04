@@ -13,7 +13,9 @@ protocols apply. Synced project references and source datasets remain unchanged.
   All five dimensions/mapping accepted; current unit: core.fact_orders COMPLETE.
   Source/offline/native/first live/physical/repeat acceptance passed. Source
   b57a416 and bounded runner correction 8c170b6 published before live builds.
-  Larger Phase 3 SAFE TO RESUME. Next fact_order_items has not been started.
+  Order-fact acceptance 7a3199e published; clean/synchronized on resume.
+  Current unit: fact_order_items IN PROGRESS. Source/offline/native gates
+  passed; first live/physical/repeat acceptance pending. No item fact built.
 - Objective: tested analytical warehouse under Free/views-first ADR 0004; M4 and M5
   remain. Phase 4 and comprehensive exit audit have not begun.
 - Accepted product contract: all 20 staging fields unchanged plus nullable English
@@ -49,6 +51,10 @@ protocols apply. Synced project references and source datasets remain unchanged.
 
 ## Files
 
+- Item fact: fact_order_items.sql/.yml, four singular tests and
+  fact-order-items.md created; runner approved selector added. Candidate
+  three offline/native/physical test modules adopted after AST validation.
+  No resource deletion/rename. Candidate/generated outputs retained.
 - Fact orders: fact_orders.sql/.yml, three singular SQL tests and fact-orders.md
   created; three fact-order Python test modules adopted. Runner/phase/staging
   guides/README updated; fact-orders-verification.json created. Artifacts:
@@ -85,6 +91,14 @@ protocols apply. Synced project references and source datasets remain unchanged.
 
 ## Technical Decisions
 
+- Active item fact: private view at (order_id, order_item_id), preserving nine
+  staging item fields including exact money. One literal C LEFT JOIN to
+  accepted fact_orders adds purchase context and separate order load/ordinal.
+  Exact timestamp comparisons add shipping-before-purchase and strictly
+  >365 elapsed-day warning flags; direct shipping date references dim_date.
+  Fifteen fields/19 tests; independent source-item count and composite grain
+  block shared parent fanout. Missing parent retains item/NULL context, then
+  fails required/reference gates. No extra attribute joins/durations/KPIs.
 - Reviewed runner budget: parse/debug keep 120 seconds; approved one-model
   build/test suites get 180 seconds. The first 33-test suite took 115.488
   seconds, leaving little cumulative runtime margin. SQL 60s/lock 10s/idle
@@ -134,6 +148,22 @@ protocols apply. Synced project references and source datasets remain unchanged.
 
 ## Validation
 
+- Item fact contract/source review approved. Candidate offline 79 passed
+  (0.85s); all three harnesses AST-checked/adopted. Import grouping adjusted
+  for repository Ruff classification, no behavior change. Read-only preflight
+  passed: view absent/accepted parents present, raw/stage 112,650 items/keys,
+  exact price 13591643.70/freight 2251909.54 and chronology 0 before/4 beyond
+  365 days, database 287,247,507 bytes <400M. Initial helper quoting error
+  prevented execution; corrected before passed preflight, no DB mutation.
+  Offline parse passed: .artifacts/dbt/6179cb386aca49eca12b134cef5a6ed3.
+  Adopted item/runner focused 159 passed (19.11s); warehouse/API regression
+  1165 passed/809 deliberate live opt-out skips (28.50s), known AnyIO alias
+  warning only. Ruff lint/format passed (132 reported files); mypy passed
+  22 implementation files. Native read-only PostgreSQL 69 passed (96.97s)
+  on adopted SQL, byte-identical to candidate source; complete typed
+  15-field/money/lineage/grain/threshold/NULL/reference/mutation and empty
+  cases. Source review approved; scoped native/physical harness review by
+  main agent found no blocker. First/physical/repeat: Not yet tested.
 - Fact orders: source/offline/native/physical reviews approved. Read-only
   preflight passed (view absent/parents present, 99,441 raw orders/IDs,
   database 287,222,931 bytes). Initial offline parse passed:
@@ -261,11 +291,10 @@ protocols apply. Synced project references and source datasets remain unchanged.
 
 ## Current Repository Condition
 
-CLEAN / STABLE at the published acceptance checkpoint; verify Git on resume.
-fact_orders COMPLETE; larger Phase 3 SAFE TO RESUME. All prior accepted
-models preserved. No unresolved failed tests, pending migration or partial
-next model. No source mutation/resource deletion/dependency/credential change.
-Three child facts/M5 remain; Phase 4 and the exit audit have not begun.
+STABLE / ITEM-FACT SOURCE VERIFIED; LIVE ACCEPTANCE PENDING. Source/offline/
+native gates passed, no item fact view built. Accepted baseline 7a3199e
+preserved. No known failed gates, migration, source mutation or deletion.
+Current code checkpoint must be published clean before first live build.
 
 ## Incomplete Work
 
@@ -284,20 +313,17 @@ Three child facts/M5 remain; Phase 4 and the exit audit have not begun.
 
 ## Exact Next Actions
 
-1. Check usage, Git status/recent commits against this acceptance checkpoint.
-   Read ADR 0003's fact_order_items grain/warning rules, accepted
-   stg_order_items SQL/YAML, item-staging.md and fact-orders.md. Inspect
-   item types/flags and shipping chronology; do not redo accepted models.
-2. Define/implement fact_order_items at (order_id, order_item_id), conserving
-   all 112,650 components, exact price/freight, lineage and order/product/seller
-   relationships. Retain shipping-before-purchase and >365-day warnings.
-3. Validate full row/money conservation, grain/references and missing/reversed
-   event cases; source checkpoint before first/physical/repeat acceptance.
-   Expose no durations without present ordered events or business eligibility.
-4. Payments/reviews facts, then M5 technical mart/examples/measured plans/
-   performance/reconstruction checks; aggregate independent children first.
-5. Comprehensive governance/corrections only after verified Phase 3, before
-   Phase 4. Carry debt/release gates forward and preserve project resources.
+1. Confirm containing source checkpoint published and Git clean. First
+   selected fact_order_items build must verify one view/all 19 data tests.
+   Retain artifacts; no accepted-model rebuild/source reload is needed.
+2. Run opt-in read-only physical acceptance: independent raw/stage/core
+   full 15 fields, exact money, both lineages/flags/date/types/private access.
+3. Repeat selected build; verify item counts/keys/money/0-before/4-beyond
+   warnings, view identity/owner/grants, artifact secrecy and storage.
+4. Record acceptance, update documentation/state, secret-scan/checkpoint/
+   publish, confirm Git. Next facts payments/reviews remain unstarted.
+5. M5 technical mart/query plans/performance/reconstruction/recovery, then
+   comprehensive governance after verified Phase 3, before Phase 4.
 
 ## Git State
 
@@ -309,10 +335,11 @@ Three child facts/M5 remain; Phase 4 and the exit audit have not begun.
   Mapping code 0badc24 and acceptance b7ea96b published; clean/synchronized
   on resume. Fact-orders source b57a416 and runner budget 8c170b6 published
   before their live builds. Acceptance checkpoint is the containing commit:
-  git log -1 --format="%H %s" -- WORK_STATE.md.
+  git log -1 --format="%H %s" -- WORK_STATE.md. The containing
+  item-fact source checkpoint must be clean/published before first build.
   Confirm clean/synchronized Git after publication and on resume.
   No merge/deployment performed.
-- Latest observed allowance 46% five-hour/68% weekly remaining on 2026-10-04,
+- Latest observed allowance 21% five-hour/64% weekly remaining on 2026-10-04,
   account-wide and not a reservation. Prior session ended at a recoverable checkpoint.
   No paid changes/reset credits used.
 

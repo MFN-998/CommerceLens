@@ -1,0 +1,89 @@
+version: 2
+models:
+- name: fact_order_items
+  description: Private core view at (order_id, order_item_id). Retains all nine accepted item fields,
+    including exact numeric(18,2) source money and lineage. One literal LEFT JOIN to accepted fact_orders
+    adds purchase and distinct parent lineage. Exact elapsed chronology warnings and a shipping calendar
+    key do not filter, normalize, aggregate, deduplicate or invent business eligibility. Missing context
+    remains NULL and blocks acceptance. No product/seller attributes, durations or child joins.
+  config:
+    materialized: view
+    schema: core
+  columns:
+  - name: _load_id
+    data_type: uuid
+    description: Unchanged item source snapshot identity.
+    data_tests:
+    - not_null
+  - name: _source_row
+    data_type: bigint
+    description: Unchanged one-based item source ordinal.
+    data_tests:
+    - not_null
+  - name: order_id
+    data_type: text
+    description: Literal source order reference; part of composite item grain.
+    data_tests:
+    - not_null
+  - name: order_item_id
+    data_type: bigint
+    description: Positive source sequence within the order; not globally unique.
+    data_tests:
+    - not_null
+  - name: product_id
+    data_type: text
+    description: Unchanged source product reference.
+    data_tests:
+    - not_null
+  - name: seller_id
+    data_type: text
+    description: Unchanged source seller reference.
+    data_tests:
+    - not_null
+  - name: shipping_limit_date
+    data_type: timestamp without time zone
+    description: Unchanged source shipping deadline; timezone unspecified.
+    data_tests:
+    - not_null
+  - name: price
+    data_type: numeric(18,2)
+    description: Exact nonnegative source price in BRL; zero retained, no float/rounding.
+    data_tests:
+    - not_null
+  - name: freight_value
+    data_type: numeric(18,2)
+    description: Exact nonnegative source freight in BRL; zero retained.
+    data_tests:
+    - not_null
+  - name: order_purchase_timestamp
+    data_type: timestamp without time zone
+    description: Purchase context from accepted fact_orders, without timezone conversion.
+    data_tests:
+    - not_null
+  - name: order_load_id
+    data_type: uuid
+    description: Parent order source snapshot, distinct from item lineage.
+    data_tests:
+    - not_null
+  - name: order_source_row
+    data_type: bigint
+    description: Parent order source ordinal, distinct from item ordinal.
+    data_tests:
+    - not_null
+  - name: is_shipping_before_purchase
+    data_type: boolean
+    description: Shipping deadline precedes purchase; false when either clock is absent, whose required
+      field still fails.
+    data_tests:
+    - not_null
+  - name: is_shipping_beyond_365_days
+    data_type: boolean
+    description: Exact elapsed shipping-minus-purchase interval exceeds 365 days; exploratory warning,
+      not business eligibility.
+    data_tests:
+    - not_null
+  - name: shipping_calendar_date
+    data_type: date
+    description: Calendar date directly from shipping_limit_date; required member of dim_date.
+    data_tests:
+    - not_null
