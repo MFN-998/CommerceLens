@@ -35,6 +35,10 @@ APPROVED_MODELS = frozenset(
 )
 
 
+SETUP_TIMEOUT_SECONDS = 120
+MODEL_JOB_TIMEOUT_SECONDS = 180
+
+
 class DbtError(ValueError):
     """Fixed, safe diagnostics; never expose a subprocess or connection exception."""
 
@@ -94,6 +98,9 @@ def run_dbt(
             raise DbtError("Choose exactly one approved model for dbt build/test")
     elif select is not None:
         raise DbtError("Model selection is only supported for dbt build/test")
+    timeout_seconds = (
+        MODEL_JOB_TIMEOUT_SECONDS if command in ("build", "test") else SETUP_TIMEOUT_SECONDS
+    )
     root = root.resolve()
     project = root / "dbt"
     profiles = project / "profiles"
@@ -144,12 +151,12 @@ def run_dbt(
             stdin=subprocess.DEVNULL,
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL,
-            timeout=120,
+            timeout=timeout_seconds,
             check=False,
         )
     except subprocess.TimeoutExpired:
         raise DbtError(
-            "dbt setup command exceeded its two-minute limit; no detail logged"
+            f"dbt {command} exceeded its {timeout_seconds}-second limit; no detail logged"
         ) from None
     except OSError:
         raise DbtError(

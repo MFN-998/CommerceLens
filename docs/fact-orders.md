@@ -1,7 +1,7 @@
 # Order fact
 
 Phase 3 M4, under [ADR 0003](decisions/0003-warehouse-contract.md).
-Status: source/offline/native COMPLETE; first live/physical/repeat acceptance pending.
+Status: source/offline/native/first live/physical COMPLETE; repeat retry pending.
 
 `core.fact_orders` is a private view at **one `order_id`**. It preserves all 22
 accepted `stg_orders` columns, including literal status, five timestamps, every
@@ -96,8 +96,30 @@ native/physical review approved. Initial adopted lint found two import-group
 spacing issues; corrected and all subsequent quality checks passed. No
 behavior change or failing fact checks remains.
 
-First live build/physical/repeat: **Not yet tested**. All accepted models remain
-unchanged; no fact view built yet. Publish source checkpoint before build.
+Source checkpoint `b57a416` was published clean before first live build.
+First build passed one view/all 33 tests in 115.488 seconds; artifacts:
+`.artifacts/dbt/ef1e2c522e704d11857a907edcb9da56`. Physical/access: **2 passed**. Independent raw/stage/mapping/fact full fields,
+both lineages, original warning counts, 278 uncovered rows and optional NULL
+dates conserved. Actual restricted login/role/verify-full TLS, inherited
+types/collation and private API/reader denials verified. Repeat acceptance **FAILED** with `DbtError`; interrupted artifacts
+`.artifacts/dbt/8b6d4807b6544cb89fa67dd409a029c0` contain no complete
+`run_results.json`. Exact suppressed reason was not retained. The first
+115.488-second workload makes the existing 120-second overall budget a
+likely cause; diagnosis/repeat acceptance remain pending. View and all
+artifacts are preserved; no model/source change or rollback/deletion performed.
+
+Scoped review approved a workload budget correction: parse/debug remain at
+120 seconds; exact approved build/test suites allow 180 seconds. Individual
+SQL 60s/lock 10s/idle transaction 60s, one thread, zero retries and every
+result/privacy gate remain unchanged. Initial runner checks had three debug
+mock failures (assumed target-path absent from debug), corrected to shared
+log-path. Final runner 78 passed; warehouse/API 1084 passed/738 deliberate
+live skips, known AnyIO warning only. Ruff lint/format 128 files, mypy 22
+source files and offline parse passed. Retained parse artifacts:
+`.artifacts/dbt/536178186f66417d93d5cbdec0686329`. Corrected fixture
+lint/format and scoped independent review passed. Publish this recoverable
+checkpoint before repeat retry; acceptance is still pending.
+Accepted models remain unchanged. Build-suite timing is not consumer latency.
 
 Next fact: `fact_order_items` at `(order_id, order_item_id)`, retaining all item
 components, source precision and documented shipping/attribute warnings.

@@ -12,8 +12,8 @@ protocols apply. Synced project references and source datasets remain unchanged.
 - Date COMPLETE, published acceptance ca44c12 clean/synchronized before this unit.
   All five dimensions and mapping accepted; mapping acceptance b7ea96b published
   clean/synchronized on resume. Current unit: core.fact_orders IN PROGRESS.
-  Scoped 33-field source/offline/native checks COMPLETE. First live/physical/
-  repeat acceptance pending; preflight view absent. All accepted models preserved.
+  Scoped 33-field source/offline/native and first live build COMPLETE.
+  Physical COMPLETE; repeat pending. Source b57a416 published before build.
 - Objective: tested analytical warehouse under Free/views-first ADR 0004; M4 and M5
   remain. Phase 4 and comprehensive exit audit have not begun.
 - Accepted product contract: all 20 staging fields unchanged plus nullable English
@@ -80,6 +80,12 @@ protocols apply. Synced project references and source datasets remain unchanged.
 
 ## Technical Decisions
 
+- Reviewed runner budget: parse/debug keep 120 seconds; approved one-model
+  build/test suites get 180 seconds. The first 33-test suite took 115.488
+  seconds, leaving little cumulative runtime margin. SQL 60s/lock 10s/idle
+  transaction 60s limits, one thread, zero retries, secrets/selection/full-result
+  gates unchanged. Individual measured queries were below 20 seconds; consumer
+  profiling remains M5. This is a bounded overall workload allowance.
 - Active fact_orders: all 22 accepted order staging fields/flags unchanged,
   six order-linked customer identity/address/lineage fields, five calendar-date
   roles from unchanged timestamps. One literal C LEFT JOIN to mapping only.
@@ -135,8 +141,26 @@ protocols apply. Synced project references and source datasets remain unchanged.
   (128 reported files); mypy passed 22 implementation files. Scoped
   native/physical review approved. Initial adopted lint found two import-group
   spacing issues; corrected, all subsequent quality checks passed. No behavior
-  change. First build/physical/repeat: Not yet tested.
-  No failed fact checks remain; source/accepted models unchanged.
+  change. First build passed one view/all 33 tests in 115.488 seconds.
+  Retained artifacts: .artifacts/dbt/ef1e2c522e704d11857a907edcb9da56.
+  Physical/access: 2 passed. All 33 fields/both lineages, independent raw
+  lifecycle flags, source counts, 278 uncovered rows and optional NULL dates
+  conserved; inherited types/collation, actual restricted login/role/TLS and
+  private API/reader denials verified. Repeat acceptance FAILED with DbtError;
+  interrupted artifacts .artifacts/dbt/8b6d4807b6544cb89fa67dd409a029c0
+  contain manifest but no complete run_results. Exact suppressed reason was
+  not retained; likely 120-second command budget after first115.488 seconds.
+  View/artifacts and first/physical evidence preserved; acceptance pending.
+  Reviewed 120/180 setup/model-suite budget implemented and validated.
+  Initial runner check: 75 passed/3 debug mock failures; mock assumed
+  target-path absent from debug. Corrected to shared log-path; final runner
+  78 passed (17.98 seconds), warehouse/API 1084 passed/738 deliberate live
+  skips, known AnyIO alias warning only. Ruff lint/format 128 files and
+  mypy 22 source files passed; corrected fixture lint/format also passed.
+  Offline parse passed: .artifacts/dbt/536178186f66417d93d5cbdec0686329.
+  Scoped independent runner review approved after fixture correction.
+  Pre-retry checkpoint pending publication. No data assertion failure
+  established; repeat failed/pending. Source/accepted models unchanged.
 - Order-customer mapping: scoped contract review approved; 46 candidate offline
   tests passed. Adopted focused suite 113 passed; warehouse/API regression
   969 passed/639 deliberate live opt-out skips, known AnyIO warning only.
@@ -227,10 +251,10 @@ protocols apply. Synced project references and source datasets remain unchanged.
 
 ## Current Repository Condition
 
-STABLE / FACT-ORDERS SOURCE VERIFIED; LIVE ACCEPTANCE PENDING. Source/offline/
-native gates passed; no fact view built yet. Baseline b7ea96b and all accepted
-models preserved. No known failed checks, source/migration/dependency/credential
-change or resource deletion. Phase 3 remains incomplete.
+FUNCTIONAL / FIRST AND PHYSICAL VERIFIED; REPEAT REQUIRES FOLLOW-UP. One view
+and all 33 tests passed on first build; accepted models preserved. Repeat
+failed/pending; bounded runner correction validated. No source/migration/
+dependency/credential change or resource deletion. Phase 3 remains incomplete.
 
 ## Incomplete Work
 
@@ -248,12 +272,13 @@ change or resource deletion. Phase 3 remains incomplete.
 
 ## Exact Next Actions
 
-1. Confirm this source checkpoint published and Git clean; first selected
-   fact_orders build (one view/all 33 tests). Retain artifacts; do not rebuild
-   accepted phases. Existing runner timeout remains 120 seconds.
-2. Run opt-in read-only physical fact acceptance: full raw/stage/core33fields,
-   both lineages, warning counts, dates, types/collation and private access.
-3. Repeat selected build; conserve source/identity/NULL-date/flag counts,
+1. Read handoff/Git; source b57a416 published. First selected build passed
+   one view/all 33 tests; retain artifacts and do not repeat first build.
+2. Physical/access 2 passed; raw/stage/core full fields, both lineages, flags,
+   dates, inherited types/collation and private access verified.
+3. Publish validated 120/180-second runner budget checkpoint after staged/history
+   secret scans. Confirm clean Git, then run the selected repeat build;
+   conserve source/identity/NULL-date/flag counts,
    view identity/owner/grants, storage and artifact secrecy. Record evidence.
 4. Update acceptance docs/work state, scan/checkpoint/publish and confirm Git.
    Wrap current unit with fact_order_items as next; do not start another fact.
@@ -267,12 +292,13 @@ change or resource deletion. Phase 3 remains incomplete.
   this product unit. Product code/acceptance 5d96701/055ba10 published. Date code
   9975935, validation-boundary eaac436 and date acceptance ca44c12 published.
   Mapping code 0badc24 and acceptance b7ea96b published; clean/synchronized
-  on resume. Fact-orders source checkpoint is the containing commit; resolve
+  on resume. Fact-orders source b57a416 published before first build. Runner
+  budget checkpoint is the containing commit; resolve
   git log -1 --format="%H %s" -- WORK_STATE.md and confirm clean/synchronized
-  publication before first build.
+  publication before repeat retry.
   Confirm clean/synchronized Git after publication and on resume.
   No merge/deployment performed.
-- Latest observed allowance 65% five-hour/71% weekly remaining on 2026-10-04,
+- Latest observed allowance 51% five-hour/69% weekly remaining on 2026-10-04,
   account-wide and not a reservation. Prior session ended at a recoverable checkpoint.
   No paid changes/reset credits used.
 

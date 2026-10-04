@@ -72,6 +72,11 @@ tests the actual dbt adapter connection; it does not prove model correctness or 
   output and returns a safe status or exit code; a failed debug may require private focused
   diagnosis of configuration/TLS/connectivity. Never paste raw connection exceptions or
   credentials into logs/chat. The wrapper now also exposes narrowly selected build/test; see customer-staging.md.
+- Overall wrapper budgets: parse/debug 120 seconds; exact approved single-model
+  build/test suite 180 seconds. Every statement still has a 60-second timeout,
+  with 10-second lock and 60-second idle-transaction limits, one thread and zero
+  retries. A job timeout is failed acceptance; preserve the view/artifacts and
+  diagnose. These budgets are not consumer-query performance targets.
 - Generated `dbt/target`, logs and packages stay ignored. Offline tests inspect generated
   files for the synthetic password. The current wrapper uses synthetic credentials for
   manifests; don't upload artifacts from future live jobs without privacy review.

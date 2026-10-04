@@ -32,6 +32,13 @@ telemetry and file logs stay disabled. Test failure storage is false, with test 
 Successful build/test status also requires nonempty matching model/test run-results evidence.
 No unrestricted selector, full refresh, clean or package-install command is exposed.
 
+Overall runner budgets are 120 seconds for parse/debug and 180 seconds for
+an exact approved model build/test suite. Multiple serial data tests share
+the job budget; individual SQL remains bounded at 60 seconds, locks at
+10 seconds and idle transactions at 60 seconds, with one thread and no retries.
+A timeout is failed acceptance: retain artifacts/view and diagnose before retry.
+Suite runtime does not establish consumer-query performance.
+
 ```powershell
 .venv/Scripts/python.exe -B -m src.warehouse dbt-parse
 .venv/Scripts/python.exe -B -m src.warehouse dbt-build --select stg_customers

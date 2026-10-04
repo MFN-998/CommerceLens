@@ -75,6 +75,10 @@ def test_parse_never_loads_private_settings_and_overrides_ambient_configuration(
     assert "--no-partial-parse" in args
     assert captured["stdout"] == captured["stderr"] == subprocess.DEVNULL
     assert captured["timeout"] == 120
+    assert captured["env"]["PGOPTIONS"] == (
+        "-c statement_timeout=60000 -c lock_timeout=10000 "
+        "-c idle_in_transaction_session_timeout=60000"
+    )
 
 
 def test_debug_uses_only_transformer_profile_and_secret_environment(
@@ -96,6 +100,11 @@ def test_debug_uses_only_transformer_profile_and_secret_environment(
     monkeypatch.setattr(dbt_runner, "load_settings", settings)
     monkeypatch.setattr(dbt_runner.subprocess, "run", capture)
     assert dbt_runner.run_dbt("debug", dbt_root)["offline"] is False
+    assert captured["timeout"] == 120
+    assert captured["env"]["PGOPTIONS"] == (
+        "-c statement_timeout=60000 -c lock_timeout=10000 "
+        "-c idle_in_transaction_session_timeout=60000"
+    )
     secret = transformer_settings.password.get_secret_value()
     assert secret not in repr(captured["args"])
     assert captured["env"]["DBT_ENV_SECRET_WAREHOUSE_PASSWORD"] == secret
@@ -104,6 +113,7 @@ def test_debug_uses_only_transformer_profile_and_secret_environment(
     )
 
 
+@pytest.mark.parametrize("command", ["parse", "debug", "build", "test"])
 @pytest.mark.parametrize("failure", ["returncode", "timeout", "oserror"])
 def test_subprocess_failures_never_reveal_password_or_driver_output(
     dbt_root: Path,
@@ -111,20 +121,37 @@ def test_subprocess_failures_never_reveal_password_or_driver_output(
     monkeypatch: pytest.MonkeyPatch,
     capsys: pytest.CaptureFixture[str],
     failure: str,
+    command: str,
 ) -> None:
     secret = transformer_settings.password.get_secret_value()
     monkeypatch.setattr(dbt_runner, "load_settings", lambda *a, **kw: transformer_settings)
 
+    monkeypatch.setattr(dbt_runner, "_parse_settings", lambda: transformer_settings)
+
     def fail(args: list[str], **kwargs: object) -> subprocess.CompletedProcess:
+        budget = 180 if command in ("build", "test") else 120
+        assert kwargs["timeout"] == budget
+        retained = Path(args[args.index("--log-path") + 1]).parent / "retained.txt"
+        retained.write_text("retained output", encoding="utf-8")
         if failure == "timeout":
-            raise subprocess.TimeoutExpired(args, 120, output=secret, stderr=secret)
+            raise subprocess.TimeoutExpired(args, kwargs["timeout"], output=secret, stderr=secret)
         if failure == "oserror":
             raise OSError(secret)
         return subprocess.CompletedProcess(args, 2, stdout=secret, stderr=secret)
 
     monkeypatch.setattr(dbt_runner.subprocess, "run", fail)
     with pytest.raises(dbt_runner.DbtError) as error:
-        dbt_runner.run_dbt("debug", dbt_root)
+        dbt_runner.run_dbt(
+            command, dbt_root, select="stg_customers" if command in ("build", "test") else None
+        )
+    retained_files = list((dbt_root / ".artifacts/dbt").glob("*/retained.txt"))
+    assert len(retained_files) == 1
+    assert retained_files[0].read_text("utf-8") == "retained output"
+    if failure == "timeout":
+        budget = 180 if command in ("build", "test") else 120
+        assert str(error.value) == (
+            f"dbt {command} exceeded its {budget}-second limit; no detail logged"
+        )
     output = capsys.readouterr()
     assert secret not in str(error.value) + output.out + output.err
     assert error.value.__suppress_context__ or failure == "returncode"
@@ -345,6 +372,11 @@ def test_selected_model_job_uses_transformer_and_retains_distinct_artifacts(
 
     def capture(args, **kwargs):
         captured.append(args)
+        assert kwargs["timeout"] == 180
+        assert kwargs["env"]["PGOPTIONS"] == (
+            "-c statement_timeout=60000 -c lock_timeout=10000 "
+            "-c idle_in_transaction_session_timeout=60000"
+        )
         target = Path(args[args.index("--target-path") + 1])
         target.mkdir()
         model_id = f"model.commercelens.{selected_model}"
