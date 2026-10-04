@@ -1,7 +1,7 @@
 # Order-linked customer mapping
 
 Phase 3 M4, under [ADR 0003](decisions/0003-warehouse-contract.md).
-Status: source/offline/native checks complete; first live/physical/repeat acceptance pending.
+Status: COMPLETE; source/offline/native/first live/physical/repeat acceptance passed.
 
 `core.int_order_customers` retains one source `customer_id` and exactly seven
 accepted staging fields: `_load_id`, `_source_row`, `customer_id`,
@@ -67,8 +67,23 @@ PostgreSQL: 44 passed. Ruff lint/format passed (124 reported files); mypy passed
 22 implementation files. Offline parse passed; retained artifacts:
 `.artifacts/dbt/b874d3838e1c44f4b46090388bb16707`.
 
-First live build, physical/access and repeat acceptance: **Not yet tested**.
-No mapping view has been built; accepted date checkpoint `ca44c12` is preserved.
+Code checkpoint `0badc24` was published clean before the first selected build.
+First build passed one view/all 12 dbt tests in 48.398 seconds; retained
+artifacts: `.artifacts/dbt/ad8d4822c4734c93a285790b0384126f`.
+
+Physical/access: **1 passed**. Independent raw/stage/core seven-field
+multisets, inherited types/collation, actual restricted login/role/TLS and
+API/reader denials matched. All 99,441 records/96,096 identities and 278
+uncovered customers were preserved. Repeat passed one view/all 12 dbt tests
+in 46.051 seconds; retained artifacts:
+`.artifacts/dbt/509157200a46424fba7b1b7ffa52e74a`. Source/coverage counts and relation
+identity/ownership/grants remained unchanged. Password was absent from both
+artifact directories. Database size 287,222,931 bytes is below
+the 400,000,000-byte safety ceiling. See
+[aggregate acceptance evidence](order-customers-verification.json).
+All five accepted dimensions are preserved.
+Build-suite timing is not consumer-query latency; M5 performance/recovery remains
+pending. No known failed mapping checks or partial next model remains.
 
 Next core unit: `fact_orders`, retaining all orders and lifecycle/quality flags
 at one order, through this mapping and accepted dimensions; no child fanout or

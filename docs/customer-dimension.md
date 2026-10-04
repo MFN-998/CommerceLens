@@ -10,8 +10,9 @@ different addresses and lineage. `DISTINCT` at the declared identity grain uses
 explicit `C` collation and retains the identifier exactly, including leading zeroes.
 
 No source row is chosen to represent an identity. Addresses and immutable load/row
-lineage remain in `staging.stg_customers`; the planned `int_order_customers` will
-preserve those order-linked fields for `fact_orders`. Customer 360, order/spend
+lineage remain in `staging.stg_customers`; the accepted
+[order-customer mapping](order-customers.md) preserves those order-linked fields
+for `fact_orders`. Customer 360, order/spend
 metrics, segmentation and a current-address policy belong to later decisions/phases.
 No surrogate key or observation counter is needed for this identity relationship.
 

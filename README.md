@@ -13,8 +13,9 @@ live business feed. Local staging preserves documented source-quality warnings.
 All 1,550,922 source rows are now loaded in private PostgreSQL with tested atomic
 loading and full-content retry verification. All nine dbt source staging views are
 accepted, along with all five dimensions: location, seller, customer identity,
-product and date.
-Remaining core models, initial analytical marts and final warehouse checks remain.
+product and date. The [order-customer mapping](docs/order-customers.md) is also
+accepted, preserving identity, purchase-associated address and source lineage.
+Four fact models, initial analytical marts and final warehouse checks remain.
 See the [current work state](WORK_STATE.md) for verified progress and continuation.
 
 ## Start here
