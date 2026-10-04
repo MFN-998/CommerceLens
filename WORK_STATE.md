@@ -120,8 +120,8 @@ precedence over chat. Master plan, standards, execution protocol, deletion rule 
   across22files without fixture/test execution. Scoped review passed; test cases
   are simulated subprocess/pytest evidence, not fresh native proof. No unresolved
   source failures. Dispatchera2bed4f complete-content/pre/post-history scans passed,
-  published clean HEAD/upstream0/0. Final-check five-file staged-content/history scans must pass before publication;
-  verify post-commit scan and clean upstream before ending the session.
+  published clean HEAD/upstream0/0. Final-check five-file complete staged-content and pre/post-history scans passed;
+  c961aff published clean with HEAD/upstream0/0. No secrets found by these checks.
 
 - Current dispatcher:293 focused passed27.24s; warehouse/API1534 passed37.97s,
   1000 deliberate live skips, known AnyIO deprecation warning. Ruff lint/format158
@@ -176,7 +176,8 @@ precedence over chat. Master plan, standards, execution protocol, deletion rule 
 
 ## Current Repository Condition
 
-CLEAN / STABLE expected after containing verified acceptance checkpoint/publish.
+CLEAN / STABLE at published c961aff confirmed; local tooling task COMPLETE.
+Final preservation documentation is the containing checkpoint; verify Git on resume.
 Local recovery preparation COMPLETE; new external target approval/configuration pending.
 Accepted warehouse unchanged. Larger Phase 3 SAFE TO RESUME: fresh native proof
 and final handoff pending; no uncertain live operation or interrupted build.
@@ -201,6 +202,7 @@ Preserve C, credentials/source data and all generated evidence.
 
 1. Obtain owner approval for the prepared CommerceLens-Recovery Free/Tokyo/private
    project, all nine unchanged source tables and retention; verify current eligibility.
+   Specific approval question sent2026-10-04; no approval received as of this checkpoint.
    Owner must enter its new password and complete creation privately in the preserved
    Supabase tab. If Free unavailable, stop for a reviewed alternative; no paid upgrade.
 2. Recover its actual project reference/connection/public CA details, then create
@@ -220,12 +222,13 @@ Preserve C, credentials/source data and all generated evidence.
 
 - Branch feat/warehouse-foundation; main unchanged/unmerged. Current resume baseline edf072b;
   query source c01ee79/query acceptance b82c7d7/recovery source edf072b; workflow
-  590863b and dispatchera2bed4f published. Final-check checkpoint is the containing commit:
+  590863b, dispatchera2bed4f and verified final-check sourcec961aff published.
+  Final preservation documentation checkpoint is the containing commit:
   git log -1 --format="%H %s" -- WORK_STATE.md.
 - Verify clean working tree and HEAD/upstream equality after publish/on resume.
   Disable auto Git maintenance, stage exact files and scan full content/history.
-- Latest actual account-wide usage47% five-hour/67% weekly remaining2026-10-04.
-   Earlier 99/75 at reset, 80/72 and 72/71 before atomic units. These are observations,
+- Latest actual account-wide usage45% five-hour/67% weekly remaining2026-10-04.
+   Earlier 99/75 at reset, 80/72, 72/71 and 47/67 before atomic units. These are observations,
    not task-cost predictions. Preserve the verified source checkpoint; native proof
    waits target approval/configuration. Recheck usage before any major live unit.
 
