@@ -10,9 +10,10 @@ protocols apply. Synced project references and source datasets remain unchanged.
 - Customer identity COMPLETE, code/acceptance a93cb7f/dca21e9 published clean.
 - Product unit COMPLETE, published acceptance 055ba10 clean/synchronized on resume.
 - Date COMPLETE, published acceptance ca44c12 clean/synchronized before this unit.
-  All five dimensions accepted. Current unit: core.int_order_customers COMPLETE.
-  Source/offline/native/first live/physical/repeat acceptance passed; code 0badc24
-  published before build. Larger Phase 3 SAFE TO RESUME; fact_orders not started.
+  All five dimensions and mapping accepted; mapping acceptance b7ea96b published
+  clean/synchronized on resume. Current unit: core.fact_orders IN PROGRESS.
+  Scoped 33-field source/offline/native checks COMPLETE. First live/physical/
+  repeat acceptance pending; preflight view absent. All accepted models preserved.
 - Objective: tested analytical warehouse under Free/views-first ADR 0004; M4 and M5
   remain. Phase 4 and comprehensive exit audit have not begun.
 - Accepted product contract: all 20 staging fields unchanged plus nullable English
@@ -46,6 +47,9 @@ protocols apply. Synced project references and source datasets remain unchanged.
 
 ## Files
 
+- Fact orders: fact_orders.sql/.yml, three singular SQL tests and fact-orders.md
+  created; three fact-order Python test modules adopted. Runner/phase/staging
+  guides updated. No file deletion/rename; candidates/artifacts retained.
 - Mapping: intermediate int_order_customers.sql/.yml, three singular tests, three
   Python test modules and order-customers.md created; runner/phase/staging guides
   updated. order-customers-verification.json added; README/identity guide updated.
@@ -76,6 +80,13 @@ protocols apply. Synced project references and source datasets remain unchanged.
 
 ## Technical Decisions
 
+- Active fact_orders: all 22 accepted order staging fields/flags unchanged,
+  six order-linked customer identity/address/lineage fields, five calendar-date
+  roles from unchanged timestamps. One literal C LEFT JOIN to mapping only.
+  Separate required mapping/identity/ZIP/date membership tests; source count
+  guard plus full-field multisets/grain block shared join fanout. Optional
+  clocks retain NULL dates; uncovered geography remains valid. No durations,
+  child joins, eligibility/monetary metrics or separate delivery fact now.
 - Active int_order_customers: reusable private core view in intermediate directory,
   one source customer_id, exactly seven unchanged staging fields/types/collations.
   Repeated identity with different addresses/lineage remains valid. No join, filter,
@@ -112,6 +123,20 @@ protocols apply. Synced project references and source datasets remain unchanged.
 
 ## Validation
 
+- Fact-orders scoped SQL/YAML review approved. Read-only preflight passed:
+  view absent, accepted parents present, 99,441 raw orders/unique IDs; database
+  287,222,931 bytes <400,000,000. Offline parse passed; retained artifacts
+  .artifacts/dbt/8d56aa1f4d9e4a0892645244105d12c8. Source adopted; offline
+  candidate test suite 104 passed (1.97 seconds); scoped source/harness/helper
+  review approved. Runner suite 69 passed (15.28 seconds). Test candidates
+  AST-parsed/adopted. Adopted fact tests 104 passed; warehouse/API regression
+  1075 passed/738 deliberate live opt-out skips, known AnyIO warning
+  only. Native read-only PostgreSQL 97 passed. Ruff lint/format passed
+  (128 reported files); mypy passed 22 implementation files. Scoped
+  native/physical review approved. Initial adopted lint found two import-group
+  spacing issues; corrected, all subsequent quality checks passed. No behavior
+  change. First build/physical/repeat: Not yet tested.
+  No failed fact checks remain; source/accepted models unchanged.
 - Order-customer mapping: scoped contract review approved; 46 candidate offline
   tests passed. Adopted focused suite 113 passed; warehouse/API regression
   969 passed/639 deliberate live opt-out skips, known AnyIO warning only.
@@ -202,11 +227,10 @@ protocols apply. Synced project references and source datasets remain unchanged.
 
 ## Current Repository Condition
 
-CLEAN / STABLE at the published mapping acceptance checkpoint; verify Git on
-resume. Date and mapping units COMPLETE; larger Phase 3 SAFE TO RESUME. All
-nine staging models/five dimensions/mapping accepted. No known failed tests,
-partial next model, pending migration or source mutation. No resources deleted,
-packages or credentials changed. fact_orders is the next unit, not started.
+STABLE / FACT-ORDERS SOURCE VERIFIED; LIVE ACCEPTANCE PENDING. Source/offline/
+native gates passed; no fact view built yet. Baseline b7ea96b and all accepted
+models preserved. No known failed checks, source/migration/dependency/credential
+change or resource deletion. Phase 3 remains incomplete.
 
 ## Incomplete Work
 
@@ -224,21 +248,16 @@ packages or credentials changed. fact_orders is the next unit, not started.
 
 ## Exact Next Actions
 
-1. Check actual usage, Git status and recent commits against this acceptance
-   checkpoint. Read ADR 0003's fact_orders grain/retention rules and accepted
-   stg_orders SQL/YAML, order-staging.md and order-customers.md; inspect lifecycle
-   flags/types. Mapping acceptance is complete; do not rerun completed phases.
-2. Implement fact_orders at one order_id, preserving all 99,441 orders,
-   source status/lifecycle/quality flags and source lineage. Link customer
-   identity/address via int_order_customers and accepted dimensions. No child
-   joins, invented current address, KPI eligibility or separate delivery fact.
-3. Validate full source conservation/grain/relationships plus missing/reversed
-   events and optional-date coverage; code checkpoint before first/physical/
-   repeat acceptance. Only expose durations for present, ordered events.
-4. Continue the other three facts, then M5 technical mart/examples/measured
-   query plans/performance/reconstruction checks; aggregate children independently.
-5. Perform comprehensive governance/corrections only after Phase 3 is verified
-   complete, before Phase 4. Keep carried debt/release gates visible.
+1. Confirm this source checkpoint published and Git clean; first selected
+   fact_orders build (one view/all 33 tests). Retain artifacts; do not rebuild
+   accepted phases. Existing runner timeout remains 120 seconds.
+2. Run opt-in read-only physical fact acceptance: full raw/stage/core33fields,
+   both lineages, warning counts, dates, types/collation and private access.
+3. Repeat selected build; conserve source/identity/NULL-date/flag counts,
+   view identity/owner/grants, storage and artifact secrecy. Record evidence.
+4. Update acceptance docs/work state, scan/checkpoint/publish and confirm Git.
+   Wrap current unit with fact_order_items as next; do not start another fact.
+5. Three other facts and M5 remain, then governance after verified Phase 3.
 
 ## Git State
 
@@ -247,11 +266,13 @@ packages or credentials changed. fact_orders is the next unit, not started.
 - Customer acceptance dca21e9 published; working tree was clean/synced before
   this product unit. Product code/acceptance 5d96701/055ba10 published. Date code
   9975935, validation-boundary eaac436 and date acceptance ca44c12 published.
-  Mapping code 0badc24 published before first build. Mapping acceptance is
-  the containing commit: git log -1 --format="%H %s" -- WORK_STATE.md.
+  Mapping code 0badc24 and acceptance b7ea96b published; clean/synchronized
+  on resume. Fact-orders source checkpoint is the containing commit; resolve
+  git log -1 --format="%H %s" -- WORK_STATE.md and confirm clean/synchronized
+  publication before first build.
   Confirm clean/synchronized Git after publication and on resume.
   No merge/deployment performed.
-- Latest observed allowance 94% five-hour/75% weekly remaining on 2026-10-04,
+- Latest observed allowance 65% five-hour/71% weekly remaining on 2026-10-04,
   account-wide and not a reservation. Prior session ended at a recoverable checkpoint.
   No paid changes/reset credits used.
 

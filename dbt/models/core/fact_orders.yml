@@ -1,0 +1,212 @@
+version: 2
+models:
+- name: fact_orders
+  description: Private core view at one retained order_id. All 22 accepted staging fields/flags and order
+    lineage remain unchanged. One literal left join adds the six customer identity/address/lineage fields;
+    five calendar-date role keys derive directly from retained timestamps. Missing mapping/dimension references
+    block validation without filtering orders. No child joins, selected current address, geography representative,
+    durations, monetary metrics or business eligibility policy.
+  config:
+    materialized: view
+    schema: core
+  columns:
+  - name: _load_id
+    data_type: uuid
+    description: Unchanged immutable source snapshot identity from raw.
+    data_tests:
+    - not_null
+  - name: _source_row
+    data_type: bigint
+    description: Unchanged one-based logical CSV record ordinal within the load.
+    data_tests:
+    - not_null
+  - name: order_id
+    data_type: text
+    description: Mandatory literal lowercase hexadecimal source order key.
+    data_tests:
+    - not_null
+    - unique
+  - name: customer_id
+    data_type: text
+    description: Mandatory order-linked source customer reference, preserving spelling.
+    data_tests:
+    - not_null
+  - name: order_status
+    data_type: text
+    description: Exact source lifecycle status; do not infer or normalize completion.
+    data_tests:
+    - not_null
+    - accepted_values:
+        arguments:
+          values:
+          - created
+          - approved
+          - invoiced
+          - processing
+          - shipped
+          - delivered
+          - unavailable
+          - canceled
+  - name: order_purchase_timestamp
+    data_type: timestamp without time zone
+    description: Mandatory purchase timestamp; source timezone unspecified.
+    data_tests:
+    - not_null
+  - name: order_approved_at
+    data_type: timestamp without time zone
+    description: Nullable approval timestamp, when recorded in the source.
+  - name: order_delivered_carrier_date
+    data_type: timestamp without time zone
+    description: Nullable recorded carrier handoff timestamp.
+  - name: order_delivered_customer_date
+    data_type: timestamp without time zone
+    description: Nullable recorded actual customer delivery timestamp.
+  - name: order_estimated_delivery_date
+    data_type: timestamp without time zone
+    description: Mandatory source delivery estimate; not an actual lifecycle event.
+    data_tests:
+    - not_null
+  - name: is_missing_approval
+    data_type: boolean
+    description: Approval source text was NULL or exactly empty, independent of parsing.
+    data_tests:
+    - not_null
+  - name: is_missing_carrier_delivery
+    data_type: boolean
+    description: Carrier handoff source text was NULL or exactly empty, independent of parsing.
+    data_tests:
+    - not_null
+  - name: is_missing_customer_delivery
+    data_type: boolean
+    description: Customer delivery source text was NULL or exactly empty, independent of parsing.
+    data_tests:
+    - not_null
+  - name: is_delivered_missing_approval
+    data_type: boolean
+    description: Exact delivered status has no typed approval event; rejected text also fails domains.
+    data_tests:
+    - not_null
+  - name: is_delivered_missing_carrier_delivery
+    data_type: boolean
+    description: Exact delivered status has no typed carrier event; rejected text also fails domains.
+    data_tests:
+    - not_null
+  - name: is_delivered_missing_customer_delivery
+    data_type: boolean
+    description: Exact delivered status has no typed customer event; rejected text also fails domains.
+    data_tests:
+    - not_null
+  - name: is_approval_before_purchase
+    data_type: boolean
+    description: Typed approval precedes purchase; false when either event is absent.
+    data_tests:
+    - not_null
+  - name: is_carrier_delivery_before_purchase
+    data_type: boolean
+    description: Typed carrier handoff precedes purchase; false when either event is absent.
+    data_tests:
+    - not_null
+  - name: is_customer_delivery_before_purchase
+    data_type: boolean
+    description: Typed customer delivery precedes purchase; false when either event is absent.
+    data_tests:
+    - not_null
+  - name: is_carrier_delivery_before_approval
+    data_type: boolean
+    description: Typed carrier handoff precedes approval; false when either event is absent.
+    data_tests:
+    - not_null
+  - name: is_customer_delivery_before_approval
+    data_type: boolean
+    description: Typed customer delivery precedes approval; false when either event is absent.
+    data_tests:
+    - not_null
+  - name: is_customer_delivery_before_carrier_delivery
+    data_type: boolean
+    description: Typed customer delivery precedes carrier handoff; false when either event is absent.
+    data_tests:
+    - not_null
+  - name: customer_unique_id
+    data_type: text
+    description: Unchanged cross-order identity from the order-linked customer mapping.
+    data_tests:
+    - not_null
+  - name: customer_zip_code_prefix
+    data_type: text
+    description: Unchanged purchase-associated literal ZIP prefix, including leading zeroes.
+    data_tests:
+    - not_null
+  - name: customer_city
+    data_type: text
+    description: Unchanged purchase-associated source city, including case, accents and whitespace.
+    data_tests:
+    - not_null
+  - name: customer_state
+    data_type: text
+    description: Unchanged purchase-associated source state abbreviation.
+    data_tests:
+    - not_null
+    - accepted_values:
+        arguments:
+          values:
+          - AC
+          - AL
+          - AP
+          - AM
+          - BA
+          - CE
+          - DF
+          - ES
+          - GO
+          - MA
+          - MT
+          - MS
+          - MG
+          - PA
+          - PB
+          - PR
+          - PE
+          - PI
+          - RJ
+          - RN
+          - RS
+          - RO
+          - RR
+          - SC
+          - SP
+          - SE
+          - TO
+  - name: customer_load_id
+    data_type: uuid
+    description: Original customer mapping snapshot lineage, distinct from order _load_id.
+    data_tests:
+    - not_null
+  - name: customer_source_row
+    data_type: bigint
+    description: Original customer mapping source ordinal, distinct from order _source_row.
+    data_tests:
+    - not_null
+  - name: purchase_calendar_date
+    data_type: date
+    description: Calendar date from order_purchase_timestamp, without timezone conversion; NULL exactly
+      when that typed event is absent. References dim_date.calendar_date.
+    data_tests:
+    - not_null
+  - name: approval_calendar_date
+    data_type: date
+    description: Calendar date from order_approved_at, without timezone conversion; NULL exactly when
+      that typed event is absent. References dim_date.calendar_date.
+  - name: carrier_delivery_calendar_date
+    data_type: date
+    description: Calendar date from order_delivered_carrier_date, without timezone conversion; NULL exactly
+      when that typed event is absent. References dim_date.calendar_date.
+  - name: customer_delivery_calendar_date
+    data_type: date
+    description: Calendar date from order_delivered_customer_date, without timezone conversion; NULL exactly
+      when that typed event is absent. References dim_date.calendar_date.
+  - name: estimated_delivery_calendar_date
+    data_type: date
+    description: Calendar date from order_estimated_delivery_date, without timezone conversion; NULL exactly
+      when that typed event is absent. References dim_date.calendar_date.
+    data_tests:
+    - not_null
