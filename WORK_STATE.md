@@ -181,3 +181,17 @@ detail; do not swap original purpose files or globally route native tests.
 - Mypy 26 passed; Ruff long diagnostic line corrected before publication checks.
 - No warehouse/model/credential/dependency/frontend behavior changes or deletions.
 - Gate IN PROGRESS; continue G02 then detailed seven-area coverage and final checks.
+
+## Governance audit G02 Python milestone - 2026-10-05
+
+- G01 checkpoint 6d96e7a published clean. G02 Python retention implemented.
+- Full offline Phase 1-3 suite 1649 passed/1000 deliberate live skips/known warning;
+  focused 71 passed; mypy 27 passed. No project resource deletion occurred.
+- Current pip-audit: 111 packages, zero findings. npm scan found Next critical
+  advisory (app's vulnerable next/og surface absent) and lint-only braces chain.
+- Exact next: checkpoint Python retention; patch Next/config coherently; verify
+  isolated dependencies/build within specific owner-approved cleanup boundaries.
+- Owner approved only web/.artifacts/governance-20261005-01/.next build cleanup.
+  Snapshot retained. G03 correction and G02 frontend verification still pending.
+- Account-wide remaining: 57% five-hour/55% weekly at this milestone; continue
+  atomic work. Audit gate remains IN PROGRESS, Phase 4 forbidden until verified.

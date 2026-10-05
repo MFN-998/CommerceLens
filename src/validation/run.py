@@ -15,6 +15,7 @@ import pandas as pd
 
 from src.cleaning.staging import read_source, standardize
 from src.ingestion.olist import DEFAULT_PROJECT_ROOT, sha256_file, verify_raw
+from src.retention import release_lock
 from src.validation.contracts import TABLES
 from src.validation.profile import (
     check,
@@ -30,25 +31,21 @@ STAGING_FORMAT_VERSION = 1
 
 def write_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    temporary = None
-    try:
-        with tempfile.NamedTemporaryFile(
-            mode="w",
-            encoding="utf-8",
-            newline="\n",
-            dir=path.parent,
-            prefix=f".{path.name}.",
-            suffix=".tmp",
-            delete=False,
-        ) as output:
-            temporary = Path(output.name)
-            output.write(text)
-            output.flush()
-            os.fsync(output.fileno())
-        os.replace(temporary, path)
-    finally:
-        if temporary is not None:
-            temporary.unlink(missing_ok=True)
+    with tempfile.NamedTemporaryFile(
+        mode="w",
+        encoding="utf-8",
+        newline="\n",
+        dir=path.parent,
+        prefix=f".{path.name}.",
+        suffix=".tmp",
+        delete=False,
+    ) as output:
+        temporary = Path(output.name)
+        output.write(text)
+        output.flush()
+        os.fsync(output.fileno())
+    # Atomic report publication; failure retains the prepared file for inspection.
+    os.replace(temporary, path)
 
 
 def write_json(path: Path, value: dict) -> None:
@@ -67,37 +64,35 @@ def stage_frames(project_root: Path, frames: dict[str, pd.DataFrame]) -> dict:
         "pyarrow": version("pyarrow"),
         "files": {},
     }
-    with tempfile.TemporaryDirectory(prefix=".olist-staging-", dir=interim) as temporary:
-        prepared = Path(temporary) / "snapshot"
-        prepared.mkdir()
-        for table, frame in frames.items():
-            path = prepared / f"{table}.parquet"
-            frame.to_parquet(path, index=False, engine="pyarrow", compression="zstd")
-            restored = pd.read_parquet(path)
-            pd.testing.assert_frame_equal(frame, restored, check_dtype=True)
-            manifest["files"][path.name] = {
-                "sha256": sha256_file(path),
-                "rows": len(frame),
-            }
-        write_json(prepared / "_manifest.json", manifest)
-        if destination.exists() or destination.is_symlink():
-            if destination.is_symlink() or not destination.is_dir():
-                raise ValueError("Staging destination must be a real directory.")
-            expected = set(manifest["files"]) | {"_manifest.json"}
-            if {p.name for p in destination.iterdir()} != expected:
-                raise ValueError("Existing staging snapshot has unexpected or missing files.")
-            for name in expected:
-                path = destination / name
-                if path.is_symlink() or not path.is_file():
-                    raise ValueError(f"Staging file is not a regular file: {name}")
-                if sha256_file(path) != sha256_file(prepared / name):
-                    raise ValueError(
-                        f"Staging differs: {name}; refusing overwrite. Investigate first."
-                    )
-            action = "verified_existing"
-        else:
-            prepared.rename(destination)
-            action = "created"
+    temporary = Path(tempfile.mkdtemp(prefix=".olist-staging-", dir=interim))
+    prepared = Path(temporary) / "snapshot"
+    prepared.mkdir()
+    for table, frame in frames.items():
+        path = prepared / f"{table}.parquet"
+        frame.to_parquet(path, index=False, engine="pyarrow", compression="zstd")
+        restored = pd.read_parquet(path)
+        pd.testing.assert_frame_equal(frame, restored, check_dtype=True)
+        manifest["files"][path.name] = {
+            "sha256": sha256_file(path),
+            "rows": len(frame),
+        }
+    write_json(prepared / "_manifest.json", manifest)
+    if destination.exists() or destination.is_symlink():
+        if destination.is_symlink() or not destination.is_dir():
+            raise ValueError("Staging destination must be a real directory.")
+        expected = set(manifest["files"]) | {"_manifest.json"}
+        if {p.name for p in destination.iterdir()} != expected:
+            raise ValueError("Existing staging snapshot has unexpected or missing files.")
+        for name in expected:
+            path = destination / name
+            if path.is_symlink() or not path.is_file():
+                raise ValueError(f"Staging file is not a regular file: {name}")
+            if sha256_file(path) != sha256_file(prepared / name):
+                raise ValueError(f"Staging differs: {name}; refusing overwrite. Investigate first.")
+        action = "verified_existing"
+    else:
+        prepared.rename(destination)
+        action = "created"
     return {
         "promoted": True,
         "path": destination.relative_to(project_root).as_posix(),
@@ -283,7 +278,7 @@ def run(project_root: Path = DEFAULT_PROJECT_ROOT) -> dict:
     try:
         return _run(root)
     finally:
-        lock.rmdir()
+        release_lock(lock)
 
 
 def _run(root: Path) -> dict:

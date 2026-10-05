@@ -47,7 +47,10 @@ def test_acquire_preserves_bytes_and_is_idempotent(acquisition_paths):
     assert acquire(project) == manifest
     assert verify_raw(project) == manifest
     assert manifest_path.read_bytes() == saved_provenance
-    assert list((project / ".artifacts").iterdir()) == []
+    artifacts = project / ".artifacts"
+    assert not (artifacts / "olist-acquisition.lock").exists()
+    assert list(artifacts.glob("olist-acquisition-*/"))
+    assert list(artifacts.glob("olist-acquisition.lock.released-*/"))
 
 
 def test_tampered_raw_is_detected_and_never_repaired_silently(acquisition_paths):
@@ -72,17 +75,20 @@ def test_tampered_raw_is_detected_and_never_repaired_silently(acquisition_paths)
 def test_invalid_source_inventory_leaves_no_snapshot(acquisition_paths, invalid_inventory):
     project, source = acquisition_paths
     if invalid_inventory == "missing":
-        (source / EXPECTED_FILES[0]).unlink()
+        (source / EXPECTED_FILES[0]).rename(project / "retained-source.csv")
     elif invalid_inventory == "unexpected":
         (source / "unlisted.csv").write_bytes(b"unexpected")
     else:
-        (source / EXPECTED_FILES[0]).unlink()
+        (source / EXPECTED_FILES[0]).rename(project / "retained-source.csv")
         (source / EXPECTED_FILES[0]).mkdir()
     with pytest.raises(AcquisitionError, match="exactly nine|regular, non-symlink"):
         acquire(project, source)
     assert not (project / "data" / "raw" / "olist-v2").exists()
     assert not (project / "data" / "source-manifest.json").exists()
-    assert list((project / ".artifacts").iterdir()) == []
+    artifacts = project / ".artifacts"
+    assert not (artifacts / "olist-acquisition.lock").exists()
+    assert list(artifacts.glob("olist-acquisition-*/"))
+    assert list(artifacts.glob("olist-acquisition.lock.released-*/"))
 
 
 @pytest.mark.parametrize("inventory_change", ["missing", "unexpected"])
@@ -91,7 +97,7 @@ def test_verify_rejects_changed_raw_inventory(acquisition_paths, inventory_chang
     acquire(project, source)
     raw = project / "data" / "raw" / "olist-v2"
     if inventory_change == "missing":
-        (raw / EXPECTED_FILES[0]).unlink()
+        (raw / EXPECTED_FILES[0]).rename(project / "retained-raw.csv")
     else:
         (raw / "unlisted.txt").write_bytes(b"unexpected")
     with pytest.raises(AcquisitionError, match="exactly nine"):
@@ -107,7 +113,7 @@ def test_restore_requires_exact_manifest_hashes_and_preserves_provenance(
     saved_provenance = manifest_path.read_bytes()
     raw = project / "data" / "raw" / "olist-v2"
     assert raw.resolve().is_relative_to(project.resolve())
-    shutil.rmtree(raw)
+    raw.rename(project / "retained-raw-snapshot")
     original_bytes = (source / EXPECTED_FILES[0]).read_bytes()
     (source / EXPECTED_FILES[0]).write_bytes(b"conflicting bytes")
     with pytest.raises(AcquisitionError, match="integrity mismatch"):

@@ -535,9 +535,7 @@ def test_concurrent_validation_is_refused_without_changing_existing_reports(vali
     assert all(path.read_bytes() == content for path, content in before.items())
 
 
-def test_failed_report_publication_preserves_existing_file_and_cleans_temporary(
-    tmp_path, monkeypatch
-):
+def test_failed_report_publication_preserves_existing_and_prepared_files(tmp_path, monkeypatch):
     target = tmp_path / "report.json"
     target.write_text("previous complete report")
 
@@ -548,7 +546,10 @@ def test_failed_report_publication_preserves_existing_file_and_cleans_temporary(
     with pytest.raises(OSError, match="simulated publication failure"):
         write_text(target, "replacement report")
     assert target.read_text() == "previous complete report"
-    assert list(tmp_path.iterdir()) == [target]
+    retained = list(tmp_path.glob(".report.json.*.tmp"))
+    assert len(retained) == 1
+    assert retained[0].read_text() == "replacement report"
+    assert len(list(tmp_path.iterdir())) == 2
 
 
 def test_modified_staging_is_detected_without_overwrite(validation_paths):

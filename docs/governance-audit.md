@@ -114,3 +114,50 @@ mypy passed all 26 implementation files. No full regression claim yet.
 - Architecture: local filesystem lifecycle only; no database/product deletion,
   source contract, infrastructure or business-policy change is required.
 - Verification: pending implementation/failure/repeat/concurrency regressions.
+
+### G02 Python retention correction - verified 2026-10-05
+
+Implemented local retention in src/retention.py and acquisition/validation lifecycle:
+released locks move to unique siblings; failed/completed preparation outputs stay;
+failed report publication keeps the old report and prepared temporary file. Synthetic
+missing-file/restore tests move fixtures to retained paths instead of deleting them.
+No blanket deletion interception, test disabling or product/database deletion change.
+The helper is shared because both existing batch tools need the same lock lifecycle.
+Added four tests for repeat evidence preservation, boundary refusal and failed move.
+Existing concurrency/protected snapshot/failure/repeat tests pass. Ignored failed
+report fragments exclude generated evidence from accidental staging.
+
+71 focused checks passed; complete plugin-isolated offline suite: 1649 passed,
+1000 deliberate native skips, known AnyIO warning, 46.75 s. Mypy: 27 implementations
+passed. No native source load/rebuild is needed for this filesystem-only change;
+complete recorded native Phase 3 evidence retains its date. Frontend format/lint
+passed on the unchanged installed toolchain. The original full script still needs
+a safe frontend snapshot; G02's frontend portion remains pending.
+
+Owner explicitly approved build-tool cleanup only inside
+D:\My Projects\CommerceLens\web\.artifacts\governance-20261005-01\.next.
+The retained tracked-source snapshot contains no private environment/dataset/old build.
+No deletion outside that boundary is authorized, including dependency installation.
+
+## G03 - Important: currently vulnerable frontend dependency versions
+
+- Location: web/package.json, package-lock.json, installed toolchain.
+- Current scan: npm reports Next 16.3.5 affected by critical
+  [GHSA-vcvr-r3jv-pc5j](https://github.com/advisories/GHSA-vcvr-r3jv-pc5j),
+  fixed from 16.3.6. Registry verified compatible patch 16.3.8 and matching ESLint
+  config. Current app has no next/og ImageResponse or attacker-controlled SVG
+  rendering; no deployed service. Project severity Important, immediate patch.
+- Separate lint-only chain: braces <=3.0.3 affected by high
+  [GHSA-vfj7-8cjw-p6xm](https://github.com/advisories/GHSA-vfj7-8cjw-p6xm),
+  propagated through micromatch/fast-glob/Next lint config (five high packages).
+  Registry latest braces remains 3.0.3; no verified patched release available.
+- Recommendation: exact compatible Next/config patch; no forced Next 14 downgrade
+  suggested by npm and no fabricated braces override. Evaluate lint-only trusted
+  repository-pattern exposure separately with E01 before substantive frontend work.
+- Side effects/dependencies: lock consistency, fresh isolated install and full
+  frontend type/build/lint verification. Existing node_modules must remain intact
+  without specific deletion approval. No React/business/UI architecture change.
+- Status: patch pending. Lint-chain bounded exception needs final disposition.
+- Verification: current npm scan FAILED (1 critical/5 high); Python pip-audit
+  passed 111 installed packages, zero findings/skips. These replace dated advisory
+  observations only for their current tool scope, not production certification.

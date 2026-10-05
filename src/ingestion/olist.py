@@ -14,6 +14,8 @@ import tempfile
 from datetime import UTC, datetime
 from pathlib import Path
 
+from src.retention import release_lock
+
 DATASET_HANDLE = "olistbr/brazilian-ecommerce/versions/2"
 SOURCE_URL = "https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce"
 LICENSE = {
@@ -144,18 +146,6 @@ def _prepare_directory(path: Path) -> None:
     path.mkdir(exist_ok=True)
 
 
-def _cleanup_temporary(path: Path, artifacts: Path) -> None:
-    resolved = path.resolve()
-    if (
-        path.is_symlink()
-        or not resolved.is_relative_to(artifacts.resolve())
-        or resolved == artifacts.resolve()
-        or not path.name.startswith("olist-acquisition-")
-    ):
-        raise AcquisitionError("Refusing cleanup outside the acquisition temporary directory.")
-    shutil.rmtree(path)
-
-
 def _download(destination: Path) -> Path:
     try:
         import kagglehub
@@ -195,7 +185,6 @@ def acquire(project_root: Path = DEFAULT_PROJECT_ROOT, source_dir: Path | None =
         raise AcquisitionError(
             "Another acquisition is active; acquisition lock already exists."
         ) from exc
-    temporary = None
     try:
         if _exists(raw):
             manifest = verify_raw(root)
@@ -252,11 +241,8 @@ def acquire(project_root: Path = DEFAULT_PROJECT_ROOT, source_dir: Path | None =
                 raise
         return manifest
     finally:
-        try:
-            if temporary is not None:
-                _cleanup_temporary(temporary, artifacts)
-        finally:
-            lock.rmdir()
+        # Failed/downloaded snapshots remain under the ignored artifact directory.
+        release_lock(lock)
 
 
 def main() -> int:

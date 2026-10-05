@@ -122,7 +122,8 @@ There is no force-overwrite option. Preserve an existing snapshot while deciding
 a reviewed source or staging-format version change is needed. A terminated acquisition
 may leave `.artifacts/olist-acquisition.lock`; validation may leave
 `.artifacts/olist-validation.lock`. Confirm that no corresponding process is running
-before removing only that lock directory and retrying. Do not delete the raw snapshot
+before moving that lock to a fresh retained sibling and retrying. Deletion requires
+specific informed owner approval. Do not delete the raw snapshot
 or its manifest as a routine troubleshooting step.
 
 Report files are replaced atomically one at a time, not as a multi-file transaction.
@@ -133,3 +134,17 @@ Reports record only allowed categorical values and aggregate unknown counts; une
 input text must not leak into tracked failure reports.
 
 PostgreSQL/Supabase, dbt, warehouse models, and analytical queries belong to Phase 3.
+
+## Retained batch resources - governance correction 2026-10-05
+
+Acquisition retains generated download/preparation directories under .artifacts.
+Validation retains .olist-staging-* directories under data/interim, including repeat
+and failed snapshots. Failed atomic report publication retains its .tmp file; these
+fragments are ignored by Git. Completed locks move to unique .released-* siblings
+inside .artifacts. Active/interrupted locks still fail closed; no automatic deletion
+or retry is introduced. Repeated runs preserve the existing source/staging snapshot.
+
+Inspect retained paths and dependencies before requesting exact deletion approval.
+Retention uses additional local disk; no cleanup is implicitly authorized by tests.
+Failure reports retain structured table/check context and fixed diagnostics; arbitrary
+library error text is excluded from tracked aggregate evidence.

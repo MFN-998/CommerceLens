@@ -53,3 +53,7 @@ Thumbs.db
 /backups/
 *.dump
 .ipynb_checkpoints/
+
+# Failed aggregate report publication is retained for review, never source-controlled.
+/docs/.*.tmp
+/docs/data_dictionary/.*.tmp
