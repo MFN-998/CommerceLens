@@ -6,8 +6,12 @@ evidence take precedence over chat. Read the permanent instructions before edits
 ## Project State
 
 Phases 1-2, Phase 3 M1-M5 and the post-Phase 3 seven-area governance audit are
-COMPLETE / VERIFIED. Next is Phase 4 Exploratory & Business Analysis in a separate
-new local chat; no Phase 4 work happened in this audit. No roadmap redesign,
+COMPLETE / VERIFIED. Phase 4 Exploratory & Business Analysis is IN PROGRESS in
+separate chat 01a10aac-b656-7982-ac89-a63faa542ee7; resume verified published
+audit/transition 91afb0a/bbe0455. Initial contracts are in docs/phase-4-plan.md.
+M1 checksum-guarded runner and 15 synthetic regressions are verified; first
+eight-domain aggregate evidence retained, structured interpretation/replay/exit pending.
+No roadmap redesign,
 merge, deployment, paid upgrade or public readiness certification.
 
 ## Completed Work
@@ -31,6 +35,9 @@ are in validation/run.py, ingestion/olist.py, retention.py, warehouse/loading.py
 and focused regressions; web package/lock/globs updated. Current development,
 contributor and data guides distinguish retained outputs and isolated installation.
 Private recovery root D:\My Projects\CommerceLens-Reconstruction is not a deliverable.
+Phase 4: src/analysis/eda.py, tests/test_phase4_eda.py, docs/phase-4-plan.md.
+Revised evidence .artifacts/phase-4/3f950915706941acb90e3d71549776eb;
+earlier 87ee133d06f14d16bebf70aa6c9365ea retained as superseded preliminary evidence.
 
 ## Technical Decisions
 
@@ -45,6 +52,12 @@ Canonical and retained acquisition manifest hardlinks share identity: immutable
 provenance, not editable independent backups. Mismatched manifest bytes fail closed.
 
 ## Validation
+
+Phase 4 current M1: 15 synthetic tests passed (0.70 s), focused Ruff/format passed,
+mypy passed 29 source files. Runner verified immutable source before/after and
+conserved exact price/freight/payment sums; no database operation. First retained
+run exposed absent-money zero-fill and bool count output; fixed and regression-tested.
+Full regression/replay/staged/history publication gates still pending.
 
 Current final offline suite 1652 passed/1000 deliberate native skips/one known
 AnyIO warning, 45.65 s; focused source/loader/reconstruction 93 passed. Ruff 165
@@ -83,16 +96,18 @@ before future API. Full context/owner/revisit triggers in current audit debt tab
 
 ## Exact Next Actions
 
-1. Separate local Phase4 chat created:01a10aac-b656-7982-ac89-a63faa542ee7.
-   Audit gate91afb0a7ac3e81d0e48c7977eba5ff8f23c45a43 published clean/upstream0/0.
-2. Successor performs verified resume in D:\My Projects\CommerceLens using
-   docs/phase-4-handoff.md, then systematic eight-domain EDA to the exit report.
+1. Review revised aggregate evidence 3f950915706941acb90e3d71549776eb,
+   independently reconcile expected totals and run a deterministic fresh replay.
+2. Validate hypotheses/sensitivities and write structured findings/limitations
+   plus current verification receipt; run required regression and exit gates.
 3. Preserve resource/delete/workload/security/source caveats; meaningful scans,
    regressions, commits and WORK_STATE checkpoints at atomic boundaries.
-4. This audit chat is complete; containing metadata checkpoint records transition.
+4. Create Phase 5's separate chat only after the verified Phase 4 exit publication.
 
 ## Git State
 
+Phase 4 branch feat/phase-4-business-analysis starts at published bbe0455;
+M1 runner/tests/plan/handoff pending containing checkpoint. Audit upstream0/0 verified.
 Recovered baseline6ffe5876fe8ac14193bd2ec19a9e92d52fff112f clean/upstream0/0.
 Published units445b43d,6d96e7a,9229df0,22fcc31,505b8eb. Audit branch tracks origin;
 no merge/force/history rewrite. Containing documentation commit supplies final
