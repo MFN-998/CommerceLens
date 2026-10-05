@@ -161,3 +161,61 @@ No deletion outside that boundary is authorized, including dependency installati
 - Verification: current npm scan FAILED (1 critical/5 high); Python pip-audit
   passed 111 installed packages, zero findings/skips. These replace dated advisory
   observations only for their current tool scope, not production certification.
+
+### G03 dependency correction - verified 2026-10-05
+
+Next and matching eslint-config-next pinned to 16.3.8; reviewed lock changes cover
+Next env/plugin/platform SWC packages and npm's previously omitted optional WASM
+metadata. No forced major downgrade, install scripts or React upgrade. Fresh isolated
+npm ci installed 359 packages with scripts disabled; actual Next version 16.3.8.
+Owner separately approved tool cleanup only in that snapshot's node_modules and
+.npm-cache, alongside the previously approved .next. Original web/node_modules,
+web/.next and every earlier artifact remain retained. They are not silently refreshed:
+use the verified isolated installation until any future original-install replacement
+has the required specific approval. No merge or deployment occurred.
+
+Patched lint, next typegen/strict tsc and production build passed. Static routes:
+/, /_not-found, /icon.svg. Snapshot build warns that its nested lockfile causes root
+inference to select the outer web lock; source/output paths remain the isolated
+snapshot, and its build/runtime version is verified 16.3.8. This warning is not a
+production tracing/standalone deployment certification. No config workaround added.
+Format check passed. Full npm audit now has zero critical/five high entries;
+production-only npm audit has zero findings. npm ls verifies all five high entries
+trace only eslint-config-next -> Next lint plugin -> fast-glob -> micromatch ->
+braces 3.0.3. Advisory explicitly has no patched version; registry latest is 3.0.3.
+
+G03 runtime correction COMPLETE. Lint-chain disposition: Important bounded tooling
+exception, maintainer-owned; accepted for trusted local repository patterns during
+Phase 4 EDA, not for untrusted pattern processing or public service exposure. No lint
+package is a product-runtime dependency. Recheck on a patched release, toolchain
+upgrade, substantive Phase 6 frontend work and before public release (with E01).
+Do not claim that the full dependency scan is clean or silently suppress its exit.
+
+## G04 - Recommended: retained frontend artifacts enter normal source checks
+
+- Location: web/tsconfig.json, eslint.config.mjs, .prettierignore.
+- Issue/why: retaining an isolated source/build snapshot under web/.artifacts could
+  cause broad TS/lint/format globs to inspect duplicate generated evidence as app code.
+- Recommendation/decision: explicitly exclude .artifacts in all three tools;
+  implemented immediately as part of the isolated verification workflow.
+- Side effects/dependencies: ignored evidence is outside application inputs; tracked
+  app/config files continue to be checked. Patched snapshot contains matching rules.
+- Architecture: no application/runtime/data change or additional tooling.
+- Verification: formatting, patched lint, strict types and build passed; source-level
+  include/exclude reviewed. No exclusion of tracked application files.
+
+### Current UX verification - 2026-10-05
+
+Reviewed static source and rendered patched snapshot with Codex in-app Chromium:
+320x800 and 1280x800 viewports; full narrow screenshot and desktop screenshot inspected.
+Document scroll widths 305/1265 versus viewports 320/1280: no horizontal overflow.
+English language, meaningful title, one main and one h1, ordered h2/section labeling.
+Clear preview/not-connected/historical-anonymized-data/no-live-feed copy; no fake KPIs.
+Zero forms/interactive controls, hence current focus/keyboard/destructive-action flows
+are not applicable. No captured warn/error browser logs. No animation/reduced-motion
+requirement. This is basic semantic/layout verification, not formal WCAG conformance,
+zoom testing, all-browser certification or future dashboard/API E2E acceptance.
+
+Current read-only source verification passed all nine immutable files. Offline dbt
+parse passed with fresh retained artifacts .artifacts/dbt/97ccd72fddb741ecac7d859e79ad17bf.
+No database connection/load/model build/grant change ran in this audit.

@@ -9,3 +9,4 @@ package-lock.json
 # Next.js-managed instructions should retain their generated form.
 AGENTS.md
 CLAUDE.md
+.artifacts/

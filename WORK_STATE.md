@@ -195,3 +195,19 @@ detail; do not swap original purpose files or globally route native tests.
   Snapshot retained. G03 correction and G02 frontend verification still pending.
 - Account-wide remaining: 57% five-hour/55% weekly at this milestone; continue
   atomic work. Audit gate remains IN PROGRESS, Phase 4 forbidden until verified.
+
+## Governance audit G03/G04 milestone - 2026-10-05
+
+- Python retention checkpoint 9229df0 published clean. Next/config exact 16.3.8
+  patch and artifact exclusions now verified in the retained isolated snapshot.
+- Fresh npm ci (scripts disabled), lint, types and production build passed.
+- Runtime npm advisory scan clean; complete scan still five high development-only
+  braces-chain entries, no patched release. Accepted bounded exception with E01.
+- Browser narrow/desktop checks passed; no horizontal overflow or captured errors.
+- Nine source hashes verified, fresh offline dbt parse passed; no database changes.
+- Original web/node_modules still 16.3.5 and retained by deletion rule. Use verified
+  web/.artifacts/governance-20261005-01 installation; do not run original build as
+  if patched or replace original installed resources without informed approval.
+- Exact next: publish dependency milestone; finish seven-area coverage/debt record,
+  reconcile current guides/work state, final scans and audit gate determination.
+- Account-wide remaining 52% five-hour/55% weekly observed at this milestone.
