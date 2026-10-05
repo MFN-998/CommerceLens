@@ -1,9 +1,12 @@
 # Phase 5 separate-chat handoff — KPI and analytics layer
 
 Phase 4 exit: structured eight-domain EDA/business findings report COMPLETE /
-VERIFIED on 2026-10-05. Containing final checkpoint publication/clean upstream
-equality must pass before creating the successor. Resolve the identity through
-Git history of WORK_STATE.md; record successor metadata only after creation.
+VERIFIED on 2026-10-05. Published exit checkpoint:
+deaa4dd6f41a6b08bcf2752aa5aad1423ec5bc74 on feat/phase-4-business-analysis;
+clean tree and HEAD/upstream0/0 verified before successor creation.
+Separate local Phase 5 chat: 01a10ae9-ebc3-74b3-8c42-018a1c90f7bf.
+Containing focused metadata checkpoint records this transition; verify its clean
+publication through Git before editing or switching branches in the successor.
 
 ## Exact successor assignment
 

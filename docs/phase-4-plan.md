@@ -1,7 +1,9 @@
 # Phase 4 — Exploratory and business analysis
 
 Started 2026-10-05 in separate chat 01a10aac-b656-7982-ac89-a63faa542ee7.
-M1–M3 COMPLETE / VERIFIED; M4 publication/transition is the containing checkpoint gate.
+M1–M4 COMPLETE / VERIFIED. Exit published at deaa4dd, clean/upstream0/0;
+separate Phase 5 chat01a10ae9-ebc3-74b3-8c42-018a1c90f7bf created afterward.
+Containing focused metadata checkpoint records the transition.
 Final report: phase-4-eda-report.md; evidence: phase-4-eda-results.json and
 phase-4-verification.json. Full offline suite 1669 passed, 1000 deliberate native
 skips, known AnyIO warning. Two final runs match byte-for-byte and their receipts

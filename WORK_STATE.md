@@ -10,8 +10,10 @@ COMPLETE / VERIFIED. Phase 4 Exploratory & Business Analysis is COMPLETE / VERIF
 separate chat 01a10aac-b656-7982-ac89-a63faa542ee7; resume verified published
 audit/transition 91afb0a/bbe0455. Initial contracts are in docs/phase-4-plan.md.
 Eight-domain report, hypotheses/sensitivities, source/warehouse-total reconciliation,
-17 focused regressions and byte-identical replay passed. Containing publication
-and successor-chat metadata are the final transition steps; Phase 5 unstarted.
+17 focused regressions and byte-identical replay passed. Exit published at
+deaa4dd6f41a6b08bcf2752aa5aad1423ec5bc74, clean/upstream0/0 verified.
+Separate Phase 5 chat01a10ae9-ebc3-74b3-8c42-018a1c90f7bf created afterward;
+containing focused metadata checkpoint records the transition. No Phase 5 work here.
 No roadmap redesign,
 merge, deployment, paid upgrade or public readiness certification.
 
@@ -73,6 +75,9 @@ totals and 17 partitions reconcile; exported raw-field gate passed. Initial
 missing-money/count issues and Windows output-newline/hash mismatch corrected
 with focused regressions; all older evidence retained. No new database operation,
 advisory rescan, frontend change/build or public/causal certification.
+Final report eight-hypothesis coverage, key numerical claims, source/result/code
+hashes and44 local links passed. Complete staged-content and post-commit redacted
+history scans passed. Exit publication deaa4dd verified clean/upstream0/0.
 
 Historical audit suite 1652 passed/1000 deliberate native skips/one known
 AnyIO warning, 45.65 s; focused source/loader/reconstruction 93 passed. Ruff 165
@@ -92,9 +97,10 @@ gate the containing checkpoint; no formal a11y/E2E/production certification.
 
 ## Current Repository Condition
 
-STABLE; final Phase 4 source/evidence/documentation changes pending containing
-checkpoint on feat/phase-4-business-analysis; initial runner checkpoint17ffad9.
-Resolve final publication with git log WORK_STATE.md and verify clean/upstream0/0.
+STABLE; Phase 4 final source/evidence/docs published at deaa4dd on
+feat/phase-4-business-analysis; initial runner checkpoint17ffad9.
+Only successor metadata publication remains in this containing checkpoint.
+Resolve it with git log WORK_STATE.md and verify clean/upstream0/0.
 No interrupted database operation/pending migration remains.
 Original warehouse/settings/source and historical evidence retained.
 
@@ -111,11 +117,11 @@ before future API. Full context/owner/revisit triggers in current audit debt tab
 
 ## Exact Next Actions
 
-1. Verify report links/numerical summaries, staged full content/history secret scans,
-   commit final Phase 4 unit and publish focused branch; verify clean/upstream0/0.
-2. After that exit gate, create the owner-authorized separate local Phase 5 chat
-   using docs/phase-5-handoff.md; publish focused successor metadata afterward.
-3. Phase 5 resumes actual D repository, documents one consistent KPI policy and
+1. Phase 5 chat01a10ae9-ebc3-74b3-8c42-018a1c90f7bf follows
+   docs/phase-5-handoff.md after verifying this focused metadata publication;
+   actual D repository, current instructions/Git/usage and evidence before edits.
+2. This Phase 4 chat is COMPLETE; do not start Phase 5 implementation here.
+3. Phase 5 documents one consistent KPI policy and
    satisfies Q01 before API analytics; do not start Phase 5 in this Phase 4 chat.
 4. Preserve all resource, delete, workload, security, source and release gates.
 
@@ -123,7 +129,8 @@ before future API. Full context/owner/revisit triggers in current audit debt tab
 
 Phase 4 branch feat/phase-4-business-analysis starts at published bbe0455;
 M1 runner/tests/plan/handoff checkpoint17ffad9 verified clean with staged/history
-scans. Final unit pending containing checkpoint/publication. Audit upstream0/0 verified.
+scans. Final exitdeaa4dd published clean/upstream0/0; containing successor metadata
+checkpoint is separate. Audit upstream0/0 verified.
 Recovered baseline6ffe5876fe8ac14193bd2ec19a9e92d52fff112f clean/upstream0/0.
 Published units445b43d,6d96e7a,9229df0,22fcc31,505b8eb. Audit branch tracks origin;
 no merge/force/history rewrite. Containing documentation commit supplies final
