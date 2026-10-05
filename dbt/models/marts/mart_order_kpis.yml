@@ -1,0 +1,28 @@
+version: 2
+
+models:
+  - name: mart_order_kpis
+    description: Policy v1 order-grain analytics; all source warnings and lineage retained.
+    config:
+      schema: marts
+    columns:
+      - name: order_id
+        data_tests: [not_null, unique]
+      - name: policy_version
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['v1']
+      - name: is_commerce_eligible
+        data_tests: [not_null]
+      - name: is_delivery_eligible
+        data_tests: [not_null]
+      - name: is_promise_eligible
+        data_tests: [not_null]
+      - name: is_price_complete
+        data_tests: [not_null]
+      - name: is_freight_complete
+        data_tests: [not_null]
+      - name: is_payment_complete
+        data_tests: [not_null]

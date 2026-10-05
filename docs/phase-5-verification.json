@@ -1,0 +1,40 @@
+{
+  "date": "2026-10-05",
+  "phase": 5,
+  "status": "partial_offline_verified",
+  "policy_checkpoint": "35cb6dc",
+  "milestone": "M2a order-grain KPI projection",
+  "native_accepted": false,
+  "database_operations": 0,
+  "q01": "pending",
+  "focused_cases": 12,
+  "full_offline": {
+    "known_anyio_warning": 1,
+    "passed": 1683,
+    "skipped_native": 1000,
+    "seconds": 42.75
+  },
+  "ruff_files": 176,
+  "mypy_files": 29,
+  "offline_graph": {
+    "models": 21,
+    "tests": 292
+  },
+  "parse_artifact": ".artifacts/dbt/b126343ffb3a4e9b81360e1fde62b67b",
+  "limits": [
+    "SQLite adapters do not prove PostgreSQL numeric precision",
+    "No live view build, grants or actual consumer auth",
+    "Q01 remains before API analytics",
+    "Historical Phase3 20-view/282-test evidence unchanged",
+    "Remaining marts/executive/query/cross-dashboard acceptance pending"
+  ],
+  "git_blob_sha256": {
+    "dbt/models/marts/mart_order_kpis.sql": "82f35bdd3174b5cceb7c5079a8da5c4a788c7e07b6f5c5d672d61d27d831d6f8",
+    "dbt/models/marts/mart_order_kpis.yml": "54f98b502de724e44949cbb48e0828bdb93a5c6ba077167f5ec0c64be03051e8",
+    "tests/test_phase5_order_kpis.py": "58f8281c7b948fb206354d148f7fece0cec64e1c26ca1669da0bc3cfda9467c4",
+    "src/warehouse/dbt_runner.py": "5249eae8c9add7d8b854bef8cc7c8a0f0039484b08a90a5e503b6d3940c16b1e",
+    "src/warehouse/dbt_reconstruction.py": "c8790d3cd141509ee6e1b6c06a0d0c161195fc255b65e8b5bbf08e5f5ea928a3",
+    "tests/test_warehouse_dbt_reconstruction.py": "6ddc28deb5fb96305227c54a356be59b2ff5bd088b54a1c229e8fe4c868ea88a"
+  },
+  "hash_scope": "Exact staged Git blob bytes; working-tree line endings may differ"
+}

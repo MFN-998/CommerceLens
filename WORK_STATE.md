@@ -67,7 +67,14 @@ seller >=100 support are explicitly exploratory, not official policies.
 
 ## Validation
 
-Phase 5 M1 documentation review and whitespace/link/evidence identity checks gate the containing checkpoint. No implementation tests, database operation or advisory rescan performed in this milestone; all below evidence is historical.
+Phase5 M2a current:12 focused SQL cases passed; full offline1683 passed,
+1000 deliberate native skips/knownAnyIO1 in42.75s. Ruff lint/format176 and
+mypy29 passed. Offline dbt parse retained at
+.artifacts/dbt/b126343ffb3a4e9b81360e1fde62b67b. Initial full-suite closed-graph
+failure corrected by explicit allowlist/schema/fixture extension; full rerun passed.
+Phase4 result/code receipt hashes reconciled. No database/grant/API/advisory operation.
+Staged/history scans and clean publication gate the containing milestone.
+All Phase4/audit/native evidence below remains historical.
 
 Phase 4 final current suite: 1669 passed/1000 deliberate native skips/one known
 AnyIO warning in 41.83 s; 17 focused cases included. Ruff all-source lint and
@@ -101,10 +108,11 @@ gate the containing checkpoint; no formal a11y/E2E/production certification.
 
 ## Current Repository Condition
 
-STABLE; Phase 5 M1 documentation-only policy checkpoint pending on
-feat/phase-5-kpi-analytics from published successor75f5335.
-No runtime/schema/source/access change or interrupted database operation.
+STABLE / SAFE TO RESUME; Phase5 M2a source/offline checkpoint pending on
+feat/phase-5-kpi-analytics from published policy35cb6dc. Native acceptance pending.
+No live schema/source/access change or interrupted database operation.
 Original warehouse/settings/source and historical evidence retained.
+
 ## Incomplete Work
 
 Phase5 reusable marts, executive metric implementation, Q01 workload acceptance and bounded query/serialization layer remain pending; policy M1 defined. Official KPI/API acceptance is incomplete.
@@ -118,16 +126,19 @@ before future API. Full context/owner/revisit triggers in current audit debt tab
 
 ## Exact Next Actions
 
-1. Read docs/phase-5-plan.md and kpi-dictionary.md; implement M2 reusable
-   analytical views with independent synthetic grain/money/time/review oracles.
+1. Read docs/phase-5-plan.md and kpi-dictionary.md. Implement/test a scoped
+   isolated-target build/test path for mart_order_kpis; do not rebuild prior graph
+   or use original default credentials. Then native precision/grain/coverage
+   acceptance and explicit mart-reader access/denial extension before Q01.
 2. Measure actual workload under Q01 before accepting API analytics; preserve
    Free/views-first and explicit target/capacity/access safeguards.
 3. Implement bounded query/serialization contracts, native/cross-dashboard
    acceptance and verified Phase5 exit before creating Phase6 separately.
 4. Preserve all resource, delete, workload, security, source and release gates.
+
 ## Git State
 
-Current branch feat/phase-5-kpi-analytics, based on published successor75f5335. M1 intended files: WORK_STATE.md, docs/phase-5-plan.md, docs/kpi-dictionary.md. Containing commit resolves checkpoint identity; staged/history scans and clean publication required. Phase4 history below is retained.
+Current branch feat/phase-5-kpi-analytics, based on published successor75f5335. Policy35cb6dc published clean/upstream0/0. M2a files: mart_order_kpis SQL/YAML, tests/test_phase5_order_kpis.py, explicit dbt runner/reconstruction allowlist and graph fixture, phase plan/receipt/WORK_STATE. Containing commit resolves checkpoint identity; staged/history scans and clean publication required. Phase4 history below is retained.
 
 Phase 4 branch feat/phase-4-business-analysis starts at published bbe0455;
 M1 runner/tests/plan/handoff checkpoint17ffad9 verified clean with staged/history
@@ -148,5 +159,4 @@ ONLY web/.artifacts/governance-20261005-01/.next, node_modules and .npm-cache,
 scripts disabled. All other project-resource deletion needs specific informed
 owner approval. Both Supabase projects, private settings/certificates, source,
 C fallback/three drafts and generated evidence retained. Never log credentials,
-connection strings, raw records or driver details. Account observation at final
-unit:30% five-hour/51% weekly remaining, no credits redeemed; recheck on resume.
+connection strings, raw records or driver details. Account observation at Phase5 M2a:22% five-hour/50% weekly remaining, shared/not reserved; no credits redeemed. Scope kept atomic before native/query/access work; recheck on resume.

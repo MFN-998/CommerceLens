@@ -35,6 +35,7 @@ APPROVED_MODELS = frozenset(
         "fact_payments",
         "fact_reviews",
         "mart_order_components",
+        "mart_order_kpis",
     }
 )
 

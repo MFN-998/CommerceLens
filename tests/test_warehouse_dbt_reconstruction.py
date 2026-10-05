@@ -55,6 +55,7 @@ MODEL_SCHEMAS = {
         )
     },
     "mart_order_components": "marts",
+    "mart_order_kpis": "marts",
 }
 
 
@@ -721,8 +722,8 @@ def test_real_offline_parse_of_unmodified_graph_has_no_network_or_private_settin
     monkeypatch.setattr(reconstruction.subprocess, "run", parse_then_simulate)
     result = _run(settings_root)
     assert result["status"] == "passed"
-    assert result["models"] == 20
-    assert result["tests"] == 282
+    assert result["models"] == 21
+    assert result["tests"] == 292
     assert live_commands == ["build"] and not marker.exists()
     manifests = list((settings_root / ".artifacts/dbt-reconstruction").rglob("manifest.json"))
     assert len(manifests) == 2

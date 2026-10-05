@@ -16,7 +16,25 @@ Phases 1–4 and governance remain COMPLETE / VERIFIED. Phase 5 is IN PROGRESS.
 5. Verify native results/access, regressions and evidence; publish Phase 5 exit and
    create the separately authorized Phase 6 chat only after that exit gate.
 
-M1 policy is in kpi-dictionary.md. Implementation and Q01 acceptance are pending.
+M1 policy COMPLETE at35cb6dc. M2a order-view source/offline checks COMPLETE;
+native acceptance and the rest of M2–M5 remain pending. Current source adds
+mart_order_kpis (one order, preserving every original column) and12 independent
+synthetic cases. Approved graph is explicitly21 models/292 tests in offline parse;
+historical Phase3 native20/282 evidence is unchanged, not refreshed.
+
+Current checks: full offline1683 passed/1000 deliberate native skips/knownAnyIO1,
+42.75s; Ruff lint/format176; mypy29; offline dbt parse artifact
+.artifacts/dbt/b126343ffb3a4e9b81360e1fde62b67b. Initial broad run failed the
+expected closed graph guard; explicit model/schema allowlist and independent
+fixed-graph fixture were extended, then the full suite passed. No suppression.
+
+First next step: implement and independently test a narrowly selected build/test
+path against the explicit protected isolated recovery target before native acceptance.
+Do not invoke full-graph reconstruction merely to build this new view or use
+original default settings. Existing reader grant guards accept only the technical
+mart: extend explicit per-mart access verification only after model acceptance,
+preserving NOLOGIN/NOINHERIT/private schemas and independent denial tests.
+No live build/grant/read, consumer endpoint or Q01 measurement has run in Phase5.
 Phase 6 owns HTTP/database/UI integration, actual consumer authentication and exposure.
 Phase 7 owns customer360/RFM/cohorts; Phase 8 owns predictive features/models.
 
