@@ -1,8 +1,9 @@
 # Phase 4 separate-chat handoff
 
 Gate: Phases 1-3 and post-Phase 3 governance audit COMPLETE / VERIFIED, 2026-10-05.
-Resolve the published containing checkpoint with Git; no Phase 4 work occurred in
-the audit chat. Successor chat identifier will be recorded after creation.
+Published audit gate: 91afb0a7ac3e81d0e48c7977eba5ff8f23c45a43, clean/upstream0/0 verified.
+No Phase 4 work occurred in the audit chat. Separate local successor chat:
+01a10aac-b656-7982-ac89-a63faa542ee7 (created 2026-10-05).
 
 ## Exact new-chat assignment
 
