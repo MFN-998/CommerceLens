@@ -159,3 +159,13 @@ Get-Content docs/phase-3-status.md
 Startup is documented in docs/development.md. Fixed recovery commands/receipts
 are in warehouse-reconstruction-plan.md. Never log credentials/source rows/driver
 detail; do not swap original purpose files or globally route native tests.
+
+## Governance audit recovery - 2026-10-05
+
+- Recovered actual D repository at 6ffe587; clean and upstream 0/0 before edits.
+- Required startup documents and final native receipt read; no phase reopened.
+- Created docs/governance-audit.md with seven-area inventory and safe-check boundaries.
+- Current account-wide usage: 65% five-hour / 57% weekly remaining; no reservation.
+- Next: detailed actual-code review and findings, then atomic required fixes and regressions.
+- No resource deletion; unchanged full check script is unsafe under deletion rule.
+- Governance gate incomplete. Initial documentation checkpoint pending.
