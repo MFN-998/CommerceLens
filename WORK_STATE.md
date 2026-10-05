@@ -13,11 +13,13 @@ Eight-domain report, hypotheses/sensitivities, source/warehouse-total reconcilia
 17 focused regressions and byte-identical replay passed. Exit published at
 deaa4dd6f41a6b08bcf2752aa5aad1423ec5bc74, clean/upstream0/0 verified.
 Separate Phase 5 chat01a10ae9-ebc3-74b3-8c42-018a1c90f7bf created afterward;
-containing focused metadata checkpoint records the transition. No Phase 5 work here.
+Successor metadata75f5335 published clean/upstream0/0. Phase 5 M1 policy is defined; implementation and acceptance are pending in docs/phase-5-plan.md.
 No roadmap redesign,
 merge, deployment, paid upgrade or public readiness certification.
 
 ## Completed Work
+
+Phase 5 M1: versioned docs/kpi-dictionary.md defines delivered commerce eligibility, explicit money completeness/coverage, exact serialization, cross-order identity, equal-order reviews and calendar promise lateness. No runtime or warehouse change; implementation pending.
 
 Private warehouse foundation and checksummed migration/replay, all nine source
 tables/1,550,922 rows, nine staging/five dimension/one mapping/four fact/one mart
@@ -65,6 +67,8 @@ seller >=100 support are explicitly exploratory, not official policies.
 
 ## Validation
 
+Phase 5 M1 documentation review and whitespace/link/evidence identity checks gate the containing checkpoint. No implementation tests, database operation or advisory rescan performed in this milestone; all below evidence is historical.
+
 Phase 4 final current suite: 1669 passed/1000 deliberate native skips/one known
 AnyIO warning in 41.83 s; 17 focused cases included. Ruff all-source lint and
 format172 passed. Mypy29 passed before final byte-output correction; final changed
@@ -97,16 +101,13 @@ gate the containing checkpoint; no formal a11y/E2E/production certification.
 
 ## Current Repository Condition
 
-STABLE; Phase 4 final source/evidence/docs published at deaa4dd on
-feat/phase-4-business-analysis; initial runner checkpoint17ffad9.
-Only successor metadata publication remains in this containing checkpoint.
-Resolve it with git log WORK_STATE.md and verify clean/upstream0/0.
-No interrupted database operation/pending migration remains.
+STABLE; Phase 5 M1 documentation-only policy checkpoint pending on
+feat/phase-5-kpi-analytics from published successor75f5335.
+No runtime/schema/source/access change or interrupted database operation.
 Original warehouse/settings/source and historical evidence retained.
-
 ## Incomplete Work
 
-Official KPI/API analytics Phase5,
+Phase5 reusable marts, executive metric implementation, Q01 workload acceptance and bounded query/serialization layer remain pending; policy M1 defined. Official KPI/API acceptance is incomplete.
 integrated UI Phase6 and later master-plan phases unstarted. Q01 actual workload/
 latency/spill/capacity gate before API analytics. E01 bounded lint EOL/braces tooling
 exception, E02AnyIO, E03scripts disabled, E04future volume/report publication,
@@ -117,15 +118,16 @@ before future API. Full context/owner/revisit triggers in current audit debt tab
 
 ## Exact Next Actions
 
-1. Phase 5 chat01a10ae9-ebc3-74b3-8c42-018a1c90f7bf follows
-   docs/phase-5-handoff.md after verifying this focused metadata publication;
-   actual D repository, current instructions/Git/usage and evidence before edits.
-2. This Phase 4 chat is COMPLETE; do not start Phase 5 implementation here.
-3. Phase 5 documents one consistent KPI policy and
-   satisfies Q01 before API analytics; do not start Phase 5 in this Phase 4 chat.
+1. Read docs/phase-5-plan.md and kpi-dictionary.md; implement M2 reusable
+   analytical views with independent synthetic grain/money/time/review oracles.
+2. Measure actual workload under Q01 before accepting API analytics; preserve
+   Free/views-first and explicit target/capacity/access safeguards.
+3. Implement bounded query/serialization contracts, native/cross-dashboard
+   acceptance and verified Phase5 exit before creating Phase6 separately.
 4. Preserve all resource, delete, workload, security, source and release gates.
-
 ## Git State
+
+Current branch feat/phase-5-kpi-analytics, based on published successor75f5335. M1 intended files: WORK_STATE.md, docs/phase-5-plan.md, docs/kpi-dictionary.md. Containing commit resolves checkpoint identity; staged/history scans and clean publication required. Phase4 history below is retained.
 
 Phase 4 branch feat/phase-4-business-analysis starts at published bbe0455;
 M1 runner/tests/plan/handoff checkpoint17ffad9 verified clean with staged/history
