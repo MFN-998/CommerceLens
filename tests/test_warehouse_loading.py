@@ -134,3 +134,68 @@ def test_empty_but_allocated_database_requires_capacity_recovery(snapshot: Path)
 
     with pytest.raises(loading.LoadError, match="landing budget"):
         loading.load_source(AllocatedConnection(), snapshot)
+
+
+class RepeatConnection:
+    """Model registry SELECT shape independently of the proposed comparison."""
+
+    def __init__(self, plan):
+        self.plan = plan
+        self.query = ""
+
+    def transaction(self):
+        return nullcontext()
+
+    def execute(self, query, parameters=None):
+        self.query = query
+        assert not query.startswith(("INSERT", "COPY", "UPDATE", "DELETE"))
+        return self
+
+    def fetchone(self):
+        return ("commercelens_ingest", "postgres")
+
+    def fetchall(self):
+        row = (
+            self.plan.load_id,
+            self.plan.fingerprint,
+            "olistbr/brazilian-ecommerce/versions/2",
+            1,
+            loading.file_evidence(self.plan),
+        )
+        if "manifest_sha256" in self.query:
+            row += (self.plan.manifest_sha256,)
+        return [row]
+
+
+@pytest.mark.parametrize("change", ["whitespace", "acquisition_time"])
+def test_repeat_rejects_changed_manifest_bytes_even_with_identical_source(
+    snapshot, monkeypatch, change
+):
+    original = source.prepare_source(snapshot)
+    manifest = snapshot / "data/source-manifest.json"
+    text = manifest.read_text(encoding="utf-8")
+    if change == "whitespace":
+        text += "\n"
+    else:
+        text = text.replace("2026-09-01T00:00:00+00:00", "2026-09-02T00:00:00+00:00")
+    manifest.write_text(text, encoding="utf-8")
+    changed = source.prepare_source(snapshot)
+    assert changed.fingerprint == original.fingerprint
+    assert changed.tables == original.tables
+    assert changed.manifest_sha256 != original.manifest_sha256
+    verified = []
+    monkeypatch.setattr(loading, "verify_snapshot", lambda *args: verified.append(True))
+    monkeypatch.setattr(loading, "_storage_usage", lambda *args: {})
+    with pytest.raises(loading.LoadError, match="different snapshot"):
+        loading.load_source(RepeatConnection(original), snapshot, changed)
+    assert verified == []
+
+
+def test_repeat_accepts_identical_manifest_and_verifies_content(snapshot, monkeypatch):
+    plan = source.prepare_source(snapshot)
+    verified = []
+    monkeypatch.setattr(loading, "verify_snapshot", lambda *args: verified.append(True))
+    monkeypatch.setattr(loading, "_storage_usage", lambda *args: {})
+    result = loading.load_source(RepeatConnection(plan), snapshot, plan)
+    assert result["status"] == "verified_existing"
+    assert verified == [True]

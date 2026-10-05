@@ -126,8 +126,8 @@ def load_source(
         connection.execute("SET LOCAL statement_timeout = '10min'")
         connection.execute("SET LOCAL idle_in_transaction_session_timeout = '120s'")
         existing = connection.execute(
-            "SELECT load_id, source_fingerprint, dataset_handle, contract_version, source_files "
-            "FROM ops.source_loads"
+            "SELECT load_id, source_fingerprint, dataset_handle, contract_version, source_files, "
+            "manifest_sha256 FROM ops.source_loads"
         ).fetchall()
         if existing:
             identity = (
@@ -136,6 +136,7 @@ def load_source(
                 DATASET_HANDLE,
                 LANDING_CONTRACT_VERSION,
                 evidence,
+                plan.manifest_sha256,
             )
             if len(existing) != 1 or existing[0] != identity:
                 raise LoadError("A different snapshot requires a new capacity and retention review")

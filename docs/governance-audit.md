@@ -219,3 +219,59 @@ zoom testing, all-browser certification or future dashboard/API E2E acceptance.
 Current read-only source verification passed all nine immutable files. Offline dbt
 parse passed with fresh retained artifacts .artifacts/dbt/97ccd72fddb741ecac7d859e79ad17bf.
 No database connection/load/model build/grant change ran in this audit.
+
+## G05 - Recommended: stale unproven-budget descriptions
+
+- Location: src/warehouse/dbt_reconstruction.py and reconstruction_acceptance.py
+  module descriptions; current contributor/development safety wording.
+- Why: descriptions still said fresh-target budgets were unproven despite accepted
+  2026-10-05 native receipts; current source-test cleanup warnings were also stale
+  after G02. This confuses evidence recovery and safe onboarding.
+- Solution/decision: link dated receipts, retain no-guarantee language, and reconcile
+  current guides with resource retention and the separately installed patched frontend.
+  Implemented immediately; no historical evidence rewritten.
+- Side effects/dependencies: editorial only; no budget, target, model, test, access or
+  retry behavior change. Architecture unchanged. Ruff/type checks verify source edits;
+  local link/diff checks verify documentation. No new native run claimed.
+
+## G06 - Recommended: retained provenance aliases need accurate lifecycle documentation
+
+- Location: src/ingestion/olist.py::acquire uses os.link for atomic no-clobber
+  manifest publication; retained .artifacts/olist-acquisition-*/manifest.json.
+- Why: after G02 retention, that prepared manifest remains a hard-link alias of the
+  canonical source manifest on a newly acquired snapshot. It is immutable provenance,
+  not an independently editable draft/backup. Editing either alias changes shared bytes.
+- Solution/decision: explicitly document the alias and prohibit treating it as an
+  editable/generated draft. Existing raw/hash checks fail closed on changed metadata.
+  Preserve the proven no-clobber publication mechanism; do not introduce an unverified
+  cross-platform filesystem primitive to eliminate an intentionally retained alias.
+- Side effects/dependencies: additional retained metadata/snapshot disk; future archive,
+  restore, cleanup or source-version tooling must review identity/link dependencies.
+  No backup/PITR claim, and owner approval remains required for resource deletion.
+- Architecture: no database/data-grain change; future lifecycle adjustment only if a
+  real consumer needs independent copies. Maintainer-owned deferred implementation.
+- Verification: acquisition repeat/provenance/tamper/restore regressions pass; current
+  source hash verification passed nine files. This audit did not reacquire real Olist.
+
+## G07 - Important: repeat-load identity omits stored manifest checksum
+
+- Location: src/warehouse/loading.py::load_source existing-snapshot SELECT/identity.
+- Issue/why: repeat identity compared load ID, source fingerprint, handle, contract
+  version and file evidence, but omitted ops.source_loads.manifest_sha256. A newly
+  prepared plan could accept changed provenance metadata/bytes with identical CSVs.
+- Solution/decision: select and compare the existing manifest hash as part of exact
+  identity before reading stored rows. Immediate, implemented; incompatible provenance
+  fails closed for review rather than rewriting the registry or reacquiring data.
+- Side effects/dependencies: whitespace/metadata changes now also require provenance
+  review; canonical manifest must remain byte-identical. No migration, new column,
+  permission, load-ID, source row, monetary value, model or architecture change.
+- Verification: both whitespace/acquisition-time cases failed before/pass after;
+  healthy identical-manifest control passed. Focused source/loader/reconstruction
+  suite 93 passed. Final complete offline suite 1652 passed/1000 deliberate native
+  skips/one known AnyIO warning in 45.65 s; mypy 27 and Ruff passed.
+- Current native correction check: guarded reconstruction load on approved isolated
+  histbcmlctxmtxusfbzt returned passed/verified_existing, 1,550,922 rows, raw/database
+  275,988,480/287,135,411 bytes. All nine stored text/ordinal/digest/exact-money
+  reconciliations and the new registry-manifest comparison completed. No reload,
+  migration, original-target operation, credential swap, deletion or dbt rebuild.
+  Receipt observation 2026-10-05T05:47:26Z; no elapsed-time guarantee claimed.

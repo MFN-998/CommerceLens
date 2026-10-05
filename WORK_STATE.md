@@ -211,3 +211,18 @@ detail; do not swap original purpose files or globally route native tests.
 - Exact next: publish dependency milestone; finish seven-area coverage/debt record,
   reconcile current guides/work state, final scans and audit gate determination.
 - Account-wide remaining 52% five-hour/55% weekly observed at this milestone.
+
+## Governance audit G07 milestone - 2026-10-05
+
+- Latest published implementation checkpoint before this unit: 22fcc31.
+- G07 Important repeat provenance checksum gap fixed; two failure cases reproduced
+  before/pass after, identical control passed, 93 focused cases passed.
+- Full final offline regression: 1652 passed, 1000 deliberate live skips, known
+  AnyIO warning, 45.65 s. Mypy 27 and Ruff passed.
+- Corrected native guarded repeat verified_existing on approved recovery: all nine
+  tables/1,550,922 rows and complete text/ordinal/digest/money checks; raw/database
+  sizes remain 275988480/287135411. No reload/schema/model/original-target changes.
+- Next: finish final seven-area coverage, staged debt/disposition and machine-readable
+  evidence; reconcile current guides/WORK_STATE; scan and publish gate checkpoint.
+- G05 editorial source descriptions and guide/data documentation remain saved as
+  pending final reconciliation paths; no behavioral partial operation is pending.
