@@ -105,7 +105,8 @@ now verified offline. Approved Free/Tokyo recovery target and private settings
 are established; PostgreSQL17.11 read-only identity/TLS/empty-state/capacity
 preflight passed. Unchanged migrations/replay/privilege checks and actual restricted
 login authentication and the complete1,550,922-row load/repeat also passed.
-Native20-view/282-test build, mart grant,42-case acceptance and final handoff remain.
+First native20-view/282-test graph and mart grant/replay passed. Compatible
+rebuild preservation,42-case acceptance and final handoff remain.
 Technical SQL and bounded plan measurements are now accepted; Q01 retains their
 latency/spill limitation for a future API performance gate.
 Completed dim_location's unique three-source ZIP domain with observation, coverage

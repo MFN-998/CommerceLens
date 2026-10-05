@@ -3,7 +3,7 @@
 Phase 3 M5. Full-graph runner and isolated-operation dispatcher source/offline
 verification COMPLETE; final-check adapter also verified offline.
 **LIVE RECONSTRUCTION PARTIALLY VERIFIED: foundation/source loading/repeat passed;
-full model graph, mart access and final independent acceptance remain pending.**
+first full graph and grant replay passed; compatible rebuild and final acceptance pending.**
 The accepted CommerceLens Supabase target, source files, private configurations,
 certificates and retained artifacts stay protected. This plan reconstructs the
 development warehouse from immutable source and versioned code; it does not prove
@@ -277,10 +277,25 @@ before-repeat/aggregate markers remain in the isolated .artifacts directory.
 No uncertain commit, duplicate load or source failure remains. Original target,
 purpose files, model code and datasets unchanged; no resource deletion/cleanup.
 
-**Next:** fixed twenty-view/282-test graph build, mart grant and42-case final
-acceptance. They are NOT YET RUN on this target. Storage alone does not prove
-WAL/temp headroom or API latency; Q01 remains a later workload gate. Preserve
-failures, no fallback/ambient routing/weaker TLS/automatic retry or cleanup.
+## First graph and grant replay verified — 2026-10-05
+
+[Native build receipt](warehouse-reconstruction-build.json) passed at04:16:42Z:
+all20 views succeeded and all282 enabled blocking tests passed, with complete
+manifest/invocation/contract coverage, zero failures/skips/warnings. First guarded
+entry including native preflight/parse/build took1131.343s; the graph stayed within
+its1200s cap. This is one measured development job, not a future duration promise.
+
+Fixed mart SELECT grant and reapplication passed. Reconnected snapshots confirm
+identical mart OID/owner/options/exact reader ACL and all five default-ACL entries.
+Reader remains NOLOGIN/NOINHERIT. Original target and model/source code unchanged.
+
+**Next:** prove compatible rebuild preservation using the same reviewed isolated
+full-graph runner, then42 independent native checks and final catalog/storage/API/
+artifact gates. The final-check adapter is read-only and does not rebuild or replay
+the grant. Ordinary single-model tooling couples project/settings roots; do not
+swap accepted credentials or bypass isolation. The second full graph is the existing
+guarded route and keeps all acceptance unchanged. Compatible rebuild/final checks
+NOT YET RUN. No automatic retry, cleanup or weaker TLS; preserve partial evidence.
 
 ## Exact construction and verification order
 

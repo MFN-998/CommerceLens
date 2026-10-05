@@ -17,6 +17,13 @@ precedence over chat. Master plan, standards, execution protocol, deletion rule 
 
 ## Completed Work
 
+- Current graph/grant unit COMPLETE: first native20-view/282-test build passed
+  at2026-10-05T04:16:42Z, guarded entry1131.343s within graph1200s cap. All native
+  manifest/results/coverage gates passed. Mart SELECT grant/replay passed; identical
+  OID/owner/options/ACL/five defaults, NOLOGIN/NOINHERIT reader. Receipt
+  docs/warehouse-reconstruction-build.json; no source/config/dependency change.
+  Compatible rebuild and42 independent native checks NOT YET RUN. Original intact.
+
 - Recovery full source unit COMPLETE: first loaded/all1,550,922 rows; reconnected
   repeat verified_existing/all rows with full ordinal/text-digest/exact-money proof.
   One unchanged registry identity/source evidence/timestamp/manifest; no duplicates.
@@ -77,6 +84,10 @@ precedence over chat. Master plan, standards, execution protocol, deletion rule 
   generated artifacts. No new obsolete resource identified; no deletion this session.
 
 ## Files
+
+- Current graph/grant unit adds docs/warehouse-reconstruction-build.json; updates
+  reconstruction/phase3/WORK_STATE. Isolated graph artifacts and three safe
+  start/result/grant metadata snapshots retained. No resource deletion/rename.
 
 - Load unit adds docs/warehouse-reconstruction-load.json; updates reconstruction/
   phase3 guides/WORK_STATE. Retained isolated start/result/registry/aggregate markers;
@@ -148,6 +159,12 @@ precedence over chat. Master plan, standards, execution protocol, deletion rule 
   Partial committed builds are preserved/inspected, never automatically cleaned.
 
 ## Validation
+
+- Current native graph20 models succeeded/all282tests pass, complete coverage;
+  grant/replay passed and metadata preserved. Existing implementation unchanged,
+  no offline/static rerun required. Native compatible rebuild/42-case final checks
+  remain pending. Pre-risk eba4c8f post-history79commits/publication clean0/0 verified
+  on resume; containing checkpoint's staged/history scans and Git state must pass.
 
 - Current load unit: first/repeat/native metadata passed; safe detailed receipt
   docs/warehouse-reconstruction-load.json. Full per-table ordinal/text digests/
@@ -243,7 +260,7 @@ CLEAN / STABLE source and verified recovery snapshot; meaningful load unit COMPL
 Final preservation documentation is the containing checkpoint; verify Git on resume.
 Local recovery preparation COMPLETE; approved new target and private admin
 configuration/native preflight/migrations/permissions/job authentication verified.
-Full source load/repeat verified; fixed graph build is next. Accepted original
+Full source load/repeat, first graph and grant/replay verified; compatible rebuild is next. Accepted original
 warehouse and source baseline unchanged. Recovery holds one verified snapshot.
 Accepted warehouse unchanged. Larger Phase 3 SAFE TO RESUME: fresh native proof
 model graph and final handoff pending; no uncertain live operation or interrupted build.
@@ -251,8 +268,8 @@ Preserve C, credentials/source data and all generated evidence.
 
 ## Incomplete Work
 
-- Fixed20-view/282-test native recovery graph, mart grant,42 independent physical/
-  query/reader checks, final capacity/artifact secret checks and M5/Phase3 handoff.
+- Compatible full-graph rebuild/grant preservation,42 independent physical/query/
+  reader checks, final catalog/capacity/artifact checks and M5/Phase3 handoff.
 - Q01 measured latency/spills; review before future API analytics, not silently ignored.
 - Phase 2 pandas parser accepts loose dates/leap rollover/now/today; strict
   warehouse guards mitigate. Revisit before new source version.
@@ -265,16 +282,15 @@ Preserve C, credentials/source data and all generated evidence.
 
 ## Exact Next Actions
 
-1. Recover clean checkpoint and read reconstruction-load receipt/plan. Check usage,
-   then fixed dbt-build-graph dispatcher on histbcmlctxmtxusfbzt with isolated root
-   D:\My Projects\CommerceLens-Reconstruction; require20 model successes and all282
-   tests pass. Full graph not run yet; preserve partial artifacts if interrupted.
-2. Do not repeat migration/provision/COPY work: foundation and full load/repeat
-   already verified. All three purpose files/CA exist; never overwrite or use
-   original ROOT credentials, global routing, reader login or automatic cleanup.
-3. After build, fixed grant-mart-reader,42-case independent acceptance, final sizes
-   and artifact/source secret checks. Verify all native results/capacity/access;
-   checkpoint and finish final Phase3 handoff. Preserve failures; no phase redo.
+1. Read native build receipt and after-grant/replay snapshots in isolated .artifacts.
+   Check usage, then compatible fixed dbt-build-graph on histbcmlctxmtxusfbzt with
+   D:\My Projects\CommerceLens-Reconstruction; require20/282 pass and compare mart
+   OID/owner/options/ACL/defaults to preserved snapshot after clean reconnect.
+2. Do not repeat migration/provision/COPY/first-build/grant replay: those passed.
+   Keep all purpose files/CA/source and original target. No global routing,
+   credential replacement, reader login or automatic cleanup.
+3. After preservation passes,42-case independent acceptance, final catalog/identity/
+   API/private access/capacity/artifact-secret checks. Publish final Phase3 handoff.
 4. Finish verified Phase 3 handoff here; create a new CommerceLens chat for the
    required governance audit/corrections/regressions. After that gate, create a
    separate Phase 4 chat, and separate chats for each subsequent phase. Repository
@@ -282,16 +298,16 @@ Preserve C, credentials/source data and all generated evidence.
 
 ## Git State
 
-- Branch feat/warehouse-foundation; main unchanged/unmerged. Current resume baseline2c2b123;
+- Branch feat/warehouse-foundation; main unchanged/unmerged. Current resume baselineeba4c8f;
   query source c01ee79/query acceptance b82c7d7/recovery source edf072b; workflow
   590863b, dispatchera2bed4f and verified final-check sourcec961aff published.
   Pre-approval preservationfd28354 published clean; approved-target handoffed52929 published; verified
-  preflight7768fed/foundation2c2b123 published clean; verified source-load checkpoint
-  is the containing commit:
+  preflight7768fed/foundation2c2b123 published clean; source-loadeba4c8f published clean; graph/grant
+  checkpoint is the containing commit:
   git log -1 --format="%H %s" -- WORK_STATE.md.
 - Verify clean working tree and HEAD/upstream equality after publish/on resume.
   Disable auto Git maintenance, stage exact files and scan full content/history.
-- Latest actual account-wide usage19% five-hour/62% weekly remaining2026-10-05 local.
+- Latest actual account-wide usage86% five-hour/60% weekly remaining2026-10-05 local.
   Observed values are not task-cost predictions. Reduce next-unit scope as needed;
   preserve checkpoint and recheck before major native load/build.
 

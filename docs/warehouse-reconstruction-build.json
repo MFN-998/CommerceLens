@@ -1,0 +1,195 @@
+{
+  "status": "passed",
+  "project_ref": "histbcmlctxmtxusfbzt",
+  "source_checkpoint": "eba4c8f",
+  "first_graph": {
+    "status": "passed",
+    "finished_utc": "2026-10-05T04:16:42.583223+00:00",
+    "elapsed_seconds": 1131.343,
+    "receipt": {
+      "step": "dbt-build-graph",
+      "project_ref": "histbcmlctxmtxusfbzt",
+      "status": "passed",
+      "result": {
+        "models": 20,
+        "tests": 282,
+        "artifacts": "D:\\My Projects\\CommerceLens-Reconstruction\\.artifacts\\dbt-reconstruction\\37d662084ca94c2093ee8908de293fad"
+      }
+    }
+  },
+  "models": [
+    {
+      "node": "model.commercelens.stg_category_translation",
+      "status": "success"
+    },
+    {
+      "node": "model.commercelens.stg_customers",
+      "status": "success"
+    },
+    {
+      "node": "model.commercelens.stg_geolocation",
+      "status": "success"
+    },
+    {
+      "node": "model.commercelens.stg_order_items",
+      "status": "success"
+    },
+    {
+      "node": "model.commercelens.stg_order_payments",
+      "status": "success"
+    },
+    {
+      "node": "model.commercelens.stg_order_reviews",
+      "status": "success"
+    },
+    {
+      "node": "model.commercelens.stg_orders",
+      "status": "success"
+    },
+    {
+      "node": "model.commercelens.stg_products",
+      "status": "success"
+    },
+    {
+      "node": "model.commercelens.stg_sellers",
+      "status": "success"
+    },
+    {
+      "node": "model.commercelens.dim_customer",
+      "status": "success"
+    },
+    {
+      "node": "model.commercelens.int_order_customers",
+      "status": "success"
+    },
+    {
+      "node": "model.commercelens.fact_payments",
+      "status": "success"
+    },
+    {
+      "node": "model.commercelens.fact_reviews",
+      "status": "success"
+    },
+    {
+      "node": "model.commercelens.dim_date",
+      "status": "success"
+    },
+    {
+      "node": "model.commercelens.dim_product",
+      "status": "success"
+    },
+    {
+      "node": "model.commercelens.dim_location",
+      "status": "success"
+    },
+    {
+      "node": "model.commercelens.fact_orders",
+      "status": "success"
+    },
+    {
+      "node": "model.commercelens.dim_seller",
+      "status": "success"
+    },
+    {
+      "node": "model.commercelens.fact_order_items",
+      "status": "success"
+    },
+    {
+      "node": "model.commercelens.mart_order_components",
+      "status": "success"
+    }
+  ],
+  "test_count": 282,
+  "tests_passed": 282,
+  "tests_failed_or_skipped": 0,
+  "reader_grant": "passed",
+  "reader_grant_replay": "passed",
+  "grant_replay_identity_owner_acl_defaults_preserved": true,
+  "mart_snapshot": {
+    "oid": 17798,
+    "owner": "commercelens_transformer",
+    "kind": "v",
+    "options": null,
+    "acl": [
+      [
+        "commercelens_reader",
+        "SELECT",
+        false
+      ],
+      [
+        "commercelens_transformer",
+        "DELETE",
+        false
+      ],
+      [
+        "commercelens_transformer",
+        "INSERT",
+        false
+      ],
+      [
+        "commercelens_transformer",
+        "MAINTAIN",
+        false
+      ],
+      [
+        "commercelens_transformer",
+        "REFERENCES",
+        false
+      ],
+      [
+        "commercelens_transformer",
+        "SELECT",
+        false
+      ],
+      [
+        "commercelens_transformer",
+        "TRIGGER",
+        false
+      ],
+      [
+        "commercelens_transformer",
+        "TRUNCATE",
+        false
+      ],
+      [
+        "commercelens_transformer",
+        "UPDATE",
+        false
+      ]
+    ],
+    "default_acls": [
+      [
+        "commercelens_owner",
+        "",
+        "T",
+        "{commercelens_owner=U/commercelens_owner}"
+      ],
+      [
+        "commercelens_owner",
+        "",
+        "f",
+        "{commercelens_owner=X/commercelens_owner}"
+      ],
+      [
+        "commercelens_owner",
+        "raw",
+        "r",
+        "{commercelens_loader=ar/commercelens_owner,commercelens_transformer=r/commercelens_owner}"
+      ],
+      [
+        "commercelens_transformer",
+        "",
+        "T",
+        "{commercelens_transformer=U/commercelens_transformer}"
+      ],
+      [
+        "commercelens_transformer",
+        "",
+        "f",
+        "{commercelens_transformer=X/commercelens_transformer}"
+      ]
+    ]
+  },
+  "compatible_rebuild": "NOT YET RUN",
+  "final_42_case_acceptance": "NOT YET RUN"
+}
