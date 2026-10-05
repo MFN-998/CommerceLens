@@ -1,228 +1,113 @@
 # CommerceLens work state
 
-Authoritative handoff, updated 2026-10-05. Actual repository/Git/verified evidence
-take precedence over chat. Master plan, standards, execution protocol, deletion
-safety and separate-phase-chat requirements apply.
+Authoritative handoff updated 2026-10-05. Actual D repository, Git and verified
+evidence take precedence over chat. Read the permanent instructions before edits.
 
 ## Project State
 
-- Phases 1–2 and their professional-practices retrospective/remediation COMPLETE.
-- Phase 3 M1–M5 COMPLETE / VERIFIED: tested private analytical warehouse.
-- Current task: finalize/publish the completion checkpoint, then start the required
-  comprehensive governance audit in a new CommerceLens chat before Phase 4.
-- Objective: professional portfolio-style product following the existing roadmap;
-  no redesign, Phase 3 redo, business KPI policy, EDA or deployment in this session.
+Phases 1-2, Phase 3 M1-M5 and the post-Phase 3 seven-area governance audit are
+COMPLETE / VERIFIED. Next is Phase 4 Exploratory & Business Analysis in a separate
+new local chat; no Phase 4 work happened in this audit. No roadmap redesign,
+merge, deployment, paid upgrade or public readiness certification.
 
 ## Completed Work
 
-- Private foundation, canonical migrations 0001/0002 application/replay, TLS,
-  restricted loader/transformer authentication and capability denials verified.
-- All nine source tables/1,550,922 rows loaded and completely reconciled twice;
-  every ordinal/framed text digest/exact money verified, same one registry snapshot.
-- Nine staging views, five dimensions, mapping, four facts and one mart accepted.
-  Mart: 99,441 orders/49 fields; 112,650 items/103,886 payments/99,224 reviews;
-  missing child families 775/1/768 and 547 multi-review orders retained.
-  Exact price/freight/payment 13591643.70/2251909.54/16008872.12 conserved.
-- Three aggregate-only SQL examples, independent query oracles and six bounded
-  dated plans accepted. No official KPIs/eligibility filtering introduced.
-- Approved fresh Free/Tokyo CommerceLens-Recovery reproduced the whole warehouse:
-  first 20-view/282-test graph, scoped grant/replay, compatible 20/282 rebuild with
-  identity/owner/options/ACL/default preservation, all 42 independent native cases.
-- Final catalog/provenance/private-access/capacity and artifact-password checks
-  passed. Original warehouse, source files and private configuration unchanged.
+Private warehouse foundation and checksummed migration/replay, all nine source
+tables/1,550,922 rows, nine staging/five dimension/one mapping/four fact/one mart
+views, independent grain/money/query/access controls and fresh reconstruction.
+Historical complete graph 20 views/282 tests twice; 42 independent cases passed.
+Audit G01 safe report diagnostics, G02 retained artifacts/normal lock release,
+G03 exact Next/config 16.3.8, G04 retained-input exclusions, G05 current guidance,
+G06 immutable retained manifest alias guidance, G07 exact registry manifest hash
+repeat comparison implemented or dispositioned and verified. All seven audit
+areas and staged debt assessed; no applicable current Critical blocker remains.
 
 ## Files
 
-- Current completion creates docs/phase-3-status.md and
-  docs/warehouse-reconstruction-verification.json; updates README, phase-3-plan,
-  warehouse-reconstruction-plan, mart-reader-access, historical audit follow-up
-  and this handoff. No source/model/migration/dependency/API/UI changes.
-- Earlier receipts: warehouse-reconstruction-preflight/foundation/load/build.json.
-- Isolated root D:\My Projects\CommerceLens-Reconstruction holds protected
-  admin/loader/transformer files, public CA and retained .artifacts start/result,
-  dbt-reconstruction and reconstruction-acceptance receipts. Never commit secrets.
-- No resources deleted/renamed this session. Approved A/B/D cleanup previously
-  completed 177c71d. Keep C fallback/three drafts and retained generated evidence.
+Current gate: docs/governance-audit.md, governance-audit-verification.json and
+phase-4-handoff.md. Historical native evidence: phase-3-status.md and
+warehouse-reconstruction-verification.json plus linked receipts. Source corrections
+are in validation/run.py, ingestion/olist.py, retention.py, warehouse/loading.py
+and focused regressions; web package/lock/globs updated. Current development,
+contributor and data guides distinguish retained outputs and isolated installation.
+Private recovery root D:\My Projects\CommerceLens-Reconstruction is not a deliverable.
 
 ## Technical Decisions
 
-- ADR 0003 explicit source grains/keys/ZIPs, exact decimals, naive event clocks,
-  warnings/lineage retained; no arbitrary geographic coordinate/customer address
-  or selected review. Independent child aggregation prevents fanout.
-- ADR 0004 Free/views-first: raw<=367M/database<=400M; first-load gate<=33M.
-  Size alone does not establish WAL/temp headroom; no new materializations now.
-- Reader remains NOLOGIN/NOINHERIT, mart SELECT only; no consumer credential
-  exists. Future login/auth/session proof belongs with the actual API consumer.
-- Reconstruction settings/root/ref are explicit and isolated; protected original
-  target is rejected. Canonical code/macros/migrations/source are unchanged.
-  Verify-full TLS, one thread, retries 0, SQL 60 s/lock 10 s/idle 60 s and graph 1200 s
-  remain. No bypassed tests, automatic retries, DROP/reset or artifact cleanup.
-- Both source projects retained by owner approval. Source reconstruction is not
-  populated backup/PITR, multitenant security or public deployment certification.
-- Complete Phase 3 here; required audit gets a new chat. After its quality gate,
-  each later master-plan phase gets a separate new chat. No premature Phase 4.
+Preserve ADR 0003 grains/lineage/ZIP identity/exact money/naive clocks and all source
+warnings. Independent child aggregates avoid fanout; no selected review/address or
+official KPI policy. ADR 0004 views-first capacity bounds raw<=367M/database<=400M,
+one thread/retries zero, SQL/lock/idle 60/10/60 s and graph 1200 s retained.
+Reader remains NOLOGIN/NOINHERIT, mart SELECT only; no consumer credential exists.
+Reconstruction target/root/ref are explicit; original target rejected. Source
+reconstruction is not populated backup/PITR or public/multitenant security proof.
+Canonical and retained acquisition manifest hardlinks share identity: immutable
+provenance, not editable independent backups. Mismatched manifest bytes fail closed.
 
 ## Validation
 
-- Native recovery 17.11/verify-full TLS. Migrations applied 2/replay 0; exact
-  checksums, owners, four capabilities / five defaults, rolled-back privilege probes
-  and actual restricted job authentication passed. See foundation receipt.
-- Source first/repeat: loaded then verified_existing; nine tables/1,550,922 rows,
-  full stored ordinal/text-digest/count/exact-money reconciliation passed.
-- First graph 20 success / 282 pass, zero failed/skipped/warned, 1131.343 s.
-  Compatible rebuild 20 success / 282 pass, 1010.999 s.
-  Manifest/invocation/model/test/source/macro contracts and coverage checked.
-- Grant/replay and rebuilt OID/owner/options/exact ACL/five defaults identical.
-- Independent native acceptance 42/42 passed across 22 modules in
-  487.024 s: 25 physical / 11 query / 6 reader; all setup/call/teardown,
-  no skips/xfails/errors. No new benchmark/empty-target boundary matrix claimed.
-- Final metadata: 20 transformer-owned views, unchanged ledger/one registry/source
-  hashes, no probe/intermediate/backup objects; API roles and PUBLIC denied schema,
-  table including MAINTAIN and column privileges. Dashboard Data API OFF.
-- Final raw/database 275,988,480/287,135,411 bytes, within limits.
-  Three-purpose raw/JSON/URI UTF8/UTF16LE passwords absent from all retained outputs.
-  Published final receipt links actual safe markers/results; no source rows logged.
-- Source unchanged this session. Dated prior offline gates: 1578 pass/1000 deliberate
-  live skips, known AnyIO warning; Ruff lint/format 160 files and mypy 26 implementations passed.
-  Prior full frontend/advisory gates 2026-09-22 unchanged, not rerun here.
-- Complete staged-content/redacted history/artifact scans and whitespace/local
-  documentation checks gate completion publication. Verify final Git status.
-  Full governance audit, E2E and production deployment NOT YET RUN.
+Current final offline suite 1652 passed/1000 deliberate native skips/one known
+AnyIO warning, 45.65 s; focused source/loader/reconstruction 93 passed. Ruff 165
+files and mypy 27 implementation files passed. pip-audit111 packages zero findings,
+compatibility111 passed. Nine current source hashes verified; fresh offline dbt
+parse passed. Isolated scripts-disabled locked Next16.3.8 install/lint/types/build
+and formatting passed; browser320/1280 no overflow or captured errors. Full npm
+scan zero critical/five high dev-only braces-chain entries (bounded exception);
+runtime scan zero. Original installed Next16.3.5 retained, not current evidence.
+Current native guarded repeat 2026-10-05T05:47:26Z verified_existing: all nine
+tables/full text/ordinal/digest/count/exact money and new manifest hash comparison,
+raw/database275988480/287135411 bytes. No reload/schema/model change.
+Historical complete builds/42-case native acceptance were not rerun wholesale;
+see dated original receipts. Retained artifact exact-password scan passed with
+no content logged. Staged-content/redacted-history scans and publication checks
+gate the containing checkpoint; no formal a11y/E2E/production certification.
 
 ## Current Repository Condition
 
-CLEAN / STABLE functional baseline; Phase 3 implementation and native acceptance
-COMPLETE. Completion documentation is the containing checkpoint; verify its
-publication/clean tree/upstream equality below. No interrupted native operation,
-partial graph, failed acceptance or pending migration remains.
+Stable verified implementation checkpoint505b8eb on
+chore/post-phase-3-governance-audit. Final audit documentation is the containing
+published checkpoint: resolve using git log WORK_STATE.md and verify clean status
+and HEAD/upstream0/0. No interrupted database operation/pending migration remains.
+Original warehouse/settings/source and historical evidence retained.
 
 ## Incomplete Work
 
-- Required post–Phase 3 comprehensive audit, its Critical/relevant Important
-  corrections and Phase 1–3 regression gate. New chat before Phase 4.
-- Q01 Important before API analytics: dated cached server 4–9 s, spills/inaccurate
-  estimates. Not interactive SLO, cold-cache/concurrency proof. Future actual
-  workload/capacity must justify statistics/indexes/materialization/caching.
-- E01–E10 remaining stage/release gates in the dated historical audit. E05 Phase 3
-  controls now verified; E06 private controls/source reconstruction verified but
-  protected backup/restore before shared irreplaceable state remains.
-- Phase 2 pandas accepts loose dates/rollover/now/today; strict warehouse guards
-  mitigate. Revisit before new source version. Future precise-coordinate API uses
-  binary/reviewed format; extra_float_digits=0 rounds text, stored precision proved.
-- Business EDA Phase 4, official KPI/API analytics Phase 5, web integration/MVP
-  Phase 6 and remaining customer/ML/decision/hardening/portfolio phases unstarted.
+Phase4 structured EDA/business findings report; official KPI/API analytics Phase5,
+integrated UI Phase6 and later master-plan phases unstarted. Q01 actual workload/
+latency/spill/capacity gate before API analytics. E01 bounded lint EOL/braces tooling
+exception, E02AnyIO, E03scripts disabled, E04future volume/report publication,
+E05exploratory eligibility, E06backup/exposure, E07actual auth/API/UX/E2E,
+E08remote CI/branch rules, E09owner license, E10gradual report typing retained.
+Strict Phase2 dates before new source version; precise coordinate representation
+before future API. Full context/owner/revisit triggers in current audit debt table.
 
 ## Exact Next Actions
 
-1. In a NEW CommerceLens governance-audit chat, read AGENTS/WORK_STATE,
-   docs/master-plan.md, engineering-standards.md, execution-protocol.md,
-   deletion-and-governance.md, phase-3-status.md and final reconstruction receipt;
-   inspect Git status/recent history, reconcile actual evidence and current state.
-2. Perform the specified comprehensive audit; classify/record findings and fix
-   required Critical/relevant Important items pragmatically. Do not redo Phase 3.
-3. Run relevant regression checks, reconcile deferred debt/docs/WORK_STATE and
-   publish clean recoverable checkpoint. Project deletion requires informed approval.
-4. Only after that quality gate passes, start Phase 4 systematic business EDA in its
-   separate new chat. Preserve existing roadmap and all subsequent phase boundaries.
+1. Publish audit containing checkpoint and verify clean/upstream0/0; then create
+   the owner-authorized separate local Phase4 chat from docs/phase-4-handoff.md.
+2. Record successor identifier in this handoff and phase-4-handoff, publish that
+   focused metadata checkpoint. Do not start analysis in the audit chat.
+3. New chat performs normal verified resume in D:\My Projects\CommerceLens,
+   then systematic eight-domain EDA to the master-plan exit report.
+4. Preserve all resource/delete/workload/security/source caveats. Keep meaningful
+   commits/scans/regressions and WORK_STATE checkpoints at atomic boundaries.
 
 ## Git State
 
-- Branch feat/warehouse-foundation; main unchanged/unmerged. Pre-risk c99cd82
-  published clean with upstream 0/0 after complete staged/history/artifact scans (80 commits).
-- Earlier verified milestones: 7768fed preflight, 2c2b123 foundation, eba4c8f source,
-  c99cd82 first graph/grants. Final verified implementation c961aff and graph edf072b.
-- Completion checkpoint is the commit containing this file:
-  git log -1 --format="%H %s" -- WORK_STATE.md.
-  Verify clean tree and HEAD/upstream equality after publish/on every resume.
-  Disable automatic Git maintenance; stage exact files and scan full content/history.
-- Last observed account-wide usage: 72% five-hour / 58% weekly remaining this session;
-  check current limits before new major work. Values are not task-cost predictions.
+Recovered baseline6ffe5876fe8ac14193bd2ec19a9e92d52fff112f clean/upstream0/0.
+Published units445b43d,6d96e7a,9229df0,22fcc31,505b8eb. Audit branch tracks origin;
+no merge/force/history rewrite. Containing documentation commit supplies final
+gate identity without a self-referential hash. Check publication/current status.
 
 ## Continuation Commands
 
-```powershell
-Set-Location 'D:\My Projects\CommerceLens'
-git status --short --branch
-git log -5 --oneline
-git rev-list --left-right --count 'HEAD...@{upstream}'
-Get-Content WORK_STATE.md
-Get-Content docs/phase-3-status.md
-# Optional read-only recovery metadata; NOT a rebuild/reload instruction:
-.venv/Scripts/python.exe -B -m src.warehouse.reconstruction inspect --settings-root 'D:\My Projects\CommerceLens-Reconstruction' --expected-project-ref histbcmlctxmtxusfbzt
-# Individual offline checks as needed; preserve generated resources:
-.venv/Scripts/python.exe -B -m ruff check .
-.venv/Scripts/python.exe -B -m ruff format --check .
-.venv/Scripts/python.exe -B -m mypy
-# scripts/check.ps1 deletes resources; obtain approval before its cleanup steps.
-```
-
-Startup is documented in docs/development.md. Fixed recovery commands/receipts
-are in warehouse-reconstruction-plan.md. Never log credentials/source rows/driver
-detail; do not swap original purpose files or globally route native tests.
-
-## Governance audit recovery - 2026-10-05
-
-- Recovered actual D repository at 6ffe587; clean and upstream 0/0 before edits.
-- Required startup documents and final native receipt read; no phase reopened.
-- Created docs/governance-audit.md with seven-area inventory and safe-check boundaries.
-- Current account-wide usage: 65% five-hour / 57% weekly remaining; no reservation.
-- Next: detailed actual-code review and findings, then atomic required fixes and regressions.
-- No resource deletion; unchanged full check script is unsafe under deletion rule.
-- Governance gate incomplete. Initial documentation checkpoint pending.
-
-## Governance audit G01 milestone - 2026-10-05
-
-- Inventory checkpoint 445b43d published on chore/post-phase-3-governance-audit.
-- G01 Important report diagnostic privacy correction implemented; 12 failure
-  regressions fail before/pass after; API subset 20 passed.
-- Broad safe offline regression 1590 passed/1000 deliberate live skips, known
-  AnyIO warning. Acquisition/legacy validation excluded for deletion safety.
-- G02 Important safe full regression workflow remains immediate next correction.
-- Mypy 26 passed; Ruff long diagnostic line corrected before publication checks.
-- No warehouse/model/credential/dependency/frontend behavior changes or deletions.
-- Gate IN PROGRESS; continue G02 then detailed seven-area coverage and final checks.
-
-## Governance audit G02 Python milestone - 2026-10-05
-
-- G01 checkpoint 6d96e7a published clean. G02 Python retention implemented.
-- Full offline Phase 1-3 suite 1649 passed/1000 deliberate live skips/known warning;
-  focused 71 passed; mypy 27 passed. No project resource deletion occurred.
-- Current pip-audit: 111 packages, zero findings. npm scan found Next critical
-  advisory (app's vulnerable next/og surface absent) and lint-only braces chain.
-- Exact next: checkpoint Python retention; patch Next/config coherently; verify
-  isolated dependencies/build within specific owner-approved cleanup boundaries.
-- Owner approved only web/.artifacts/governance-20261005-01/.next build cleanup.
-  Snapshot retained. G03 correction and G02 frontend verification still pending.
-- Account-wide remaining: 57% five-hour/55% weekly at this milestone; continue
-  atomic work. Audit gate remains IN PROGRESS, Phase 4 forbidden until verified.
-
-## Governance audit G03/G04 milestone - 2026-10-05
-
-- Python retention checkpoint 9229df0 published clean. Next/config exact 16.3.8
-  patch and artifact exclusions now verified in the retained isolated snapshot.
-- Fresh npm ci (scripts disabled), lint, types and production build passed.
-- Runtime npm advisory scan clean; complete scan still five high development-only
-  braces-chain entries, no patched release. Accepted bounded exception with E01.
-- Browser narrow/desktop checks passed; no horizontal overflow or captured errors.
-- Nine source hashes verified, fresh offline dbt parse passed; no database changes.
-- Original web/node_modules still 16.3.5 and retained by deletion rule. Use verified
-  web/.artifacts/governance-20261005-01 installation; do not run original build as
-  if patched or replace original installed resources without informed approval.
-- Exact next: publish dependency milestone; finish seven-area coverage/debt record,
-  reconcile current guides/work state, final scans and audit gate determination.
-- Account-wide remaining 52% five-hour/55% weekly observed at this milestone.
-
-## Governance audit G07 milestone - 2026-10-05
-
-- Latest published implementation checkpoint before this unit: 22fcc31.
-- G07 Important repeat provenance checksum gap fixed; two failure cases reproduced
-  before/pass after, identical control passed, 93 focused cases passed.
-- Full final offline regression: 1652 passed, 1000 deliberate live skips, known
-  AnyIO warning, 45.65 s. Mypy 27 and Ruff passed.
-- Corrected native guarded repeat verified_existing on approved recovery: all nine
-  tables/1,550,922 rows and complete text/ordinal/digest/money checks; raw/database
-  sizes remain 275988480/287135411. No reload/schema/model/original-target changes.
-- Next: finish final seven-area coverage, staged debt/disposition and machine-readable
-  evidence; reconcile current guides/WORK_STATE; scan and publish gate checkpoint.
-- G05 editorial source descriptions and guide/data documentation remain saved as
-  pending final reconciliation paths; no behavioral partial operation is pending.
+Start in D:\My Projects\CommerceLens; git status --short and git log -6 --oneline;
+git rev-list --left-right --count HEAD...@{upstream}. Read required docs before edits.
+Use retained-output Python checks from development.md; no unchanged generic
+frontend build against the retained old install. Isolated tool cleanup approval
+ONLY web/.artifacts/governance-20261005-01/.next, node_modules and .npm-cache,
+scripts disabled. All other project-resource deletion needs specific informed
+owner approval. Both Supabase projects, private settings/certificates, source,
+C fallback/three drafts and generated evidence retained. Never log credentials,
+connection strings, raw records or driver details. Account observation at final
+unit:43% five-hour/53% weekly remaining, no credits redeemed; recheck on resume.

@@ -149,7 +149,8 @@ database. For API-only work, `uv run --locked pytest api/tests` needs no data gr
 The current conftest.py retains pytest scratch fixtures in fresh `.artifacts/pytest/<UUID>`
 directories without automatic directory cleanup. Do not put source/personal files there.
 The legacy `.pytest-tmp` setting is not the current tmp_path fixture location. Source
-tests and frontend builds can still delete their own generated output; follow the
+tests now retain generated output and released locks; frontend install/build tools
+can still delete their own generated resources. Follow the
 [retained warehouse/API checks](customer-staging.md) for Phase 3 work and review deletion
 behavior before broader commands. This keeps current permission and recovery rules clear.
 
@@ -214,3 +215,12 @@ Phase 1 established the application foundation. Phase 2 adds source acquisition,
 profiling, validation, and local staging. PostgreSQL/Supabase and dbt begin in Phase 3;
 business analytics, product integration, ML, deployment, and CI/CD remain in their
 master-plan phases. See [Phase 1 status](phase-1-status.md) and [Phase 2 status](phase-2-status.md).
+
+## Current installed frontend boundary - 2026-10-05
+
+The manifest/lock pin Next/config 16.3.8. Original web/node_modules and web/.next are
+retained at earlier versions under the owner deletion rule; they were not silently
+replaced. The verified patched installation/build is web/.artifacts/governance-20261005-01.
+Use its npm scripts for the current local preview. Refreshing original dependencies or
+regenerating prior builds requires the same specific informed approval. Audit evidence
+and staged exceptions are in [the governance audit](governance-audit.md).

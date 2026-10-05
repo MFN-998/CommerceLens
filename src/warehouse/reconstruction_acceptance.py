@@ -1,6 +1,7 @@
 """Fixed native final checks for one approved isolated reconstruction target.
 
-The 600-second budget is unproven on a fresh Free target. These checks reuse
+The 600-second budget passed dated fresh-target verification on 2026-10-05.
+See docs/warehouse-reconstruction-verification.json. These checks reuse
 accepted SQL/oracles; they do not repeat empty-target fixtures or measure plans.
 Prior boundary evidence applies to accepted PostgreSQL 17. A different server
 version requires boundary re-evaluation before relying on these final checks.

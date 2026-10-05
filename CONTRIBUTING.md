@@ -31,8 +31,9 @@ being pushed does not mean it was merged, deployed, or checked by CI.
 Owner rule (2026-09-25): automatic cleanup also requires specific deletion approval.
 Do not execute the full gate below unchanged without reviewing its generated-resource
 deletions. Use [customer staging checks](docs/customer-staging.md) for current warehouse/API
-changes; preserve old outputs. Full source/frontend checks need approval or a reviewed
-non-deleting workflow before execution.
+changes; preserve old outputs. Python acquisition/validation now retain their resources.
+Frontend install/build checks still need specific approval for a bounded fresh output
+root or a reviewed non-deleting workflow; see docs/governance-audit.md.
 
 
 Stop any Next development server in this checkout before running a production build.
@@ -105,9 +106,9 @@ Formatting commands change files; check commands do not automatically repair cod
 For API-only tests, `uv run --locked pytest api/tests` remains available. Python tests
 use repository-root conftest.py to retain fixtures in fresh `.artifacts/pytest/<UUID>`
 directories. Do not store source there. The legacy `.pytest-tmp` setting does not describe
-the current retained tmp_path fixture. Some source tests/build tools still delete their
-own generated output; use the reviewed warehouse/API workflow or obtain specific
-approval before running those broader checks.
+the current retained tmp_path fixture. Source tests now preserve synthetic missing/restore fixtures and batch outputs.
+Frontend build/install tools can still delete generated resources; use a specifically
+approved isolated root. Do not treat npm ci against existing dependencies as deletion-free.
 On macOS/Linux use the individual commands above, or PowerShell 7 for the gate script;
 cross-platform execution must be verified before being claimed.
 
@@ -133,3 +134,22 @@ Warehouse setup and explicit real-database checks are documented in
 
 Restricted dbt configuration and real-account verification are documented in
 [dbt development setup](docs/dbt-development.md).
+
+## Governance audit verification workflow - 2026-10-05
+
+The complete Python suite is verified with plugin autoload disabled, bytecode disabled,
+no cache provider and the retained root tmp_path fixture. Remove COMMERCE_WAREHOUSE_*
+opt-ins in the test subprocess; do not route native tests globally or run empty-target
+fixtures on populated state. Direct installed-environment checks avoid implicit sync.
+
+The checked-in frontend lock is Next/config 16.3.8. This checkout's original installed
+packages/build remain retained at their earlier versions. Patched lint/types/build/UX
+were verified in web/.artifacts/governance-20261005-01 after owner approval scoped to
+its .next, node_modules and .npm-cache. Those approvals do not cover other outputs.
+Use that verified installation for local frontend work until an original-install refresh
+is specifically approved. The full script still targets original web; do not use it
+as proof of the patched toolchain. New clones need a fresh install, not reuse of old output.
+
+Full npm audit currently retains a development-only braces-chain finding without a
+published fix; production-only scan is clean. Do not suppress the full scan's failure.
+See the current audit for applicability, mitigation, ownership and concrete revisit gates.

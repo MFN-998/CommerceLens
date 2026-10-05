@@ -148,3 +148,11 @@ not backup/PITR proof. E01–E04 and E07–E10 retain their dated revisit/releas
 This entry reconciles verified completion; it is **not** the required comprehensive
 post–Phase 3 governance audit. That audit runs next in a separate chat, and its
 Critical/relevant Important corrections and regression gate precede Phase 4.
+
+## Post-Phase 3 follow-up — 2026-10-05
+
+The [comprehensive current audit](governance-audit.md) and
+[current verification receipt](governance-audit-verification.json) supersede pending
+audit/onboarding statements, while this dated record remains historical evidence.
+See the current audit for E01-E10 dispositions, source/backup/reader/workload gates
+and the safe retained-output verification workflow. Phase 4 is a separate chat.

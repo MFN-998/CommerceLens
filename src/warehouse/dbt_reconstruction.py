@@ -1,6 +1,7 @@
 """Fixed full-graph jobs for an explicitly approved, isolated test warehouse.
 
-The 1200-second job budget is bounded but unproven on a fresh Free target.
+The 1200-second job budget passed dated fresh-target verification on 2026-10-05;
+see docs/warehouse-reconstruction-verification.json, not a duration guarantee.
 Build failures may leave committed views; reconnect and inspect before retrying.
 This callable does not provision a target or isolate other warehouse commands.
 """

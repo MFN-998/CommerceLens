@@ -1,0 +1,110 @@
+{
+  "date": "2026-10-05",
+  "status": "complete_verified",
+  "scope": "Post-Phase 3 seven-area governance gate; Phase 4 local analysis only",
+  "baseline_commit": "6ffe5876fe8ac14193bd2ec19a9e92d52fff112f",
+  "implementation_checkpoints": [
+    "6d96e7a",
+    "9229df0",
+    "22fcc31",
+    "505b8eb"
+  ],
+  "current_checks": {
+    "offline_regression": {
+      "passed": 1652,
+      "deliberate_native_skips": 1000,
+      "known_anyio_warnings": 1,
+      "seconds": 45.65
+    },
+    "focused_source_loader_reconstruction": {
+      "passed": 93
+    },
+    "ruff_files": 165,
+    "mypy_implementation_files": 27,
+    "python_advisories": {
+      "packages": 111,
+      "findings": 0,
+      "skipped": 0
+    },
+    "python_dependency_compatibility": "passed; 111 packages",
+    "source_hash_verification": {
+      "files": 9,
+      "status": "passed"
+    },
+    "offline_dbt_parse": {
+      "status": "passed",
+      "retained_artifact": ".artifacts/dbt/97ccd72fddb741ecac7d859e79ad17bf"
+    },
+    "frontend": {
+      "isolated_path": "web/.artifacts/governance-20261005-01",
+      "next_and_eslint_config_next": "16.3.8",
+      "fresh_locked_install_scripts_disabled": true,
+      "lint": "passed",
+      "types": "passed",
+      "production_build": "passed",
+      "format": "passed",
+      "runtime_advisories": 0,
+      "full_audit": {
+        "critical": 0,
+        "high": 5,
+        "exception": "dev-only unpatched braces dependency chain; trusted local patterns"
+      },
+      "original_installation_retained": "16.3.5; not patched-toolchain evidence",
+      "browser": {
+        "viewports": [
+          [
+            320,
+            800
+          ],
+          [
+            1280,
+            800
+          ]
+        ],
+        "horizontal_overflow": false,
+        "captured_errors_or_warnings": 0,
+        "formal_accessibility_or_interactive_e2e_claim": false
+      }
+    },
+    "native_repeat": {
+      "observed_at_utc": "2026-10-05T05:47:26Z",
+      "project_ref": "histbcmlctxmtxusfbzt",
+      "status": "verified_existing",
+      "tables": 9,
+      "rows": 1550922,
+      "raw_bytes": 275988480,
+      "database_bytes": 287135411,
+      "checks": "registry manifest hash; complete ordinals/text digests/counts/exact money",
+      "reload_or_schema_change": false
+    },
+    "retained_artifact_password_scan": {
+      "status": "passed",
+      "purpose_passwords_checked": 3,
+      "representations": "raw, JSON escaped, URI escaped; UTF8/UTF16LE",
+      "files_checked": 296963,
+      "bytes_checked": 1494300622,
+      "escaped_or_symlink_paths_skipped": 0,
+      "content_or_password_values_logged": false
+    }
+  },
+  "historical_native_evidence_not_rerun_wholesale": {
+    "receipt": "warehouse-reconstruction-verification.json",
+    "date": "2026-10-05",
+    "complete_builds": 2,
+    "views_each": 20,
+    "tests_each": 282,
+    "independent_cases_passed": 42
+  },
+  "cleanup_approval_boundaries": [
+    "web/.artifacts/governance-20261005-01/.next",
+    "web/.artifacts/governance-20261005-01/node_modules",
+    "web/.artifacts/governance-20261005-01/.npm-cache"
+  ],
+  "retained_debt": "governance-audit.md#carried-debt-concrete-gates-and-architectural-implications",
+  "limitations": [
+    "No merge/deployment/public certification",
+    "Full npm audit has accepted bounded development-tool exception",
+    "Historical native full graph/acceptance retained; current native repeat verified",
+    "Publication is verified by containing commit and clean upstream equality"
+  ]
+}

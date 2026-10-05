@@ -6,7 +6,8 @@ CommerceLens is an e-commerce analytics and decision-intelligence portfolio proj
 The planned product brings together reliable data pipelines, SQL analytics, customer
 intelligence, delivery-risk prediction, forecasting, and business recommendations.
 
-**Phases 1–3 complete and verified. The required governance audit is next, before Phase 4.**
+**Phases 1–3 and the required governance audit are complete and verified. Phase 4 starts in its own chat.**
+See the [audit and remaining gates](docs/governance-audit.md) and [Phase 4 handoff](docs/phase-4-handoff.md).
 The repository contains a minimal FastAPI service, Next.js development page, and a
 reproducible Olist data pipeline. The source is historical anonymized data; it is not a
 live business feed. Local staging preserves documented source-quality warnings.

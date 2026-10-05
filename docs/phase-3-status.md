@@ -1,9 +1,10 @@
 # Phase 3 completion and audit handoff
 
 **COMPLETE / VERIFIED — 2026-10-05.** Master-plan exit: tested analytical warehouse.
-M1–M5 are complete. The required comprehensive governance audit is **NOT YET RUN**
-and begins in a new CommerceLens chat before Phase 4. No deployment or production
-readiness is claimed.
+M1–M5 are complete. The subsequent [comprehensive governance audit](governance-audit.md)
+is **COMPLETE / VERIFIED** on 2026-10-05; its current evidence is separate from the
+historical native receipts below. Phase 4 begins in its own chat. No deployment or
+production readiness is claimed.
 
 ## Exit evidence
 

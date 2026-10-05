@@ -1,10 +1,11 @@
 # Post-Phase 3 governance audit
 
-Started 2026-10-05. Status: IN PROGRESS; Phase 4 gate NOT PASSED.
+Started 2026-10-05. Status: COMPLETE / VERIFIED; Phase 4 gate PASSED for local exploratory analysis.
 Baseline: 6ffe5876fe8ac14193bd2ec19a9e92d52fff112f on feat/warehouse-foundation,
 clean and HEAD/upstream 0/0 at recovery. Phases 1-3 remain COMPLETE / VERIFIED.
 Methodology: deletion-and-governance.md and engineering-standards.md.
-No merge, deployment, paid upgrade, resource deletion or Phase 4 work authorized.
+No merge, deployment or paid upgrade. Phase 4 starts only in its separate chat after publication;
+resource deletion remains limited to the specific isolated tool boundaries recorded below.
 
 ## Milestones and coverage inventory
 
@@ -15,13 +16,13 @@ No merge, deployment, paid upgrade, resource deletion or Phase 4 work authorized
 
 | Area | Actual review targets | Completion evidence required | Status |
 | --- | --- | --- | --- |
-| Architecture/design | api/app; src/ingestion, cleaning, validation, warehouse; dbt models/macros; ADRs 0001-0004 | Boundaries, grains, coupling, abstraction/dependency decisions and finding disposition | Pending detailed review |
-| Scalability/reliability | loading, migrations, dbt runners, reconstruction, query plans; validation publication/locks | Integrity, bounded resources, concurrency, timeouts, repeat/recovery; Q01 and backup gate carried forward | Pending detailed review |
-| Workflow/QA | tests, api/tests, conftest, scripts/check.ps1, retained native receipts | Safe offline checks, meaningful regression coverage and explicit unrun/live boundaries | Pending detailed review |
-| Development lifecycle | CONTRIBUTING, setup, locks, migration checksums, Git/release/handoff | Reproducibility, review, onboarding, rollback and branch-rule limits | Pending detailed review |
-| DevSecOps/infrastructure | config/credentials, SQL privileges/access, CLI errors, API/web exposure, ignores/locks | Threat review for actual surfaces, secret scans, current advisory evidence; no production certification | Pending detailed review |
-| Code quality/maintainability | all implementation modules, SQL/macros, tests, typing/lint, unused resources | Readability, duplication, complexity, debt and justified refactor decisions | Pending detailed review |
-| Product/UX | web/app and configuration, API foundation, source caveats | Current preview semantics/trust/a11y/layout; future interactive gates distinguished | Pending detailed review |
+| Architecture/design | api/app; src/ingestion, cleaning, validation, warehouse; dbt models/macros; ADRs 0001-0004 | Boundaries, grains, coupling, abstraction/dependency decisions and finding disposition | Complete; final assessment below |
+| Scalability/reliability | loading, migrations, dbt runners, reconstruction, query plans; validation publication/locks | Integrity, bounded resources, concurrency, timeouts, repeat/recovery; Q01 and backup gate carried forward | Complete; final assessment below |
+| Workflow/QA | tests, api/tests, conftest, scripts/check.ps1, retained native receipts | Safe offline checks, meaningful regression coverage and explicit unrun/live boundaries | Complete; final assessment below |
+| Development lifecycle | CONTRIBUTING, setup, locks, migration checksums, Git/release/handoff | Reproducibility, review, onboarding, rollback and branch-rule limits | Complete; final assessment below |
+| DevSecOps/infrastructure | config/credentials, SQL privileges/access, CLI errors, API/web exposure, ignores/locks | Threat review for actual surfaces, secret scans, current advisory evidence; no production certification | Complete; final assessment below |
+| Code quality/maintainability | all implementation modules, SQL/macros, tests, typing/lint, unused resources | Readability, duplication, complexity, debt and justified refactor decisions | Complete; final assessment below |
+| Product/UX | web/app and configuration, API foundation, source caveats | Current preview semantics/trust/a11y/layout; future interactive gates distinguished | Complete; final assessment below |
 
 ## Finding format and severity
 
@@ -275,3 +276,81 @@ No database connection/load/model build/grant change ran in this audit.
   reconciliations and the new registry-manifest comparison completed. No reload,
   migration, original-target operation, credential swap, deletion or dbt rebuild.
   Receipt observation 2026-10-05T05:47:26Z; no elapsed-time guarantee claimed.
+
+## Final seven-area assessment
+
+Review scope is the implemented Phase 1-3 product, not future feature certification.
+Source/SQL/configuration review, behavior/failure tests, native receipts and actual
+rendering were used together; test counts are not a line/branch-coverage claim.
+All findings and retained debt are maintainer-owned. Current corrections preserve
+architecture and roadmap. No Critical issue with an applicable current attack/data
+corruption path remains; relevant Important G01/G02/G03-runtime/G07 are verified.
+
+| Area | Reviewed behavior and evidence | Assessment and disposition |
+| --- | --- | --- |
+| Architecture/design | Separate FastAPI/web/data responsibilities; acquisition/cleaning/contracts/profile/publication; warehouse settings/credentials/migrations/source/COPY/dbt/access/reconstruction; ADRs and staging/core/mart SQL | Cohesion and boundaries appropriate for a solo portfolio product. Explicit grains, source lineage, unique ZIP/identity mappings and independent child aggregation avoid fanout. Fixed model/macro allowlists and separate guarded reconstruction are justified safety boundaries, not generic infrastructure candidates. Shared lock retention introduced only for two actual consumers. No service decomposition/ORM/event bus needed. |
+| Scalability/reliability | Bounded source hashing/CSV iteration/server cursors; transactional ledger/all-table COPY; advisory locks; registry repeat identity; decimal guards; SQL/lock/idle/job timeouts; one dbt thread/retries zero; capacity ceilings; graph failure preservation | G07 closes repeat provenance gap. Current native repeat reconciled complete stored content with unchanged size. Current Olist batch remains in memory in Phase 2; no higher-volume/concurrent-service promise. Source models are all views under measured capacity constraints. Q01 remains before API workloads; no speculative tuning. Partial dbt graph failure requires explicit inspection, not blind retry. Source reconstruction is not protected backup/PITR. |
+| Workflow/QA | Offline API/source/data/warehouse synthetic cases; SQL/model/domain/reconciliation tests; retained tmp_path; runner manifest/invocation/test coverage validation; full gated native reconstruction receipts | G02 restores full deletion-safe Python regression access. Final 1652 passed/1000 deliberate native skips; new G07 current native repeat separately verified. Historical 20/282 builds twice and 42/42 acceptance retained; not rerun wholesale after changes confined to loader repeat identity/filesystem/Next patch. Native empty-target fixtures remain prohibited on populated targets. Patched fresh frontend install/lint/types/build and basic browser checks passed. Future metric/API integration/E2E remains with real flows. No coverage percentage invented. |
+| Development lifecycle | Git/status/upstream/history; focused checkpoints; CONTRIBUTING/setup/manifest-lock pairing; migration order/checksums/atomic replay; ADRs; WORK_STATE/recovery; original vs isolated tool installations | Current development and isolated recovery resources remain distinct. No shared branch rewrite/merge/release/deployment. Git/source reconstruction cannot roll back external state. G05 corrects stale evidence/onboarding language. Current original frontend installation is retained at old versions and explicitly excluded from patched-toolchain claims. GitHub required-check/branch-rule state is not verified; E08 gate precedes collaborative merges. |
+| DevSecOps/infrastructure | Fixed target/purpose configuration, verified TLS, protected credential creation, SCRAM verifier, restricted jobs/roles/ACLs, narrow mart grant, API CLI safe diagnostics, SQL parameters/identifiers, React output, dependency/secret scans | G01 prevents library details entering tracked reports; G03 patches vulnerable runtime package. Full npm scan still fails on unpatched dev-only braces chain, with bounded trusted-pattern exception. Health-only API has no sensitive/object/state-changing endpoints or database connection; static React preview has no raw-HTML sink, dynamic fetch or image-generation route. Injection/object authorization/RLS/session/CSRF/SSRF/rate-limit review must expand with actual features. Private schemas/API-role denials/Data API off have dated native evidence; no public/ASVS/penetration-test certification. |
+| Code quality/maintainability | Implementation modules/macros/models, test layout, gradual dataframe typing, isolated config injection, public boundaries/CLI failure behavior, pattern scan for dynamic execution/raw HTML/TODO/debug, Ruff/mypy and known debt | Ruff checks 165 files; mypy 27 implementation files passed. No eval/exec/pickle/shell=True/raw HTML use found in implementation surfaces searched. Fixed allowlists and independently authored oracles are deliberate rather than DRY refactor targets. Report dictionaries remain gradual (E10), KaggleHub import exception is scoped. G04 keeps retained evidence outside normal frontend source globs. No unjustified abstraction or broad code-reorganization batch. |
+| Product/UX | Static page/layout/CSS/icon/metadata and live patched preview at 320/1280; API health/OpenAPI/404/config tests; historical data/source caveats | Current truthful foundation preview is coherent: historical anonymized data, no live feed, no connected analytics/fake KPI/navigation action. One main/h1, English language and labeled section; narrow/desktop screenshots show no horizontal overflow, no captured browser errors. No interactive controls, chart/filter/loading/error/data-delete flow exists yet; build those with Phase 6, including keyboard/focus, contrast/zoom, browser matrix and integrated E2E. Formal accessibility/production readiness not claimed. |
+
+## Carried debt: concrete gates and architectural implications
+
+The original E01-E10 record remains dated historical evidence; the decisions below
+are the current disposition. No Optional/Future infrastructure is added merely for
+appearance. Full issue context stays in engineering-audit-phase-1-2.md and linked
+warehouse/source guides. Verification below distinguishes implemented controls from
+unrun future checks. All deferred items have the project maintainer as owner.
+
+| ID / severity, issue and location | Solution / status / gate | Dependencies, side effects and architecture | Verification and current limit |
+| --- | --- | --- | --- |
+| Q01 Important, views-heavy aggregate latency/spills in warehouse queries | Deferred before Phase 5 API analytics: benchmark actual projections/filters/concurrency/budgets; tune only on measured need | Statistics/indexes/materialization/caching may affect CPU/storage/rebuild overlap under ADR 0004; no change for EDA convenience | Dated 4-9 s cached server samples and grain/results proven; no new latency/SLO/concurrency claim |
+| E01 Important bounded tooling exception, ESLint 9 EOL plus G03 dev braces chain | Retain compatible trusted-local linting; recheck when compatible patch/tooling exists, before substantive Phase 6 work and public release | Peer-compatible toolchain/lock update requires fresh lint/types/build; avoid forced peers/downgrade. No product-runtime braces dependency | Fresh patched lint passed; registry/advisory has no braces fix; complete npm scan five high, runtime scan zero |
+| E02 Recommended, AnyIO warning in API test tooling | Defer to relevant FastAPI/Starlette/AnyIO upgrade and deployment | Dependency compatibility/regression gate; no blanket suppression or architecture change | One documented warning; API tests and full suite pass |
+| E03 Recommended, optional npm resolver install scripts | Scripts remain disabled; review specific script only if actual platform/install needs it | Fresh install/native tooling compatibility; no blanket script permission | Fresh patched ci/lint/types/build work with scripts disabled; no script execution required |
+| E04 Recommended, Phase 2 in-memory batch/per-file report publication/interrupted lock | G02 retains output/releases normal locks; scheduling/larger-volume/unattended service still deferred | Transactional report generation/streaming only with real scale/concurrency need; retained outputs use disk and need approved lifecycle review | Success/failure/repeat/concurrency/round-trip tests pass; no multi-file crash-atomic report claim |
+| E05 Important downstream source quality/grain gate | Phase 3 controls satisfied; Phase 4 must document exploratory eligibility/limitations; official KPI policy stays Phase 5 | Exact warehouse money, child aggregation, review/geography decisions; no silent record correction/filtering | Historical full native graph/independent checks accepted, current source/repeat verified; 29 warnings retained |
+| E06 Recommended stage-dependent recovery/exposure | Private development controls/source reconstruction verified; protected backup/restore before shared irreplaceable state, network/public review before exposure | Recovery retention/protection/restore proof needs actual state requirements; no paid/enterprise/PITR infrastructure introduced | Not populated backup/PITR, consumer auth or public security proof |
+| E07 Recommended stage-dependent API/product/security/UX | Add identity/object authorization, bounded payloads/queries, headers/HTTPS/CORS/CSRF where relevant, safe diagnostics/rate limits and integrated UX/E2E with actual flows, before release | Future reader login/session proof, API response minimization (mart includes identifiers), state deletion integrity, deployment rollback, browser/a11y gates | Current API health-only/static UI basic checks pass; no protected-data/public-flow release accepted |
+| E08 Recommended lifecycle/CI/branch rules | Verify remote protections before collaborative merge; automation at planned stage or a justified earlier collaboration need | Actual team/release workflow; Git config/local checks do not prove remote protection | Focused published checkpoints/local checks exist; remote CI/protections not certified |
+| E09 Optional license choice | Owner selects reuse terms before asserting a software license | Owner decision; dataset attribution/license separate; no invented license text | Code license not selected; no new license grant claimed |
+| E10 Recommended gradual dataframe/report typing | Tighten stable shared report contracts when consumers expand; recheck KaggleHub typing on upgrade | Real consumers/runtime dataframe contracts; no broad typing suppression or speculative schema framework | Mypy bodies/API checked, runtime schemas/tests pass; report dictionaries remain gradual |
+| Source-date caveat Recommended, Phase 2 pandas loose calendar/special-date parsing | Defer stricter Phase 2 source-version compatibility review before accepting a new snapshot | Current immutable version proven; warehouse fixed grammar/calendar/range guards remain authoritative; no hidden normalization | Current-source hashes/native reconciliation pass; no new source version accepted |
+| Coordinate caveat Recommended, text float output formatting | Use binary or reviewed precise representation before future coordinate API use | Public payload/source interpretation and precision review; do not invent canonical ZIP coordinates | Stored/native precision has accepted evidence; extra_float_digits=0 text is not exact representation |
+| G06 Recommended, retained manifest hard-link alias | Treat retained alias as immutable provenance; review before future archival/source lifecycle change | Shared inode means not an independent editable backup; retain atomic no-clobber publication, no deletion authorized | Current source unchanged; repeat identity now checks exact manifest hash; tamper/restore regressions pass |
+
+## Resource review and approval record
+
+No new project resource was verified truly obsolete for deletion. Current source,
+locks, instruction adapters/icon, ADRs, historical receipts/plans and audit evidence
+have an implementation/recovery/review purpose. C fallback/three drafts were already
+explicitly retained by owner choice in cleanup-review-2026-10-02.md; that disuse/size
+review and approved A/B/D completion remain unchanged. Newly retained test/source
+preparations/build/install evidence may become lifecycle candidates after actual use
+and dependency review, but are not implicit cleanup targets. Retain both Supabase
+projects, datasets, settings/certificates and generated evidence.
+
+Only specifically approved automatic tool cleanup: the isolated frontend snapshot's
+.next, node_modules and .npm-cache. No other resource deletion occurred. All copies,
+compiler/type outputs, fixture/preparation/released-lock resources and native evidence
+remain. Temporary local preview was stopped after checks; browser viewport restored
+and temporary tab closed. Legitimate authorized future product data deletion is not
+disabled by this project-file retention rule.
+
+## Verified exit and successor handoff
+
+All seven areas are assessed above. Immediate applicable Important corrections and
+appropriate Phase 1-3 regressions passed; Recommended findings have explicit
+dispositions. The five high development-only npm entries remain an accepted bounded
+exception, not a clean full audit. No applicable current Critical blocker remains.
+The retained-output exact-password scan passed without logging content or secrets.
+See [machine-readable current evidence](governance-audit-verification.json), distinct
+from historical native graph receipts. Staged-content and redacted history scans,
+whitespace/documentation checks and clean published Git state gate the containing
+checkpoint. Resolve its identity through Git history rather than a self-referential hash.
+
+Phase 4 may now begin only in a new local chat using the
+[Phase 4 handoff](phase-4-handoff.md). All future exposure, workload, source-version,
+backup and release gates remain applicable. No Phase 4 analysis was performed here.

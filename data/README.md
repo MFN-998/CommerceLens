@@ -148,3 +148,9 @@ Inspect retained paths and dependencies before requesting exact deletion approva
 Retention uses additional local disk; no cleanup is implicitly authorized by tests.
 Failure reports retain structured table/check context and fixed diagnostics; arbitrary
 library error text is excluded from tracked aggregate evidence.
+
+A newly acquired snapshot retains .artifacts/olist-acquisition-*/manifest.json as a
+hard-link alias of data/source-manifest.json used for atomic no-clobber publication.
+Treat both as immutable source provenance: the retained alias is not an editable draft
+or an independent backup. Review file identity/dependencies before archival, recovery
+or any specifically approved cleanup. Source/hash verification detects altered metadata.
