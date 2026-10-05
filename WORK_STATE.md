@@ -169,3 +169,15 @@ detail; do not swap original purpose files or globally route native tests.
 - Next: detailed actual-code review and findings, then atomic required fixes and regressions.
 - No resource deletion; unchanged full check script is unsafe under deletion rule.
 - Governance gate incomplete. Initial documentation checkpoint pending.
+
+## Governance audit G01 milestone - 2026-10-05
+
+- Inventory checkpoint 445b43d published on chore/post-phase-3-governance-audit.
+- G01 Important report diagnostic privacy correction implemented; 12 failure
+  regressions fail before/pass after; API subset 20 passed.
+- Broad safe offline regression 1590 passed/1000 deliberate live skips, known
+  AnyIO warning. Acquisition/legacy validation excluded for deletion safety.
+- G02 Important safe full regression workflow remains immediate next correction.
+- Mypy 26 passed; Ruff long diagnostic line corrected before publication checks.
+- No warehouse/model/credential/dependency/frontend behavior changes or deletions.
+- Gate IN PROGRESS; continue G02 then detailed seven-area coverage and final checks.

@@ -70,3 +70,47 @@ prediction. Check before each major unit and preserve checkpoints before exhaust
 
 Initial static checks (2026-10-05): Ruff lint passed, format checked 162 files,
 mypy passed all 26 implementation files. No full regression claim yet.
+
+## G01 - Important: exception details in tracked Phase 2 reports
+
+- Location: src/validation/run.py::_run, per-table source_read and outer
+  integrity_or_staging exception handlers; tests/test_validation_diagnostics.py.
+- Issue/why: arbitrary library exception messages were copied into JSON/Markdown
+  reports committed as aggregate evidence. Conversion, I/O or profiling errors
+  can contain input values or local paths, defeating the report privacy boundary.
+- Recommendation/decision: fixed contextual diagnostics; preserve table/check,
+  severity, blocking count and failed promotion. Immediate, implemented.
+- Side effects: reports no longer expose raw library diagnostics; local source
+  contracts/provenance and retained snapshots support investigation. Existing NUL
+  regression now checks the structured failed table/check, not exception wording.
+- Dependencies/architecture: no dependency, database, successful-data conversion,
+  grain, money or architecture changes. No resource deletion.
+- Verification: 12 synthetic regression cases failed before correction and passed
+  afterward; covers ValueError/OSError/TypeError at read/profile/provenance/staging
+  boundaries and all three report outputs. API + regression subset: 20 passed.
+  Retained broad offline suite: 1590 passed, 1000 deliberate live skips, one known
+  AnyIO warning, 43.84 s. Acquisition/legacy validation modules excluded pending
+  their deletion-safe workflow; native opt-ins removed, no live database claims.
+  Mypy passed 26 implementations. Ruff found one long diagnostic line, shortened
+  before checkpoint. Frontend format passed; lint completion still being checked.
+
+## G02 - Important: required regression workflow conflicts with resource retention
+
+- Location: src/ingestion/olist.py temporary/lock cleanup;
+  src/validation/run.py temporary snapshot/report/lock cleanup;
+  tests/test_acquisition.py explicit unlink/rmtree; scripts/check.ps1 frontend tools.
+- Why: the permanent owner rule forbids unapproved indirect deletion. Current
+  documentation warns against full checks but leaves required Phase 2 regressions
+  unavailable without additional deletion approval.
+- Recommendation: preserve temporary snapshots, failed report files and released
+  locks, preserve deliberately missing synthetic fixtures by bounded moves, and
+  review fresh isolated frontend output paths. Do not suppress tests or intercept
+  deletion globally. Implement and verify a small retention correction separately.
+- Decision: immediate pending; blocks audit regression exit until resolved or a
+  specifically approved bounded alternative exists.
+- Side effects: increased ignored local disk use; list retained artifacts and seek
+  exact deletion permission only when justified. Dependencies: acquisition and
+  validation failure/replay/concurrency tests; frontend tooling review.
+- Architecture: local filesystem lifecycle only; no database/product deletion,
+  source contract, infrastructure or business-policy change is required.
+- Verification: pending implementation/failure/repeat/concurrency regressions.

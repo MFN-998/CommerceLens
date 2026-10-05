@@ -319,9 +319,18 @@ def _run(root: Path) -> dict:
                         )
                     )
                 report["checks"].extend(validate_frame(table, frame))
-            except (OSError, ValueError, TypeError, csv.Error) as exc:
+            except (OSError, ValueError, TypeError, csv.Error):
                 frames.pop(table, None)
-                report["checks"].append(check("source_read", table, "error", 1, str(exc), "files"))
+                report["checks"].append(
+                    check(
+                        "source_read",
+                        table,
+                        "error",
+                        1,
+                        "Source read or processing failed; inspect the source contract.",
+                        "files",
+                    )
+                )
         report["checks"].extend(relationship_checks(frames))
         if set(frames) == set(TABLES):
             contextual, status_profile = contextual_checks(frames)
@@ -333,9 +342,16 @@ def _run(root: Path) -> dict:
             raise ValueError("Source provenance changed during processing.")
         if not any(c["severity"] == "error" and c["count"] for c in report["checks"]):
             report["staging"] = stage_frames(root, frames)
-    except (OSError, ValueError, TypeError, AssertionError) as exc:
+    except (OSError, ValueError, TypeError, AssertionError):
         report["checks"].append(
-            check("integrity_or_staging", "snapshot", "error", 1, str(exc), "snapshots")
+            check(
+                "integrity_or_staging",
+                "snapshot",
+                "error",
+                1,
+                "Source integrity or staging failed; inspect provenance and retained snapshots.",
+                "snapshots",
+            )
         )
     report["error_checks"] = sum(
         c["severity"] == "error" and c["count"] > 0 for c in report["checks"]

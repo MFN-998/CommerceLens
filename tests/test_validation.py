@@ -490,7 +490,10 @@ def test_embedded_nul_blocks_staging_without_truncating_review_text(validation_p
     result = run(project)
     assert result["status"] == "FAIL"
     assert result["staging"]["promoted"] is False
-    assert any("NUL character" in check["detail"] for check in positive_errors(result["checks"]))
+    assert any(
+        check["name"] == "source_read" and check["table"] == "order_reviews"
+        for check in positive_errors(result["checks"])
+    )
     assert path.read_bytes() == original
     assert (project / "data" / "raw" / "olist-v2" / path.name).read_bytes() == original
 
