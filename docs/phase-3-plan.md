@@ -18,7 +18,7 @@ The phase exit remains a **tested analytical warehouse**, not a deployed analyti
 | M2. Isolated database foundation | Dedicated dev project; reviewed versioned bootstrap/migrations; secret-free examples and connection guidance | Target/version verified, encrypted connection, repeat migration, intended grants and denied access, API exposure review, disposable recovery test | Complete 2026-09-21: migration applied, replay/permissions/recovery checks passed |
 | M3. Reproducible loading | All nine verified source tables, provenance/load registry, exact monetary ingestion, atomic load | Source/hash/count/content reconciliation, exact decimal checks, idempotent rerun, failed-load rollback, unchanged raw files | Complete 2026-09-22: all 1,550,922 rows committed; full content/count/money and repeat verification passed |
 | M4. dbt staging and dimensions/facts | Pinned compatible dbt/Postgres tools; staging/intermediate/core models and explicit quality flags | dbt build, uniqueness/null/reference/domain tests, source reconciliation, synthetic grain and missing-data cases | Complete 2026-10-04: all nine source staging models verified (12/11/8/16/25/16/16/14/12 dbt tests); dim_location first/access/repeat verified (12 dbt tests); dim_seller first/access/repeat verified (11 dbt tests); dim_customer first/access/repeat verified (4 dbt tests); dim_product first/access/repeat verified (16 dbt tests); dim_date first/access/repeat verified (12 dbt tests); int_order_customers first/access/repeat verified (12 dbt tests); fact_orders first/access/repeat verified (33 dbt tests); fact_order_items first/access/repeat verified (19 dbt tests); fact_payments first/access/repeat verified (14 dbt tests); fact_reviews first/access/repeat verified (14 dbt tests) |
-| M5. Initial marts and handoff | Order-grain technical mart and reliable example SQL; access/recovery/developer guidance | Independent child aggregation, conserved counts/sums, repeat build, query-plan review, reconstruction/recovery verification, final checks and checkpoint | In progress: order-component mart computation and scoped reader access accepted; technical examples/bounded plans accepted; populated reconstruction/final handoff pending |
+| M5. Initial marts and handoff | Order-grain technical mart and reliable example SQL; access/recovery/developer guidance | Independent child aggregation, conserved counts/sums, repeat build, query-plan review, reconstruction/recovery verification, final checks and checkpoint | Complete 2026-10-05: mart/reader/technical queries accepted; fresh reconstruction, full graph/rebuild, 42 independent native checks, private access/capacity and final handoff verified |
 
 Each unit follows implement → validate → document → update WORK_STATE → commit → verify
 Git status. Preserve the last known-good checkpoint before database, dependency, or
@@ -75,7 +75,7 @@ is unchanged. [Acceptance evidence](warehouse-load-verification.json) records co
 content digests, exact monetary totals, attribution and storage. 
 Next: [M4 dbt setup plan](dbt-setup-plan.md). Tooling and offline bootstrap are implemented
 and verified. Restricted transformer provisioning/access and dbt debug passed on 2026-09-25;
-All nine source staging models are verified, including geolocation first/access/repeat acceptance on 2026-10-03. All five dimensions, the order-customer mapping and all four core facts are accepted; M4 complete; M5 mart computation and scoped reader access accepted, with populated reconstruction/final handoff remaining.
+All nine source staging models are verified, including geolocation first/access/repeat acceptance on 2026-10-03. All five dimensions, the order-customer mapping and all four core facts are accepted; M4 complete; M5 mart computation, scoped reader access, populated reconstruction and final native acceptance complete. See [Phase 3 completion](phase-3-status.md).
 See [customer](customer-staging.md), [seller](seller-staging.md),
 [category translation](category-translation-staging.md), [products](product-staging.md),
 [orders](order-staging.md), [order items](item-staging.md), [payments](payment-staging.md),
@@ -93,47 +93,27 @@ After M1–M5 are complete and verified, perform the owner-required
 relevant Important issues, verify Phases 1–3 and document deferred debt before Phase 4.
 This gate is pending; do not execute it during unfinished Phase 3 implementation.
 
-## Progress estimate — 2026-10-05
+## Phase 3 completion — 2026-10-05
 
-Roughly 5-10% of Phase 3 warehouse implementation/verification effort remains after
-all nine source staging models, five dimensions, the customer mapping and all four facts are accepted. This is a reasoned range, not a time
-forecast or model-count percentage. Foundation/loading/dbt/source staging are complete.
-Order mart computation and scoped reader access are now accepted. Remaining:
-approved fresh-target populated proof and final handoff. Full-graph, isolated
-one-step migration/load/provision/grant and final42-case acceptance tooling are
-now verified offline. Approved Free/Tokyo recovery target and private settings
-are established; PostgreSQL17.11 read-only identity/TLS/empty-state/capacity
-preflight passed. Unchanged migrations/replay/privilege checks and actual restricted
-login authentication and the complete1,550,922-row load/repeat also passed.
-First native20-view/282-test graph and mart grant/replay passed. Compatible
-rebuild preservation,42-case acceptance and final handoff remain.
-Technical SQL and bounded plan measurements are now accepted; Q01 retains their
-latency/spill limitation for a future API performance gate.
-Completed dim_location's unique three-source ZIP domain with observation, coverage
-and ambiguity metadata per ADR 0003; dim_seller preserves all source addresses/
-lineage and seven uncovered rows with tested location coverage. Customer identity
-is accepted at one customer_unique_id without selecting an arbitrary address.
-Product dimension is accepted with all source attributes/flags retained and literal
-translation coverage (610 missing/13 untranslated/four zero-weight rows).
-Date is accepted at 755 observed dates across all retained event clocks, with
-standard calendar/ISO attributes and no eligibility or warning-date filtering.
-The mapping is accepted at all 99,441 source customer_ids/96,096 identities,
-with seven unchanged staging fields, purchase-associated address/lineage and
-278 uncovered customers retained. fact_orders is accepted at all 99,441 orders
-with all 33 fields, both lineages, lifecycle flags and five calendar roles.
-fact_order_items is accepted at all 112,650 composite keys/15 fields, exact
-source money and shipping warnings. Payment fact accepted with all components/warnings; no child fanout
-or business eligibility policy. No canonical coordinate/city/
-state is introduced. The comprehensive governance audit and required
-corrections follow verified Phase 3 completion, before Phase 4; their effort is unknown.
+M1–M5 and the master-plan exit, **tested analytical warehouse**, are COMPLETE.
+The approved Free/Tokyo isolated target reproduced all nine source tables and
+1,550,922 rows, with full-content/exact-money repeat verification and one unchanged
+registry identity. Both full dependency builds passed all 20 views and 282 tests;
+grant replay and compatible rebuild preserved mart identity/owner/options/ACL and
+five default grants. All 42 independent cases across 22 files passed, with no
+skips or errors. Final metadata confirms private access denials, unchanged source
+provenance, views-only materialization and capacity within ADR 0004.
 
-The [order-item fact](fact-order-items.md) is accepted. The [payment fact](fact-payments.md) is accepted. The [review fact](fact-reviews.md) is accepted. M4 is complete; M5 is in progress:
-one order-grain technical mart with independent child aggregation, query examples,
-measured plans/performance and reconstruction/recovery verification.
+Final raw/database bytes: **275,988,480 / 287,135,411**.
+See [completion handoff](phase-3-status.md) and
+[final reconstruction receipt](warehouse-reconstruction-verification.json).
+No Phase 3 implementation remains. The comprehensive governance audit is
+**NOT YET RUN**; start it in a new CommerceLens chat and resolve its required
+findings before a separate Phase 4 chat. Audit effort is not included in the
+completed Phase 3 implementation estimate.
 
-M5 continues from clean M4 checkpoint 1b67dc5. The [order-component mart](order-components.md)
-computation is accepted: all 99,441 orders/49 fields, independent components, native/
-physical/first/repeat acceptance passed. The [scoped reader grant](mart-reader-access.md)
-is verified, including effective denials and rebuild preservation. [Technical queries](warehouse-query-examples.md)
-and bounded measurements are accepted. Populated reconstruction/recovery and final
-handoff remain. See its guide and aggregate verification JSON.
+Technical queries and six dated plan samples retain Q01's latency/spill limitation.
+Reconstruction is source/code reproducibility, not populated backup/PITR proof,
+future reader-login authentication or production readiness. Business EDA remains
+Phase 4; official KPIs/API analytics remain Phase 5. Preserve all established
+grains, quality flags, exact-money policy and Free/views-first decisions.

@@ -68,8 +68,10 @@ without deleting the view, role, source data or any project resource.
    confirm a compatible mart rebuild retains the grant.
 5. Complete source/model/query reconciliation before accepting reconstruction.
 
-The complete populated reconstruction proof is still pending M5; this sequence is
-guidance, not a claim of a successful restore. Existing [loading](warehouse-loading.md),
+The complete populated source reconstruction passed on 2026-10-05; see
+[final evidence](warehouse-reconstruction-verification.json). This sequence proves
+source/code reconstruction and is not a populated backup/PITR restore claim.
+Existing [loading](warehouse-loading.md),
 [mart](order-components.md), [Phase 3 plan](phase-3-plan.md) and WORK_STATE apply.
 Full governance audit follows verified Phase 3 before Phase 4, not this scoped review.
 
@@ -98,5 +100,16 @@ This build/test duration is not consumer-query latency. See the aggregate-only
 
 Historical order-components-verification.json accurately records reader denial before
 this unit. This new receipt supersedes its current-access status; computation/source
-acceptance remains unchanged. Examples, measured consumer plans and full populated
-reconstruction remain M5 work. This is not a production/security certification.
+acceptance remains unchanged. Examples, bounded measured plans and populated
+source reconstruction subsequently passed; their receipts retain separate dates.
+This is not a production/security certification.
+
+## Recovery-target verification — 2026-10-05
+
+The separate approved Free recovery target passed the fixed grant and unchanged
+reapplication. A full compatible 20-view/282-test rebuild preserved mart identity,
+ownership, options, ACL and all five default grants. All six reader cases passed
+within the 42-case native final acceptance. Final catalog checks also deny
+anon/authenticated/service_role and PUBLIC warehouse schema/table/column access.
+Reader remains NOLOGIN; future consumer login authentication must be verified when
+introduced. See [final reconstruction evidence](warehouse-reconstruction-verification.json).

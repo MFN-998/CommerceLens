@@ -131,3 +131,20 @@ All 1,550,922 source rows are verified; see [M3 acceptance](warehouse-load-verif
 Dbt/model/join tests, populated reconstruction, deployment network controls and
 protected backup/restore for shared or irreplaceable state remain explicit gates.
 Historical Phase 1–2 observations above retain their original audit-date meaning.
+
+## Phase 3 completion follow-up — 2026-10-05
+
+The September 22 pending dbt/model/join/reconstruction portion is now verified:
+20 views/all 282 dbt tests passed twice on the approved fresh native target;
+42 independent physical/query/reader cases passed; exact-money/grain/no-fanout
+contracts, private reader access, grant replay/rebuild preservation and complete
+source reconstruction are evidenced in [Phase 3 completion](phase-3-status.md).
+E05's Phase 3 controls are implemented; documented source warnings remain retained.
+E06's private development credentials/TLS/roles/migrations and source-reconstruction
+controls are verified. Protected backup/restore and deployment network controls
+before shared or irreplaceable state remain later gates. Source reconstruction is
+not backup/PITR proof. E01–E04 and E07–E10 retain their dated revisit/release gates.
+
+This entry reconciles verified completion; it is **not** the required comprehensive
+post–Phase 3 governance audit. That audit runs next in a separate chat, and its
+Critical/relevant Important corrections and regression gate precede Phase 4.

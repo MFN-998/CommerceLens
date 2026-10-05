@@ -6,7 +6,7 @@ CommerceLens is an e-commerce analytics and decision-intelligence portfolio proj
 The planned product brings together reliable data pipelines, SQL analytics, customer
 intelligence, delivery-risk prediction, forecasting, and business recommendations.
 
-**Phases 1–2 and Phase 3 M4 complete; M5 order mart verified, handoff work remains.**
+**Phases 1–3 complete and verified. The required governance audit is next, before Phase 4.**
 The repository contains a minimal FastAPI service, Next.js development page, and a
 reproducible Olist data pipeline. The source is historical anonymized data; it is not a
 live business feed. Local staging preserves documented source-quality warnings.
@@ -22,7 +22,9 @@ is accepted with all components, exact amounts and source warnings. The
 [review fact](docs/fact-reviews.md) preserves every review/order pair and calendar roles.
 M4 is complete; initial order mart computation and [scoped reader access](docs/mart-reader-access.md)
 are verified. [Technical SQL examples and bounded plan measurements](docs/warehouse-query-examples.md)
-are accepted; populated reconstruction proof and final checks remain.
+are accepted. Fresh native reconstruction passed both complete 20-view/282-test builds,
+permission-preserving rebuild checks and all 42 independent native cases. See the
+[Phase 3 completion handoff](docs/phase-3-status.md).
 See the [current work state](WORK_STATE.md) for verified progress and continuation.
 
 ## Start here
@@ -36,6 +38,7 @@ See the [current work state](WORK_STATE.md) for verified progress and continuati
 - [Phase 1 checklist](docs/phase-1-status.md): completion evidence and known tooling limitations.
 - [Data setup](data/README.md): acquire, verify, and profile pinned Olist version 2.
 - [Phase 2 plan](docs/phase-2-plan.md) and [completion evidence](docs/phase-2-status.md).
+- [Phase 3 completion evidence](docs/phase-3-status.md).
 - [Phase 3 plan](docs/phase-3-plan.md) and [warehouse contract](docs/decisions/0003-warehouse-contract.md): warehouse foundation and verification milestones.
 - [Development warehouse](docs/warehouse-development.md): private configuration, migrations, access checks, and recovery.
 - [Quality report](docs/data-quality-report.md) and [column dictionary](docs/data_dictionary/initial.md).
@@ -58,7 +61,7 @@ is scheduled for Phase 6. The master plan's eventual flow remains:
 Olist -> raw -> staging -> core -> marts / features -> FastAPI -> Next.js
 ```
 
-Private database setup/loading is verified; dbt modeling continues within Phase 3. Analytics, model training, public
+Private database setup, source loading, dbt modeling and populated reconstruction are verified. Analytics, model training, public
 deployment, and the complete application navigation are not implemented here.
 
 ## Quick start (PowerShell)
@@ -116,5 +119,6 @@ recorded in [data setup](data/README.md). Dataset and software licensing are sep
 Phase 3 M5: the [order-component mart](docs/order-components.md) computation is verified
 with all source orders, exact independently aggregated components and retained warnings.
 Scoped reader access, technical examples and bounded measurements are verified;
-populated reconstruction proof and final handoff remain. Q01 records measured query
+populated reconstruction and final native checks passed. The separate governance audit
+and its required corrections precede Phase 4. Q01 records measured query
 latency/spills for review before API-facing analytics. See [current state](WORK_STATE.md) for the exact next action.

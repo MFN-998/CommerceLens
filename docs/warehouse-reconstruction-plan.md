@@ -2,8 +2,9 @@
 
 Phase 3 M5. Full-graph runner and isolated-operation dispatcher source/offline
 verification COMPLETE; final-check adapter also verified offline.
-**LIVE RECONSTRUCTION PARTIALLY VERIFIED: foundation/source loading/repeat passed;
-first full graph and grant replay passed; compatible rebuild and final acceptance pending.**
+**LIVE RECONSTRUCTION COMPLETE / VERIFIED 2026-10-05:** foundation/source repeat,
+both full graphs, grant/rebuild preservation, all 42 native cases and final gates passed.
+See [final evidence](warehouse-reconstruction-verification.json) and [phase handoff](phase-3-status.md).
 The accepted CommerceLens Supabase target, source files, private configurations,
 certificates and retained artifacts stay protected. This plan reconstructs the
 development warehouse from immutable source and versioned code; it does not prove
@@ -192,11 +193,9 @@ Actual offline validation: adapter+dispatcher 97 passed in 0.82s; retained wareh
 1578 passed in 43.26s, 1000 deliberately skipped live checks and the known AnyIO
 deprecation warning. Ruff lint/format 160 files and mypy 26 implementations passed.
 Scoped review found no blocker. These offline tests simulate subprocess/pytest
-outcomes; **the native 42-case run and populated reconstruction are NOT YET RUN**.
-Local dispatch/full-graph/final-check preparation is complete. Resource approval,
-private admin configuration/native preflight and unchanged migrations with replay/
-privilege/actual-purpose authentication checks and full source loading/repeat now
-passed; the fixed full graph is next. Do not reimplement the verified tooling.
+outcomes; the native run had not yet run at that offline checkpoint. The dated completion
+evidence below now supersedes that pending status. Do not reimplement or repeat
+the verified migration/provision/load/build units unnecessarily.
 
 ## Approved target and native preflight — 2026-10-04
 
@@ -218,7 +217,7 @@ succeeded, and exclusive creation/protection completed without replacement/delet
 No private content or connection string is recorded here or in Git.
 
 [Native preflight receipt](warehouse-reconstruction-preflight.json) passed at
-2026-10-04T18:56:52Z on source checkpoint ed52929: PostgreSQL17.11/170011,
+2026-10-04T18:56:52Z on source checkpoint ed52929: PostgreSQL 17.11/170011,
 session/current user and database postgres, verify-full TLS active, all five
 warehouse schemas absent, all six warehouse capability/job roles absent,
 zero warehouse defaults, ledger absent and database10,491,571 bytes (below33M).
@@ -289,13 +288,14 @@ Fixed mart SELECT grant and reapplication passed. Reconnected snapshots confirm
 identical mart OID/owner/options/exact reader ACL and all five default-ACL entries.
 Reader remains NOLOGIN/NOINHERIT. Original target and model/source code unchanged.
 
-**Next:** prove compatible rebuild preservation using the same reviewed isolated
+**Historical next step at the first-build checkpoint:** prove compatible rebuild preservation using the same reviewed isolated
 full-graph runner, then42 independent native checks and final catalog/storage/API/
 artifact gates. The final-check adapter is read-only and does not rebuild or replay
 the grant. Ordinary single-model tooling couples project/settings roots; do not
 swap accepted credentials or bypass isolation. The second full graph is the existing
 guarded route and keeps all acceptance unchanged. Compatible rebuild/final checks
-NOT YET RUN. No automatic retry, cleanup or weaker TLS; preserve partial evidence.
+were not yet run at that checkpoint; final acceptance below supersedes this status.
+No automatic retry, cleanup or weaker TLS; preserve partial evidence.
 
 ## Exact construction and verification order
 
@@ -343,7 +343,40 @@ state before retrying. Failed COPY can retain allocated space despite rollback;
 stop and remeasure rather than bypass capacity checks. No automatic DROP, TRUNCATE,
 reset, artifact cleanup or source replacement belongs to this workflow.
 
-The existing loader's deterministic reconciliation/repeat behavior is already
-verified on the accepted target. This proposed fresh-target run would add the
-missing complete populated reconstruction evidence. Phase 3 handoff and its
-subsequent governance gate remain separate completion steps.
+The existing loader's deterministic reconciliation/repeat behavior is verified
+on both the accepted and fresh recovery targets. The complete populated source
+reconstruction and Phase 3 handoff are now verified; the subsequent governance
+gate remains separate and pending.
+
+## Final native reconstruction acceptance — 2026-10-05
+
+[Final receipt](warehouse-reconstruction-verification.json): compatible full graph
+passed all 20 views and 282 enabled blocking tests in 1010.999 seconds
+including guarded entry work. Reconnection proved mart OID, owner, options, exact
+reader SELECT ACL and all five default ACL entries unchanged from first grant.
+The independent adapter passed every setup/call/teardown of all 42 cases across
+22 files in 487.024 seconds, with no skip/xfail/error. Its six
+reader cases verify effective allowed/denied access; the role remains NOLOGIN.
+
+Both observed builds fit the unchanged 1200-second graph budget; the final worker fit
+600 seconds. These dated observations supersede the initial unproven-budget descriptions
+above and do not guarantee duration on a future target. No timeout was weakened.
+
+Final metadata verifies the canonical migration ledger, exact 20 transformer-owned
+views, unchanged single load registry/source-file evidence/timestamp, local source
+hashes, no leftover probe/intermediate/backup objects, 17.11/verify-full TLS and
+API-role/PUBLIC schema/table/column denials. Raw/database bytes are
+275,988,480/287,135,411, within 367M/400M.
+The dashboard still shows Data API OFF/no schemas queryable. The existing loader
+verified all original-text ordinals/digests and exact money on first/repeat load;
+the final metadata step does not claim a third full content scan.
+
+All retained recovery artifacts passed the in-memory check for all three purpose
+passwords in raw, JSON/URI-escaped UTF8/UTF16LE forms. No credentials/source rows
+or driver detail are in the published receipt. Redacted Gitleaks scans and complete
+staged-content/history checks are required before the completion checkpoint is
+published. Both projects, protected files, source and generated evidence remain.
+
+Phase 3 implementation is complete. Required governance audit/corrections remain
+the next separate chat, before Phase 4. Populated backup/PITR, API authentication,
+future workload performance and public deployment remain distinct later gates.
