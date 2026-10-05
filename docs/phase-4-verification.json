@@ -1,0 +1,50 @@
+{
+  "status": "passed",
+  "results_sha256": "bdf2f317e71f7c0b16568aad3ad2820cdabd9f0ae22ca7ba52e24a8d8b44287e",
+  "deterministic_replay": "byte-identical",
+  "per_run_receipt_hashes": "verified against actual file bytes",
+  "aggregate_partitions": 17,
+  "accepted_population_checks": 9,
+  "accepted_money_checks": 3,
+  "source_rows": 1550922,
+  "privacy_field_gate": "passed",
+  "database_operations": 0,
+  "scope": "Phase 4 source analysis, not live warehouse workload or official KPI policy",
+  "date": "2026-10-05",
+  "phase": 4,
+  "initial_runner_checkpoint": "17ffad9",
+  "first_retained_run": ".artifacts\\phase-4\\34ebc91f434a4c85824f01c9fba0dbe6",
+  "replay_retained_run": ".artifacts\\phase-4\\7bcb2c93308844fea75e8a5c09f64620",
+  "superseded_retained_preliminary_runs": [
+    ".artifacts/phase-4/87ee133d06f14d16bebf70aa6c9365ea",
+    ".artifacts/phase-4/3f950915706941acb90e3d71549776eb",
+    ".artifacts/phase-4/c076a188ec924e7282b3136e515dcf22"
+  ],
+  "corrected_before_exit": "Write exact bytes before receipt hashing; Windows newline translation regression tested",
+  "source_identity_checked_before_after_each_run": true,
+  "current_checks": {
+    "focused_regressions": 17,
+    "offline_passed": 1669,
+    "deliberate_native_skips": 1000,
+    "known_anyio_warning": 1,
+    "offline_seconds": 41.83,
+    "ruff_lint": "passed",
+    "ruff_formatted_files": 172,
+    "mypy_source_files": 29,
+    "final_changed_implementation_and_verifier_mypy_files": 3
+  },
+  "code_sha256": {
+    "src\\analysis\\eda.py": "f34b06079ffcd4d8a7d107514dbc0d2ae64a4e0be95f82eff48300c152e4c07d",
+    "scripts\\verify_phase4.py": "5314a783ff97c7fd01bd391e5d3c04e4a6977570756b83cad5237592d11ae45c"
+  },
+  "all_eight_domains_analyzed": true,
+  "report": "phase-4-eda-report.md",
+  "limits": [
+    "Historical source analysis, no fresh live-warehouse verification",
+    "Exploratory denominators, no official KPI/API policy",
+    "No causal or random-sample population claim",
+    "Q01 and E01-E10/source/date/coordinate/backup/auth/exposure/release gates retained",
+    "No merge, deployment, deletion, paid upgrade or source reload"
+  ],
+  "publication": "Containing checkpoint gated by diff, links, staged/history scan and clean publication"
+}

@@ -402,7 +402,7 @@ def run(root: Path, output: Path) -> Path:
     encoded = json.dumps(result, indent=2, sort_keys=True, allow_nan=False) + "\n"
     directory = output / uuid4().hex
     directory.mkdir(parents=True, exist_ok=False)
-    (directory / "results.json").write_text(encoded, encoding="utf-8")
+    (directory / "results.json").write_bytes(encoded.encode("utf-8"))
     (directory / "receipt.json").write_text(
         json.dumps(
             {

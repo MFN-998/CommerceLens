@@ -62,7 +62,9 @@ is scheduled for Phase 6. The master plan's eventual flow remains:
 Olist -> raw -> staging -> core -> marts / features -> FastAPI -> Next.js
 ```
 
-Private database setup, source loading, dbt modeling and populated reconstruction are verified. Analytics, model training, public
+Private database setup, source loading, dbt modeling and populated reconstruction are verified.
+Phase 4 [exploratory business analysis](docs/phase-4-eda-report.md) covers all eight domains
+with reproducible aggregate evidence and explicit limits. Official KPI/API analytics, model training, public
 deployment, and the complete application navigation are not implemented here.
 
 ## Quick start (PowerShell)
@@ -121,5 +123,5 @@ Phase 3 M5: the [order-component mart](docs/order-components.md) computation is 
 with all source orders, exact independently aggregated components and retained warnings.
 Scoped reader access, technical examples and bounded measurements are verified;
 populated reconstruction and final native checks passed. The separate governance audit
-and its required corrections precede Phase 4. Q01 records measured query
+and Phase 4 analysis are complete and verified. Q01 records measured query
 latency/spills for review before API-facing analytics. See [current state](WORK_STATE.md) for the exact next action.

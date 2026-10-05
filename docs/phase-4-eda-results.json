@@ -1,0 +1,1915 @@
+{
+  "customers": {
+    "all_status_identities": 96096,
+    "delivered_identities": 93358,
+    "orders_per_identity": {
+      "eligible": 96096,
+      "excluded": 0,
+      "mean": 1.0348089410589412,
+      "quantiles": {
+        "0": 1.0,
+        "0.25": 1.0,
+        "0.5": 1.0,
+        "0.75": 1.0,
+        "0.9": 1.0,
+        "1": 17.0
+      }
+    },
+    "repeat_delivered_identities": 2801,
+    "repeat_delivered_rate": 0.03000278497825575,
+    "repeat_identities": 2997,
+    "repeat_identity_rate": 0.031187562437562436
+  },
+  "geography": {
+    "city_ambiguous_zips": 8556,
+    "customer_rows_without_geo": 278,
+    "customer_states": [
+      {
+        "customer_state": "SP",
+        "eligible": 40494,
+        "late": 1820,
+        "median_days": 7.210271990741,
+        "orders": 41746,
+        "price_cents": 520295505
+      },
+      {
+        "customer_state": "RJ",
+        "eligible": 12350,
+        "late": 1495,
+        "median_days": 12.041643518519,
+        "orders": 12852,
+        "price_cents": 182409267
+      },
+      {
+        "customer_state": "MG",
+        "eligible": 11354,
+        "late": 519,
+        "median_days": 10.313512731481,
+        "orders": 11635,
+        "price_cents": 158530803
+      },
+      {
+        "customer_state": "RS",
+        "eligible": 5344,
+        "late": 325,
+        "median_days": 13.177488425926,
+        "orders": 5466,
+        "price_cents": 75030402
+      },
+      {
+        "customer_state": "PR",
+        "eligible": 4923,
+        "late": 199,
+        "median_days": 10.425509259259,
+        "orders": 5045,
+        "price_cents": 68308376
+      },
+      {
+        "customer_state": "SC",
+        "eligible": 3546,
+        "late": 291,
+        "median_days": 13.014351851852,
+        "orders": 3637,
+        "price_cents": 52055334
+      },
+      {
+        "customer_state": "BA",
+        "eligible": 3256,
+        "late": 396,
+        "median_days": 16.91396412037,
+        "orders": 3380,
+        "price_cents": 51134999
+      },
+      {
+        "customer_state": "DF",
+        "eligible": 2080,
+        "late": 118,
+        "median_days": 11.364924768519,
+        "orders": 2140,
+        "price_cents": 30260394
+      },
+      {
+        "customer_state": "ES",
+        "eligible": 1995,
+        "late": 214,
+        "median_days": 13.636956018519,
+        "orders": 2033,
+        "price_cents": 27503731
+      },
+      {
+        "customer_state": "GO",
+        "eligible": 1957,
+        "late": 128,
+        "median_days": 13.949606481481,
+        "orders": 2020,
+        "price_cents": 29459195
+      },
+      {
+        "customer_state": "PE",
+        "eligible": 1593,
+        "late": 153,
+        "median_days": 15.702766203704,
+        "orders": 1652,
+        "price_cents": 26278803
+      },
+      {
+        "customer_state": "CE",
+        "eligible": 1279,
+        "late": 176,
+        "median_days": 18.209201388889,
+        "orders": 1336,
+        "price_cents": 22725471
+      },
+      {
+        "customer_state": "PA",
+        "eligible": 946,
+        "late": 106,
+        "median_days": 21.078391203704,
+        "orders": 975,
+        "price_cents": 17894781
+      },
+      {
+        "customer_state": "MT",
+        "eligible": 886,
+        "late": 53,
+        "median_days": 16.109050925926,
+        "orders": 907,
+        "price_cents": 15645353
+      },
+      {
+        "customer_state": "MA",
+        "eligible": 717,
+        "late": 125,
+        "median_days": 19.190601851852,
+        "orders": 747,
+        "price_cents": 11964822
+      },
+      {
+        "customer_state": "MS",
+        "eligible": 701,
+        "late": 68,
+        "median_days": 13.943796296296,
+        "orders": 715,
+        "price_cents": 11681264
+      },
+      {
+        "customer_state": "PB",
+        "eligible": 517,
+        "late": 54,
+        "median_days": 18.15244212963,
+        "orders": 536,
+        "price_cents": 11526808
+      },
+      {
+        "customer_state": "PI",
+        "eligible": 476,
+        "late": 66,
+        "median_days": 16.292268518519,
+        "orders": 495,
+        "price_cents": 8691408
+      },
+      {
+        "customer_state": "RN",
+        "eligible": 474,
+        "late": 44,
+        "median_days": 16.06025462963,
+        "orders": 485,
+        "price_cents": 8303498
+      },
+      {
+        "customer_state": "AL",
+        "eligible": 397,
+        "late": 85,
+        "median_days": 22.332916666667,
+        "orders": 413,
+        "price_cents": 8031481
+      },
+      {
+        "customer_state": "SE",
+        "eligible": 335,
+        "late": 51,
+        "median_days": 18.014305555556,
+        "orders": 350,
+        "price_cents": 5892085
+      },
+      {
+        "customer_state": "TO",
+        "eligible": 274,
+        "late": 27,
+        "median_days": 15.865885416667,
+        "orders": 280,
+        "price_cents": 4962174
+      },
+      {
+        "customer_state": "RO",
+        "eligible": 243,
+        "late": 7,
+        "median_days": 17.582361111111,
+        "orders": 253,
+        "price_cents": 4614064
+      },
+      {
+        "customer_state": "AM",
+        "eligible": 145,
+        "late": 4,
+        "median_days": 25.875138888889,
+        "orders": 148,
+        "price_cents": 2235684
+      },
+      {
+        "customer_state": "AC",
+        "eligible": 80,
+        "late": 3,
+        "median_days": 18.356527777778,
+        "orders": 81,
+        "price_cents": 1598295
+      },
+      {
+        "customer_state": "AP",
+        "eligible": 67,
+        "late": 2,
+        "median_days": 24.347025462963,
+        "orders": 68,
+        "price_cents": 1347430
+      },
+      {
+        "customer_state": "RR",
+        "eligible": 41,
+        "late": 5,
+        "median_days": 25.007303240741,
+        "orders": 46,
+        "price_cents": 782943
+      }
+    ],
+    "routes": [
+      {
+        "any_cross_state": false,
+        "duration": {
+          "eligible": 34575,
+          "excluded": 0,
+          "mean": 7.948514877748319,
+          "quantiles": {
+            "0": 0.5334143518518518,
+            "0.25": 4.16884837962963,
+            "0.5": 6.551180555555556,
+            "0.75": 9.885625000000001,
+            "0.9": 14.253645833333334,
+            "1": 191.46354166666666
+          }
+        },
+        "eligible": 34575,
+        "late": 1563,
+        "late_rate": 0.0452060737527115,
+        "orders": 35353
+      },
+      {
+        "any_cross_state": true,
+        "duration": {
+          "eligible": 61895,
+          "excluded": 0,
+          "mean": 15.133230496016253,
+          "quantiles": {
+            "0": 0.8634259259259259,
+            "0.25": 8.890260416666667,
+            "0.5": 12.775405092592592,
+            "0.75": 18.34715277777778,
+            "0.9": 26.26306712962963,
+            "1": 209.6286111111111
+          }
+        },
+        "eligible": 61895,
+        "late": 4971,
+        "late_rate": 0.08031343404152193,
+        "orders": 63313
+      }
+    ],
+    "seller_rows_without_geo": 7,
+    "state_ambiguous_zips": 8,
+    "zip_prefixes": 19015
+  },
+  "logistics": {
+    "delivered_status_orders": 96478,
+    "delivery_days": {
+      "eligible": 96470,
+      "excluded": 8,
+      "mean": 12.558217098051976,
+      "quantiles": {
+        "0": 0.5334143518518518,
+        "0.25": 6.766203703703704,
+        "0.5": 10.217476851851853,
+        "0.75": 15.720182291666667,
+        "0.9": 23.09637731481482,
+        "1": 209.6286111111111
+      }
+    },
+    "eligible_delivery_orders": 96470,
+    "excluded_delivered_orders": 8,
+    "handling_days": {
+      "eligible": 95112,
+      "excluded": 1366,
+      "mean": 2.853415125063084,
+      "quantiles": {
+        "0": 0.00017361111111111112,
+        "0.25": 0.9005902777777778,
+        "0.5": 1.8491550925925926,
+        "0.75": 3.6187065972222223,
+        "0.9": 6.023055555555556,
+        "1": 125.76256944444444
+      }
+    },
+    "late_date": 6534,
+    "late_timestamp": 7826,
+    "monthly": [
+      {
+        "eligible": 1,
+        "late": 1,
+        "median_days": 54.813194444444,
+        "month": "2016-09"
+      },
+      {
+        "eligible": 265,
+        "late": 2,
+        "median_days": 17.944282407407,
+        "month": "2016-10"
+      },
+      {
+        "eligible": 1,
+        "late": 0,
+        "median_days": 4.693020833333,
+        "month": "2016-12"
+      },
+      {
+        "eligible": 750,
+        "late": 22,
+        "median_days": 10.733645833333,
+        "month": "2017-01"
+      },
+      {
+        "eligible": 1653,
+        "late": 49,
+        "median_days": 10.971203703704,
+        "month": "2017-02"
+      },
+      {
+        "eligible": 2546,
+        "late": 116,
+        "median_days": 10.126487268519,
+        "month": "2017-03"
+      },
+      {
+        "eligible": 2303,
+        "late": 151,
+        "median_days": 12.748622685185,
+        "month": "2017-04"
+      },
+      {
+        "eligible": 3545,
+        "late": 106,
+        "median_days": 9.793333333333,
+        "month": "2017-05"
+      },
+      {
+        "eligible": 3135,
+        "late": 95,
+        "median_days": 10.804907407407,
+        "month": "2017-06"
+      },
+      {
+        "eligible": 3872,
+        "late": 108,
+        "median_days": 10.158072916667,
+        "month": "2017-07"
+      },
+      {
+        "eligible": 4193,
+        "late": 122,
+        "median_days": 9.769814814815,
+        "month": "2017-08"
+      },
+      {
+        "eligible": 4150,
+        "late": 182,
+        "median_days": 10.31443287037,
+        "month": "2017-09"
+      },
+      {
+        "eligible": 4478,
+        "late": 187,
+        "median_days": 10.263362268519,
+        "month": "2017-10"
+      },
+      {
+        "eligible": 7288,
+        "late": 904,
+        "median_days": 12.698680555556,
+        "month": "2017-11"
+      },
+      {
+        "eligible": 5513,
+        "late": 411,
+        "median_days": 13.1421875,
+        "month": "2017-12"
+      },
+      {
+        "eligible": 7069,
+        "late": 403,
+        "median_days": 11.830115740741,
+        "month": "2018-01"
+      },
+      {
+        "eligible": 6555,
+        "late": 926,
+        "median_days": 14.26375,
+        "month": "2018-02"
+      },
+      {
+        "eligible": 7003,
+        "late": 1328,
+        "median_days": 13.367731481481,
+        "month": "2018-03"
+      },
+      {
+        "eligible": 6798,
+        "late": 306,
+        "median_days": 9.314728009259,
+        "month": "2018-04"
+      },
+      {
+        "eligible": 6749,
+        "late": 443,
+        "median_days": 9.14787037037,
+        "month": "2018-05"
+      },
+      {
+        "eligible": 6096,
+        "late": 71,
+        "median_days": 7.957615740741,
+        "month": "2018-06"
+      },
+      {
+        "eligible": 6156,
+        "late": 208,
+        "median_days": 7.501724537037,
+        "month": "2018-07"
+      },
+      {
+        "eligible": 6351,
+        "late": 393,
+        "median_days": 7.013703703704,
+        "month": "2018-08"
+      }
+    ],
+    "transit_days": {
+      "eligible": 96446,
+      "excluded": 32,
+      "mean": 9.333301671977642,
+      "quantiles": {
+        "0": 0.0,
+        "0.25": 4.101588541666667,
+        "0.5": 7.100312499999999,
+        "0.75": 12.029713541666666,
+        "0.9": 18.901423611111113,
+        "1": 205.19097222222223
+      }
+    }
+  },
+  "payments": {
+    "absolute_difference_cents": 327195,
+    "comparable_orders": 98665,
+    "exact_match_orders": 98089,
+    "installments": [
+      {
+        "components": 2,
+        "payment_installments": 0,
+        "value_cents": 18863
+      },
+      {
+        "components": 52546,
+        "payment_installments": 1,
+        "value_cents": 590723336
+      },
+      {
+        "components": 12413,
+        "payment_installments": 2,
+        "value_cents": 157928303
+      },
+      {
+        "components": 10461,
+        "payment_installments": 3,
+        "value_cents": 149110380
+      },
+      {
+        "components": 7098,
+        "payment_installments": 4,
+        "value_cents": 116390761
+      },
+      {
+        "components": 5239,
+        "payment_installments": 5,
+        "value_cents": 96117430
+      },
+      {
+        "components": 3920,
+        "payment_installments": 6,
+        "value_cents": 82261181
+      },
+      {
+        "components": 1626,
+        "payment_installments": 7,
+        "value_cents": 30515739
+      },
+      {
+        "components": 4268,
+        "payment_installments": 8,
+        "value_cents": 131342334
+      },
+      {
+        "components": 644,
+        "payment_installments": 9,
+        "value_cents": 13101592
+      },
+      {
+        "components": 5328,
+        "payment_installments": 10,
+        "value_cents": 221157734
+      },
+      {
+        "components": 23,
+        "payment_installments": 11,
+        "value_cents": 287344
+      },
+      {
+        "components": 133,
+        "payment_installments": 12,
+        "value_cents": 4278324
+      },
+      {
+        "components": 16,
+        "payment_installments": 13,
+        "value_cents": 240740
+      },
+      {
+        "components": 15,
+        "payment_installments": 14,
+        "value_cents": 251944
+      },
+      {
+        "components": 74,
+        "payment_installments": 15,
+        "value_cents": 3297093
+      },
+      {
+        "components": 5,
+        "payment_installments": 16,
+        "value_cents": 146347
+      },
+      {
+        "components": 8,
+        "payment_installments": 17,
+        "value_cents": 139682
+      },
+      {
+        "components": 27,
+        "payment_installments": 18,
+        "value_cents": 1313505
+      },
+      {
+        "components": 17,
+        "payment_installments": 20,
+        "value_cents": 1046863
+      },
+      {
+        "components": 3,
+        "payment_installments": 21,
+        "value_cents": 73110
+      },
+      {
+        "components": 1,
+        "payment_installments": 22,
+        "value_cents": 22871
+      },
+      {
+        "components": 1,
+        "payment_installments": 23,
+        "value_cents": 23648
+      },
+      {
+        "components": 18,
+        "payment_installments": 24,
+        "value_cents": 1098088
+      }
+    ],
+    "methods": [
+      {
+        "components": 19784,
+        "median_installments": 1.0,
+        "orders": 19784,
+        "payment_type": "boleto",
+        "value_cents": 286936127
+      },
+      {
+        "components": 76795,
+        "median_installments": 3.0,
+        "orders": 76505,
+        "payment_type": "credit_card",
+        "value_cents": 1254208419
+      },
+      {
+        "components": 1529,
+        "median_installments": 1.0,
+        "orders": 1528,
+        "payment_type": "debit_card",
+        "value_cents": 21798979
+      },
+      {
+        "components": 3,
+        "median_installments": 1.0,
+        "orders": 3,
+        "payment_type": "not_defined",
+        "value_cents": 0
+      },
+      {
+        "components": 5775,
+        "median_installments": 1.0,
+        "orders": 3866,
+        "payment_type": "voucher",
+        "value_cents": 37943687
+      }
+    ],
+    "multiple_component_orders": 2961,
+    "payment_minus_items_freight_cents": 287039,
+    "zero_installment_components": 2,
+    "zero_value_components": 9
+  },
+  "population": {
+    "identities": 96096,
+    "items": 112650,
+    "missing_items": 775,
+    "missing_payments": 1,
+    "missing_reviews": 768,
+    "multi_review_orders": 547,
+    "orders": 99441,
+    "payments": 103886,
+    "purchase_max": "2018-10-17 17:30:18",
+    "purchase_min": "2016-09-04 21:15:19",
+    "review_pairs": 99224
+  },
+  "products": {
+    "categories": [
+      {
+        "category": "beleza_saude",
+        "delivered_price_cents": 123313172,
+        "eligible": 8647,
+        "freight_cents": 18256673,
+        "items": 9670,
+        "late": 649,
+        "median_days": 9.545219907407,
+        "orders": 8836,
+        "price_cents": 125868134
+      },
+      {
+        "category": "relogios_presentes",
+        "delivered_price_cents": 116617698,
+        "eligible": 5493,
+        "freight_cents": 10053593,
+        "items": 5991,
+        "late": 406,
+        "median_days": 10.336377314815,
+        "orders": 5624,
+        "price_cents": 120500568
+      },
+      {
+        "category": "cama_mesa_banho",
+        "delivered_price_cents": 102343476,
+        "eligible": 9272,
+        "freight_cents": 20469304,
+        "items": 11115,
+        "late": 689,
+        "median_days": 10.71421875,
+        "orders": 9417,
+        "price_cents": 103698868
+      },
+      {
+        "category": "esporte_lazer",
+        "delivered_price_cents": 95485255,
+        "eligible": 7529,
+        "freight_cents": 16860751,
+        "items": 8641,
+        "late": 495,
+        "median_days": 10.110289351852,
+        "orders": 7720,
+        "price_cents": 98804897
+      },
+      {
+        "category": "informatica_acessorios",
+        "delivered_price_cents": 88872461,
+        "eligible": 6529,
+        "freight_cents": 14731808,
+        "items": 7827,
+        "late": 417,
+        "median_days": 11.104421296296,
+        "orders": 6689,
+        "price_cents": 91195432
+      },
+      {
+        "category": "moveis_decoracao",
+        "delivered_price_cents": 71192769,
+        "eligible": 6307,
+        "freight_cents": 17274930,
+        "items": 8334,
+        "late": 449,
+        "median_days": 10.873055555556,
+        "orders": 6449,
+        "price_cents": 72976249
+      },
+      {
+        "category": "cool_stuff",
+        "delivered_price_cents": 61020410,
+        "eligible": 3559,
+        "freight_cents": 8403910,
+        "items": 3796,
+        "late": 210,
+        "median_days": 10.416296296296,
+        "orders": 3632,
+        "price_cents": 63529085
+      },
+      {
+        "category": "utilidades_domesticas",
+        "delivered_price_cents": 61562869,
+        "eligible": 5743,
+        "freight_cents": 14614911,
+        "items": 6964,
+        "late": 308,
+        "median_days": 8.925787037037,
+        "orders": 5884,
+        "price_cents": 63224866
+      },
+      {
+        "category": "automotivo",
+        "delivered_price_cents": 57896665,
+        "eligible": 3809,
+        "freight_cents": 9266421,
+        "items": 4235,
+        "late": 278,
+        "median_days": 9.741134259259,
+        "orders": 3897,
+        "price_cents": 59272011
+      },
+      {
+        "category": "ferramentas_jardim",
+        "delivered_price_cents": 47049528,
+        "eligible": 3448,
+        "freight_cents": 9896275,
+        "items": 4347,
+        "late": 225,
+        "median_days": 11.637181712963,
+        "orders": 3518,
+        "price_cents": 48525646
+      },
+      {
+        "category": "brinquedos",
+        "delivered_price_cents": 47128648,
+        "eligible": 3803,
+        "freight_cents": 7742595,
+        "items": 4117,
+        "late": 243,
+        "median_days": 9.405729166667,
+        "orders": 3886,
+        "price_cents": 48394660
+      },
+      {
+        "category": "bebes",
+        "delivered_price_cents": 40042184,
+        "eligible": 2809,
+        "freight_cents": 6835311,
+        "items": 3065,
+        "late": 226,
+        "median_days": 10.051296296296,
+        "orders": 2885,
+        "price_cents": 41176489
+      },
+      {
+        "category": "perfumaria",
+        "delivered_price_cents": 39014465,
+        "eligible": 3086,
+        "freight_cents": 5421384,
+        "items": 3419,
+        "late": 202,
+        "median_days": 9.425885416667,
+        "orders": 3162,
+        "price_cents": 39912487
+      },
+      {
+        "category": "telefonia",
+        "delivered_price_cents": 30986023,
+        "eligible": 4093,
+        "freight_cents": 7121579,
+        "items": 4545,
+        "late": 291,
+        "median_days": 10.812488425926,
+        "orders": 4199,
+        "price_cents": 32366753
+      },
+      {
+        "category": "moveis_escritorio",
+        "delivered_price_cents": 26815431,
+        "eligible": 1254,
+        "freight_cents": 6857195,
+        "items": 1691,
+        "late": 101,
+        "median_days": 18.860590277778,
+        "orders": 1273,
+        "price_cents": 27396070
+      },
+      {
+        "category": "papelaria",
+        "delivered_price_cents": 22378869,
+        "eligible": 2264,
+        "freight_cents": 4679848,
+        "items": 2517,
+        "late": 148,
+        "median_days": 10.185457175926,
+        "orders": 2311,
+        "price_cents": 23094323
+      },
+      {
+        "category": "pcs",
+        "delivered_price_cents": 21868414,
+        "eligible": 177,
+        "freight_cents": 983630,
+        "items": 203,
+        "late": 10,
+        "median_days": 11.16931712963,
+        "orders": 181,
+        "price_cents": 22296313
+      },
+      {
+        "category": "pet_shop",
+        "delivered_price_cents": 21169564,
+        "eligible": 1688,
+        "freight_cents": 3956124,
+        "items": 1947,
+        "late": 86,
+        "median_days": 9.529895833333,
+        "orders": 1710,
+        "price_cents": 21431541
+      },
+      {
+        "category": "instrumentos_musicais",
+        "delivered_price_cents": 18431574,
+        "eligible": 611,
+        "freight_cents": 1863849,
+        "items": 680,
+        "late": 46,
+        "median_days": 10.381631944444,
+        "orders": 628,
+        "price_cents": 19149888
+      },
+      {
+        "category": "eletroportateis",
+        "delivered_price_cents": 18275412,
+        "eligible": 609,
+        "freight_cents": 1602025,
+        "items": 679,
+        "late": 29,
+        "median_days": 8.975729166667,
+        "orders": 630,
+        "price_cents": 19064858
+      },
+      {
+        "category": "[missing category]",
+        "delivered_price_cents": 17072663,
+        "eligible": 1392,
+        "freight_cents": 2816981,
+        "items": 1603,
+        "late": 101,
+        "median_days": 10.671498842593,
+        "orders": 1451,
+        "price_cents": 17953528
+      },
+      {
+        "category": "eletronicos",
+        "delivered_price_cents": 15504393,
+        "eligible": 2517,
+        "freight_cents": 4657832,
+        "items": 2767,
+        "late": 192,
+        "median_days": 10.994351851852,
+        "orders": 2550,
+        "price_cents": 16024674
+      },
+      {
+        "category": "consoles_games",
+        "delivered_price_cents": 14800337,
+        "eligible": 1018,
+        "freight_cents": 1982802,
+        "items": 1137,
+        "late": 62,
+        "median_days": 11.269861111111,
+        "orders": 1062,
+        "price_cents": 15746522
+      },
+      {
+        "category": "fashion_bolsas_e_acessorios",
+        "delivered_price_cents": 14932939,
+        "eligible": 1820,
+        "freight_cents": 3145000,
+        "items": 2031,
+        "late": 102,
+        "median_days": 9.006979166667,
+        "orders": 1864,
+        "price_cents": 15282354
+      },
+      {
+        "category": "construcao_ferramentas_construcao",
+        "delivered_price_cents": 14210849,
+        "eligible": 736,
+        "freight_cents": 2065041,
+        "items": 929,
+        "late": 54,
+        "median_days": 8.696568287037,
+        "orders": 748,
+        "price_cents": 14467759
+      },
+      {
+        "category": "malas_acessorios",
+        "delivered_price_cents": 13870163,
+        "eligible": 1019,
+        "freight_cents": 3044523,
+        "items": 1092,
+        "late": 44,
+        "median_days": 9.037002314815,
+        "orders": 1034,
+        "price_cents": 14042998
+      },
+      {
+        "category": "eletrodomesticos_2",
+        "delivered_price_cents": 10795395,
+        "eligible": 227,
+        "freight_cents": 1060018,
+        "items": 238,
+        "late": 14,
+        "median_days": 11.017615740741,
+        "orders": 234,
+        "price_cents": 11331774
+      },
+      {
+        "category": "casa_construcao",
+        "delivered_price_cents": 8140757,
+        "eligible": 483,
+        "freight_cents": 1383224,
+        "items": 604,
+        "late": 29,
+        "median_days": 11.452800925926,
+        "orders": 490,
+        "price_cents": 8308812
+      },
+      {
+        "category": "eletrodomesticos",
+        "delivered_price_cents": 7883248,
+        "eligible": 747,
+        "freight_cents": 1481890,
+        "items": 771,
+        "late": 33,
+        "median_days": 9.411782407407,
+        "orders": 764,
+        "price_cents": 8017153
+      },
+      {
+        "category": "agro_industria_e_comercio",
+        "delivered_price_cents": 7056610,
+        "eligible": 177,
+        "freight_cents": 584360,
+        "items": 212,
+        "late": 7,
+        "median_days": 9.176747685185,
+        "orders": 182,
+        "price_cents": 7253047
+      },
+      {
+        "category": "moveis_sala",
+        "delivered_price_cents": 6735070,
+        "eligible": 414,
+        "freight_cents": 1796817,
+        "items": 503,
+        "late": 31,
+        "median_days": 12.013321759259,
+        "orders": 422,
+        "price_cents": 6891656
+      },
+      {
+        "category": "telefonia_fixa",
+        "delivered_price_cents": 5531521,
+        "eligible": 212,
+        "freight_cents": 463781,
+        "items": 264,
+        "late": 10,
+        "median_days": 10.84521412037,
+        "orders": 217,
+        "price_cents": 5958300
+      },
+      {
+        "category": "casa_conforto",
+        "delivered_price_cents": 5800845,
+        "eligible": 392,
+        "freight_cents": 850123,
+        "items": 434,
+        "late": 37,
+        "median_days": 11.447586805556,
+        "orders": 397,
+        "price_cents": 5857204
+      },
+      {
+        "category": "climatizacao",
+        "delivered_price_cents": 5332356,
+        "eligible": 246,
+        "freight_cents": 674923,
+        "items": 297,
+        "late": 10,
+        "median_days": 9.267337962963,
+        "orders": 253,
+        "price_cents": 5502496
+      },
+      {
+        "category": "audio",
+        "delivered_price_cents": 5057060,
+        "eligible": 348,
+        "freight_cents": 571044,
+        "items": 364,
+        "late": 41,
+        "median_days": 10.779756944444,
+        "orders": 350,
+        "price_cents": 5068850
+      },
+      {
+        "category": "portateis_casa_forno_e_cafe",
+        "delivered_price_cents": 4658956,
+        "eligible": 72,
+        "freight_cents": 274786,
+        "items": 76,
+        "late": 4,
+        "median_days": 7.749265046296,
+        "orders": 75,
+        "price_cents": 4744571
+      },
+      {
+        "category": "livros_interesse_geral",
+        "delivered_price_cents": 4530215,
+        "eligible": 495,
+        "freight_cents": 919552,
+        "items": 553,
+        "late": 32,
+        "median_days": 9.615601851852,
+        "orders": 512,
+        "price_cents": 4685688
+      },
+      {
+        "category": "moveis_cozinha_area_de_servico_jantar_e_jardim",
+        "delivered_price_cents": 4553198,
+        "eligible": 241,
+        "freight_cents": 1199943,
+        "items": 281,
+        "late": 11,
+        "median_days": 9.284108796296,
+        "orders": 248,
+        "price_cents": 4632837
+      },
+      {
+        "category": "construcao_ferramentas_iluminacao",
+        "delivered_price_cents": 3995700,
+        "eligible": 242,
+        "freight_cents": 758380,
+        "items": 304,
+        "late": 16,
+        "median_days": 8.225729166667,
+        "orders": 244,
+        "price_cents": 4108000
+      },
+      {
+        "category": "construcao_ferramentas_seguranca",
+        "delivered_price_cents": 3877322,
+        "eligible": 159,
+        "freight_cents": 391910,
+        "items": 194,
+        "late": 4,
+        "median_days": 9.332604166667,
+        "orders": 167,
+        "price_cents": 4054452
+      },
+      {
+        "category": "industria_comercio_e_negocios",
+        "delivered_price_cents": 3849881,
+        "eligible": 231,
+        "freight_cents": 788468,
+        "items": 268,
+        "late": 16,
+        "median_days": 8.420081018519,
+        "orders": 235,
+        "price_cents": 3966961
+      },
+      {
+        "category": "alimentos",
+        "delivered_price_cents": 2873115,
+        "eligible": 441,
+        "freight_cents": 727103,
+        "items": 510,
+        "late": 31,
+        "median_days": 7.148935185185,
+        "orders": 450,
+        "price_cents": 2939341
+      },
+      {
+        "category": "market_place",
+        "delivered_price_cents": 2779577,
+        "eligible": 274,
+        "freight_cents": 545606,
+        "items": 311,
+        "late": 11,
+        "median_days": 10.553402777778,
+        "orders": 280,
+        "price_cents": 2837847
+      },
+      {
+        "category": "construcao_ferramentas_jardim",
+        "delivered_price_cents": 2509628,
+        "eligible": 190,
+        "freight_cents": 531140,
+        "items": 238,
+        "late": 10,
+        "median_days": 10.247494212963,
+        "orders": 194,
+        "price_cents": 2571589
+      },
+      {
+        "category": "artes",
+        "delivered_price_cents": 2365730,
+        "eligible": 195,
+        "freight_cents": 404517,
+        "items": 209,
+        "late": 12,
+        "median_days": 9.50400462963,
+        "orders": 202,
+        "price_cents": 2420264
+      },
+      {
+        "category": "fashion_calcados",
+        "delivered_price_cents": 2300146,
+        "eligible": 235,
+        "freight_cents": 491887,
+        "items": 262,
+        "late": 11,
+        "median_days": 14.079918981481,
+        "orders": 240,
+        "price_cents": 2356277
+      },
+      {
+        "category": "bebidas",
+        "delivered_price_cents": 2152984,
+        "eligible": 287,
+        "freight_cents": 574125,
+        "items": 379,
+        "late": 15,
+        "median_days": 7.917349537037,
+        "orders": 297,
+        "price_cents": 2242870
+      },
+      {
+        "category": "sinalizacao_e_seguranca",
+        "delivered_price_cents": 2131505,
+        "eligible": 138,
+        "freight_cents": 650782,
+        "items": 199,
+        "late": 6,
+        "median_days": 8.459716435185,
+        "orders": 140,
+        "price_cents": 2150923
+      },
+      {
+        "category": "moveis_quarto",
+        "delivered_price_cents": 1905180,
+        "eligible": 90,
+        "freight_cents": 463223,
+        "items": 109,
+        "late": 6,
+        "median_days": 11.296516203704,
+        "orders": 95,
+        "price_cents": 2002878
+      },
+      {
+        "category": "livros_tecnicos",
+        "delivered_price_cents": 1870223,
+        "eligible": 256,
+        "freight_cents": 428306,
+        "items": 267,
+        "late": 21,
+        "median_days": 8.897592592593,
+        "orders": 260,
+        "price_cents": 1909606
+      },
+      {
+        "category": "construcao_ferramentas_ferramentas",
+        "delivered_price_cents": 1590395,
+        "eligible": 97,
+        "freight_cents": 203022,
+        "items": 103,
+        "late": 6,
+        "median_days": 10.90244212963,
+        "orders": 97,
+        "price_cents": 1590395
+      },
+      {
+        "category": "alimentos_bebidas",
+        "delivered_price_cents": 1494288,
+        "eligible": 221,
+        "freight_cents": 450799,
+        "items": 278,
+        "late": 8,
+        "median_days": 8.783032407407,
+        "orders": 227,
+        "price_cents": 1517948
+      },
+      {
+        "category": "fashion_roupa_masculina",
+        "delivered_price_cents": 1045233,
+        "eligible": 106,
+        "freight_cents": 215241,
+        "items": 132,
+        "late": 5,
+        "median_days": 11.13583912037,
+        "orders": 112,
+        "price_cents": 1079782
+      },
+      {
+        "category": "fashion_underwear_e_moda_praia",
+        "delivered_price_cents": 930595,
+        "eligible": 117,
+        "freight_cents": 191619,
+        "items": 131,
+        "late": 11,
+        "median_days": 11.169884259259,
+        "orders": 121,
+        "price_cents": 954155
+      },
+      {
+        "category": "artigos_de_natal",
+        "delivered_price_cents": 873784,
+        "eligible": 125,
+        "freight_cents": 322930,
+        "items": 153,
+        "late": 10,
+        "median_days": 13.077928240741,
+        "orders": 128,
+        "price_cents": 880082
+      },
+      {
+        "category": "tablets_impressao_imagem",
+        "delivered_price_cents": 752841,
+        "eligible": 79,
+        "freight_cents": 122620,
+        "items": 83,
+        "late": 4,
+        "median_days": 11.810752314815,
+        "orders": 79,
+        "price_cents": 752841
+      },
+      {
+        "category": "cine_foto",
+        "delivered_price_cents": 667447,
+        "eligible": 63,
+        "freight_cents": 125620,
+        "items": 72,
+        "late": 4,
+        "median_days": 8.56412037037,
+        "orders": 65,
+        "price_cents": 693346
+      },
+      {
+        "category": "musica",
+        "delivered_price_cents": 603435,
+        "eligible": 38,
+        "freight_cents": 69051,
+        "items": 38,
+        "late": 2,
+        "median_days": 9.551105324074,
+        "orders": 38,
+        "price_cents": 603435
+      },
+      {
+        "category": "dvds_blu_ray",
+        "delivered_price_cents": 454259,
+        "eligible": 56,
+        "freight_cents": 128874,
+        "items": 64,
+        "late": 4,
+        "median_days": 11.867118055556,
+        "orders": 59,
+        "price_cents": 599939
+      },
+      {
+        "category": "livros_importados",
+        "delivered_price_cents": 441886,
+        "eligible": 50,
+        "freight_cents": 76985,
+        "items": 60,
+        "late": 2,
+        "median_days": 6.34958912037,
+        "orders": 53,
+        "price_cents": 463985
+      },
+      {
+        "category": "artigos_de_festas",
+        "delivered_price_cents": 446519,
+        "eligible": 38,
+        "freight_cents": 82797,
+        "items": 43,
+        "late": 0,
+        "median_days": 7.589131944444,
+        "orders": 39,
+        "price_cents": 448518
+      },
+      {
+        "category": "moveis_colchao_e_estofado",
+        "delivered_price_cents": 432338,
+        "eligible": 37,
+        "freight_cents": 163046,
+        "items": 38,
+        "late": 5,
+        "median_days": 9.48880787037,
+        "orders": 38,
+        "price_cents": 436808
+      },
+      {
+        "category": "portateis_cozinha_e_preparadores_de_alimentos",
+        "delivered_price_cents": 393363,
+        "eligible": 13,
+        "freight_cents": 30976,
+        "items": 15,
+        "late": 1,
+        "median_days": 7.248194444444,
+        "orders": 14,
+        "price_cents": 396853
+      },
+      {
+        "category": "fashion_roupa_feminina",
+        "delivered_price_cents": 263494,
+        "eligible": 36,
+        "freight_cents": 62175,
+        "items": 48,
+        "late": 2,
+        "median_days": 11.171892361111,
+        "orders": 39,
+        "price_cents": 280364
+      },
+      {
+        "category": "fashion_esporte",
+        "delivered_price_cents": 209452,
+        "eligible": 26,
+        "freight_cents": 57813,
+        "items": 30,
+        "late": 1,
+        "median_days": 9.559548611111,
+        "orders": 27,
+        "price_cents": 211951
+      },
+      {
+        "category": "la_cuisine",
+        "delivered_price_cents": 205499,
+        "eligible": 13,
+        "freight_cents": 33355,
+        "items": 14,
+        "late": 0,
+        "median_days": 8.27900462963,
+        "orders": 13,
+        "price_cents": 205499
+      },
+      {
+        "category": "artes_e_artesanato",
+        "delivered_price_cents": 181401,
+        "eligible": 23,
+        "freight_cents": 37013,
+        "items": 24,
+        "late": 1,
+        "median_days": 5.336099537037,
+        "orders": 23,
+        "price_cents": 181401
+      },
+      {
+        "category": "fraldas_higiene",
+        "delivered_price_cents": 150079,
+        "eligible": 25,
+        "freight_cents": 57368,
+        "items": 39,
+        "late": 0,
+        "median_days": 9.34162037037,
+        "orders": 27,
+        "price_cents": 156759
+      },
+      {
+        "category": "pc_gamer",
+        "delivered_price_cents": 130695,
+        "eligible": 7,
+        "freight_cents": 13357,
+        "items": 9,
+        "late": 0,
+        "median_days": 10.657395833333,
+        "orders": 8,
+        "price_cents": 154595
+      },
+      {
+        "category": "flores",
+        "delivered_price_cents": 111004,
+        "eligible": 29,
+        "freight_cents": 48887,
+        "items": 33,
+        "late": 1,
+        "median_days": 9.758414351852,
+        "orders": 29,
+        "price_cents": 111004
+      },
+      {
+        "category": "casa_conforto_2",
+        "delivered_price_cents": 76027,
+        "eligible": 24,
+        "freight_cents": 41031,
+        "items": 30,
+        "late": 3,
+        "median_days": 11.468373842593,
+        "orders": 24,
+        "price_cents": 76027
+      },
+      {
+        "category": "cds_dvds_musicais",
+        "delivered_price_cents": 73000,
+        "eligible": 12,
+        "freight_cents": 22499,
+        "items": 14,
+        "late": 0,
+        "median_days": 10.406591435185,
+        "orders": 12,
+        "price_cents": 73000
+      },
+      {
+        "category": "fashion_roupa_infanto_juvenil",
+        "delivered_price_cents": 51995,
+        "eligible": 7,
+        "freight_cents": 9551,
+        "items": 8,
+        "late": 0,
+        "median_days": 6.440324074074,
+        "orders": 8,
+        "price_cents": 56985
+      },
+      {
+        "category": "seguros_e_servicos",
+        "delivered_price_cents": 28329,
+        "eligible": 2,
+        "freight_cents": 4122,
+        "items": 2,
+        "late": 0,
+        "median_days": 15.138153935185,
+        "orders": 2,
+        "price_cents": 28329
+      }
+    ],
+    "missing_category_products": 610,
+    "top100_product_value_share": 0.13484215157876747,
+    "top10_product_value_share": 0.03316528596169718,
+    "untranslated_products": 13
+  },
+  "provenance": {
+    "database_operations": 0,
+    "eligibility_version": "phase4-exploratory-v1",
+    "manifest_sha256": "aa21797da3ee2e723a182c5899832dd4c436daef0f43a8812bbacace9775bcde",
+    "money_representation": "integer BRL cents from strict decimal text",
+    "source_fingerprint": "1c315ab0ded33e558c6ed30190fa918699d91c616a3b6bf5900c0107570051db",
+    "table_rows": {
+      "category_translation": 71,
+      "customers": 99441,
+      "geolocation": 1000163,
+      "order_items": 112650,
+      "order_payments": 103886,
+      "order_reviews": 99224,
+      "orders": 99441,
+      "products": 32951,
+      "sellers": 3095
+    }
+  },
+  "reviews": {
+    "calendar_lateness": {
+      "all_pairs": [
+        {
+          "late": false,
+          "low": 8346,
+          "low_rate": 0.09279106999911056,
+          "mean_score": 4.289980432268967,
+          "reviews": 89944,
+          "wilson95": [
+            0.09091228890276747,
+            0.09470463294926244
+          ]
+        },
+        {
+          "late": true,
+          "low": 4000,
+          "low_rate": 0.6241223279762833,
+          "mean_score": 2.271025120923701,
+          "reviews": 6409,
+          "wilson95": [
+            0.6121933044685411,
+            0.6359026464786978
+          ]
+        }
+      ],
+      "single_review_orders": [
+        {
+          "late": false,
+          "low": 8227,
+          "low_rate": 0.09249432239785937,
+          "mean_score": 4.291165426213658,
+          "reviews": 88946,
+          "wilson95": [
+            0.09060788039080638,
+            0.09441596213554425
+          ]
+        },
+        {
+          "late": true,
+          "low": 3962,
+          "low_rate": 0.6236423736817251,
+          "mean_score": 2.2726271053045806,
+          "reviews": 6353,
+          "wilson95": [
+            0.6116578658824374,
+            0.6354774465485646
+          ]
+        }
+      ]
+    },
+    "mean_pair_score": 4.08642062404257,
+    "score_distribution": {
+      "1": 11424,
+      "2": 3151,
+      "3": 8179,
+      "4": 19142,
+      "5": 57328
+    },
+    "timestamp_lateness": {
+      "all_pairs": [
+        {
+          "late": false,
+          "low": 8186,
+          "low_rate": 0.09233754074876202,
+          "mean_score": 4.2937182046856845,
+          "reviews": 88653,
+          "wilson95": [
+            0.09044947199143191,
+            0.09426093714746053
+          ]
+        },
+        {
+          "late": true,
+          "low": 4160,
+          "low_rate": 0.5402597402597402,
+          "mean_score": 2.5664935064935066,
+          "reviews": 7700,
+          "wilson95": [
+            0.5291107532645435,
+            0.5513685768610935
+          ]
+        }
+      ],
+      "single_review_orders": [
+        {
+          "late": false,
+          "low": 8070,
+          "low_rate": 0.092042382837004,
+          "mean_score": 4.294832168071444,
+          "reviews": 87677,
+          "wilson95": [
+            0.09014669923860905,
+            0.09397381318145764
+          ]
+        },
+        {
+          "late": true,
+          "low": 4119,
+          "low_rate": 0.5404093413802151,
+          "mean_score": 2.5665179742849644,
+          "reviews": 7622,
+          "wilson95": [
+            0.5292035745429234,
+            0.5515743964293792
+          ]
+        }
+      ]
+    }
+  },
+  "sales": {
+    "freight_cents": 225190954,
+    "item_price_cents": {
+      "eligible": 112650,
+      "excluded": 0,
+      "mean": 12065.373901464714,
+      "quantiles": {
+        "0": 85.0,
+        "0.25": 3990.0,
+        "0.5": 7499.0,
+        "0.75": 13490.0,
+        "0.9": 22980.0,
+        "1": 673500.0
+      }
+    },
+    "monthly": [
+      {
+        "delivered_orders": 1,
+        "month": "2016-09",
+        "orders": 4,
+        "payment_cents": 25224,
+        "price_cents": 26736
+      },
+      {
+        "delivered_orders": 265,
+        "month": "2016-10",
+        "orders": 324,
+        "payment_cents": 5909048,
+        "price_cents": 4950766
+      },
+      {
+        "delivered_orders": 1,
+        "month": "2016-12",
+        "orders": 1,
+        "payment_cents": 1962,
+        "price_cents": 1090
+      },
+      {
+        "delivered_orders": 750,
+        "month": "2017-01",
+        "orders": 800,
+        "payment_cents": 13848804,
+        "price_cents": 12031287
+      },
+      {
+        "delivered_orders": 1653,
+        "month": "2017-02",
+        "orders": 1780,
+        "payment_cents": 29190801,
+        "price_cents": 24730302
+      },
+      {
+        "delivered_orders": 2546,
+        "month": "2017-03",
+        "orders": 2682,
+        "payment_cents": 44986360,
+        "price_cents": 37434430
+      },
+      {
+        "delivered_orders": 2303,
+        "month": "2017-04",
+        "orders": 2404,
+        "payment_cents": 41778803,
+        "price_cents": 35992723
+      },
+      {
+        "delivered_orders": 3546,
+        "month": "2017-05",
+        "orders": 3700,
+        "payment_cents": 59291882,
+        "price_cents": 50607114
+      },
+      {
+        "delivered_orders": 3135,
+        "month": "2017-06",
+        "orders": 3245,
+        "payment_cents": 51127638,
+        "price_cents": 43303860
+      },
+      {
+        "delivered_orders": 3872,
+        "month": "2017-07",
+        "orders": 4026,
+        "payment_cents": 59238292,
+        "price_cents": 49803148
+      },
+      {
+        "delivered_orders": 4193,
+        "month": "2017-08",
+        "orders": 4331,
+        "payment_cents": 67439632,
+        "price_cents": 57397168
+      },
+      {
+        "delivered_orders": 4150,
+        "month": "2017-09",
+        "orders": 4285,
+        "payment_cents": 72776245,
+        "price_cents": 62440169
+      },
+      {
+        "delivered_orders": 4478,
+        "month": "2017-10",
+        "orders": 4631,
+        "payment_cents": 77967788,
+        "price_cents": 66421943
+      },
+      {
+        "delivered_orders": 7289,
+        "month": "2017-11",
+        "orders": 7544,
+        "payment_cents": 119488280,
+        "price_cents": 101027137
+      },
+      {
+        "delivered_orders": 5513,
+        "month": "2017-12",
+        "orders": 5673,
+        "payment_cents": 87840148,
+        "price_cents": 74391417
+      },
+      {
+        "delivered_orders": 7069,
+        "month": "2018-01",
+        "orders": 7269,
+        "payment_cents": 111500418,
+        "price_cents": 95003036
+      },
+      {
+        "delivered_orders": 6555,
+        "month": "2018-02",
+        "orders": 6728,
+        "payment_cents": 99246334,
+        "price_cents": 84417871
+      },
+      {
+        "delivered_orders": 7003,
+        "month": "2018-03",
+        "orders": 7211,
+        "payment_cents": 115965212,
+        "price_cents": 98321344
+      },
+      {
+        "delivered_orders": 6798,
+        "month": "2018-04",
+        "orders": 6939,
+        "payment_cents": 116078548,
+        "price_cents": 99664775
+      },
+      {
+        "delivered_orders": 6749,
+        "month": "2018-05",
+        "orders": 6873,
+        "payment_cents": 115398215,
+        "price_cents": 99651768
+      },
+      {
+        "delivered_orders": 6099,
+        "month": "2018-06",
+        "orders": 6167,
+        "payment_cents": 102388050,
+        "price_cents": 86512431
+      },
+      {
+        "delivered_orders": 6159,
+        "month": "2018-07",
+        "orders": 6292,
+        "payment_cents": 106654075,
+        "price_cents": 89550722
+      },
+      {
+        "delivered_orders": 6351,
+        "month": "2018-08",
+        "orders": 6512,
+        "payment_cents": 102242532,
+        "price_cents": 85468633
+      },
+      {
+        "delivered_orders": 0,
+        "month": "2018-09",
+        "orders": 16,
+        "payment_cents": 443954,
+        "price_cents": 14500
+      },
+      {
+        "delivered_orders": 0,
+        "month": "2018-10",
+        "orders": 4,
+        "payment_cents": 58967,
+        "price_cents": null
+      }
+    ],
+    "order_freight_to_price": {
+      "eligible": 98666,
+      "excluded": 775,
+      "mean": 0.3083886871973845,
+      "quantiles": {
+        "0": 0.0,
+        "0.25": 0.13186440677966102,
+        "0.5": 0.22437395659432388,
+        "0.75": 0.38019087249375105,
+        "0.9": 0.622503057480636,
+        "1": 21.44705882352941
+      }
+    },
+    "order_price_cents": {
+      "eligible": 98666,
+      "excluded": 775,
+      "mean": 13775.407637889446,
+      "quantiles": {
+        "0": 85.0,
+        "0.25": 4590.0,
+        "0.5": 8690.0,
+        "0.75": 14990.0,
+        "0.9": 26990.0,
+        "1": 1344000.0
+      }
+    },
+    "payment_cents": 1600887212,
+    "price_cents": 1359164370,
+    "statuses": [
+      {
+        "missing_items": 0,
+        "missing_payments": 0,
+        "missing_reviews": 0,
+        "order_status": "approved",
+        "orders": 2,
+        "price_cents": 20960
+      },
+      {
+        "missing_items": 164,
+        "missing_payments": 0,
+        "missing_reviews": 20,
+        "order_status": "canceled",
+        "orders": 625,
+        "price_cents": 9523527
+      },
+      {
+        "missing_items": 5,
+        "missing_payments": 0,
+        "missing_reviews": 2,
+        "order_status": "created",
+        "orders": 5,
+        "price_cents": null
+      },
+      {
+        "missing_items": 0,
+        "missing_payments": 1,
+        "missing_reviews": 646,
+        "order_status": "delivered",
+        "orders": 96478,
+        "price_cents": 1322149811
+      },
+      {
+        "missing_items": 2,
+        "missing_payments": 0,
+        "missing_reviews": 5,
+        "order_status": "invoiced",
+        "orders": 314,
+        "price_cents": 6152637
+      },
+      {
+        "missing_items": 0,
+        "missing_payments": 0,
+        "missing_reviews": 6,
+        "order_status": "processing",
+        "orders": 301,
+        "price_cents": 6043922
+      },
+      {
+        "missing_items": 1,
+        "missing_payments": 0,
+        "missing_reviews": 75,
+        "order_status": "shipped",
+        "orders": 1107,
+        "price_cents": 15072744
+      },
+      {
+        "missing_items": 603,
+        "missing_payments": 0,
+        "missing_reviews": 14,
+        "order_status": "unavailable",
+        "orders": 609,
+        "price_cents": 200769
+      }
+    ]
+  },
+  "sellers": {
+    "eligible_order_support_threshold": 100,
+    "seller_order_associations": 100010,
+    "sellers": 3095,
+    "supported_late_rate": {
+      "eligible": 210,
+      "excluded": 0,
+      "mean": 0.06427750181397159,
+      "quantiles": {
+        "0": 0.0,
+        "0.25": 0.03816793893129771,
+        "0.5": 0.0570267131242741,
+        "0.75": 0.08577094985140289,
+        "0.9": 0.11415409780856847,
+        "1": 0.19023136246786632
+      }
+    },
+    "supported_sellers": 210,
+    "top100_value_share": 0.45061419466138597,
+    "top10_value_share": 0.13149562918574742
+  }
+}

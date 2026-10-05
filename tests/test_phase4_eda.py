@@ -1,10 +1,13 @@
 """Synthetic regression checks for consequential exploratory analysis boundaries."""
 
+import hashlib
 import json
+from types import SimpleNamespace
 
 import pandas as pd
 import pytest
 
+from src.analysis import eda
 from src.analysis.eda import analyze, cents, days, join, wilson
 from src.validation.contracts import TABLES
 
@@ -166,3 +169,29 @@ def test_interval_empty_and_extreme_counts():
     assert wilson(10, 10)[0] < 1
     with pytest.raises(ValueError):
         wilson(11, 10)
+
+
+def test_receipt_hash_matches_written_bytes_and_fresh_runs(monkeypatch, tmp_path):
+    plan = SimpleNamespace(fingerprint="synthetic", manifest_sha256="synthetic", tables={})
+    monkeypatch.setattr(eda, "prepare_source", lambda root: plan)
+    monkeypatch.setattr(eda, "iter_source_rows", lambda root, name: [])
+    monkeypatch.setattr(eda, "analyze", lambda tables: {"synthetic_count": 1})
+    first = eda.run(tmp_path, tmp_path / "evidence")
+    second = eda.run(tmp_path, tmp_path / "evidence")
+    assert first != second
+    assert (first / "results.json").read_bytes() == (second / "results.json").read_bytes()
+    receipt = json.loads((first / "receipt.json").read_text())
+    assert (
+        receipt["results_sha256"]
+        == hashlib.sha256((first / "results.json").read_bytes()).hexdigest()
+    )
+
+
+def test_source_change_blocks_publication(monkeypatch, tmp_path):
+    plans = iter([SimpleNamespace(), SimpleNamespace(changed=True)])
+    monkeypatch.setattr(eda, "prepare_source", lambda root: next(plans))
+    monkeypatch.setattr(eda, "iter_source_rows", lambda root, name: [])
+    monkeypatch.setattr(eda, "analyze", lambda tables: {})
+    with pytest.raises(ValueError, match="Source changed"):
+        eda.run(tmp_path, tmp_path / "evidence")
+    assert not (tmp_path / "evidence").exists()
