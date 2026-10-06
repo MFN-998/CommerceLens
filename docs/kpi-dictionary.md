@@ -78,7 +78,7 @@ JSON integer range; reject overflow safely. All outputs carry policy_version=v1.
 | seller_late_rate / category_late_rate | Official late/order-valid population over distinct associations | Same promise rule; expose support, no hidden >=100 cutoff or ranking significance claim |
 | seller_rating / category_rating | Equal-order-weight review metric over distinct associations | Same review policy; order-level association only |
 | state_orders / state_gmv | Eligible orders / item GMV grouped by purchase-associated customer state | Include unknown group; additive counts/value partitions reconcile platform |
-| customer_concentration | State distinct active customers / platform active customers | Customers can occur across states; shares overlap and are not additive |
+| customer_concentration | State distinct active customers / distinct customers in the same purchase/item-filter cohort before state selection | Customers can occur across states; shares overlap and are not additive |
 
 Calendar lateness treats the source midnight estimate as a promised calendar day,
 not a declared midnight SLA. It differs deliberately from timestamp_late_rate.
@@ -113,3 +113,18 @@ Synthetic acceptance covers empty/missing/partial/zero money, large exact sums,
 multiple children/reviews, cross-state repeat identities, same-day promise equality,
 reversals/missing events, literal categories and half-open/leap-day boundaries.
 No public HTTP endpoint or consumer auth is accepted by this policy document.
+
+## Response and weighting clarification — 2026-10-06
+
+Customer concentration appears only for state groups and state-filtered overview.
+Its reference cohort applies the same purchase period and category/seller/product
+filters before applying the state filter. The distinct-customer denominator is
+independent of pagination. Empty selected populations return NULL; cross-state
+identities can make state shares sum above100%. Other subgroup outputs do not
+reuse the state-concentration label.
+
+Official equal-order review metrics use integer score/low/high totals grouped by
+review count, then exact rational weighting. Per-order decimal means in the order
+view are diagnostics; repeating fractions are not prematurely rounded for official
+aggregate responses. Responses include exact rational weighted numerators, integer
+denominators, component coverage and missing/reversed delivery/promise coverage.

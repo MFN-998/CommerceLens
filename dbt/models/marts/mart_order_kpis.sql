@@ -13,6 +13,9 @@ with item_coverage as (
 ), review_metrics as (
     select order_id collate "C" as order_id,
         count(review_score) as scored_reviews,
+        sum(review_score) as review_score_sum,
+        count(*) filter (where review_score between 1 and 2) as low_review_count,
+        count(*) filter (where review_score between 4 and 5) as high_review_count,
         sum(review_score)::numeric / nullif(count(review_score), 0) as order_review_score,
         count(*) filter (where review_score between 1 and 2)::numeric
             / nullif(count(review_score), 0) as order_low_review_fraction,
@@ -34,6 +37,9 @@ with item_coverage as (
         r.order_review_score,
         r.order_low_review_fraction,
         r.order_high_review_fraction,
+        coalesce(r.review_score_sum, 0) as review_score_sum,
+        coalesce(r.low_review_count, 0) as low_review_count,
+        coalesce(r.high_review_count, 0) as high_review_count,
         coalesce(c.order_status collate "C" = 'delivered'
             and c.order_purchase_timestamp is not null
             and c.order_delivered_customer_date is not null

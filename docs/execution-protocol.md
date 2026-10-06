@@ -43,6 +43,28 @@ Usage limits never authorize weaker validation, unsafe changes, or concealed fai
 Reduce scope, not quality. Do not redeem reset credits or make purchases without the
 specific user authorization required by the platform.
 
+## Proactive usage reserve — owner clarification 2026-10-06
+
+Check both five-hour and weekly usage at every milestone and at least every ten
+minutes of active work, including delegated work. Do not rely on one window alone.
+Do not start a new unit when either window has 25% or less remaining. Finish the
+smallest safe unit, run its required checks, update WORK_STATE, scan, commit and
+publish before either window reaches 20% remaining, then stop for the owner.
+If a rapid shared-account change reaches the reserve sooner, switch immediately
+to preservation; do not expand scope or spend reset credits. These are conservative
+operating thresholds, not a guarantee that shared account usage cannot change.
+A usage/approval interruption leaves exact dirty paths and unrun gates in the handoff.
+
+## Master plan agent — owner requirement 2026-10-05
+
+Use a bounded read-only master_plan_agent during active project development to
+review phase scope, policy decisions and milestone/exit evidence against the
+canonical master plan. Record actionable findings in the phase handoff and resolve
+them before acceptance. The primary agent remains responsible for implementation,
+usage checks and checkpoints. The monitor does not authorize later phases, deletion,
+deployment, paid upgrades or changes to the roadmap. Recreate/resume this role when
+needed in subsequent phase chats; do not imply it runs while the chat is inactive.
+
 ## Authoritative handoff: WORK_STATE.md
 
 Maintain [WORK_STATE.md](../WORK_STATE.md) at the repository root. It is the concise,

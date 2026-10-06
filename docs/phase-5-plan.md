@@ -53,3 +53,13 @@ use approved isolated16.3.8 only if frontend checks become applicable.
 Account observation at resume: 28% five-hour/51% weekly remaining; shared, not reserved.
 Use installed locked tools, unique retained outputs and secret-safe fixed diagnostics.
 No Phase 4 tests, analysis, audit or live warehouse verification has been rerun here.
+
+## Draft preservation checkpoint — 2026-10-06
+
+Bounded query/serialization and fixed mart-reader/native verification helpers are
+drafted, not accepted. Every query currently depends on pending mart_item_kpis.
+The selected native runner is also pending; build commands fail closed. Four
+read-only synthetic PostgreSQL tests passed (including actual order-view SQL),
+not a live model build or Q01 acceptance. No grants or API endpoints were added.
+See WORK_STATE.md for exact verification and the usage-reserve stop/resume gate.
+Historical M2a observations above retain their original scope/date.

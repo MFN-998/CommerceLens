@@ -1,6 +1,6 @@
 # CommerceLens work state
 
-Authoritative handoff updated 2026-10-05. Actual D repository, Git and verified
+Authoritative handoff updated 2026-10-06. Actual D repository, Git and verified
 evidence take precedence over chat. Read the permanent instructions before edits.
 
 ## Project State
@@ -52,8 +52,8 @@ aggregate/acceptance copies retained; their supersession is in the final receipt
 ## Technical Decisions
 
 Preserve ADR 0003 grains/lineage/ZIP identity/exact money/naive clocks and all source
-warnings. Independent child aggregates avoid fanout; no selected review/address or
-official KPI policy. ADR 0004 views-first capacity bounds raw<=367M/database<=400M,
+warnings. Independent child aggregates avoid fanout; no selected review/address.
+Official Phase 5 policy is versioned in docs/kpi-dictionary.md. ADR 0004 views-first capacity bounds raw<=367M/database<=400M,
 one thread/retries zero, SQL/lock/idle 60/10/60 s and graph 1200 s retained.
 Reader remains NOLOGIN/NOINHERIT, mart SELECT only; no consumer credential exists.
 Reconstruction target/root/ref are explicit; original target rejected. Source
@@ -66,6 +66,12 @@ Delivered-duration, timestamp/calendar lateness, single-review sensitivity and
 seller >=100 support are explicitly exploratory, not official policies.
 
 ## Validation
+
+Preservation checkpoint2026-10-06: full offline1717 passed/1004 intentional native
+skips/knownAnyIO1 in49.34s. Focused order/query46 passed; opt-in synthetic PostgreSQL4
+passed in15.94s. Default mypy32 and native verifier mypy1 passed. Ruff lint and format182 passed after correcting documentation encoding. No live build,
+access grant, Q01 or actual consumer query acceptance. Historical evidence follows.
+
 
 Phase5 M2a current:12 focused SQL cases passed; full offline1683 passed,
 1000 deliberate native skips/knownAnyIO1 in42.75s. Ruff lint/format176 and
@@ -108,10 +114,32 @@ gate the containing checkpoint; no formal a11y/E2E/production certification.
 
 ## Current Repository Condition
 
-STABLE / SAFE TO RESUME; Phase5 M2a source/offline checkpoint pending on
-feat/phase-5-kpi-analytics from published policy35cb6dc. Native acceptance pending.
-No live schema/source/access change or interrupted database operation.
-Original warehouse/settings/source and historical evidence retained.
+PRESERVATION CHECKPOINT 2026-10-06 on feat/phase-5-kpi-analytics, following
+published34a7995. Stop for usage reserve; do not start another implementation unit.
+Latest observation61% five-hour/76% weekly USED; shared account, not reserved.
+Permanent rule: check each milestone and at least every10 minutes; no new unit
+at75% used in either window; checkpoint and stop before80%. Recheck on resume.
+
+Draft bounded query/serialization, fixed mart-reader grant helper and native
+verifier are preserved, NOT accepted for API use. Query depends on missing
+mart_item_kpis. Scoped build runner remains unchanged; the verifier build commands
+fail closed before connecting until that path is implemented/tested. Remaining
+verifier/grant paths are drafts and must not be executed before their prerequisites
+and independent access tests. No live view build, grant, Q01 or consumer endpoint.
+
+The master_plan_agent reviewed scope and policy. Its concentration issue was
+corrected/tested; reference cohort, rational review weighting and coverage are
+explicit in the dictionary. Agent is available during active work, not an autonomous
+background monitor. Item-mart and scoped-runner agents saved no confirmed changes;
+write requests were aborted. Parent verified the runner has no diff. No alternate
+write attempt should bypass those aborted requests. Resume unfinished work through
+the normal permission boundary after usage allows it.
+
+Four read-only synthetic PostgreSQL cases passed in15.94s, including actual order
+view SQL, exact large money, integer review totals, naive/calendar clocks and
+lineage. These are synthetic SQL evidence, not live warehouse acceptance. Focused
+order/query46 passed. Ruff lint/format182 and default mypy32 passed before the final
+build-command guard; final checks are recorded below. Historical receipts retained.
 
 ## Incomplete Work
 
@@ -126,7 +154,8 @@ before future API. Full context/owner/revisit triggers in current audit debt tab
 
 ## Exact Next Actions
 
-1. Read docs/phase-5-plan.md and kpi-dictionary.md. Implement/test a scoped
+1. Check account reserve first. Read docs/phase-5-plan.md and kpi-dictionary.md.
+   Implement/test mart_item_kpis and its fixed graph/schema contracts, then a scoped
    isolated-target build/test path for mart_order_kpis; do not rebuild prior graph
    or use original default credentials. Then native precision/grain/coverage
    acceptance and explicit mart-reader access/denial extension before Q01.
@@ -138,7 +167,7 @@ before future API. Full context/owner/revisit triggers in current audit debt tab
 
 ## Git State
 
-Current branch feat/phase-5-kpi-analytics, based on published successor75f5335. Policy35cb6dc published clean/upstream0/0. M2a files: mart_order_kpis SQL/YAML, tests/test_phase5_order_kpis.py, explicit dbt runner/reconstruction allowlist and graph fixture, phase plan/receipt/WORK_STATE. Containing commit resolves checkpoint identity; staged/history scans and clean publication required. Phase4 history below is retained.
+Current branch feat/phase-5-kpi-analytics; published M2a34a7995 precedes this draft preservation checkpoint. Containing commit supplies checkpoint identity. Policy35cb6dc published clean/upstream0/0. M2a files: mart_order_kpis SQL/YAML, tests/test_phase5_order_kpis.py, explicit dbt runner/reconstruction allowlist and graph fixture, phase plan/receipt/WORK_STATE. Containing commit resolves checkpoint identity; staged/history scans and clean publication required. Phase4 history below is retained.
 
 Phase 4 branch feat/phase-4-business-analysis starts at published bbe0455;
 M1 runner/tests/plan/handoff checkpoint17ffad9 verified clean with staged/history
