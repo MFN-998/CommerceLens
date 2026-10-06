@@ -116,7 +116,7 @@ gate the containing checkpoint; no formal a11y/E2E/production certification.
 
 PRESERVATION CHECKPOINT 2026-10-06 on feat/phase-5-kpi-analytics, following
 published34a7995. Stop for usage reserve; do not start another implementation unit.
-Latest observation61% five-hour/76% weekly USED; shared account, not reserved.
+Final observation67% five-hour/77% weekly USED; shared account, not reserved.
 Permanent rule: check each milestone and at least every10 minutes; no new unit
 at75% used in either window; checkpoint and stop before80%. Recheck on resume.
 
@@ -166,6 +166,15 @@ before future API. Full context/owner/revisit triggers in current audit debt tab
 4. Preserve all resource, delete, workload, security, source and release gates.
 
 ## Git State
+
+Draft checkpoint618f162 is committed locally; staged-content and redacted-history
+secret scans passed. Push to existing origin github.com/MFN-998/CommerceLens was
+blocked by automatic approval review: trusted destination/authorization for private
+repository egress was not verified. No remote update occurred. Ask owner approval
+for that exact destination before retrying; do not route around the rejection.
+Containing handoff commit records this publication blocker. Local changes are
+preserved; upstream will remain behind until approved publication succeeds.
+
 
 Current branch feat/phase-5-kpi-analytics; published M2a34a7995 precedes this draft preservation checkpoint. Containing commit supplies checkpoint identity. Policy35cb6dc published clean/upstream0/0. M2a files: mart_order_kpis SQL/YAML, tests/test_phase5_order_kpis.py, explicit dbt runner/reconstruction allowlist and graph fixture, phase plan/receipt/WORK_STATE. Containing commit resolves checkpoint identity; staged/history scans and clean publication required. Phase4 history below is retained.
 
