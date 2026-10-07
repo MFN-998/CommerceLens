@@ -63,3 +63,14 @@ read-only synthetic PostgreSQL tests passed (including actual order-view SQL),
 not a live model build or Q01 acceptance. No grants or API endpoints were added.
 See WORK_STATE.md for exact verification and the usage-reserve stop/resume gate.
 Historical M2a observations above retain their original scope/date.
+
+## Access safeguard checkpoint — 2026-10-07
+
+Published94db831 adds effective reader capability checks, transactional post-grant
+assertions and attempted/committed failure evidence.16 focused cases and full
+offline1733 passed/1004 native skips/one known warning; lint/format183 and mypy32
+plus verifier1 passed. No native operations this session. Item mart and scoped
+runner writes were not completed; graph remains21/292 and build commands fail
+closed. Q01 requires deadline enforcement throughout, representative item filters
+and pagination/concurrency, reproducible parameters/model hashes and independent
+native coverage/review/lateness/cross-dashboard acceptance. No Phase5 exit claim.

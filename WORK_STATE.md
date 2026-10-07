@@ -126,33 +126,31 @@ gate the containing checkpoint; no formal a11y/E2E/production certification.
 
 ## Current Repository Condition
 
-RESUMED 2026-10-07 from clean local ffe74a6. Account3% five-hour/0% weekly USED
-at start. Continue item-mart and selected isolated-runner source/offline units;
-master_plan_agent confirmed phase alignment. Usage-reserve policy is unchanged.
-The owner explicitly approved publishing verified checkpoints to the existing
-private github.com/MFN-998/CommerceLens destination in this resumed session.
-Publication is pending verification; the previous rejection below is historical.
+SAFE TO RESUME / PARTIALLY IMPLEMENTED,2026-10-07. Access-hardening checkpoint
+94db831 published to the owner-approved private MFN-998/CommerceLens origin;
+earlier618f162/ffe74a6 checkpoints are published too. No merge or deployment.
+Stop for usage reserve: last reading76% five-hour/12% weekly USED. Recheck before
+resuming; permanent75% no-new-unit/80% stop thresholds remain in force.
 
-Draft bounded query/serialization, fixed mart-reader grant helper and native
-verifier are preserved, NOT accepted for API use. Query depends on missing
-mart_item_kpis. Scoped build runner remains unchanged; the verifier build commands
-fail closed before connecting until that path is implemented/tested. Remaining
-verifier/grant paths are drafts and must not be executed before their prerequisites
-and independent access tests. No live view build, grant, Q01 or consumer endpoint.
+Current full offline1733 passed/1004 deliberate native skips/knownAnyIO1 in55.09s.
+Ruff lint/format183, default mypy32 and verifier mypy1 passed.16 focused access
+cases prove rollback boundaries and committed-state failure evidence. Native
+catalog SQL/ACL semantics are not yet verified. No native operations this session.
+The preceding four synthetic PostgreSQL passes are dated2026-10-06 evidence.
 
-The master_plan_agent reviewed scope and policy. Its concentration issue was
-corrected/tested; reference cohort, rational review weighting and coverage are
-explicit in the dictionary. Agent is available during active work, not an autonomous
-background monitor. Item-mart and scoped-runner agents saved no confirmed changes;
-write requests were aborted. Parent verified the runner has no diff. No alternate
-write attempt should bypass those aborted requests. Resume unfinished work through
-the normal permission boundary after usage allows it.
+master_plan_agent reviewed phase alignment and native-tool risks. Transactional
+post-grant catalog checks, full closed reader capability checks and explicit
+attempted/committed recovery evidence are implemented and offline verified.
+Q01 deadline, representative workloads/concurrency and evidence provenance still
+need strengthening before execution. Complete native KPI reconciliation remains.
 
-Four read-only synthetic PostgreSQL cases passed in15.94s, including actual order
-view SQL, exact large money, integer review totals, naive/calendar clocks and
-lineage. These are synthetic SQL evidence, not live warehouse acceptance. Focused
-order/query46 passed. Ruff lint/format182 and default mypy32 passed before the final
-build-command guard; final checks are recorded below. Historical receipts retained.
+Item-mart/scoped-runner write approval requests did not complete (tool results
+reported aborted, no confirmed execution). Neither agent saved files or ran tests.
+Parent verified no changes and removed its temporary allowlist/fixture references.
+The approved graph therefore remains21 models/292 tests. Do not bypass incomplete
+write approvals; obtain the normal concrete permission on a future resumed unit.
+Query still depends on missing mart_item_kpis; build commands still fail closed.
+No live model/grant/Q01/API acceptance. Agents are idle; monitor resumes with work.
 
 ## Incomplete Work
 
@@ -180,14 +178,10 @@ before future API. Full context/owner/revisit triggers in current audit debt tab
 
 ## Git State
 
-Draft checkpoint618f162 is committed locally; staged-content and redacted-history
-secret scans passed. Push to existing origin github.com/MFN-998/CommerceLens was
-blocked by automatic approval review: trusted destination/authorization for private
-repository egress was not verified. No remote update occurred. Ask owner approval
-for that exact destination before retrying; do not route around the rejection.
-Containing handoff commit records this publication blocker. Local changes are
-preserved; upstream will remain behind until approved publication succeeds.
-
+Published94db831 includes the access safeguards and earlier preservation commits.
+The owner explicitly approved this exact private origin on2026-10-07; the historical
+push rejection is resolved. Containing documentation commit records final checks
+and stop state; verify its publication and clean tree after committing.
 
 Current branch feat/phase-5-kpi-analytics; published M2a34a7995 precedes this draft preservation checkpoint. Containing commit supplies checkpoint identity. Policy35cb6dc published clean/upstream0/0. M2a files: mart_order_kpis SQL/YAML, tests/test_phase5_order_kpis.py, explicit dbt runner/reconstruction allowlist and graph fixture, phase plan/receipt/WORK_STATE. Containing commit resolves checkpoint identity; staged/history scans and clean publication required. Phase4 history below is retained.
 

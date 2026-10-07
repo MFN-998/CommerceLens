@@ -1,0 +1,39 @@
+{
+  "date": "2026-10-07",
+  "phase": 5,
+  "checkpoint": "94db831",
+  "status": "access_safeguards_offline_verified",
+  "native_accepted": false,
+  "database_operations": 0,
+  "q01": "pending",
+  "focused_access_cases": 16,
+  "full_offline": {
+    "passed": 1733,
+    "skipped_native": 1004,
+    "known_anyio_warning": 1,
+    "seconds": 55.09
+  },
+  "ruff_files": 183,
+  "mypy_source_files": 32,
+  "mypy_verifier_files": 1,
+  "git_blob_sha256": [
+    {
+      "path": "src/analytics/access.py",
+      "sha256": "17b0d6bf54dac1efc6db2eabd24143379cea3c55ed7e31535a4222ae0fa7cf42"
+    },
+    {
+      "path": "scripts/phase5_native.py",
+      "sha256": "5fb4d7842def7698483f0ed331ef1b0cdcee5d7b35c3b1a59978cfd91924602c"
+    },
+    {
+      "path": "tests/test_phase5_access.py",
+      "sha256": "4842181776c58a3bd11fe168ab0c0d6aaecd05fd957cdb5c28a79185debb8e3c"
+    }
+  ],
+  "limits": [
+    "Catalog SQL not native-verified",
+    "Item mart and scoped runner pending write approval and implementation",
+    "Q01 deadline/workload/provenance improvements pending",
+    "Native KPI reconciliation and query acceptance pending"
+  ]
+}
