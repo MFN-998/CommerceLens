@@ -1,6 +1,6 @@
 # CommerceLens work state
 
-Authoritative handoff updated 2026-10-06. Actual D repository, Git and verified
+Authoritative handoff updated 2026-10-07. Actual D repository, Git and verified
 evidence take precedence over chat. Read the permanent instructions before edits.
 
 ## Project State
@@ -63,9 +63,21 @@ provenance, not editable independent backups. Mismatched manifest bytes fail clo
 Local checksum-guarded source EDA avoids repeated warehouse scans; Q01 remains.
 Independent child aggregates preserve missing amounts/nulls and exact cents.
 Delivered-duration, timestamp/calendar lateness, single-review sensitivity and
-seller >=100 support are explicitly exploratory, not official policies.
+seller >=100 support in Phase 4 remain historical exploratory definitions.
+Phase 5 calendar lateness and equal-order review policy v1 govern official KPIs.
 
 ## Validation
+
+2026-10-07 access-hardening unit:16 offline grant/catalog/failure cases passed,
+including rejection before commit and failures after commit/close. Ruff lint and
+format183, default mypy32, targeted access/verifier mypy2 passed. Catalog SQL is
+not yet native-verified. Current item-mart/scoped-runner integration is in progress.
+Master-plan review requires Q01 deadline enforcement at every stage, additional
+seller/product/missing-category/pagination samples, expensive concurrency, and
+parameter/model provenance; these remain pending before measurement/acceptance.
+Native KPI acceptance must cover coverage, reviews, lateness and dashboard
+reconciliation beyond the three historical totals. No native operations this turn.
+
 
 Preservation checkpoint2026-10-06: full offline1717 passed/1004 intentional native
 skips/knownAnyIO1 in49.34s. Focused order/query46 passed; opt-in synthetic PostgreSQL4
@@ -114,11 +126,12 @@ gate the containing checkpoint; no formal a11y/E2E/production certification.
 
 ## Current Repository Condition
 
-PRESERVATION CHECKPOINT 2026-10-06 on feat/phase-5-kpi-analytics, following
-published34a7995. Stop for usage reserve; do not start another implementation unit.
-Final observation67% five-hour/77% weekly USED; shared account, not reserved.
-Permanent rule: check each milestone and at least every10 minutes; no new unit
-at75% used in either window; checkpoint and stop before80%. Recheck on resume.
+RESUMED 2026-10-07 from clean local ffe74a6. Account3% five-hour/0% weekly USED
+at start. Continue item-mart and selected isolated-runner source/offline units;
+master_plan_agent confirmed phase alignment. Usage-reserve policy is unchanged.
+The owner explicitly approved publishing verified checkpoints to the existing
+private github.com/MFN-998/CommerceLens destination in this resumed session.
+Publication is pending verification; the previous rejection below is historical.
 
 Draft bounded query/serialization, fixed mart-reader grant helper and native
 verifier are preserved, NOT accepted for API use. Query depends on missing

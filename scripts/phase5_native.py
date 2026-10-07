@@ -13,7 +13,7 @@ from typing import Any
 from uuid import uuid4
 
 from scripts.measure_warehouse_queries import summarize_plan
-from src.analytics.access import MARTS, grant_analytics_reader
+from src.analytics.access import MARTS, grant_analytics_reader, verify_reader_catalog
 from src.analytics.query import MAX_RESPONSE_BYTES, Query, build_query, fetch_metrics
 from src.warehouse.config import ROOT, connect
 from src.warehouse.reconstruction import _isolated_root, _settings
@@ -61,6 +61,7 @@ def metadata(settings):
 def verify_access(settings):
     with connect(settings) as connection, connection.transaction(force_rollback=True):
         connection.execute("SET TRANSACTION READ ONLY")
+        verify_reader_catalog(connection)
         for name in MARTS:
             row = connection.execute(
                 "select has_table_privilege('commercelens_reader',%s,'SELECT'), "
@@ -214,6 +215,8 @@ def main():
     folder = ROOT / ".artifacts/phase-5" / uuid4().hex
     folder.mkdir(parents=True, exist_ok=False)
     stage = "target"
+    grant_committed = False
+    grant_attempted = False
     try:
         root = _isolated_root(args.settings_root, args.expected_project_ref)
         transformer = _settings(root, "transformer", args.expected_project_ref)
@@ -225,14 +228,20 @@ def main():
         if args.operation.startswith("build-"):
             raise ValueError("Scoped native build path is pending implementation and tests")
         elif args.operation == "grant":
+            grant_attempted = True
             with connect(transformer) as connection:
-                grant_analytics_reader(connection)
+                with connection.transaction():
+                    grant_analytics_reader(connection)
+                    verify_reader_catalog(connection)
+                grant_committed = True
             result = verify_access(admin)
         elif args.operation == "verify-access":
             result = verify_access(admin)
         elif args.operation == "measure":
+            verify_access(admin)
             result = measure(admin, folder)
         else:
+            verify_access(admin)
             response, sample = read_query(admin, cases()[0][1])
             row = response["rows"][0]
             if (
@@ -264,7 +273,16 @@ def main():
     except Exception:
         write(
             folder / "failure.json",
-            {"status": "failed", "stage": stage, "private_detail_logged": False},
+            {
+                "status": "failed",
+                "stage": stage,
+                "private_detail_logged": False,
+                "grant_committed": grant_committed,
+                "grant_attempted": grant_attempted,
+                "recovery": "Inspect grants before retry"
+                if grant_attempted
+                else "No grant attempted",
+            },
         )
         print(
             json.dumps(
