@@ -1,0 +1,35 @@
+{
+  "date": "2026-10-09",
+  "status": "item_mart_source_offline_verified",
+  "phase": 5,
+  "native_accepted": false,
+  "database_operations": 0,
+  "models": 22,
+  "dbt_tests": 304,
+  "item_cases": 15,
+  "focused_cases": 192,
+  "full_checkpoint_suite": {
+    "passed": 1750,
+    "skipped_native": 1004,
+    "known_anyio_warning": 1,
+    "seconds": 45.23,
+    "exclusion": "separate unfinished test_warehouse_dbt_selected.py outside this checkpoint"
+  },
+  "ruff_files": 184,
+  "mypy_files": 32,
+  "advisories": {
+    "python": "no known vulnerabilities",
+    "npm_full_high": 7,
+    "npm_runtime_high": 2,
+    "disposition": "governance-audit.md E11"
+  },
+  "limits": [
+    "Portable synthetic SQL does not establish PostgreSQL numeric/collation/type acceptance",
+    "No native build/access or Q01 acceptance",
+    "Scoped runner is a separate pending milestone"
+  ],
+  "corrected_environment_failures": [
+    "Sandbox synthetic fixture PermissionErrors; elevated offline rerun passed",
+    "Sandbox broad run stalled and was interrupted; elevated offline rerun passed"
+  ]
+}

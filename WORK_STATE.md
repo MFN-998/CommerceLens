@@ -1,7 +1,15 @@
 # CommerceLens work state
 
-Authoritative handoff updated 2026-10-07. Actual D repository, Git and verified
+Authoritative handoff updated 2026-10-09. Actual D repository, Git and verified
 evidence take precedence over chat. Read the permanent instructions before edits.
+
+## Active resume — 2026-10-09
+
+Resumed published8d53480 after filesystem/Git checks. Previous turn stopped when
+shared usage jumped54% to91% five-hour, leaving item source/graph references
+uncommitted. Current resume began at1% five-hour/30% weekly USED; latest36%/35%.
+Permanent75% no-new-unit/80% stop thresholds retained. Master Plan Agent reviewed
+item policy alignment with no remaining source blocker. No native operation ran.
 
 ## Project State
 
@@ -19,6 +27,9 @@ merge, deployment, paid upgrade or public readiness certification.
 
 ## Completed Work
 
+Phase5 M2b item mart preserves all15 item fields plus11 policy/context fields;15
+independent portable SQL cases and12 added dbt checks pass.22/304 offline graph.
+
 Phase 5 M1: versioned docs/kpi-dictionary.md defines delivered commerce eligibility, explicit money completeness/coverage, exact serialization, cross-order identity, equal-order reviews and calendar promise lateness. No runtime or warehouse change; implementation pending.
 
 Private warehouse foundation and checksummed migration/replay, all nine source
@@ -34,6 +45,10 @@ Phase 4 structured report ranks supported findings, distinguishes associations
 from causes, documents every exploratory denominator and carries all audit gates.
 
 ## Files
+
+M2b: dbt/models/marts/mart_item_kpis.sql/.yml, tests/test_phase5_item_kpis.py,
+runner/reconstruction graph allowlists and fixture, phase plan/item receipt,
+governance audit E11 and this handoff. Scoped runner is a separate ongoing unit.
 
 Current gate: docs/governance-audit.md, governance-audit-verification.json and
 phase-4-handoff.md. Historical native evidence: phase-3-status.md and
@@ -67,6 +82,9 @@ seller >=100 support in Phase 4 remain historical exploratory definitions.
 Phase 5 calendar lateness and equal-order review policy v1 govern official KPIs.
 
 ## Validation
+
+Current2026-10-09 item checkpoint evidence is in docs/phase-5-item-verification.json.
+All dated observations below are historical unless explicitly refreshed above.
 
 2026-10-07 access-hardening unit:16 offline grant/catalog/failure cases passed,
 including rejection before commit and failures after commit/close. Ruff lint and
@@ -126,73 +144,58 @@ gate the containing checkpoint; no formal a11y/E2E/production certification.
 
 ## Current Repository Condition
 
-SAFE TO RESUME / PARTIALLY IMPLEMENTED,2026-10-07. Access-hardening checkpoint
-94db831 published to the owner-approved private MFN-998/CommerceLens origin;
-earlier618f162/ffe74a6 checkpoints are published too. No merge or deployment.
-Stop for usage reserve: last reading76% five-hour/12% weekly USED. Recheck before
-resuming; permanent75% no-new-unit/80% stop thresholds remain in force.
+SAFE TO RESUME / PARTIALLY IMPLEMENTED,2026-10-09. Item-mart source and closed
+graph contracts are offline verified; containing commit is the item checkpoint.
+Graph22 models/304 tests verified by network-blocked real dbt parse. Full item
+checkpoint suite1750 passed/1004 intentional native skips/knownAnyIO1 in45.23s;
+192 focused cases passed in20.56s; Ruff lint/format184 and mypy32 passed.
 
-Current full offline1733 passed/1004 deliberate native skips/knownAnyIO1 in55.09s.
-Ruff lint/format183, default mypy32 and verifier mypy1 passed.16 focused access
-cases prove rollback boundaries and committed-state failure evidence. Native
-catalog SQL/ACL semantics are not yet verified. No native operations this session.
-The preceding four synthetic PostgreSQL passes are dated2026-10-06 evidence.
+Initial sandbox targeted run failed40 cases from fixture PermissionErrors; the
+sandbox broad run stalled and was interrupted. Elevated offline reruns passed
+without weakening guards. No live model/grant/Q01/API acceptance occurred.
+The separate scoped-runner draft is outside this item checkpoint and remains
+unverified until its own checks. Build commands still fail closed at this boundary.
 
-master_plan_agent reviewed phase alignment and native-tool risks. Transactional
-post-grant catalog checks, full closed reader capability checks and explicit
-attempted/committed recovery evidence are implemented and offline verified.
-Q01 deadline, representative workloads/concurrency and evidence provenance still
-need strengthening before execution. Complete native KPI reconciliation remains.
-
-Item-mart/scoped-runner write approval requests did not complete (tool results
-reported aborted, no confirmed execution). Neither agent saved files or ran tests.
-Parent verified no changes and removed its temporary allowlist/fixture references.
-The approved graph therefore remains21 models/292 tests. Do not bypass incomplete
-write approvals; obtain the normal concrete permission on a future resumed unit.
-Query still depends on missing mart_item_kpis; build commands still fail closed.
-No live model/grant/Q01/API acceptance. Agents are idle; monitor resumes with work.
+Fresh Python advisory scan found no known vulnerabilities. Full npm scan7 high,
+runtime2 high (new sharp/source-map-js findings); E11 documents impact, mitigation
+and mandatory pre-Phase6/public-exposure remediation. Historical runtime-zero
+scans are not current. No dependency changes, merge or deployment.
 
 ## Incomplete Work
 
-Phase5 reusable marts, executive metric implementation, Q01 workload acceptance and bounded query/serialization layer remain pending; policy M1 defined. Official KPI/API acceptance is incomplete.
+Phase5 order/item mart sources are offline verified; scoped native builds, Q01 workload and official KPI/query acceptance remain incomplete; policy M1 defined.
 integrated UI Phase6 and later master-plan phases unstarted. Q01 actual workload/
 latency/spill/capacity gate before API analytics. E01 bounded lint EOL/braces tooling
 exception, E02AnyIO, E03scripts disabled, E04future volume/report publication,
 E05exploratory eligibility, E06backup/exposure, E07actual auth/API/UX/E2E,
-E08remote CI/branch rules, E09owner license, E10gradual report typing retained.
+E08remote CI/branch rules, E09owner license, E10gradual report typing and E11new frontend dependency advisories retained.
 Strict Phase2 dates before new source version; precise coordinate representation
 before future API. Full context/owner/revisit triggers in current audit debt table.
 
 ## Exact Next Actions
 
-1. Check account reserve first. Read docs/phase-5-plan.md and kpi-dictionary.md.
-   Implement/test mart_item_kpis and its fixed graph/schema contracts, then a scoped
-   isolated-target build/test path for mart_order_kpis; do not rebuild prior graph
-   or use original default credentials. Then native precision/grain/coverage
-   acceptance and explicit mart-reader access/denial extension before Q01.
-2. Measure actual workload under Q01 before accepting API analytics; preserve
-   Free/views-first and explicit target/capacity/access safeguards.
-3. Implement bounded query/serialization contracts, native/cross-dashboard
-   acceptance and verified Phase5 exit before creating Phase6 separately.
-4. Preserve all resource, delete, workload, security, source and release gates.
+1. Check account reserve. Finish and verify the scoped isolated-target selected
+   build/test runner for mart_order_kpis/mart_item_kpis; reuse strong target/settings
+   and closed-graph guards, exact selected results and retained failure evidence.
+   Do not rebuild the prior graph or use original default credentials.
+2. Native grain/precision/coverage acceptance on the protected isolated recovery
+   target, then explicit mart-reader catalog/denial acceptance. Source-only item
+   evidence is not PostgreSQL type/precision or live model acceptance.
+3. Strengthen Q01 whole-job deadlines, representative item filters/pagination,
+   expensive concurrency and parameter/model provenance, then measure workload.
+4. Complete native/cross-dashboard query reconciliation and Phase5 exit before
+   starting Phase6 separately. Resolve E11 before frontend/public-exposure gate.
+5. Preserve resource/deletion/capacity/security/source/release gates.
 
 ## Git State
 
-Published94db831 includes the access safeguards and earlier preservation commits.
-The owner explicitly approved this exact private origin on2026-10-07; the historical
-push rejection is resolved. Containing documentation commit records final checks
-and stop state; verify its publication and clean tree after committing.
-
-Current branch feat/phase-5-kpi-analytics; published M2a34a7995 precedes this draft preservation checkpoint. Containing commit supplies checkpoint identity. Policy35cb6dc published clean/upstream0/0. M2a files: mart_order_kpis SQL/YAML, tests/test_phase5_order_kpis.py, explicit dbt runner/reconstruction allowlist and graph fixture, phase plan/receipt/WORK_STATE. Containing commit resolves checkpoint identity; staged/history scans and clean publication required. Phase4 history below is retained.
-
-Phase 4 branch feat/phase-4-business-analysis starts at published bbe0455;
-M1 runner/tests/plan/handoff checkpoint17ffad9 verified clean with staged/history
-scans. Final exitdeaa4dd published clean/upstream0/0; containing successor metadata
-checkpoint is separate. Audit upstream0/0 verified.
-Recovered baseline6ffe5876fe8ac14193bd2ec19a9e92d52fff112f clean/upstream0/0.
-Published units445b43d,6d96e7a,9229df0,22fcc31,505b8eb. Audit branch tracks origin;
-no merge/force/history rewrite. Containing documentation commit supplies final
-gate identity without a self-referential hash. Check publication/current status.
+Current branch feat/phase-5-kpi-analytics, resumed published8d53480. Item checkpoint
+includes only item SQL/YAML/tests, graph contracts and affected documentation.
+The separately started runner draft is excluded until verified. Resolve this
+handoff's containing commit through git log; scan staged content/history and
+verify publication to owner-approved private MFN-998/CommerceLens origin.
+Earlier implementation checkpoints94db831/618f162/34a7995 and policy35cb6dc remain
+published. Phase4 exitdeaa4dd and successor75f5335 remain complete; no redo/merge.
 
 ## Continuation Commands
 

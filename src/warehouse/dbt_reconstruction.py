@@ -104,7 +104,7 @@ def _graph_contract(manifest: dict[str, Any]) -> GraphContract:
         if resource == "model":
             name = unique_id.removeprefix("model.commercelens.")
             schema = "staging" if name.startswith("stg_") else "core"
-            if name in {"mart_order_components", "mart_order_kpis"}:
+            if name in {"mart_order_components", "mart_order_kpis", "mart_item_kpis"}:
                 schema = "marts"
             if unique_id not in approved or config["materialized"] != "view":
                 raise ValueError

@@ -1,0 +1,119 @@
+version: 2
+
+models:
+  - name: mart_item_kpis
+    description: >-
+      Policy v1 private item-grain view. All 15 fact_order_items fields remain
+      unchanged, including exact money, missing amounts, naive purchase/shipping
+      clocks, warnings and lineage. Two literal one-to-one LEFT JOINs add order
+      status and product category context. No filtering, aggregation, deduplication,
+      category fallback, payment attribution or repeated order outcome measures.
+      Missing parents remain visible and fail acceptance instead of dropping items.
+    config:
+      materialized: view
+      schema: marts
+    data_tests:
+      - unique:
+          arguments:
+            column_name: '(order_id collate "C", order_item_id)'
+    columns:
+      - name: _load_id
+        data_type: uuid
+        description: Unchanged item source snapshot identity.
+      - name: _source_row
+        data_type: bigint
+        description: Unchanged item source ordinal.
+      - name: order_id
+        data_type: text
+        description: Literal order reference, part of the retained item key.
+        data_tests: [not_null]
+      - name: order_item_id
+        data_type: bigint
+        description: Source sequence within an order; not globally unique.
+        data_tests: [not_null]
+      - name: product_id
+        data_type: text
+        description: Unchanged literal source product reference.
+      - name: seller_id
+        data_type: text
+        description: Unchanged literal source seller reference.
+      - name: shipping_limit_date
+        data_type: timestamp without time zone
+        description: Unchanged source shipping deadline on the unspecified naive clock.
+      - name: price
+        data_type: numeric(18,2)
+        description: Unchanged exact source BRL price; NULL and measured zero stay distinct.
+      - name: freight_value
+        data_type: numeric(18,2)
+        description: Unchanged exact source BRL freight, independently nullable from price.
+      - name: order_purchase_timestamp
+        data_type: timestamp without time zone
+        description: Unchanged purchase cohort clock from fact_order_items; no timezone conversion.
+      - name: order_load_id
+        data_type: uuid
+        description: Unchanged order snapshot context carried by fact_order_items.
+      - name: order_source_row
+        data_type: bigint
+        description: Unchanged order source ordinal carried by fact_order_items.
+      - name: is_shipping_before_purchase
+        data_type: boolean
+        description: Unchanged source chronology warning; does not exclude commerce items.
+      - name: is_shipping_beyond_365_days
+        data_type: boolean
+        description: Unchanged elapsed-clock warning; does not exclude commerce items.
+      - name: shipping_calendar_date
+        data_type: date
+        description: Unchanged calendar key derived from the source shipping deadline.
+      - name: policy_version
+        data_type: text
+        description: Official metric policy defined in docs/kpi-dictionary.md.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['v1']
+      - name: order_status
+        data_type: text
+        description: Literal parent order status; non-delivered items are retained.
+      - name: is_commerce_eligible
+        data_type: boolean
+        description: True only for literal delivered status, independent of lifecycle warnings.
+        data_tests: [not_null]
+      - name: is_missing_order
+        data_type: boolean
+        description: True when the literal parent order is absent; blocks acceptance.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [false]
+                quote: false
+      - name: is_missing_product
+        data_type: boolean
+        description: True when the literal product is absent; distinct from a missing category.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [false]
+                quote: false
+      - name: product_load_id
+        data_type: uuid
+        description: Product snapshot identity, distinct from item and order lineage.
+      - name: product_source_row
+        data_type: bigint
+        description: Product source ordinal, distinct from item and order ordinals.
+      - name: product_category_name
+        data_type: text
+        description: Nullable literal source category; no trimming, translation fallback or sentinel.
+      - name: product_category_name_english
+        data_type: text
+        description: Supplied English display label; never replaces the source grouping identity.
+      - name: is_missing_category
+        data_type: boolean
+        description: Preserved product category missingness; NULL for absent product context.
+        data_tests: [not_null]
+      - name: is_untranslated_category
+        data_type: boolean
+        description: Preserved nonnull category without translation flag; missing categories are false.
+        data_tests: [not_null]

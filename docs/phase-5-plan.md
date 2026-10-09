@@ -74,3 +74,24 @@ runner writes were not completed; graph remains21/292 and build commands fail
 closed. Q01 requires deadline enforcement throughout, representative item filters
 and pagination/concurrency, reproducible parameters/model hashes and independent
 native coverage/review/lateness/cross-dashboard acceptance. No Phase5 exit claim.
+
+## Item mart source checkpoint — 2026-10-09
+
+M2b adds mart_item_kpis at retained (order_id, order_item_id) grain, preserving all
+15 fact item fields and adding11 order/product policy/context fields. Literal
+LEFT JOINs to unique order/product parents preserve item rows, exact price/freight,
+missing amounts and categories without payment/review fanout. Missing parents stay
+visible and fail acceptance. Native precision/types/coverage remain pending.
+
+15 independent portable SQL cases pass. The closed offline graph now has22 models
+and304 tests (12 new item tests);192 focused item/runner/graph tests pass including
+the network-blocked real parse. Initial sandbox fixture PermissionErrors were
+resolved by rerunning with filesystem access; no guard was weakened. The broader
+regression gate and publication are recorded in WORK_STATE and the item receipt.
+
+Next is a scoped isolated-target build/test runner for the two Phase5 marts, then
+native grain/precision/coverage and reader denial acceptance. No full-graph rebuild,
+original target credentials or completed-phase repeat is needed. Q01 improvements
+and complete native/cross-dashboard query acceptance still precede Phase5 exit.
+New frontend dependency findings are tracked as E11 in the governance audit;
+historical runtime-zero advisory evidence must not be presented as current.
