@@ -258,7 +258,13 @@ def _verify_graph_results(target: Path, command: GraphCommand, expected: GraphCo
 
 
 def _run_phase(
-    command: str, artifacts: Path, settings: WarehouseSettings, certificate: Path, timeout: int
+    command: str,
+    artifacts: Path,
+    settings: WarehouseSettings,
+    certificate: Path,
+    timeout: int,
+    *,
+    select: str | None = None,
 ) -> Path:
     target = artifacts / "target"
     args = [
@@ -287,6 +293,8 @@ def _run_phase(
         "--target-path",
         str(target),
     ]
+    if select is not None:
+        args.extend(["--select", select, "--indirect-selection", "eager"])
     try:
         result = subprocess.run(
             args,

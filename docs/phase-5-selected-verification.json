@@ -1,0 +1,47 @@
+{
+  "date": "2026-10-09",
+  "phase": 5,
+  "status": "selected_runner_offline_verified",
+  "native_accepted": false,
+  "database_operations": 0,
+  "item_checkpoint": "fc69fbb",
+  "focused_runner_graph_access": 149,
+  "full_offline": {
+    "passed": 1796,
+    "skipped_native": 1004,
+    "known_anyio_warning": 1,
+    "seconds": 44.47
+  },
+  "ruff_files": 187,
+  "mypy_source_files": 33,
+  "mypy_verifier_files": 1,
+  "usage_used_percent": {
+    "five_hour": 81,
+    "weekly": 42
+  },
+  "source_git_blob_sha256": [
+    {
+      "path": "scripts/phase5_native.py",
+      "sha256": "b5668b4bff531f24160eea5f3fdb0b1dee8a960324bd5e3c207bfe6d9f7a0f15"
+    },
+    {
+      "path": "src/warehouse/dbt_selected.py",
+      "sha256": "37b5dceb3d30f9ca6feec7988fb201df5b31eb7e774f027e88c0f112d7f80caf"
+    },
+    {
+      "path": "src/warehouse/dbt_reconstruction.py",
+      "sha256": "7879b91352c9c02ba8073642a302f043280b887ef460ee7a23b38bccb92090b8"
+    },
+    {
+      "path": "tests/test_warehouse_dbt_selected.py",
+      "sha256": "08b435404f5c9bae4ee913cb9545a8a15bfc5ab593dc26db711251dba1fd6c57"
+    }
+  ],
+  "limits": [
+    "No native build/access/Q01 or KPI acceptance",
+    "Q01 deadline/workload/provenance and comprehensive native KPI reconciliation remain pending",
+    "New npm advisory findings remain tracked as E11",
+    "Master Plan Agent reviewed helper; root reviewed final wrapper integration"
+  ],
+  "corrected_failure": "Native wrapper command Literal annotation corrected; targeted mypy passed"
+}

@@ -7,9 +7,10 @@ evidence take precedence over chat. Read the permanent instructions before edits
 
 Resumed published8d53480 after filesystem/Git checks. Previous turn stopped when
 shared usage jumped54% to91% five-hour, leaving item source/graph references
-uncommitted. Current resume began at1% five-hour/30% weekly USED; latest36%/35%.
+uncommitted. Current resume began at1% five-hour/30% weekly USED; latest81%/42%.
 Permanent75% no-new-unit/80% stop thresholds retained. Master Plan Agent reviewed
-item policy alignment with no remaining source blocker. No native operation ran.
+item policy and selected helper alignment with no source blocker. Usage crossed
+the reserve between readings; preservation only, no further unit/native operation.
 
 ## Project State
 
@@ -48,7 +49,9 @@ from causes, documents every exploratory denominator and carries all audit gates
 
 M2b: dbt/models/marts/mart_item_kpis.sql/.yml, tests/test_phase5_item_kpis.py,
 runner/reconstruction graph allowlists and fixture, phase plan/item receipt,
-governance audit E11 and this handoff. Scoped runner is a separate ongoing unit.
+governance audit E11 and this handoff. Selected runner: src/warehouse/dbt_selected.py,
+shared _run_phase selection, scripts/phase5_native.py dispatch, dedicated tests
+and docs/phase-5-native.md/phase-5-selected-verification.json.
 
 Current gate: docs/governance-audit.md, governance-audit-verification.json and
 phase-4-handoff.md. Historical native evidence: phase-3-status.md and
@@ -145,7 +148,8 @@ gate the containing checkpoint; no formal a11y/E2E/production certification.
 ## Current Repository Condition
 
 SAFE TO RESUME / PARTIALLY IMPLEMENTED,2026-10-09. Item-mart source and closed
-graph contracts are offline verified; containing commit is the item checkpoint.
+graph contracts published atfc69fbb. The containing checkpoint adds the offline
+verified isolated selected runner and build-order/build-item/test-order/test-item.
 Graph22 models/304 tests verified by network-blocked real dbt parse. Full item
 checkpoint suite1750 passed/1004 intentional native skips/knownAnyIO1 in45.23s;
 192 focused cases passed in20.56s; Ruff lint/format184 and mypy32 passed.
@@ -153,8 +157,12 @@ checkpoint suite1750 passed/1004 intentional native skips/knownAnyIO1 in45.23s;
 Initial sandbox targeted run failed40 cases from fixture PermissionErrors; the
 sandbox broad run stalled and was interrupted. Elevated offline reruns passed
 without weakening guards. No live model/grant/Q01/API acceptance occurred.
-The separate scoped-runner draft is outside this item checkpoint and remains
-unverified until its own checks. Build commands still fail closed at this boundary.
+Selected runner/graph/access focused149 cases pass; default mypy33 and verifier1
+pass after correcting a literal command annotation. Ruff lint/format187 pass.
+Final full suite1796 passed/1004 deliberate skips/knownAnyIO1 in44.47s, recorded
+in the selected verification receipt. Native
+execution and actual target connectivity remain unverified. Master Plan Agent
+reviewed helper safeguards; root reviewed final integration. No later phase opened.
 
 Fresh Python advisory scan found no known vulnerabilities. Full npm scan7 high,
 runtime2 high (new sharp/source-map-js findings); E11 documents impact, mitigation
@@ -163,7 +171,7 @@ scans are not current. No dependency changes, merge or deployment.
 
 ## Incomplete Work
 
-Phase5 order/item mart sources are offline verified; scoped native builds, Q01 workload and official KPI/query acceptance remain incomplete; policy M1 defined.
+Phase5 order/item mart sources are offline verified; native builds, Q01 workload and official KPI/query acceptance remain incomplete; policy M1 defined.
 integrated UI Phase6 and later master-plan phases unstarted. Q01 actual workload/
 latency/spill/capacity gate before API analytics. E01 bounded lint EOL/braces tooling
 exception, E02AnyIO, E03scripts disabled, E04future volume/report publication,
@@ -174,10 +182,10 @@ before future API. Full context/owner/revisit triggers in current audit debt tab
 
 ## Exact Next Actions
 
-1. Check account reserve. Finish and verify the scoped isolated-target selected
-   build/test runner for mart_order_kpis/mart_item_kpis; reuse strong target/settings
-   and closed-graph guards, exact selected results and retained failure evidence.
-   Do not rebuild the prior graph or use original default credentials.
+1. Check account reserve, Git and docs/phase-5-native.md. Run the scoped build-order
+   step against D:\My Projects\CommerceLens-Reconstruction with expected project
+   histbcmlctxmtxusfbzt, inspect retained evidence, then build-item. No prior graph
+   rebuild or original default credentials. Native model checks have not run yet.
 2. Native grain/precision/coverage acceptance on the protected isolated recovery
    target, then explicit mart-reader catalog/denial acceptance. Source-only item
    evidence is not PostgreSQL type/precision or live model acceptance.
@@ -189,11 +197,11 @@ before future API. Full context/owner/revisit triggers in current audit debt tab
 
 ## Git State
 
-Current branch feat/phase-5-kpi-analytics, resumed published8d53480. Item checkpoint
-includes only item SQL/YAML/tests, graph contracts and affected documentation.
-The separately started runner draft is excluded until verified. Resolve this
-handoff's containing commit through git log; scan staged content/history and
-verify publication to owner-approved private MFN-998/CommerceLens origin.
+Current branch feat/phase-5-kpi-analytics. Item checkpointfc69fbb is published and
+upstream0/0 was verified before the selected-runner unit. Containing checkpoint
+adds the runner, integration, tests and guide; resolve it through git log. Staged
+content/history scans and publication verification gate the owner-approved private
+MFN-998/CommerceLens checkpoint. No merge/deployment.
 Earlier implementation checkpoints94db831/618f162/34a7995 and policy35cb6dc remain
 published. Phase4 exitdeaa4dd and successor75f5335 remain complete; no redo/merge.
 

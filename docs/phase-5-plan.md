@@ -95,3 +95,17 @@ original target credentials or completed-phase repeat is needed. Q01 improvement
 and complete native/cross-dashboard query acceptance still precede Phase5 exit.
 New frontend dependency findings are tracked as E11 in the governance audit;
 historical runtime-zero advisory evidence must not be presented as current.
+
+## Selected build/test tooling checkpoint — 2026-10-09
+
+The isolated two-mart runner and native CLI dispatch are implemented.149 focused
+runner/graph/access regressions pass. Target guards reject original/default or
+ambient routing; full offline preflight and live graph signatures, invocation IDs,
+exact selected results and zero failures are required. Unique artifacts and
+unknown/verified committed-build evidence survive failures. The full regression
+result and source hashes are in phase-5-selected-verification.json.
+
+See [native guide](phase-5-native.md) for commands and recovery. No native build,
+grant or workload measurement ran. Next is scoped build-order, inspect evidence,
+then build-item and independent native acceptance; Q01 and Phase5 exit remain open.
+Usage81% five-hour/42% weekly triggered preservation, with no new unit started.

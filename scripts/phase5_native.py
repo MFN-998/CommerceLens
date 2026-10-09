@@ -9,13 +9,14 @@ from concurrent.futures import ThreadPoolExecutor
 from datetime import UTC, date, datetime
 from pathlib import Path
 from time import perf_counter
-from typing import Any
+from typing import Any, Literal
 from uuid import uuid4
 
 from scripts.measure_warehouse_queries import summarize_plan
 from src.analytics.access import MARTS, grant_analytics_reader, verify_reader_catalog
 from src.analytics.query import MAX_RESPONSE_BYTES, Query, build_query, fetch_metrics
 from src.warehouse.config import ROOT, connect
+from src.warehouse.dbt_selected import SelectedDbtError, run_dbt_selected
 from src.warehouse.reconstruction import _isolated_root, _settings
 
 
@@ -205,18 +206,28 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "operation",
-        choices=("build-order", "build-item", "grant", "verify-access", "measure", "verify-totals"),
+        choices=(
+            "build-order",
+            "build-item",
+            "test-order",
+            "test-item",
+            "grant",
+            "verify-access",
+            "measure",
+            "verify-totals",
+        ),
     )
     parser.add_argument("--settings-root", type=Path, required=True)
     parser.add_argument("--expected-project-ref", required=True)
     args = parser.parse_args()
-    if args.operation.startswith("build-"):
-        parser.error("Scoped native build path is pending implementation and tests")
     folder = ROOT / ".artifacts/phase-5" / uuid4().hex
     folder.mkdir(parents=True, exist_ok=False)
     stage = "target"
     grant_committed = False
     grant_attempted = False
+    build_attempted = False
+    build_committed: bool | None = False
+    selected_evidence: dict[str, Any] = {}
     try:
         root = _isolated_root(args.settings_root, args.expected_project_ref)
         transformer = _settings(root, "transformer", args.expected_project_ref)
@@ -225,8 +236,25 @@ def main():
         write(folder / "before.json", before)
         stage = args.operation
         result: dict[str, Any]
-        if args.operation.startswith("build-"):
-            raise ValueError("Scoped native build path is pending implementation and tests")
+        if args.operation.startswith(("build-", "test-")):
+            command: Literal["build", "test"] = (
+                "build" if args.operation.startswith("build-") else "test"
+            )
+            select = "mart_order_kpis" if args.operation.endswith("order") else "mart_item_kpis"
+            try:
+                result = run_dbt_selected(
+                    command,
+                    select=select,
+                    settings_root=root,
+                    expected_project_ref=args.expected_project_ref,
+                )
+            except SelectedDbtError as error:
+                selected_evidence = error.evidence
+                build_attempted = command == "build" and selected_evidence["live_attempted"]
+                build_committed = selected_evidence["build_committed"]
+                raise
+            build_attempted = command == "build" and result["live_attempted"]
+            build_committed = result["build_committed"]
         elif args.operation == "grant":
             grant_attempted = True
             with connect(transformer) as connection:
@@ -252,7 +280,13 @@ def main():
                 raise ValueError("Independent historical totals mismatch")
             result = {"historical_orders_gmv_customers": "passed", "sample": sample}
         after = metadata(admin)
-        if args.operation in ("measure", "verify-totals", "verify-access"):
+        if args.operation in (
+            "measure",
+            "verify-totals",
+            "verify-access",
+            "test-order",
+            "test-item",
+        ):
             if (
                 before["relations"] != after["relations"]
                 or before["raw_bytes"] != after["raw_bytes"]
@@ -270,7 +304,7 @@ def main():
         write(folder / "receipt.json", receipt)
         print(json.dumps(receipt, default=str))
         return 0 if receipt["status"] == "passed" else 1
-    except Exception:
+    except (Exception, KeyboardInterrupt):
         write(
             folder / "failure.json",
             {
@@ -279,8 +313,13 @@ def main():
                 "private_detail_logged": False,
                 "grant_committed": grant_committed,
                 "grant_attempted": grant_attempted,
+                "build_attempted": build_attempted,
+                "build_committed": build_committed,
+                "selected_evidence": selected_evidence,
                 "recovery": "Inspect grants before retry"
                 if grant_attempted
+                else "Inspect selected view and retained evidence before retry"
+                if build_attempted
                 else "No grant attempted",
             },
         )
