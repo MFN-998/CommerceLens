@@ -4,6 +4,14 @@ Started 2026-10-05 in separate chat 01a10ae9-ebc3-74b3-8c42-018a1c90f7bf.
 Verified resume: Phase 4 exit deaa4dd, successor metadata75f5335, clean/upstream0/0.
 Phases 1–4 and governance remain COMPLETE / VERIFIED. Phase 5 is IN PROGRESS.
 
+Current2026-10-16 checkpoint: both scoped native views built successfully, order10
+tests/item12 tests, with raw bytes and prior mart identities/permissions preserved.
+Whole-job measurement deadline integration is implemented; see dated verification
+and WORK_STATE for its checks. Independent native KPI acceptance and explicit
+reader grants/access, representative workload/provenance, Q01 and dashboard
+reconciliation remain pending. Do not redo completed builds. Historical milestone
+entries below retain their original dates and are superseded by this checkpoint.
+
 ## Atomic milestones
 
 1. Define versioned KPI policy and dictionary before implementing metrics.

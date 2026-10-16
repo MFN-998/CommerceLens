@@ -3,43 +3,52 @@
 Authoritative handoff updated 2026-10-16. Actual D repository, Git and verified
 evidence take precedence over chat. Read the permanent instructions before edits.
 
-## Active resume — 2026-10-16
+## Active checkpoint — 2026-10-16
 
-Filesystem access and clean published48f3608/upstream0/0 verified. Usage3%
-five-hour/1% weekly USED at resume;75% no-new-unit/80% stop thresholds retained.
-Master Plan Agent reviewed the selected native-build safeguards with no blocker.
-The two build-order attempts stopped at target metadata/DNS before any build or
-grant. Retained failures: .artifacts/phase-5/5c1a09fbdc7748728981ad5173d8def0
-and .artifacts/phase-5/08aa95993eef4f7fa573a3a7857be581. Owner confirmed the
-recovery project was paused. Its dashboard subsequently showed Resuming, then
-Coming up; the latest observation has Coming up absent and Connect enabled.
-Resume was already in progress when observed; no Resume click was performed by
-the agent. Database connectivity and native acceptance remain unverified.
+SAFE TO RESUME / PHASE5 PARTIALLY COMPLETE. Resumed clean published5d23210,
+upstream0/0, usage3% five-hour/16% weekly USED. Current milestone completes the
+first native order/item builds and integrates whole-job measurement deadlines.
+Master Plan Agent reviewed scope and next steps; no later phase opened.
 
-SAFE TO RESUME / PARTIALLY IMPLEMENTED: the bounded measurement helper and
-optional query/connection deadlines are offline verified; scripts/phase5_native.py
-is deliberately not integrated yet. No Q01 acceptance is claimed. Focused78
-tests passed, including actual spawned-worker termination/reaping; changed-file
-Ruff4 and mypy3 passed. Full offline1811 passed/1004 intentional native skips/
-known AnyIO1 in51.79s; Ruff lint/format189 and default mypy34 passed. The sandbox
-test attempt stalled and was interrupted; elevated offline rerun passed.
-Staged complete contents and existing99-commit history secret scans passed.
-No frontend/dependency changes; their gates were not rerun. See
-docs/phase-5-deadline-verification.json. This checkpoint follows48f3608 on
-feat/phase-5-kpi-analytics; publication/clean status must be verified after commit.
-Master Plan Agent approved this partial checkpoint, with Phase5 still incomplete.
+The restored recovery project is Healthy. Direct database hostname DNS still
+failed (retained43e4e569c9684d0498c55e2eaeea4dac and0aa3b5b1417b417f95ff9eb062eafd4b,
+no build/grant attempted). The dashboard's IPv4 session-pooler route succeeded.
+Only isolated recovery admin/transformer host and purpose-specific username routing
+were updated. Same project/passwords/verify-full CA; original project and loader
+settings unchanged. Protected pre-session backups retained beside private settings.
 
-Latest account usage jumped from67%/11% to85%/13% five-hour/weekly USED, so work
-switched immediately to preservation only. No reset credit used. Check both
-windows before resuming; do not start a new unit at75% or higher used. First
-operation after reserve/Git checks remains scoped build-order against explicit
-recovery root D:\My Projects\CommerceLens-Reconstruction and project
-histbcmlctxmtxusfbzt; inspect its results, capacity and preserved relation ACL/OID
-before build-item. Then independent native KPI/access acceptance. Integrate the
-entire before/access/query/plan/concurrency/after measurement in the supervisor,
-extend representative workloads/concurrency and parameter/model provenance before
-running Q01. No frontend/Phase6 transition. All2026-10-09 evidence below remains
-historical until explicitly refreshed.
+Native builds used published5d23210 wrapper source from Git in memory, isolating
+live execution from concurrent script integration edits. Order1 model/10 tests and
+item1 model/12 tests passed. Complete preflight/live graph signatures matched.
+Raw275988480 bytes unchanged; database287463091 ->287495859 ->287512243 bytes.
+Prior mart OID/owner/ACL/options unchanged after each build. New views are owned
+by commercelens_transformer with null explicit ACL. No reader grant was attempted.
+Receipts: .artifacts/phase-5/17d4b7346347451caaa756993ddc4c7f and
+.artifacts/phase-5/fcc4d352cee9486ab36f5fba33829646. See
+[dated evidence](docs/phase-5-native-build-verification.json). Do not rebuild.
+
+Measurement integration places before metadata, reader verification, serial
+queries/plans, concurrent queries and after metadata inside the supervised600s
+job (598s work plus2s cleanup). Per-stage limits shrink, failures retain safe
+stage markers. This is offline integration evidence, not native Q01 acceptance.
+Full offline1826 passed/1004 native opt-in skips/known AnyIO1 in50.62s; Ruff
+lint/format190 and default mypy34 passed. Publication gates are recorded in the
+dated receipt.
+
+Preservation began at63%/26%; latest usage81% five-hour/28% weekly USED.
+Script mypy1 passed; fresh Python advisory0, npm full7 high/runtime2 high/0critical
+retains E11. Shared usage is rising
+quickly: no new unit this session, validate/save/publish now. Recheck both windows
+on resume; no new unit at75%, preserve before80%, no reset credit used.
+
+Exact next action after usage/Git checks: independent read-only native acceptance
+of both built KPI views (grain, exact types/money, completeness/coverage, reviews,
+calendar lateness and reconciliation against independent source expectations).
+Then explicit mart-reader grant and full catalog/denial verification. Extend
+representative workload filters/pagination/expensive concurrency and parameter/
+model provenance before Q01 measurement. Full dashboard reconciliation and Phase5
+exit precede Phase6; E11 remains before substantive frontend/public exposure.
+Earlier dated sections below are historical, superseded where this section differs.
 
 ## Project State
 
@@ -211,14 +220,15 @@ before future API. Full context/owner/revisit triggers in current audit debt tab
 
 ## Exact Next Actions
 
-1. Check account reserve, Git and docs/phase-5-native.md. Run the scoped build-order
-   step against D:\My Projects\CommerceLens-Reconstruction with expected project
-   histbcmlctxmtxusfbzt, inspect retained evidence, then build-item. No prior graph
-   rebuild or original default credentials. Native model checks have not run yet.
-2. Native grain/precision/coverage acceptance on the protected isolated recovery
-   target, then explicit mart-reader catalog/denial acceptance. Source-only item
-   evidence is not PostgreSQL type/precision or live model acceptance.
-3. Strengthen Q01 whole-job deadlines, representative item filters/pagination,
+1. Check both account reserves, Git and docs/phase-5-native.md. Both scoped native
+   builds have passed; do not rebuild them. Recovery admin/transformer settings
+   now use the verified IPv4 session route, with unchanged credentials/TLS.
+2. Implement/run independent read-only native grain/precision/coverage/review/
+   calendar-lateness and source reconciliation acceptance on the built views,
+   then explicit mart-reader grant/catalog/denial acceptance. Use only explicit
+   recovery root D:\My Projects\CommerceLens-Reconstruction and expected project
+   histbcmlctxmtxusfbzt. No reader grant has yet run for the two KPI views.
+3. Whole-job deadline integration is offline verified. Extend representative filters/pagination,
    expensive concurrency and parameter/model provenance, then measure workload.
 4. Complete native/cross-dashboard query reconciliation and Phase5 exit before
    starting Phase6 separately. Resolve E11 before frontend/public-exposure gate.

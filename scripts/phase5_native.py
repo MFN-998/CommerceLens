@@ -7,6 +7,7 @@ import hashlib
 import json
 from concurrent.futures import ThreadPoolExecutor
 from datetime import UTC, date, datetime
+from functools import partial
 from pathlib import Path
 from time import perf_counter
 from typing import Any, Literal
@@ -14,6 +15,7 @@ from uuid import uuid4
 
 from scripts.measure_warehouse_queries import summarize_plan
 from src.analytics.access import MARTS, grant_analytics_reader, verify_reader_catalog
+from src.analytics.measurement import Deadline, run_bounded_measurement
 from src.analytics.query import MAX_RESPONSE_BYTES, Query, build_query, fetch_metrics
 from src.warehouse.config import ROOT, connect
 from src.warehouse.dbt_selected import SelectedDbtError, run_dbt_selected
@@ -25,10 +27,12 @@ def write(path: Path, value: object) -> None:
         handle.write(json.dumps(value, indent=2, default=str) + "\n")
 
 
-def metadata(settings):
-    with connect(settings) as connection, connection.transaction(force_rollback=True):
-        connection.execute("SET TRANSACTION READ ONLY")
-        size = connection.execute(
+def metadata(settings, deadline: Deadline | None = None):
+    options = {} if deadline is None else deadline.connection_options()
+    with connect(settings, **options) as connection, connection.transaction(force_rollback=True):
+        execute = connection.execute if deadline is None else partial(deadline.execute, connection)
+        execute("SET TRANSACTION READ ONLY")
+        size = execute(
             "select pg_database_size(current_database()), "
             "sum(pg_total_relation_size(c.oid)) filter (where n.nspname='raw' "
             "and c.relkind in ('r','p')) from pg_class c join pg_namespace n on "
@@ -36,7 +40,7 @@ def metadata(settings):
         ).fetchone()
         if size is None or size[0] > 400000000 or size[1] > 367000000:
             raise ValueError("Capacity gate failed")
-        roles = connection.execute(
+        roles = execute(
             "select "
             "rolcanlogin,rolinherit,rolsuper,rolcreatedb,rolcreaterole,rolrep"
             "lication,rolbypassrls from pg_roles where rolname='commercelens_"
@@ -44,27 +48,38 @@ def metadata(settings):
         ).fetchone()
         if roles != (False,) * 7:
             raise ValueError("Reader capability changed")
-        relations = connection.execute(
+        relations = execute(
             "select "
             "c.relname,c.oid,r.rolname,c.relkind,c.relacl::text,c.reloptions "
             "from pg_class c join pg_namespace n on n.oid=c.relnamespace join "
             "pg_roles r on r.oid=c.relowner where n.nspname='marts' order by "
             "c.relname"
         ).fetchall()
-        return {
+        result = {
             "database_bytes": size[0],
             "raw_bytes": int(size[1]),
             "reader_attributes_verified": True,
             "relations": relations,
         }
+    if deadline is not None:
+        deadline.check()
+    return result
 
 
-def verify_access(settings):
-    with connect(settings) as connection, connection.transaction(force_rollback=True):
-        connection.execute("SET TRANSACTION READ ONLY")
+def verify_access(settings, deadline: Deadline | None = None):
+    options = {} if deadline is None else deadline.connection_options()
+    with connect(settings, **options) as connection, connection.transaction(force_rollback=True):
+        execute = connection.execute if deadline is None else partial(deadline.execute, connection)
+        execute("SET TRANSACTION READ ONLY")
+        if deadline is not None:
+            # The shared catalog helper owns its fixed query. Refresh its
+            # remaining server budget immediately before calling it.
+            connection.execute(f"SET statement_timeout='{deadline.milliseconds()}ms'")
         verify_reader_catalog(connection)
+        if deadline is not None:
+            deadline.check()
         for name in MARTS:
-            row = connection.execute(
+            row = execute(
                 "select has_table_privilege('commercelens_reader',%s,'SELECT'), "
                 "has_table_privilege('commercelens_reader',%s,'INSERT,UPDATE,DELE"
                 "TE,TRUNCATE,REFERENCES,TRIGGER,MAINTAIN,SELECT WITH GRANT OPTION"
@@ -74,7 +89,7 @@ def verify_access(settings):
             if row != (True, False):
                 raise ValueError("Reader capability mismatch")
         for role in ("anon", "authenticated", "service_role", "public"):
-            count = connection.execute(
+            count = execute(
                 "select count(*) from pg_namespace n join pg_class c on "
                 "c.relnamespace=n.oid where n.nspname in "
                 "('raw','staging','core','marts','ops') and c.relkind in "
@@ -86,7 +101,7 @@ def verify_access(settings):
             ).fetchone()
             if count != (0,):
                 raise ValueError("Private warehouse exposure mismatch")
-        connection.execute("SET LOCAL ROLE commercelens_reader")
+        execute("SET LOCAL ROLE commercelens_reader")
         for statement in (
             "select 1 from raw.orders limit 0",
             "select 1 from core.fact_orders limit 0",
@@ -96,25 +111,33 @@ def verify_access(settings):
             denied = False
             try:
                 with connection.transaction():
-                    connection.execute(statement)
+                    execute(statement)
             except Exception as error:
                 denied = getattr(error, "sqlstate", None) == "42501"
             if not denied:
                 raise ValueError("Reader denial probe failed")
+    if deadline is not None:
+        deadline.check()
     return {"select_marts": len(MARTS), "api_public_roles_denied": 4, "native_denial_probes": 4}
 
 
-def read_query(settings, query) -> tuple[dict[str, Any], dict[str, Any]]:
-    with connect(settings) as connection:
+def read_query(
+    settings, query, deadline: Deadline | None = None
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    options = {} if deadline is None else deadline.connection_options()
+    with connect(settings, **options) as connection:
         # The existing admin assumes the NOLOGIN reader for development verification.
-        connection.execute("SET ROLE commercelens_reader")
+        execute = connection.execute if deadline is None else partial(deadline.execute, connection)
+        execute("SET ROLE commercelens_reader")
         started = perf_counter()
-        response = fetch_metrics(connection, query)
+        response = fetch_metrics(connection, query, deadline=deadline)
         elapsed = perf_counter() - started
     response_rows = response["rows"]
     if not isinstance(response_rows, list):
         raise ValueError("Invalid response shape")
     body = json.dumps(response, sort_keys=True, separators=(",", ":")).encode()
+    if deadline is not None:
+        deadline.check()
     return response, {
         "seconds": round(elapsed, 6),
         "bytes": len(body),
@@ -139,27 +162,29 @@ def cases():
     ]
 
 
-def measure(settings, folder):
+def _measure_queries(settings, folder: Path, deadline: Deadline):
     measurements = []
-    started = perf_counter()
     for name, query in cases():
-        if perf_counter() - started > 600:
-            raise ValueError("Measurement job budget exceeded")
-        _, sample = read_query(settings, query)
+        deadline.check()
+        _, sample = read_query(settings, query, deadline)
         sql, parameters = build_query(query)
-        with connect(settings) as connection, connection.transaction(force_rollback=True):
-            connection.execute("SET TRANSACTION READ ONLY")
-            connection.execute("SET LOCAL ROLE commercelens_reader")
-            connection.execute("SET LOCAL statement_timeout='55s'")
-            plan_row = connection.execute(
+        with (
+            connect(settings, **deadline.connection_options()) as connection,
+            connection.transaction(force_rollback=True),
+        ):
+            execute = partial(deadline.execute, connection)
+            execute("SET TRANSACTION READ ONLY")
+            execute("SET LOCAL ROLE commercelens_reader")
+            plan_row = execute(
                 "EXPLAIN (ANALYZE,BUFFERS,TIMING OFF,FORMAT JSON) " + sql, parameters
             ).fetchone()
-            block_row = connection.execute("select current_setting('block_size')").fetchone()
+            block_row = execute("select current_setting('block_size')").fetchone()
             if plan_row is None or block_row is None:
                 raise ValueError("Measurement metadata missing")
             plan = plan_row[0][0]
             block_size = int(block_row[0])
             summary = summarize_plan(plan)
+        deadline.check()
         entry = {
             "name": name,
             "sql_sha256": hashlib.sha256(sql.encode()).hexdigest(),
@@ -168,10 +193,21 @@ def measure(settings, folder):
             "block_size": block_size,
         }
         write(folder / (name + ".json"), entry)
+        deadline.check()
         measurements.append(entry)
     with ThreadPoolExecutor(max_workers=2) as pool:
-        futures = [pool.submit(read_query, settings, query) for _, query in cases()[:2]]
-        concurrent = [future.result()[1] for future in futures]
+        futures = []
+        try:
+            for _, query in cases()[:2]:
+                deadline.check()
+                futures.append(pool.submit(read_query, settings, query, deadline))
+            concurrent = [future.result(timeout=deadline.remaining())[1] for future in futures]
+        except BaseException:
+            for future in futures:
+                future.cancel()
+            # The supervisor bounds waiting for already-running threads too.
+            raise
+    deadline.check()
     accepted = all(
         row["seconds"] <= 15
         and row["plan"]["execution_ms"] <= 10000
@@ -200,6 +236,43 @@ def measure(settings, folder):
         },
         "limitations": "Dated small samples, not cold-cache or percentile/SLO/public-load proof",
     }
+
+
+def _measurement_job(settings, folder: Path, deadline: Deadline) -> dict[str, Any]:
+    """All measurement database work stays inside the supervised child."""
+    stage = "before"
+    try:
+        deadline.check()
+        write(folder / "measurement-before-started.json", {"stage": stage})
+        before = metadata(settings, deadline)
+        write(folder / "before.json", before)
+        stage = "access"
+        deadline.check()
+        write(folder / "measurement-access-started.json", {"stage": stage})
+        verify_access(settings, deadline)
+        stage = "queries"
+        deadline.check()
+        write(folder / "measurement-queries-started.json", {"stage": stage})
+        result = _measure_queries(settings, folder, deadline)
+        stage = "after"
+        deadline.check()
+        write(folder / "measurement-after-started.json", {"stage": stage})
+        after = metadata(settings, deadline)
+        if before["relations"] != after["relations"] or before["raw_bytes"] != after["raw_bytes"]:
+            raise ValueError("Read-only verification changed warehouse identity")
+        write(folder / "after.json", after)
+        deadline.check()
+        return result
+    except (Exception, KeyboardInterrupt):
+        write(
+            folder / "measurement-failure.json",
+            {"status": "failed", "stage": stage, "private_detail_logged": False},
+        )
+        raise ValueError("Measurement stage failed; inspect retained evidence") from None
+
+
+def measure(settings, folder: Path) -> dict[str, Any]:
+    return run_bounded_measurement(_measurement_job, settings, folder)
 
 
 def main():
@@ -232,8 +305,9 @@ def main():
         root = _isolated_root(args.settings_root, args.expected_project_ref)
         transformer = _settings(root, "transformer", args.expected_project_ref)
         admin = _settings(root, "admin", args.expected_project_ref)
-        before = metadata(admin)
-        write(folder / "before.json", before)
+        if args.operation != "measure":
+            before = metadata(admin)
+            write(folder / "before.json", before)
         stage = args.operation
         result: dict[str, Any]
         if args.operation.startswith(("build-", "test-")):
@@ -266,7 +340,6 @@ def main():
         elif args.operation == "verify-access":
             result = verify_access(admin)
         elif args.operation == "measure":
-            verify_access(admin)
             result = measure(admin, folder)
         else:
             verify_access(admin)
@@ -279,20 +352,20 @@ def main():
             ):
                 raise ValueError("Independent historical totals mismatch")
             result = {"historical_orders_gmv_customers": "passed", "sample": sample}
-        after = metadata(admin)
-        if args.operation in (
-            "measure",
-            "verify-totals",
-            "verify-access",
-            "test-order",
-            "test-item",
-        ):
-            if (
-                before["relations"] != after["relations"]
-                or before["raw_bytes"] != after["raw_bytes"]
+        if args.operation != "measure":
+            after = metadata(admin)
+            if args.operation in (
+                "verify-totals",
+                "verify-access",
+                "test-order",
+                "test-item",
             ):
-                raise ValueError("Read-only verification changed warehouse identity")
-        write(folder / "after.json", after)
+                if (
+                    before["relations"] != after["relations"]
+                    or before["raw_bytes"] != after["raw_bytes"]
+                ):
+                    raise ValueError("Read-only verification changed warehouse identity")
+            write(folder / "after.json", after)
         receipt = {
             "status": "failed_budget" if result.get("q01") == "failed_budget" else "passed",
             "operation": args.operation,
@@ -320,6 +393,8 @@ def main():
                 if grant_attempted
                 else "Inspect selected view and retained evidence before retry"
                 if build_attempted
+                else "Inspect retained measurement stages before retry"
+                if args.operation == "measure"
                 else "No grant attempted",
             },
         )

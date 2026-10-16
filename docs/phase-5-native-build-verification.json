@@ -1,0 +1,116 @@
+{
+  "date": "2026-10-16",
+  "parent_checkpoint": "5d23210",
+  "status": "native selected builds passed; independent KPI/access/Q01 acceptance pending",
+  "native_wrapper_revision": "5d23210",
+  "connection_recovery": {
+    "direct_dns": "failed",
+    "session_pooler": "passed",
+    "project_unchanged": true,
+    "passwords_unchanged": true,
+    "tls": "verify-full with existing CA",
+    "changed_private_settings_purposes": [
+      "admin",
+      "transformer"
+    ],
+    "protected_backups_retained": true
+  },
+  "builds": {
+    "order": {
+      "receipt": {
+        "status": "passed",
+        "operation": "build-order",
+        "completed_utc": "2026-10-16T17:30:30.144074+00:00",
+        "project_ref": "histbcmlctxmtxusfbzt",
+        "result": {
+          "command": "dbt-build-selected",
+          "selection": "mart_order_kpis",
+          "status": "passed",
+          "offline": false,
+          "project_ref": "histbcmlctxmtxusfbzt",
+          "artifacts": "D:\\My Projects\\CommerceLens-Reconstruction\\.artifacts\\dbt-selected\\06742d8821354671b0f148c8b0c241d2",
+          "models": 1,
+          "tests": 10,
+          "graph_contract_sha256": "1761b053e36bef358c239c17e00a562b38c339c276cbe31eca99f4eb598998b2",
+          "live_attempted": true,
+          "build_committed": true
+        },
+        "artifacts": ".artifacts\\phase-5\\17d4b7346347451caaa756993ddc4c7f"
+      },
+      "before_database_bytes": 287463091,
+      "after_database_bytes": 287495859,
+      "raw_bytes": 275988480,
+      "prior_relations_identity_acl_unchanged": true,
+      "receipt_sha256": "a4cd625e7e8cf6bc2390a38af12be7955f58e4345075f43546ff878607609206"
+    },
+    "item": {
+      "receipt": {
+        "status": "passed",
+        "operation": "build-item",
+        "completed_utc": "2026-10-16T17:32:22.506436+00:00",
+        "project_ref": "histbcmlctxmtxusfbzt",
+        "result": {
+          "command": "dbt-build-selected",
+          "selection": "mart_item_kpis",
+          "status": "passed",
+          "offline": false,
+          "project_ref": "histbcmlctxmtxusfbzt",
+          "artifacts": "D:\\My Projects\\CommerceLens-Reconstruction\\.artifacts\\dbt-selected\\d5f0f587cc54403d97e60d68d4ce991e",
+          "models": 1,
+          "tests": 12,
+          "graph_contract_sha256": "1761b053e36bef358c239c17e00a562b38c339c276cbe31eca99f4eb598998b2",
+          "live_attempted": true,
+          "build_committed": true
+        },
+        "artifacts": ".artifacts\\phase-5\\fcc4d352cee9486ab36f5fba33829646"
+      },
+      "before_database_bytes": 287495859,
+      "after_database_bytes": 287512243,
+      "raw_bytes": 275988480,
+      "prior_relations_identity_acl_unchanged": true,
+      "receipt_sha256": "40d8eedbefdc1dd63bd1d0020b2de951591a7cad64b30c12b2856b5ad8f01fb2"
+    }
+  },
+  "measurement": {
+    "whole_database_job_supervised": true,
+    "job_seconds": 600,
+    "cleanup_reserve_seconds": 2,
+    "native_measurement_run": false,
+    "workload_provenance_improvements_pending": true
+  },
+  "validation": {
+    "offline_passed": 1826,
+    "native_opt_in_skips": 1004,
+    "known_anyio_warning": 1,
+    "seconds": 50.62,
+    "ruff_check": "passed",
+    "ruff_format_files": 190,
+    "default_mypy_source_files": 34,
+    "native_script_mypy_files": 1
+  },
+  "source_sha256": {
+    "scripts/phase5_native.py": "3108c139d5583bfcbf81ef2fa92c8ddcb3116aa97ca6a8bddad1f7450b00840f",
+    "tests/test_phase5_measurement_integration.py": "15b2bb7d2d04b027e54bafebf1c3b7d80910545d118a939f615dfb8fe1b360b7",
+    "src/analytics/measurement.py": "fee813a6d72b016a40c1a5950929ed0d4bae6eb79df17fd6a49f3a15c7b309dd",
+    "dbt/models/marts/mart_order_kpis.sql": "70e4399a5c9149e2f0f843435b3578e030e710a27961a85d21bacc3688c849c1",
+    "dbt/models/marts/mart_item_kpis.sql": "d070abdd0947af31153164101027fc5e12bcd31a3d6efdf4476ca51325857972"
+  },
+  "reader_grants_attempted": false,
+  "master_plan_review": "aligned; next independent native acceptance, then reader grant/catalog/denial; no rebuild or Phase6 transition",
+  "usage_before_preservation_used_percent": {
+    "five_hour": 63,
+    "weekly": 26
+  },
+  "advisories": {
+    "python_known_findings": 0,
+    "npm_full_high": 7,
+    "npm_runtime_high": 2,
+    "npm_critical": 0,
+    "existing_exception": "E11; pre-Phase6/public remediation remains required",
+    "artifacts": ".artifacts/audits/96cb43676f714161afd11e81fa4c7a27"
+  },
+  "preservation_usage_used_percent": {
+    "five_hour": 81,
+    "weekly": 28
+  }
+}

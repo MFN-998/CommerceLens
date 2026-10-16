@@ -1,5 +1,26 @@
 # Phase 5 isolated native verification
 
+## Current checkpoint — 2026-10-16
+
+Both first native builds passed: order10 selected tests and item12 selected tests.
+The existing mart identities/permissions and raw size were preserved. Do not
+repeat the build commands below merely to resume. Next is independent native KPI
+acceptance, then the explicit reader grant/catalog/denial gate. See
+[build evidence](phase-5-native-build-verification.json) and WORK_STATE.md.
+
+The restored recovery project's direct hostname failed DNS. Its dashboard's
+IPv4 session-pooler route passed with existing credentials and verify-full TLS;
+only private recovery admin/transformer routing was updated, with protected
+backups retained. No original-project settings or passwords changed.
+
+The measurement CLI now supervises all database stages under one600-second
+budget, reserving2 seconds for worker cleanup. Connection/statement limits shrink
+with remaining time; fixed stage markers survive interruption. Workload coverage,
+parameter/model provenance and native acceptance remain pending: do not run or
+accept Q01 just because deadline integration passes offline checks.
+
+## Scoped build and recovery reference
+
 The selected runner supports only `mart_order_kpis` and `mart_item_kpis` on an
 explicit isolated test target. It parses the complete closed graph offline,
 builds only the selected view, and requires all eagerly selected tests to pass.
