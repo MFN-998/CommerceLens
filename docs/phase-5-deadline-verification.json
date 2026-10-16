@@ -1,0 +1,49 @@
+{
+  "date": "2026-10-16",
+  "status": "offline helper verified; native integration pending",
+  "parent_checkpoint": "48f3608",
+  "scope": [
+    "Spawned measurement supervisor with 598-second work budget and 2-second cleanup reserve",
+    "Optional shrinking connection and SQL deadlines; existing defaults preserved",
+    "Retained bounded aggregate worker receipt and private-safe failures"
+  ],
+  "focused_validation": {
+    "tests_passed": 78,
+    "seconds": 1.61,
+    "includes_real_worker_timeout_and_reaping": true,
+    "ruff_check_and_format_files": 4,
+    "mypy_source_files": 3
+  },
+  "full_validation": {
+    "tests_passed": 1811,
+    "native_opt_in_skips": 1004,
+    "known_anyio_deprecation_warnings": 1,
+    "seconds": 51.79,
+    "ruff_check": "passed",
+    "ruff_format_files": 189,
+    "mypy_source_files": 34,
+    "sandbox_test_attempt": "stalled; interrupted; elevated offline rerun passed",
+    "staged_full_contents_secret_scan": "passed",
+    "existing_history_secret_scan_commits": 99,
+    "frontend_and_dependency_advisory_checks": "not rerun; no frontend or dependency changes"
+  },
+  "native": {
+    "build_attempted": false,
+    "grant_attempted": false,
+    "failure_stage": "target metadata: DNS resolution",
+    "owner_confirmed_project_paused": true,
+    "latest_dashboard": "Coming up absent; Connect enabled",
+    "database_connection_after_restore": "not yet verified",
+    "measurement_script_integrated": false,
+    "q01_accepted": false
+  },
+  "remaining": [
+    "Scoped native build-order; inspect results, capacity, ACL and relation identity before build-item",
+    "Independent native KPI and reader-access acceptance",
+    "Integrate whole measurement callback under shared supervisor deadline",
+    "Representative filters, pagination, expensive concurrency and parameter/model provenance",
+    "Q01 native measurement and full dashboard KPI reconciliation"
+  ],
+  "master_plan_review": "aligned partial checkpoint; Phase 5 remains incomplete",
+  "preservation_usage_used_percent": {"five_hour": 85, "weekly": 13}
+}

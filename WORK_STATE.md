@@ -1,16 +1,45 @@
 # CommerceLens work state
 
-Authoritative handoff updated 2026-10-09. Actual D repository, Git and verified
+Authoritative handoff updated 2026-10-16. Actual D repository, Git and verified
 evidence take precedence over chat. Read the permanent instructions before edits.
 
-## Active resume — 2026-10-09
+## Active resume — 2026-10-16
 
-Resumed published8d53480 after filesystem/Git checks. Previous turn stopped when
-shared usage jumped54% to91% five-hour, leaving item source/graph references
-uncommitted. Current resume began at1% five-hour/30% weekly USED; latest81%/42%.
-Permanent75% no-new-unit/80% stop thresholds retained. Master Plan Agent reviewed
-item policy and selected helper alignment with no source blocker. Usage crossed
-the reserve between readings; preservation only, no further unit/native operation.
+Filesystem access and clean published48f3608/upstream0/0 verified. Usage3%
+five-hour/1% weekly USED at resume;75% no-new-unit/80% stop thresholds retained.
+Master Plan Agent reviewed the selected native-build safeguards with no blocker.
+The two build-order attempts stopped at target metadata/DNS before any build or
+grant. Retained failures: .artifacts/phase-5/5c1a09fbdc7748728981ad5173d8def0
+and .artifacts/phase-5/08aa95993eef4f7fa573a3a7857be581. Owner confirmed the
+recovery project was paused. Its dashboard subsequently showed Resuming, then
+Coming up; the latest observation has Coming up absent and Connect enabled.
+Resume was already in progress when observed; no Resume click was performed by
+the agent. Database connectivity and native acceptance remain unverified.
+
+SAFE TO RESUME / PARTIALLY IMPLEMENTED: the bounded measurement helper and
+optional query/connection deadlines are offline verified; scripts/phase5_native.py
+is deliberately not integrated yet. No Q01 acceptance is claimed. Focused78
+tests passed, including actual spawned-worker termination/reaping; changed-file
+Ruff4 and mypy3 passed. Full offline1811 passed/1004 intentional native skips/
+known AnyIO1 in51.79s; Ruff lint/format189 and default mypy34 passed. The sandbox
+test attempt stalled and was interrupted; elevated offline rerun passed.
+Staged complete contents and existing99-commit history secret scans passed.
+No frontend/dependency changes; their gates were not rerun. See
+docs/phase-5-deadline-verification.json. This checkpoint follows48f3608 on
+feat/phase-5-kpi-analytics; publication/clean status must be verified after commit.
+Master Plan Agent approved this partial checkpoint, with Phase5 still incomplete.
+
+Latest account usage jumped from67%/11% to85%/13% five-hour/weekly USED, so work
+switched immediately to preservation only. No reset credit used. Check both
+windows before resuming; do not start a new unit at75% or higher used. First
+operation after reserve/Git checks remains scoped build-order against explicit
+recovery root D:\My Projects\CommerceLens-Reconstruction and project
+histbcmlctxmtxusfbzt; inspect its results, capacity and preserved relation ACL/OID
+before build-item. Then independent native KPI/access acceptance. Integrate the
+entire before/access/query/plan/concurrency/after measurement in the supervisor,
+extend representative workloads/concurrency and parameter/model provenance before
+running Q01. No frontend/Phase6 transition. All2026-10-09 evidence below remains
+historical until explicitly refreshed.
 
 ## Project State
 

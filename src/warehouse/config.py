@@ -78,8 +78,23 @@ def load_settings(root: Path = ROOT, *, purpose: WarehousePurpose = "admin") -> 
     return settings
 
 
-def connect(settings: WarehouseSettings) -> psycopg.Connection:
+def connect(
+    settings: WarehouseSettings,
+    *,
+    connect_timeout: int = 10,
+    statement_timeout_ms: int = 60_000,
+    lock_timeout_ms: int = 10_000,
+) -> psycopg.Connection:
     """Validate certificate and hostname; never fall back to weaker TLS."""
+    if (
+        type(connect_timeout) is not int
+        or not 2 <= connect_timeout <= 10
+        or type(statement_timeout_ms) is not int
+        or not 1 <= statement_timeout_ms <= 60_000
+        or type(lock_timeout_ms) is not int
+        or not 1 <= lock_timeout_ms <= min(10_000, statement_timeout_ms)
+    ):
+        raise ValueError("Invalid bounded warehouse connection timeouts")
     return psycopg.connect(
         host=settings.host,
         port=settings.port,
@@ -88,9 +103,9 @@ def connect(settings: WarehouseSettings) -> psycopg.Connection:
         password=settings.password.get_secret_value(),
         sslmode="verify-full",
         sslrootcert=str(settings.certificate_path()),
-        connect_timeout=10,
+        connect_timeout=connect_timeout,
         application_name=f"commercelens-warehouse-{settings.purpose}",
-        options="-c statement_timeout=60000 -c lock_timeout=10000 "
-        "-c idle_in_transaction_session_timeout=60000",
+        options=f"-c statement_timeout={statement_timeout_ms} -c lock_timeout={lock_timeout_ms} "
+        f"-c idle_in_transaction_session_timeout={statement_timeout_ms}",
         autocommit=True,
     )

@@ -12,9 +12,12 @@ from dataclasses import dataclass
 from datetime import date
 from decimal import ROUND_HALF_UP, Decimal, localcontext
 from fractions import Fraction
+from functools import partial
 from typing import Any, Literal
 
 import psycopg
+
+from src.analytics.measurement import Deadline
 
 POLICY_VERSION = "v1"
 MAX_RESPONSE_BYTES = 524288
@@ -424,23 +427,33 @@ def serialize_row(row: dict[str, Any], query: Query) -> dict[str, object]:
     return result
 
 
-def fetch_metrics(connection: psycopg.Connection, query: Query) -> dict[str, object]:
+def fetch_metrics(
+    connection: psycopg.Connection, query: Query, *, deadline: Deadline | None = None
+) -> dict[str, object]:
     """Run a bounded private reader query; caller supplies its authorized connection."""
     sql, parameters = build_query(query)
     try:
         with connection.transaction():
-            connection.execute("SET TRANSACTION READ ONLY")
-            connection.execute("SET LOCAL statement_timeout='55s'")
-            connection.execute("SET LOCAL lock_timeout='5s'")
-            identity = connection.execute("SELECT current_user").fetchone()
+            execute = (
+                connection.execute if deadline is None else partial(deadline.execute, connection)
+            )
+            if deadline is None:
+                execute("SET TRANSACTION READ ONLY")
+                execute("SET LOCAL statement_timeout='55s'")
+                execute("SET LOCAL lock_timeout='5s'")
+            else:
+                execute("SET TRANSACTION READ ONLY")
+            identity = execute("SELECT current_user").fetchone()
             if identity != ("commercelens_reader",):
                 raise AnalyticsError("Analytics requires the approved reader capability")
-            cursor = connection.execute(sql, parameters, binary=True)
+            cursor = execute(sql, parameters, binary=True)
             names = [column.name for column in cursor.description or ()]
             raw = cursor.fetchmany(query.limit + 1)
             if len(raw) > query.limit:
                 raise AnalyticsError("Analytics result exceeds row boundary")
             rows = [serialize_row(dict(zip(names, values, strict=True)), query) for values in raw]
+            if deadline is not None:
+                deadline.check()
         result: dict[str, object] = {
             "policy_version": POLICY_VERSION,
             "currency": "BRL",
@@ -457,6 +470,8 @@ def fetch_metrics(connection: psycopg.Connection, query: Query) -> dict[str, obj
             > MAX_RESPONSE_BYTES
         ):
             raise AnalyticsError("Analytics response exceeds byte boundary")
+        if deadline is not None:
+            deadline.check()
         return result
     except AnalyticsError:
         raise
