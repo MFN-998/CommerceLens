@@ -1,9 +1,40 @@
 # CommerceLens work state
 
-Authoritative handoff updated 2026-10-16. Actual D repository, Git and verified
+Authoritative handoff updated 2026-10-17. Actual D repository, Git and verified
 evidence take precedence over chat. Read the permanent instructions before edits.
 
-## Active checkpoint — 2026-10-16
+## Active checkpoint — 2026-10-17
+
+SAFE TO RESUME / PARTIAL NATIVE ACCEPTANCE. Resumed clean published312bdfd,
+upstream0/0, usage2% five-hour/30% weekly. New independent source oracle and
+read-only native checker compare order33/item26 fields, exact canonical money,
+lineage, review integer components and calendar semantics; native type/precision
+checks and600-second supervision retain aggregate-only evidence. No model build,
+grant or source edit occurred. Master Plan Agent found no material blocker for
+this explicitly limited current-source scope.
+
+Native run .artifacts/phase-5/c0cc1dcae92942f8a67132e4676f7f94 matched all99,441
+order rows/33 fields with equal source/native hashes and zero mismatches. The
+job failed during the prolonged item scan without an item comparison or final
+success receipt. Full native acceptance and after-metadata verification are NOT
+claimed. Preserve retained failure/stage evidence; do not blindly rerun or grant.
+First next step: inspect the item scan's query plan and cursor/fetch behavior under
+read-only limits, correct any checker inefficiency without weakening deadlines,
+then complete item comparison and before/after warehouse identity verification.
+
+Validation:47 focused cases; full offline1873 passed/1004 intentional native
+skips/one known AnyIO warning in61.59s. Ruff lint/format194, mypy35 and verifier1
+passed. Fresh advisories: Python0, npm full7 high/runtime2 high/0critical; E11
+remains. Evidence: docs/phase-5-source-acceptance-verification.json. Latest usage
+88% five-hour/44% weekly USED triggered preservation only. No reset credit used.
+
+Following model acceptance: native synthetic edge coverage and decimal review
+diagnostics, then explicit reader grant/catalog/denial checks. Representative
+workload/concurrency/provenance, Q01 and consumer/dashboard reconciliation remain.
+Both KPI builds at312bdfd stay complete; no rebuild or Phase6 transition.
+Earlier dated sections below are historical where this section differs.
+
+## Previous checkpoint — 2026-10-16
 
 SAFE TO RESUME / PHASE5 PARTIALLY COMPLETE. Resumed clean published5d23210,
 upstream0/0, usage3% five-hour/16% weekly USED. Current milestone completes the

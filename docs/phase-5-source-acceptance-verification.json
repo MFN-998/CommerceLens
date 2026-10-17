@@ -1,0 +1,54 @@
+{
+  "date": "2026-10-17",
+  "parent_checkpoint": "312bdfd",
+  "status": "offline verified; native order rows passed; item acceptance incomplete",
+  "native_artifacts": ".artifacts/phase-5/c0cc1dcae92942f8a67132e4676f7f94",
+  "scope": "Full current-source order33/item26 field comparisons and PostgreSQL types; no rebuild or grant",
+  "validation": {
+    "focused_passed": 47,
+    "full_offline_passed": 1873,
+    "intentional_native_skips": 1004,
+    "known_anyio_warning": 1,
+    "full_seconds": 61.59,
+    "ruff_files": 194,
+    "mypy_source_files": 35,
+    "mypy_verifier_files": 1
+  },
+  "source_sha256": {
+    "src/analytics/acceptance_source.py": "356311f52df58185cab3e465b0e4d204444983528a677f45d328e92ff9ebf80e",
+    "scripts/verify_phase5_native.py": "9bf1b9b7acc1cfca6fcccf6a532678df6a3cdeaa764fc2b7ea41f8974949854f",
+    "tests/test_phase5_acceptance_source.py": "e399d6e9ceebc8fcaa340c04ef3cc6dd0b4432fd6dcdd685d80c68374492ec69",
+    "tests/test_phase5_native_acceptance.py": "830bb5fea925d9de24abf6705f9bf18f516350174cd0c09e529a6145ed6fceb8"
+  },
+  "advisories": {
+    "python_findings": 0,
+    "npm_full_high": 7,
+    "npm_runtime_high": 2,
+    "critical": 0,
+    "exception": "E11 remains",
+    "artifacts": ".artifacts/audits/605991f2ad9848c695ff00799242366c"
+  },
+  "master_plan_review": "No material blocker; current-source scope only",
+  "pending": [
+    "Investigate bounded native item scan performance, then complete full source acceptance and after-metadata checks",
+    "Native synthetic edge coverage and decimal review diagnostics",
+    "Explicit reader grant/catalog/denial acceptance",
+    "Representative Q01 workloads/concurrency/parameter and model provenance",
+    "Consumer query and dashboard reconciliation"
+  ],
+  "preservation_usage_used_percent": {
+    "five_hour": 88,
+    "weekly": 44
+  },
+  "native_status": "failed; no full acceptance",
+  "native_order_comparison": {
+    "rows": 99441,
+    "fields": 33,
+    "source_sha256": "069750c99dc07880d48339eeef9ce7b7fdc512d9b65df6613b72f8f5ee35ce85",
+    "native_sha256": "069750c99dc07880d48339eeef9ce7b7fdc512d9b65df6613b72f8f5ee35ce85",
+    "mismatches": 0
+  },
+  "native_item_comparison": "not completed; no item comparison receipt",
+  "native_last_recorded_stage": "mart_item_kpis",
+  "native_job_budget_seconds": 600
+}
