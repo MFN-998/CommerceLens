@@ -1,12 +1,14 @@
 # Phase 5 isolated native verification
 
-## Current checkpoint — 2026-10-16
+## Current checkpoint — 2026-10-18
 
-Both first native builds passed: order10 selected tests and item12 selected tests.
-The existing mart identities/permissions and raw size were preserved. Do not
-repeat the build commands below merely to resume. Next is independent native KPI
-acceptance, then the explicit reader grant/catalog/denial gate. See
-[build evidence](phase-5-native-build-verification.json) and WORK_STATE.md.
+Both builds remain verified (order10/item12 selected checks). Full current-source
+comparison now passes99,441 order rows/33 fields and112,650 item rows/26 fields,
+exact types/values, source integrity and warehouse identity checks. See
+[current acceptance evidence](phase-5-cursor-acceptance-verification.json).
+Do not repeat builds or current-source acceptance merely to resume. Next are
+native synthetic mart edges and decimal review diagnostics, then explicit reader
+grant/catalog/denials, Q01 and consumer reconciliation. Phase5 remains incomplete.
 
 The restored recovery project's direct hostname failed DNS. Its dashboard's
 IPv4 session-pooler route passed with existing credentials and verify-full TLS;
@@ -16,7 +18,7 @@ backups retained. No original-project settings or passwords changed.
 The measurement CLI now supervises all database stages under one600-second
 budget, reserving2 seconds for worker cleanup. Connection/statement limits shrink
 with remaining time; fixed stage markers survive interruption. Workload coverage,
-parameter/model provenance and native acceptance remain pending: do not run or
+parameter/model provenance and remaining native acceptance gates are pending: do not run or
 accept Q01 just because deadline integration passes offline checks.
 
 ## Scoped build and recovery reference
@@ -32,14 +34,13 @@ Use the existing recovery root and target recorded in
 account reserve and the latest WORK_STATE before any native invocation. The
 original project and ambient WAREHOUSE/PG routing variables are rejected.
 
-From the repository root, the intended first native step is:
+Historical build command (both builds already verified2026-10-16; do not rerun):
 
 ```powershell
 .venv/Scripts/python.exe -B -m scripts.phase5_native build-order --settings-root 'D:\My Projects\CommerceLens-Reconstruction' --expected-project-ref histbcmlctxmtxusfbzt
 ```
 
-Inspect its retained receipt and catalog/capacity evidence before proceeding to
-`build-item` with the same explicit arguments. `test-order` and `test-item` rerun
+The order and item receipts are recorded in phase-5-native-build-verification.json. `test-order` and `test-item` rerun
 only the selected checks. Do not invoke the historical full-graph build path for
 these additions. A native operation has not passed merely because tooling tests
 or the offline graph parse passed.
@@ -66,3 +67,16 @@ historical totals and does not satisfy full KPI acceptance. Q01 deadline,
 representative workload/concurrency and provenance improvements remain required
 before running/accepting measurements. No consumer authentication or HTTP/UI
 integration is certified here; those remain Phase6.
+
+## Full-source comparison planning — 2026-10-18
+
+The acceptance checker consumes every row of both already-built views. Read-only
+EXPLAIN compared cursor_tuple_fraction0.1 and1.0; the default item plan contained
+two costly nested loops that disappeared with1.0. Both plans substantially
+overestimate cardinality, so estimated cost is not actual latency evidence.
+The checker sets1.0 only inside its rollback-only transaction, retains1000-row
+batches and unchanged SQL/whole-job limits, and records comparison elapsed time.
+This follows [PostgreSQL cursor planning documentation](https://www.postgresql.org/docs/current/runtime-config-query.html).
+It does not change database defaults or establish consumer-query performance.
+The final native result and remaining acceptance scope belong in WORK_STATE and
+the dated source-acceptance evidence; failed runs remain retained.

@@ -14,6 +14,7 @@ from datetime import UTC, date, datetime
 from decimal import Decimal
 from fractions import Fraction
 from pathlib import Path
+from time import monotonic
 from typing import Any
 from uuid import UUID, uuid4
 
@@ -171,6 +172,10 @@ def native_rows(connection: Any, name: str, deadline: Deadline) -> Iterable[dict
     # Relation, projection and ordering are fixed internal allowlists.
     sql = "select " + ",".join(columns) + " from marts." + name
     sql += ' order by order_id collate "C"' + (",order_item_id" if name == "mart_item_kpis" else "")
+    # Acceptance consumes every row. The default cursor estimate favors early
+    # rows and chose costly nested loops for the expanded item view. Keep this
+    # setting transaction-local; consumer workload planning is a separate gate.
+    deadline.execute(connection, "SET LOCAL cursor_tuple_fraction=1.0")
     with connection.cursor(name="phase5_acceptance") as cursor:
         deadline.execute(connection, "SELECT 1")
         cursor.execute(sql, binary=True)
@@ -233,10 +238,12 @@ def acceptance_job(settings: Any, folder: Path, deadline: Deadline) -> dict[str,
                 ):
                     stage = name
                     write(folder / (name + "-started.json"), {"stage": stage})
+                    started = monotonic()
                     types[name] = verify_types(connection, name, deadline)
                     comparisons[name] = compare_rows(
                         expected, native_rows(connection, name, deadline), keys, deadline
                     )
+                    comparisons[name]["elapsed_seconds"] = round(monotonic() - started, 3)
                     write(folder / (name + "-comparison.json"), comparisons[name])
         stage = "after"
         after = metadata(settings, deadline)

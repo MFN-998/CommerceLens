@@ -1,9 +1,48 @@
 # CommerceLens work state
 
-Authoritative handoff updated 2026-10-17. Actual D repository, Git and verified
+Authoritative handoff updated 2026-10-18. Actual D repository, Git and verified
 evidence take precedence over chat. Read the permanent instructions before edits.
 
-## Active checkpoint — 2026-10-17
+## Active checkpoint — 2026-10-18
+
+SAFE TO RESUME / CURRENT-SOURCE NATIVE ACCEPTANCE VERIFIED. Resumed clean
+published6ece4d6, upstream0/0, usage2% five-hour/46% weekly. The containing commit
+is this checkpoint; publication follows staged-content and history secret scans.
+
+The prior item timeout is resolved for the full-source checker. Read-only plan
+artifact268e7442b72a40ee819323d04a6c5f98 showed two costly nested loops under
+cursor planning0.1; full-consumption1.0 removes them. The checker sets1.0 only
+inside its rollback-only transaction.1000-row batches and600-second budget remain.
+Cardinality estimates remain inaccurate; this is not consumer performance proof.
+
+Native artifact45db522058814295a6c15dd49936f676 passed all99,441 order rows/33
+fields and112,650 item rows/26 fields with exact matching source/native hashes
+and zero mismatches. Native types/precision, source integrity and final warehouse
+identity checks passed. Order128.57s/item125.04s include type/fetch/compare/hash.
+Raw275988480/database287512243 bytes unchanged; all relation metadata unchanged.
+No model rebuild, grant, source change or Phase6 work. Master Plan Agent reviewed
+alignment; current-source scope only. Previous failure artifacts remain retained.
+
+Validation:52 focused; full offline1878 passed/1004 intentional native skips/one
+known AnyIO warning in63.67s. Ruff lint/format194, default mypy35 and verifier1
+passed. Fresh advisories: Python0, npm full7 high/runtime2 high/0critical; E11
+remains. See docs/phase-5-cursor-acceptance-verification.json and the owner-facing
+docs/project-progress-2026-10-18.md. Preservation starts at47% five-hour/53% weekly
+USED to retain room for checks, publication and reporting after rapid prior usage.
+No reset credit used. Do not begin a broad new unit during preservation.
+
+Exact next action: add bounded native synthetic cases executing actual order/item
+mart SQL (reuse portable fixtures and explicit recovery-target guards; no rebuild
+or fixture tables), including missing amounts/parents/categories, multi-review
+weights, date boundaries and the three decimal review diagnostics. The existing
+source checker deliberately excludes those diagnostics; the existing PostgreSQL
+query tests exercise consumer CTEs and are not full mart-edge acceptance.
+Then complete explicit reader grant/catalog/denials, representative filtered and
+concurrent workload/provenance/Q01, and consumer/dashboard-contract reconciliation.
+Both native builds remain complete. Phase5 exit must precede Phase6 web MVP.
+Earlier dated sections below are historical wherever this checkpoint differs.
+
+## Previous checkpoint — 2026-10-17
 
 SAFE TO RESUME / PARTIAL NATIVE ACCEPTANCE. Resumed clean published312bdfd,
 upstream0/0, usage2% five-hour/30% weekly. New independent source oracle and

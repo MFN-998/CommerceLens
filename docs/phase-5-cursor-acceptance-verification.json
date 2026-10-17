@@ -1,0 +1,68 @@
+{
+  "local_date": "2026-10-18",
+  "timezone": "Asia/Karachi",
+  "completed_utc": "2026-10-17T19:09:24.493344+00:00",
+  "parent_checkpoint": "6ece4d6",
+  "status": "current-source native comparison passed; Phase5 remains incomplete",
+  "native_artifacts": ".artifacts/phase-5/45db522058814295a6c15dd49936f676",
+  "plan_artifacts": ".artifacts/phase-5/268e7442b72a40ee819323d04a6c5f98",
+  "change": "Transaction-local full-consumption cursor planning; unchanged1000-row batches and600-second whole-job deadline",
+  "comparisons": {
+    "mart_order_kpis": {
+      "rows": 99441,
+      "fields": 33,
+      "source_sha256": "069750c99dc07880d48339eeef9ce7b7fdc512d9b65df6613b72f8f5ee35ce85",
+      "native_sha256": "069750c99dc07880d48339eeef9ce7b7fdc512d9b65df6613b72f8f5ee35ce85",
+      "mismatches": 0,
+      "elapsed_seconds": 128.57
+    },
+    "mart_item_kpis": {
+      "rows": 112650,
+      "fields": 26,
+      "source_sha256": "9f79cbe42592df4c42c2b73ac5f00a7a28601c7208085388ac64712f56a51d96",
+      "native_sha256": "9f79cbe42592df4c42c2b73ac5f00a7a28601c7208085388ac64712f56a51d96",
+      "mismatches": 0,
+      "elapsed_seconds": 125.04
+    }
+  },
+  "native_types_verified": true,
+  "warehouse_identity_and_source_integrity_verified": true,
+  "raw_bytes_before_and_after": 275988480,
+  "database_bytes_before_and_after": 287512243,
+  "build_or_grant_attempted": false,
+  "timing_scope": "Per-view elapsed includes type checks, fetch, comparison and hashing; not SQL latency or Q01",
+  "validation": {
+    "focused_passed": 52,
+    "full_offline_passed": 1878,
+    "intentional_native_skips": 1004,
+    "known_anyio_warning": 1,
+    "full_seconds": 63.67,
+    "ruff_files": 194,
+    "mypy_source_files": 35,
+    "mypy_verifier_files": 1
+  },
+  "advisories": {
+    "artifacts": ".artifacts/audits/3304094beda3490da86788bd3a140170",
+    "python_findings": 0,
+    "npm_full_high": 7,
+    "npm_runtime_high": 2,
+    "critical": 0,
+    "exception": "E11 retained before substantive Phase6/public exposure"
+  },
+  "master_plan_review": "No blocker; retain explicit source-only scope and unresolved cardinality estimates/consumer Q01",
+  "pending": [
+    "Native synthetic edge cases using actual mart SQL and decimal review diagnostics",
+    "Explicit reader grant/catalog/denial verification",
+    "Representative query filters/pagination/concurrency with parameter/model provenance and Q01",
+    "Independent consumer query/dashboard-contract reconciliation and Phase5 exit"
+  ],
+  "preservation_usage_used_percent": {
+    "five_hour": 47,
+    "weekly": 53
+  },
+  "sha256": {
+    "scripts/verify_phase5_native.py": "e757618dc69a0b5b84cedc57bacceb85a61dfe74fd42b9b4817afa89ced57865",
+    "tests/test_phase5_native_acceptance.py": "2b032f1e06493d462af381dc7cf463a8a1c98174cdfa23143134b20f3e4fafc6",
+    ".artifacts\\phase-5\\45db522058814295a6c15dd49936f676\\acceptance-receipt.json": "e671f912a5039c90e3b34597b496f212b66448f72db466eacbde8a8a1eff0bcd"
+  }
+}

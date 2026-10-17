@@ -4,13 +4,14 @@ Started 2026-10-05 in separate chat 01a10ae9-ebc3-74b3-8c42-018a1c90f7bf.
 Verified resume: Phase 4 exit deaa4dd, successor metadata75f5335, clean/upstream0/0.
 Phases 1–4 and governance remain COMPLETE / VERIFIED. Phase 5 is IN PROGRESS.
 
-Current2026-10-16 checkpoint: both scoped native views built successfully, order10
-tests/item12 tests, with raw bytes and prior mart identities/permissions preserved.
-Whole-job measurement deadline integration is implemented; see dated verification
-and WORK_STATE for its checks. Independent native KPI acceptance and explicit
-reader grants/access, representative workload/provenance, Q01 and dashboard
-reconciliation remain pending. Do not redo completed builds. Historical milestone
-entries below retain their original dates and are superseded by this checkpoint.
+Current2026-10-18 checkpoint: both scoped native builds remain complete.
+Independent current-source acceptance now passes99,441 order rows/33 fields and
+112,650 item rows/26 fields, exact values/types and before/after integrity.
+See [dated evidence](phase-5-cursor-acceptance-verification.json) and WORK_STATE.
+Native synthetic edges/decimal review diagnostics, reader grants/access,
+representative workload/provenance/Q01 and consumer reconciliation remain pending.
+Do not redo completed builds. Historical milestone entries below are superseded
+by this checkpoint. Phase5 is not complete.
 
 ## Atomic milestones
 
@@ -24,25 +25,19 @@ entries below retain their original dates and are superseded by this checkpoint.
 5. Verify native results/access, regressions and evidence; publish Phase 5 exit and
    create the separately authorized Phase 6 chat only after that exit gate.
 
-M1 policy COMPLETE at35cb6dc. M2a order-view source/offline checks COMPLETE;
-native acceptance and the rest of M2–M5 remain pending. Current source adds
-mart_order_kpis (one order, preserving every original column) and12 independent
-synthetic cases. Approved graph is explicitly21 models/292 tests in offline parse;
-historical Phase3 native20/282 evidence is unchanged, not refreshed.
+Current implementation: M1 dictionary, M2a order and M2b item views, the selected
+runner, bounded query/serialization contracts and measurement supervision are
+implemented. The closed offline graph is22 models/304 tests. Both native builds
+passed on2026-10-16; historical full Phase3 evidence remains unchanged.
 
-Current checks: full offline1683 passed/1000 deliberate native skips/knownAnyIO1,
-42.75s; Ruff lint/format176; mypy29; offline dbt parse artifact
-.artifacts/dbt/b126343ffb3a4e9b81360e1fde62b67b. Initial broad run failed the
-expected closed graph guard; explicit model/schema allowlist and independent
-fixed-graph fixture were extended, then the full suite passed. No suppression.
+The2026-10-17 item timeout was resolved by transaction-local full-consumption
+cursor planning; the2026-10-18 read-only acceptance receipt also verifies final
+metadata and source integrity. Timing is whole comparison time, not Q01 latency.
 
-First next step: implement and independently test a narrowly selected build/test
-path against the explicit protected isolated recovery target before native acceptance.
-Do not invoke full-graph reconstruction merely to build this new view or use
-original default settings. Existing reader grant guards accept only the technical
-mart: extend explicit per-mart access verification only after model acceptance,
-preserving NOLOGIN/NOINHERIT/private schemas and independent denial tests.
-No live build/grant/read, consumer endpoint or Q01 measurement has run in Phase5.
+Next, finish native synthetic edge cases and decimal
+review diagnostics, explicit reader catalog/denial checks, representative Q01
+workload/provenance and independent consumer reconciliation. Preserve the private
+recovery target, NOLOGIN/NOINHERIT reader and exact source contracts.
 Phase 6 owns HTTP/database/UI integration, actual consumer authentication and exposure.
 Phase 7 owns customer360/RFM/cohorts; Phase 8 owns predictive features/models.
 

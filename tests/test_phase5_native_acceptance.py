@@ -7,7 +7,8 @@ from time import monotonic
 import pytest
 
 from scripts import verify_phase5_native as acceptance
-from src.analytics.measurement import Deadline
+from src.analytics import measurement
+from src.analytics.measurement import Deadline, MeasurementError
 
 
 def budget():
@@ -147,3 +148,116 @@ def test_target_failure_stops_before_database_and_suppresses_details(tmp_path, m
     folder = next((tmp_path / ".artifacts/phase-5").iterdir())
     assert json.loads((folder / "failure.json").read_text())["read_only"] is True
     assert not (folder / "acceptance-receipt.json").exists()
+
+
+class StreamingCursor:
+    def __init__(self, connection):
+        self.connection = connection
+        self.closed = False
+        self.statement = None
+        self.fetch_sizes = []
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *args):
+        self.closed = True
+
+    def execute(self, statement, *, binary):
+        # DECLARE must see the planner setting, not a later FETCH operation.
+        assert self.connection.full_consumption
+        assert binary is True
+        self.statement = statement
+
+    def fetchmany(self, size):
+        assert self.statement is not None
+        assert size == 1000
+        self.fetch_sizes.append(size)
+        batch = self.connection.batches.pop(0)
+        if self.connection.after_fetch is not None:
+            self.connection.after_fetch()
+        return batch
+
+
+class StreamingConnection:
+    def __init__(self, batches, after_fetch=None):
+        self.batches = batches
+        self.after_fetch = after_fetch
+        self.full_consumption = False
+        self.statements = []
+        self.stream = StreamingCursor(self)
+
+    def execute(self, statement):
+        self.statements.append(statement)
+        if statement == "SET LOCAL cursor_tuple_fraction=1.0":
+            self.full_consumption = True
+        return Cursor([])
+
+    def cursor(self, *, name):
+        assert name == "phase5_acceptance"
+        return self.stream
+
+
+@pytest.mark.parametrize("name", ["mart_order_kpis", "mart_item_kpis"])
+def test_native_stream_sets_full_consumption_before_declaration_and_projects_exact_rows(name):
+    columns = tuple(acceptance.CONTRACTS[name])
+    expected = dict.fromkeys(columns)
+    expected.update(order_id="literal-order", is_commerce_eligible=True)
+    if name == "mart_item_kpis":
+        expected.update(order_item_id=2, price=Decimal("9999999999999999.99"))
+    else:
+        expected.update(source_price_sum=Decimal("19999999999999999.98"))
+    values = tuple(expected[column] for column in columns)
+    connection = StreamingConnection([[values], []])
+
+    assert list(acceptance.native_rows(connection, name, budget())) == [expected]
+    assert connection.full_consumption is True
+    assert connection.stream.fetch_sizes == [1000, 1000]
+    assert connection.stream.closed is True
+    order = ' order by order_id collate "C"'
+    if name == "mart_item_kpis":
+        order += ",order_item_id"
+    assert (
+        connection.stream.statement == "select " + ",".join(columns) + " from marts." + name + order
+    )
+    assert connection.statements.count("SELECT 1") == 3
+
+
+def test_native_stream_empty_completion_closes_cursor():
+    connection = StreamingConnection([[]])
+    assert list(acceptance.native_rows(connection, "mart_item_kpis", budget())) == []
+    assert connection.stream.fetch_sizes == [1000]
+    assert connection.stream.closed is True
+
+
+def test_native_stream_deadline_expiry_prevents_another_fetch(monkeypatch):
+    clock = [0.0]
+    monkeypatch.setattr(measurement, "monotonic", lambda: clock[0])
+    columns = tuple(acceptance.CONTRACTS["mart_item_kpis"])
+    values = tuple(None for _ in columns)
+    connection = StreamingConnection([[values], [values]])
+    stream = iter(acceptance.native_rows(connection, "mart_item_kpis", Deadline(10.0)))
+    assert next(stream) == dict.fromkeys(columns)
+    clock[0] = 11.0
+
+    with pytest.raises(MeasurementError, match="deadline exceeded"):
+        next(stream)
+    assert connection.stream.fetch_sizes == [1000]
+    assert len(connection.batches) == 1
+    assert connection.stream.closed is True
+
+
+def test_native_stream_discards_batch_received_after_deadline(monkeypatch):
+    clock = [0.0]
+    monkeypatch.setattr(measurement, "monotonic", lambda: clock[0])
+
+    def expire():
+        clock[0] = 11.0
+
+    values = tuple(None for _ in acceptance.CONTRACTS["mart_item_kpis"])
+    connection = StreamingConnection([[values]], after_fetch=expire)
+    stream = iter(acceptance.native_rows(connection, "mart_item_kpis", Deadline(10.0)))
+    with pytest.raises(MeasurementError, match="deadline exceeded"):
+        next(stream)
+    assert connection.stream.fetch_sizes == [1000]
+    assert connection.stream.closed is True
