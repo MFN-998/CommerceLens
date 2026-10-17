@@ -3,6 +3,35 @@
 Authoritative handoff updated 2026-10-18. Actual D repository, Git and verified
 evidence take precedence over chat. Read the permanent instructions before edits.
 
+## Active continuation checkpoint — 2026-10-18
+
+SAFE TO RESUME. Resumed clean published d894b1f at59% five-hour/55% weekly USED.
+Added three opt-in native cases using the actual order-mart SQL and typed CTEs
+through the existing explicitly guarded read-only recovery connection. Thirds,
+unequal per-order review counts, all three decimal diagnostics, absent reviews
+and all-null scores passed in7.13s. Independent rational tolerance1e-15 and
+six-decimal response rounding are checked; repeating fractions are not required
+to equal finite decimals exactly. No schema/data write, build, grant or source
+comparison repeat. Master Plan Agent reviewed this narrow slice.
+
+Full offline1878 passed/1007 intentional native skips/known AnyIO warning1 in
+56.91s. Changed-file Ruff lint/format passed; no production Python change needs
+new mypy checks. Same-session advisory evidence3304094beda3490da86788bd3a140170
+remains applicable because dependencies are unchanged; E11 remains. Retained
+JUnit results and source hashes are in docs/phase-5-review-edge-verification.json.
+
+Usage rose59% ->75% (preservation started) ->88% five-hour/59% weekly while closing
+this unit. The20% reserve was exceeded during preservation; no new unit or reset
+credit. Finish scanning/publication only, then stop. Next resume must recheck
+both windows and wait if either has25% or less remaining.
+
+Next: extend tests/test_phase5_mart_postgres.py with bounded actual-mart synthetic
+money/null/coverage/date-boundary and item parent/category cases. Native fractional
+review diagnostics are now covered; the other edge gates remain open. Then
+reader catalog/grant/denials, representative Q01 performance/provenance and consumer
+reconciliation. Phase5 remains incomplete; all previously completed builds and
+full-source comparisons remain accepted. The containing commit is this checkpoint.
+
 ## Active checkpoint — 2026-10-18
 
 SAFE TO RESUME / CURRENT-SOURCE NATIVE ACCEPTANCE VERIFIED. Resumed clean

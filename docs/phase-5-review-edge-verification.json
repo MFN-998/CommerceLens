@@ -1,0 +1,39 @@
+{
+  "date": "2026-10-18",
+  "parent_checkpoint": "d894b1f",
+  "status": "native review-diagnostic slice passed; other mart edges pending",
+  "native_passed": 3,
+  "native_seconds": 7.13,
+  "offline_passed": 1878,
+  "native_skipped_offline": 1007,
+  "known_anyio_warning": 1,
+  "offline_seconds": 56.91,
+  "ruff": "changed test lint and format passed",
+  "native_junit": ".artifacts/phase-5/review-edges-20261018.xml",
+  "offline_junit": ".artifacts/phase-5/review-offline-20261018.xml",
+  "read_only": true,
+  "schema_or_data_writes": false,
+  "sql": "actual order mart with only ref tags replaced by typed synthetic CTE names",
+  "diagnostics": [
+    "order_review_score",
+    "order_low_review_fraction",
+    "order_high_review_fraction"
+  ],
+  "expectations": "Independent rational error <=1e-15 and exact six-decimal rounding; missing/all-null scores retain null diagnostics",
+  "source_sha256": {
+    "tests/test_phase5_mart_postgres.py": "2c80392893e528c65cc628652fdb25dbc94af0518e29f1aea8ff0af235fd06a8",
+    "dbt/models/marts/mart_order_kpis.sql": "70e4399a5c9149e2f0f843435b3578e030e710a27961a85d21bacc3688c849c1"
+  },
+  "usage_used_percent": {
+    "five_hour": 88,
+    "weekly": 59
+  },
+  "remaining": [
+    "Native money/completeness/date-boundary edges",
+    "Native item parent/category edges",
+    "Reader access acceptance",
+    "Q01 representative workloads/provenance",
+    "Consumer reconciliation"
+  ],
+  "dependency_scan": "Same-session3304094beda3490da86788bd3a140170; dependencies unchanged; E11 retained"
+}

@@ -13,6 +13,11 @@ representative workload/provenance/Q01 and consumer reconciliation remain pendin
 Do not redo completed builds. Historical milestone entries below are superseded
 by this checkpoint. Phase5 is not complete.
 
+Native review slice accepted later2026-10-18: three actual-order-SQL synthetic
+cases verify fractional review diagnostics, unequal order weights and missing
+scores. See [review evidence](phase-5-review-edge-verification.json). Other native
+money/date/item edges remain pending; this does not complete the edge-case gate.
+
 ## Atomic milestones
 
 1. Define versioned KPI policy and dictionary before implementing metrics.
