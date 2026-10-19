@@ -9,8 +9,9 @@ fractional-review diagnostics and the remaining 18 native model-edge cases pass.
 Actual upstream money aggregation is included; metadata remains unchanged.
 See [edge evidence](phase-5-native-edges-verification.json), prior linked source
 and review evidence, and WORK_STATE. Model-edge acceptance is complete.
-Next: explicit reader grant/catalog/denials, representative workloads/provenance,
-Q01 and independent consumer/dashboard-contract reconciliation. Phase5 is incomplete.
+Restricted reader grant/catalog/denials and positive view projections also pass;
+see [access evidence](phase-5-reader-verification.json). Next: representative
+workloads/provenance, Q01 and independent consumer/dashboard-contract reconciliation. Phase5 is incomplete.
 Do not repeat accepted builds or model checks merely to resume.
 
 ## Atomic milestones
@@ -34,7 +35,7 @@ The2026-10-17 item timeout was resolved by transaction-local full-consumption
 cursor planning; the2026-10-18 read-only acceptance receipt also verifies final
 metadata and source integrity. Timing is whole comparison time, not Q01 latency.
 
-Next, finish explicit reader catalog/denial checks, representative Q01
+Next, finish representative Q01
 workload/provenance and independent consumer reconciliation. Preserve the private
 recovery target, NOLOGIN/NOINHERIT reader and exact source contracts.
 Phase 6 owns HTTP/database/UI integration, actual consumer authentication and exposure.

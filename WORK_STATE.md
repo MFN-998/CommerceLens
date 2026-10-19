@@ -3,7 +3,35 @@
 Authoritative handoff updated 2026-10-19. Actual D repository, Git and verified
 evidence take precedence over chat. Read the permanent instructions before edits.
 
-## Active checkpoint — 2026-10-19
+## Active checkpoint — 2026-10-19 reader access
+
+SAFE TO RESUME / MODEL VALIDATION AND INTERNAL READER ACCESS VERIFIED. Published
+pre-grant model-edge checkpoint1f9faa4, then granted SELECT on the exact three
+approved marts using the existing transactional guard. Native grant and separate
+verify-access passed: full reader catalog, four public/API role denials and four
+underlying-schema SQL denial probes. Three SELECT projections succeeded as the
+reader with zero data rows read. Reader remains NOLOGIN/NOINHERIT; no consumer
+credential, authentication or public-readiness claim.
+
+Grant artifactb113727f1d634241bfbee8dcddace626; independent postcheck
+8cc1ff80e6954dc2b4b6542359be6c02. Only expected new-view ACLs changed. Existing
+component ACL, all relation OIDs/owners/options, raw275988480/database287520435
+bytes and reader capabilities remain unchanged. Postcheck before/after match.
+See docs/phase-5-reader-verification.json. Model-edge test and advisory evidence
+below remains current; this second unit changes documentation only.
+
+Next exact action: inspect cases()/measurement provenance in scripts/phase5_native.py
+and extend representative seller/product/missing-category/pagination filters plus
+expensive two-query concurrency. Capture bound parameters and model hashes before
+running Q01; do not accept current sparse workload as representative. Then finish
+independent consumer reconciliation and Phase5 exit. Do not repeat builds, source
+comparisons, edge suites or grants merely to resume. No Phase6 work yet.
+
+Usage66% five-hour/10% weekly USED at closing checkpoint. Preservation only; no
+new unit, reset credit, merge, deployment or paid operation. All artifacts retained.
+The containing commit is the access checkpoint; Git cannot undo the committed grant.
+
+## Previous model-edge checkpoint — 2026-10-19
 
 SAFE TO RESUME / MODEL EDGE ACCEPTANCE VERIFIED. Resumed clean5534a4d,
 usage2% five-hour/0% weekly. Eighteen native cases passed in80.87s, exercising

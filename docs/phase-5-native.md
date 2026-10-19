@@ -1,14 +1,14 @@
 # Phase 5 isolated native verification
 
-## Current checkpoint — 2026-10-18
+## Current checkpoint — 2026-10-19
 
-Both builds remain verified (order10/item12 selected checks). Full current-source
-comparison now passes99,441 order rows/33 fields and112,650 item rows/26 fields,
-exact types/values, source integrity and warehouse identity checks. See
-[current acceptance evidence](phase-5-cursor-acceptance-verification.json).
-Do not repeat builds or current-source acceptance merely to resume. Next are
-native synthetic mart edges and decimal review diagnostics, then explicit reader
-grant/catalog/denials, Q01 and consumer reconciliation. Phase5 remains incomplete.
+Both builds, full-source comparisons and native model edges are verified.
+Restricted reader grants and separate catalog/denial/projection checks now pass.
+See [model-edge evidence](phase-5-native-edges-verification.json) and
+[reader evidence](phase-5-reader-verification.json). Do not repeat accepted
+builds, comparisons or grants merely to resume. Next are representative workloads,
+parameter/model provenance, Q01 and independent consumer reconciliation.
+Phase5 remains incomplete; no consumer authentication or public exposure is certified.
 
 The restored recovery project's direct hostname failed DNS. Its dashboard's
 IPv4 session-pooler route passed with existing credentials and verify-full TLS;

@@ -1,0 +1,55 @@
+{
+  "date": "2026-10-19",
+  "pre_grant_checkpoint": "1f9faa4",
+  "status": "restricted reader grant and post-commit verification passed",
+  "grant_artifacts": ".artifacts/phase-5/b113727f1d634241bfbee8dcddace626",
+  "verify_artifacts": ".artifacts/phase-5/8cc1ff80e6954dc2b4b6542359be6c02",
+  "grant_completed_utc": "2026-10-19T17:56:07.216898+00:00",
+  "post_commit_result": {
+    "select_marts": 3,
+    "api_public_roles_denied": 4,
+    "native_denial_probes": 4
+  },
+  "positive_projections": {
+    "status": "passed",
+    "allowed_marts": 3,
+    "rows_read": 0,
+    "role": "commercelens_reader",
+    "transaction": "read-only rollback"
+  },
+  "expected_only_acl_changes": true,
+  "unchanged": [
+    "raw bytes",
+    "database size",
+    "relation OIDs/owners/kinds/options",
+    "original component-mart ACL",
+    "reader NOLOGIN/NOINHERIT/capability attributes"
+  ],
+  "raw_bytes": 275988480,
+  "database_bytes": 287520435,
+  "limits": "Development admin assumes non-login reader; not consumer credentials, authentication, public exposure or Q01 acceptance",
+  "next": [
+    "Representative filtered/paginated/concurrent workload and parameter/model provenance",
+    "Q01 performance acceptance",
+    "Independent consumer query/dashboard-contract reconciliation",
+    "Phase5 exit review before Phase6"
+  ],
+  "source_sha256": [
+    {
+      "sha256": "17b0d6bf54dac1efc6db2eabd24143379cea3c55ed7e31535a4222ae0fa7cf42",
+      "path": "src/analytics/access.py"
+    },
+    {
+      "sha256": "3108c139d5583bfcbf81ef2fa92c8ddcb3116aa97ca6a8bddad1f7450b00840f",
+      "path": "scripts/phase5_native.py"
+    },
+    {
+      "sha256": "edfdfddcfb07856a6c71e26c3e90a1057bb29126a7a8d62e122aca0f4e527b56",
+      "path": "warehouse/access/mart_order_components.sql"
+    }
+  ],
+  "usage_used_percent": {
+    "five_hour": 66,
+    "weekly": 10
+  }
+}
