@@ -1,7 +1,37 @@
 # CommerceLens work state
 
-Authoritative handoff updated 2026-10-18. Actual D repository, Git and verified
+Authoritative handoff updated 2026-10-19. Actual D repository, Git and verified
 evidence take precedence over chat. Read the permanent instructions before edits.
+
+## Active checkpoint — 2026-10-19
+
+SAFE TO RESUME / MODEL EDGE ACCEPTANCE VERIFIED. Resumed clean5534a4d,
+usage2% five-hour/0% weekly. Eighteen native cases passed in80.87s, exercising
+actual order-component/order/item SQL over typed read-only CTEs. They cover
+large exact child aggregation, missing/partial/zero coverage, no fanout, date
+boundaries/reversals, literal status/category/parent identity, item grain and
+source context. Previous full-source and review evidence remains accepted.
+Master Plan Agent found no blocker to the model-edge gate.
+
+Before/after saved metadata are identical: raw275988480/database287520435 bytes,
+relation identity/ownership/ACL/options and reader attributes unchanged. Initial
+inline postcheck compared tuples against JSON lists and failed; comparing both
+saved JSON documents verified identity. Correction retained; no database rerun.
+No model/source edit, build, grant, fixture table or full-source repeat occurred.
+
+Validation: native18; full offline1878 passed/1025 intended native skips/known
+AnyIO warning1 in71.69s. Ruff lint/format199 passed. No production implementation
+changed; mypy not rerun. Fresh advisory results are in the dated edge receipt;
+E11 remains. Evidence: docs/phase-5-native-edges-verification.json and
+.artifacts/phase-5/edges-20261019-01. Usage49% five-hour/8% weekly at preservation.
+
+Next authorized unit after saving this checkpoint: run scripts.phase5_native
+ grant with explicit recovery root and ref, inspect committed-state receipt,
+then verify-access plus expected-only ACL changes. Do not rebuild or repeat
+accepted source/edge gates. Reader remains NOLOGIN/NOINHERIT and SELECT-only on
+three approved marts; no public/API role exposure. Then representative workloads,
+parameter/model provenance/Q01 and independent consumer reconciliation remain.
+Phase5 is incomplete. Later phase work, deployment and merge remain pending.
 
 ## Active continuation checkpoint — 2026-10-18
 

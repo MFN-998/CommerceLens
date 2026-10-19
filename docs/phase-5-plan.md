@@ -4,19 +4,14 @@ Started 2026-10-05 in separate chat 01a10ae9-ebc3-74b3-8c42-018a1c90f7bf.
 Verified resume: Phase 4 exit deaa4dd, successor metadata75f5335, clean/upstream0/0.
 Phases 1–4 and governance remain COMPLETE / VERIFIED. Phase 5 is IN PROGRESS.
 
-Current2026-10-18 checkpoint: both scoped native builds remain complete.
-Independent current-source acceptance now passes99,441 order rows/33 fields and
-112,650 item rows/26 fields, exact values/types and before/after integrity.
-See [dated evidence](phase-5-cursor-acceptance-verification.json) and WORK_STATE.
-Native synthetic edges/decimal review diagnostics, reader grants/access,
-representative workload/provenance/Q01 and consumer reconciliation remain pending.
-Do not redo completed builds. Historical milestone entries below are superseded
-by this checkpoint. Phase5 is not complete.
-
-Native review slice accepted later2026-10-18: three actual-order-SQL synthetic
-cases verify fractional review diagnostics, unequal order weights and missing
-scores. See [review evidence](phase-5-review-edge-verification.json). Other native
-money/date/item edges remain pending; this does not complete the edge-case gate.
+Current 2026-10-19 checkpoint: both native builds, full-source comparisons,
+fractional-review diagnostics and the remaining 18 native model-edge cases pass.
+Actual upstream money aggregation is included; metadata remains unchanged.
+See [edge evidence](phase-5-native-edges-verification.json), prior linked source
+and review evidence, and WORK_STATE. Model-edge acceptance is complete.
+Next: explicit reader grant/catalog/denials, representative workloads/provenance,
+Q01 and independent consumer/dashboard-contract reconciliation. Phase5 is incomplete.
+Do not repeat accepted builds or model checks merely to resume.
 
 ## Atomic milestones
 
@@ -39,8 +34,7 @@ The2026-10-17 item timeout was resolved by transaction-local full-consumption
 cursor planning; the2026-10-18 read-only acceptance receipt also verifies final
 metadata and source integrity. Timing is whole comparison time, not Q01 latency.
 
-Next, finish native synthetic edge cases and decimal
-review diagnostics, explicit reader catalog/denial checks, representative Q01
+Next, finish explicit reader catalog/denial checks, representative Q01
 workload/provenance and independent consumer reconciliation. Preserve the private
 recovery target, NOLOGIN/NOINHERIT reader and exact source contracts.
 Phase 6 owns HTTP/database/UI integration, actual consumer authentication and exposure.

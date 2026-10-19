@@ -1,0 +1,64 @@
+{
+  "date": "2026-10-19",
+  "parent_checkpoint": "5534a4d",
+  "status": "Remaining model-edge gate passed; reader access and consumer gates pending",
+  "native_passed": 18,
+  "native_seconds": 80.87,
+  "offline_passed": 1878,
+  "native_skipped_offline": 1025,
+  "known_anyio_warning": 1,
+  "offline_seconds": 71.69,
+  "ruff_files": 199,
+  "mypy": "Not rerun: test-only additions, no production implementation changes",
+  "artifacts": ".artifacts/phase-5/edges-20261019-01",
+  "metadata_unchanged": true,
+  "raw_bytes": 275988480,
+  "database_bytes": 287520435,
+  "initial_metadata_postcheck": "Representation-only failure comparing Python tuples with JSON lists; both saved JSON records verified identical and correction retained",
+  "writes_or_grants": false,
+  "master_plan_review": "No blocker; actual upstream aggregation included; model-edge gate accepted with prior current-source/review evidence",
+  "scope": [
+    "Actual numeric(18,2) children aggregated beyond component headroom; no child fanout",
+    "Absent/all-null/partial/zero independent money completeness",
+    "Naive leap-day clocks, same-day/equality/early/next-day and missing/reversed events under two session timezones",
+    "Literal noncommerce eligibility; empty populations",
+    "Item missing parents/categories/translation, literal identities, repeated grain, exact money/lineage/context"
+  ],
+  "limits": [
+    "Fact/dimension context is supplied; upstream transforms are not re-certified",
+    "Purchase-period filters and consumer reconciliation/Q01 remain pending",
+    "No consumer authentication or public exposure proof"
+  ],
+  "sha256": {
+    "tests/phase5_native_fixtures.py": "4c07f2280b7a5e2677548bdeab09c355a6a9b436ff8983c2e773a8458d47ac09",
+    "tests/test_phase5_order_postgres.py": "0a2406ce744a7afd1ebcf64f5e6b966b8c0a9d37c0159232c0dca269c2348258",
+    "tests/test_phase5_item_postgres.py": "1951005603bb04acc31a769630a01e3d7430388caf521cf6495fa18b08377740",
+    "dbt/models/marts/mart_order_components.sql": "b207a2e77ccb875a0a2264bfe220f916ba64287185df27d3d5d65f6c6baf2a76",
+    "dbt/models/marts/mart_order_kpis.sql": "70e4399a5c9149e2f0f843435b3578e030e710a27961a85d21bacc3688c849c1",
+    "dbt/models/marts/mart_item_kpis.sql": "d070abdd0947af31153164101027fc5e12bcd31a3d6efdf4476ca51325857972"
+  },
+  "advisory_artifacts": ".artifacts/audits/3eaca73ec5ec41e491433ff0c74902b4",
+  "advisories": {
+    "python_findings": 0,
+    "npm-full": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 7,
+      "critical": 0,
+      "total": 7
+    },
+    "npm-runtime": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 2,
+      "critical": 0,
+      "total": 2
+    }
+  },
+  "usage_used_percent": {
+    "five_hour": 49,
+    "weekly": 8
+  }
+}
