@@ -71,5 +71,56 @@
     "No planner adjustment or SQL candidate adopted",
     "PostgreSQL estimates are not actual row fanout; largest observed cohort has96478 rows"
   ],
-  "next": "Capacity-reviewed rollback-only normalized identity index diagnostic before persistent schema or model changes"
+  "next": "Prepare guarded rollback-only index probe: actual sizes, original-settings plans, bounded measurement, independent result reconciliation and confirmed rollback before persistent adoption",
+  "index_preflight": {
+    "status": "preflight_completed",
+    "read_only": true,
+    "persistent_changes": false,
+    "unchanged": true,
+    "candidates": [
+      {
+        "table": "orders",
+        "column": "order_id",
+        "rows": 99441,
+        "present": 99441,
+        "distinct": 99441,
+        "maximum_key_bytes": 32,
+        "unique_nonempty_32_byte_keys": true,
+        "estimated_index_bytes": 9807498
+      },
+      {
+        "table": "customers",
+        "column": "customer_id",
+        "rows": 99441,
+        "present": 99441,
+        "distinct": 99441,
+        "maximum_key_bytes": 32,
+        "unique_nonempty_32_byte_keys": true,
+        "estimated_index_bytes": 9807498
+      },
+      {
+        "table": "products",
+        "column": "product_id",
+        "rows": 32951,
+        "present": 32951,
+        "distinct": 32951,
+        "maximum_key_bytes": 32,
+        "unique_nonempty_32_byte_keys": true,
+        "estimated_index_bytes": 3260791
+      }
+    ],
+    "existing_index_count": 3,
+    "estimated_total_index_bytes": 22875787,
+    "estimated_build_allowance_bytes": 45751574,
+    "estimated_raw_with_build_bytes": 321740054,
+    "estimated_database_with_build_bytes": 333272009,
+    "within_size_ceilings": true,
+    "limits": "Planning estimate only; no actual index size, build, WAL/filesystem headroom, planner benefit or query acceptance verified",
+    "artifacts": ".artifacts/phase-5/b39c7ff926ef43408c1d49a17f6197b6",
+    "method": {
+      "sha256": "d83a223a91874374497b6605156420464d4582efe51ee52327322d1a09b53c53",
+      "path": ".artifacts/phase-5/index_preflight_20261020.py"
+    },
+    "existing_indexes": "Only existing load-id/source-row primary indexes; no candidate expression index exists"
+  }
 }

@@ -6,6 +6,25 @@ evidence take precedence over chat. Read the permanent instructions before edits
 ## Active checkpoint — 2026-10-20 native Q01 diagnosis
 
 SAFE TO RESUME / PERFORMANCE GATE FAILED; optimization is required.
+Diagnostic checkpoint e9272b7 is published. Subsequent read-only index preflight
+b39c7ff926ef43408c1d49a17f6197b6 verified unique nonempty32-byte normalized keys:
+orders99441, customers99441, products32951. Only the existing three load/source-row
+primary indexes exist. Conservative index estimate22875787 bytes; double build
+allowance45751574 yields raw321740054/database333272009, below367M/400M ceilings.
+These are estimates, not actual build/WAL/filesystem or performance evidence.
+Before/after identity, size and deployed hashes/settings matched; index inventory
+matched the three existing primary indexes.
+No index or statistics object was created. Receipt consistency checks passed.
+This containing commit saves the preflight; all artifacts retained.
+
+Next exact action: prepare the guarded rollback-only three-expression index probe
+against the existing recovery target. Keep original planner/memory/time limits;
+measure actual index sizes and unchanged-query plans, then bounded execution if
+appropriate. Confirm rollback and reconcile results before any persistent adoption.
+Do not rerun the already completed key preflight or entire failing workload merely
+to resume. Usage66% five-hour/10% weekly USED at final preservation; stop before
+starting this larger database experiment. No reset credit, merge or deployment.
+
 Resumed clean published f0b4897, upstream 0/0, both usage windows 0% USED.
 Prepared all16 source-supported cases, captured private bindings/model provenance,
 and passed access/capacity prechecks. First overview_all read failed before returning
@@ -29,10 +48,10 @@ applicable to unchanged code; no redundant full-suite run. Receipt consistency
 checks compared all saved metadata and source hashes. All artifacts retained.
 
 Master Plan Agent recommends a bounded expression-index experiment before metric
-SQL refactoring. Next exact unit: verify the exact NULLIF(identity,'') COLLATE "C"
-expressions, existing indexes, key lengths/uniqueness, and capacity/build headroom
-on the isolated recovery target; prepare a rollback-only diagnostic with existing
-timeouts and explicit post-rollback verification. Do not create persistent indexes
+SQL refactoring. The read-only preflight above covers the exact
+NULLIF(identity,'') COLLATE "C" expressions, existing indexes, key lengths/uniqueness,
+and estimated capacity headroom. The rollback-only diagnostic and actual build
+verification remain next. Do not create persistent indexes
 or change models merely from estimates. If a candidate passes, reconcile results
 and rerun the full representative Q01 gate before acceptance. Consumer/dashboard
 reconciliation and Phase5 exit still follow; Phase6 has not started.

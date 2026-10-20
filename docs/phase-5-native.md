@@ -9,6 +9,12 @@ Next is a capacity-reviewed, rollback-only normalized-identity index diagnostic;
 do not blindly rerun the full workload or relax its limits. All accepted builds,
 source comparisons, model edges and reader access remain valid.
 
+Read-only index preflight passed for normalized order/customer/product identities.
+Estimated indexes total22.88MB; a double build allowance stays below the existing
+raw/database ceilings. Actual index size, build/WAL headroom, planner benefit and
+rollback remain unverified. No index was created; the evidence receipt records
+the preflight and exact next diagnostic boundary.
+
 Both builds, full-source comparisons and native model edges are verified.
 Restricted reader grants and separate catalog/denial/projection checks now pass.
 See [model-edge evidence](phase-5-native-edges-verification.json) and
