@@ -203,14 +203,41 @@ def test_nonquery_stages_expire_and_close_connections(driver, clock, monkeypatch
     assert all(connection.closed for connection in driver["connections"])
 
 
-@pytest.mark.parametrize("failure", [None, "plan", "block", "concurrency"])
+@pytest.mark.parametrize(
+    "failure",
+    [
+        None,
+        "plan",
+        "block",
+        "concurrency",
+        "source_drift",
+        "view_drift",
+        "no_overlap",
+        "slow_concurrent",
+        "large_concurrent",
+    ],
+)
 def test_query_plan_metadata_and_concurrent_reads_use_one_deadline(
     driver, clock, tmp_path, monkeypatch, failure
 ):
     driver["expire_on"] = failure
     deadline = Deadline(60)
     reads = []
-    monkeypatch.setattr(native, "cases", lambda: [("one", request()), ("two", request())])
+    monkeypatch.setattr(
+        native,
+        "prepare_workload",
+        lambda root: ([("sellers_page", request()), ("products_page", request())], {"cases": []}),
+    )
+    monkeypatch.setattr(
+        native,
+        "source_hashes",
+        lambda root: [{"sha256": str(len(reads))}] if failure == "source_drift" else [],
+    )
+    monkeypatch.setattr(
+        native,
+        "deployed_provenance",
+        lambda settings, received: {"views": len(reads)} if failure == "view_drift" else {},
+    )
     monkeypatch.setattr(
         native,
         "summarize_plan",
@@ -220,25 +247,78 @@ def test_query_plan_metadata_and_concurrent_reads_use_one_deadline(
         },
     )
 
-    def read(settings, query, received):
+    def read(settings, query, received, *, barrier=None):
         assert received is deadline
         reads.append(received)
         if failure == "concurrency" and len(reads) > 2:
             clock.now = 61
         received.check()
-        return {"rows": []}, {"seconds": 0.1, "bytes": 2, "rows": 0, "sha256": "synthetic"}
+        if barrier is not None:
+            barrier.wait(timeout=1)
+        return {"rows": [{"orders": 1}]}, {
+            "seconds": 21 if barrier and failure == "slow_concurrent" else 0.1,
+            "bytes": native.MAX_RESPONSE_BYTES + 1
+            if barrier and failure == "large_concurrent"
+            else 2,
+            "rows": 1,
+            "sha256": "synthetic",
+            "fetch_started": 1,
+            "fetch_ended": 1 if failure == "no_overlap" else 2,
+        }
 
     monkeypatch.setattr(native, "read_query", read)
-    if failure:
-        with pytest.raises(MeasurementError):
+    if failure in ("plan", "block", "concurrency", "source_drift", "view_drift"):
+        with pytest.raises((MeasurementError, ValueError)):
             native._measure_queries("admin", tmp_path, deadline)
         if failure == "plan":
             assert not any("block_size" in statement for statement in driver["calls"])
         if failure == "concurrency":
-            assert (tmp_path / "one.json").is_file() and (tmp_path / "two.json").is_file()
+            assert (tmp_path / "sellers_page.json").is_file() and (
+                tmp_path / "products_page.json"
+            ).is_file()
     else:
         result = native._measure_queries("admin", tmp_path, deadline)
-        assert result["q01"] == "passed_bounded_development"
+        assert result["q01"] == ("failed_budget" if failure else "passed_bounded_development")
         assert len(reads) == 4 and len(result["concurrent"]) == 2
     assert all(connection.closed for connection in driver["connections"])
     assert all(options["statement_timeout_ms"] <= 55000 for options in driver["options"])
+
+
+@pytest.mark.parametrize(
+    "name,rows",
+    [
+        ("overview_all", []),
+        ("overview_all", [{"orders": 0}]),
+        ("overview_all", [{"orders": 1}, {"orders": 1}]),
+        ("empty", [{"orders": 1}]),
+        ("seller_filter", [{"orders": 0}]),
+    ],
+)
+def test_unrepresentative_results_cannot_pass(name, rows):
+    with pytest.raises(ValueError):
+        native.validate_sample(name, request(), {"rows": rows})
+
+
+def test_client_timer_includes_connection_and_final_encoding(driver, clock, monkeypatch):
+    monkeypatch.setattr(native, "perf_counter", lambda: clock.now)
+    original_connect = native.connect
+    original_dumps = native.json.dumps
+
+    def connect(*args, **kwargs):
+        clock.now += 3
+        return original_connect(*args, **kwargs)
+
+    def fetch(*args, **kwargs):
+        clock.now += 2
+        return {"rows": [{"orders": 1}]}
+
+    def encode(*args, **kwargs):
+        clock.now += 4
+        return original_dumps(*args, **kwargs)
+
+    monkeypatch.setattr(native, "connect", connect)
+    monkeypatch.setattr(native, "fetch_metrics", fetch)
+    monkeypatch.setattr(native.json, "dumps", encode)
+    _, sample = native.read_query("admin", request(), Deadline(60))
+    assert sample["seconds"] == pytest.approx(9.03)
+    assert sample["fetch_ended"] - sample["fetch_started"] == 2

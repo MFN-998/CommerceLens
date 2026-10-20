@@ -1,7 +1,44 @@
 # CommerceLens work state
 
-Authoritative handoff updated 2026-10-19. Actual D repository, Git and verified
+Authoritative handoff updated 2026-10-20. Actual D repository, Git and verified
 evidence take precedence over chat. Read the permanent instructions before edits.
+
+## Active checkpoint — 2026-10-20 workload preparation
+
+SAFE TO RESUME / Q01 PREPARATION IMPLEMENTED; native performance remains unverified.
+Resumed clean published753095f on feat/phase-5-kpi-analytics at11% five-hour/14%
+weekly USED. Added16 deterministic source-supported cases, private exact bindings,
+source/deployed hashes and settings, full connection-through-encoding client timing,
+and overlapping seller/product requests. Shape, provenance and budget failures
+cannot pass. Master Plan Agent found no blocker to this offline preparation checkpoint.
+
+Model/source/edge/reader gates remain accepted; no native operation, rebuild, grant
+or consumer acceptance repeat. All artifacts retained. Overlap measures client
+fetch/serialization intervals, not server execution; result shape is not consumer
+metric reconciliation. No frontend, dependency or dbt model change.
+
+Usage67% five-hour/23% weekly USED at preservation; no further unit this session.
+Validation: full offline1915 passed/1025 intentional native skips/one known AnyIO
+warning in55.53s; Ruff lint/format201 files, mypy36 implementation files plus native
+script, and installed dependency compatibility pass. Initial timer regression
+expectation missed one simulated timeout-setting call; corrected9.03s then full
+suite passed. No native workload/source-selection run was made.
+
+Fresh advisory artifact .artifacts/audits/e4ab34b148c648cba87344e4b407ddaf:
+Python0; npm full7 high/runtime2 high/0 critical. Existing E11 remains before
+Phase6/public exposure; dependencies unchanged. No frontend build or dbt rebuild
+applies to this Python-only unit. The containing commit is the verified preparation
+checkpoint; publish after staged-content and history secret scans. Native Q01 is next.
+Files: src/analytics/workload.py, scripts/phase5_native.py, workload/measurement
+integration tests, phase5 plan/native docs and this handoff.
+
+Next exact action: recheck both usage windows, then run the bounded read-only
+`scripts.phase5_native measure` command in docs/phase-5-native.md against the existing
+recovery root/ref. Inspect private stage artifacts if it fails; tune only on measured
+evidence. All16 cases plus the expensive pair and final identity/provenance/budgets
+must pass. Then independent consumer/dashboard reconciliation and Phase5 exit remain.
+Do not redo accepted phases/builds/source comparisons/edge checks/grants.
+Phase6 owns the usable web MVP and has not started; Phase5 is incomplete.
 
 ## Active checkpoint — 2026-10-19 reader access
 

@@ -1,13 +1,14 @@
 # Phase 5 isolated native verification
 
-## Current checkpoint — 2026-10-19
+## Current checkpoint — 2026-10-20
 
 Both builds, full-source comparisons and native model edges are verified.
 Restricted reader grants and separate catalog/denial/projection checks now pass.
 See [model-edge evidence](phase-5-native-edges-verification.json) and
 [reader evidence](phase-5-reader-verification.json). Do not repeat accepted
-builds, comparisons or grants merely to resume. Next are representative workloads,
-parameter/model provenance, Q01 and independent consumer reconciliation.
+builds, comparisons or grants merely to resume. Representative workload preparation
+is implemented and verified offline; native Q01 and independent consumer
+reconciliation remain pending.
 Phase5 remains incomplete; no consumer authentication or public exposure is certified.
 
 The restored recovery project's direct hostname failed DNS. Its dashboard's
@@ -17,9 +18,28 @@ backups retained. No original-project settings or passwords changed.
 
 The measurement CLI now supervises all database stages under one600-second
 budget, reserving2 seconds for worker cleanup. Connection/statement limits shrink
-with remaining time; fixed stage markers survive interruption. Workload coverage,
-parameter/model provenance and remaining native acceptance gates are pending: do not run or
-accept Q01 just because deadline integration passes offline checks.
+with remaining time; fixed stage markers survive interruption. Sixteen deterministic
+cases now include existing eligible seller/product filters, missing category, combined
+category/state and second pages for sellers, products and days. Source checksums and
+required populations must validate before measurements begin.
+
+Exact requests, bound identities and source provenance stay in ignored
+`workload-private.json`. Source files and deployed view definitions are hashed before
+and after the run; settings and per-query hashes bind the result to its inputs.
+Client timing includes connection acquisition, role setup, serialization and close.
+Separate synchronized seller/product requests must overlap and meet the unchanged
+budgets. Overlap describes client fetch/serialization intervals, not a server trace.
+Result-shape checks establish representative populations, not KPI correctness.
+
+Next, with sufficient usage reserve, run the bounded read-only measurement:
+
+```powershell
+.venv/Scripts/python.exe -B -m scripts.phase5_native measure --settings-root 'D:\My Projects\CommerceLens-Reconstruction' --expected-project-ref histbcmlctxmtxusfbzt
+```
+
+Inspect retained stages on failure; do not repeat blindly or tune without measured
+evidence. All16 cases, the concurrent pair, budgets and final identity/provenance
+checks must pass before Q01 acceptance. No native measurement ran for this checkpoint.
 
 ## Scoped build and recovery reference
 
@@ -63,9 +83,9 @@ can prevent a receipt write, so retain the exception's fixed recovery facts too.
 After native model checks, verify independent precision/grain/coverage, reviews,
 calendar lateness and dashboard reconciliation. Extend and verify reader catalog
 and denial checks before Q01. The current `verify-totals` checks only three
-historical totals and does not satisfy full KPI acceptance. Q01 deadline,
-representative workload/concurrency and provenance improvements remain required
-before running/accepting measurements. No consumer authentication or HTTP/UI
+historical totals and does not satisfy full KPI acceptance. The prepared Q01 workload,
+concurrency and provenance checks still require successful native execution.
+No consumer authentication or HTTP/UI
 integration is certified here; those remain Phase6.
 
 ## Full-source comparison planning — 2026-10-18

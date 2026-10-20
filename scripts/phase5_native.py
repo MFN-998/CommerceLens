@@ -9,6 +9,7 @@ from concurrent.futures import ThreadPoolExecutor
 from datetime import UTC, date, datetime
 from functools import partial
 from pathlib import Path
+from threading import Barrier
 from time import perf_counter
 from typing import Any, Literal
 from uuid import uuid4
@@ -17,6 +18,7 @@ from scripts.measure_warehouse_queries import summarize_plan
 from src.analytics.access import MARTS, grant_analytics_reader, verify_reader_catalog
 from src.analytics.measurement import Deadline, run_bounded_measurement
 from src.analytics.query import MAX_RESPONSE_BYTES, Query, build_query, fetch_metrics
+from src.analytics.workload import case_manifest, prepare_workload, source_hashes
 from src.warehouse.config import ROOT, connect
 from src.warehouse.dbt_selected import SelectedDbtError, run_dbt_selected
 from src.warehouse.reconstruction import _isolated_root, _settings
@@ -122,20 +124,24 @@ def verify_access(settings, deadline: Deadline | None = None):
 
 
 def read_query(
-    settings, query, deadline: Deadline | None = None
+    settings, query, deadline: Deadline | None = None, *, barrier: Barrier | None = None
 ) -> tuple[dict[str, Any], dict[str, Any]]:
+    started = perf_counter()
     options = {} if deadline is None else deadline.connection_options()
     with connect(settings, **options) as connection:
         # The existing admin assumes the NOLOGIN reader for development verification.
         execute = connection.execute if deadline is None else partial(deadline.execute, connection)
         execute("SET ROLE commercelens_reader")
-        started = perf_counter()
+        if barrier is not None:
+            barrier.wait(timeout=deadline.remaining() if deadline else 30)
+        fetch_started = perf_counter()
         response = fetch_metrics(connection, query, deadline=deadline)
-        elapsed = perf_counter() - started
+        fetch_ended = perf_counter()
     response_rows = response["rows"]
     if not isinstance(response_rows, list):
         raise ValueError("Invalid response shape")
     body = json.dumps(response, sort_keys=True, separators=(",", ":")).encode()
+    elapsed = perf_counter() - started
     if deadline is not None:
         deadline.check()
     return response, {
@@ -143,6 +149,8 @@ def read_query(
         "bytes": len(body),
         "rows": len(response_rows),
         "sha256": hashlib.sha256(body).hexdigest(),
+        "fetch_started": fetch_started,
+        "fetch_ended": fetch_ended,
     }
 
 
@@ -162,11 +170,82 @@ def cases():
     ]
 
 
+def deployed_provenance(settings, deadline: Deadline):
+    with connect(settings, **deadline.connection_options()) as connection:
+        with connection.transaction(force_rollback=True):
+            execute = partial(deadline.execute, connection)
+            execute("SET TRANSACTION READ ONLY")
+            rows = execute(
+                "select n.nspname,c.relname,pg_get_viewdef(c.oid,true) from pg_class c "
+                "join pg_namespace n on n.oid=c.relnamespace where "
+                "n.nspname in ('staging','core','marts') and c.relkind='v' "
+                "order by n.nspname,c.relname"
+            ).fetchall()
+            if len(rows) != 22:
+                raise ValueError("Deployed model graph differs from accepted graph")
+            settings_row = execute(
+                "select current_setting('server_version_num'),current_setting('work_mem'),"
+                "current_setting('TimeZone'),current_setting('jit'),"
+                "current_setting('max_parallel_workers_per_gather')"
+            ).fetchone()
+            if settings_row is None:
+                raise ValueError("Measurement settings missing")
+    deadline.check()
+    return {
+        "views": [
+            {"sha256": hashlib.sha256(sql.encode()).hexdigest(), "name": schema + "." + name}
+            for schema, name, sql in rows
+        ],
+        "settings": dict(
+            zip(
+                (
+                    "server_version_num",
+                    "work_mem",
+                    "timezone",
+                    "jit",
+                    "max_parallel_workers_per_gather",
+                ),
+                settings_row,
+                strict=True,
+            )
+        ),
+    }
+
+
+def validate_sample(name, query, response):
+    rows = response["rows"]
+    if not isinstance(rows, list) or not 1 <= len(rows) <= query.limit:
+        raise ValueError("Representative workload returned unexpected row count")
+    if query.group == "overview" and len(rows) != 1:
+        raise ValueError("Overview workload shape differs")
+    if name == "empty":
+        if rows[0]["orders"] != 0:
+            raise ValueError("Empty workload population differs")
+    elif any(row["orders"] <= 0 for row in rows):
+        raise ValueError("Representative workload unexpectedly empty")
+
+
 def _measure_queries(settings, folder: Path, deadline: Deadline):
+    workload, manifest = prepare_workload(ROOT)
+    deadline.check()
+    code_before = source_hashes(ROOT)
+    deployed_before = deployed_provenance(settings, deadline)
+    # Exact bound identities are kept only in this ignored private artifact.
+    write(folder / "workload-private.json", manifest)
+    provenance = {"source_files": code_before, "deployed": deployed_before}
+    write(folder / "provenance-before.json", provenance)
+    names = [name for name, _ in workload]
+    if len(names) != len(set(names)) or not {"sellers_page", "products_page"} <= set(names):
+        raise ValueError("Representative workload incomplete")
     measurements = []
-    for name, query in cases():
+    for name, query in workload:
         deadline.check()
-        _, sample = read_query(settings, query, deadline)
+        specification = case_manifest(name, query)
+        write(folder / (name + "-started.json"), {"case": name, "stage": "read"})
+        response, sample = read_query(settings, query, deadline)
+        validate_sample(name, query, response)
+        write(folder / (name + "-read.json"), sample)
+        write(folder / (name + "-plan-started.json"), {"case": name, "stage": "plan"})
         sql, parameters = build_query(query)
         with (
             connect(settings, **deadline.connection_options()) as connection,
@@ -188,6 +267,7 @@ def _measure_queries(settings, folder: Path, deadline: Deadline):
         entry = {
             "name": name,
             "sql_sha256": hashlib.sha256(sql.encode()).hexdigest(),
+            "query_sha256": specification["query_sha256"],
             **sample,
             "plan": summary,
             "block_size": block_size,
@@ -195,36 +275,77 @@ def _measure_queries(settings, folder: Path, deadline: Deadline):
         write(folder / (name + ".json"), entry)
         deadline.check()
         measurements.append(entry)
+    concurrent_cases = [
+        (name, query) for name, query in workload if name in ("sellers_page", "products_page")
+    ]
+    barrier = Barrier(2)
+    write(folder / "concurrent-started.json", {"cases": [name for name, _ in concurrent_cases]})
     with ThreadPoolExecutor(max_workers=2) as pool:
         futures = []
         try:
-            for _, query in cases()[:2]:
+            for _, query in concurrent_cases:
                 deadline.check()
-                futures.append(pool.submit(read_query, settings, query, deadline))
-            concurrent = [future.result(timeout=deadline.remaining())[1] for future in futures]
+                futures.append(pool.submit(read_query, settings, query, deadline, barrier=barrier))
+            concurrent = []
+            for (name, query), future in zip(concurrent_cases, futures, strict=True):
+                response, sample = future.result(timeout=deadline.remaining())
+                validate_sample(name, query, response)
+                concurrent.append(
+                    {
+                        "name": name,
+                        "query_sha256": case_manifest(name, query)["query_sha256"],
+                        **sample,
+                    }
+                )
         except BaseException:
             for future in futures:
                 future.cancel()
             # The supervisor bounds waiting for already-running threads too.
             raise
     deadline.check()
-    accepted = all(
-        row["seconds"] <= 15
-        and row["plan"]["execution_ms"] <= 10000
-        and row["bytes"] <= MAX_RESPONSE_BYTES
-        and (
-            row["plan"]["root_buffers"]["Temp Read Blocks"]
-            + row["plan"]["root_buffers"]["Temp Written Blocks"]
+    overlap = min(row["fetch_ended"] for row in concurrent) - max(
+        row["fetch_started"] for row in concurrent
+    )
+    write(folder / "concurrent.json", {"samples": concurrent, "overlap_seconds": overlap})
+    if (
+        source_hashes(ROOT) != code_before
+        or deployed_provenance(settings, deadline) != deployed_before
+    ):
+        raise ValueError("Measurement source or deployed provenance changed")
+    accepted = (
+        all(
+            row["seconds"] <= 15
+            and row["plan"]["execution_ms"] <= 10000
+            and row["bytes"] <= MAX_RESPONSE_BYTES
+            and (
+                row["plan"]["root_buffers"]["Temp Read Blocks"]
+                + row["plan"]["root_buffers"]["Temp Written Blocks"]
+            )
+            * row["block_size"]
+            <= 536870912
+            for row in measurements
         )
-        * row["block_size"]
-        <= 536870912
-        for row in measurements
-    ) and all(row["seconds"] <= 20 for row in concurrent)
+        and overlap > 0
+        and all(
+            row["seconds"] <= 20 and row["bytes"] <= MAX_RESPONSE_BYTES and row["rows"] <= 100
+            for row in concurrent
+        )
+    )
     return {
         "q01": "passed_bounded_development" if accepted else "failed_budget",
         "queries": measurements,
         "concurrency": 2,
         "concurrent": concurrent,
+        "overlap_seconds": overlap,
+        "provenance_verified": True,
+        "client_timing": (
+            "Connection acquisition, role setup, barrier wait if concurrent, "
+            "query/serialization, close and final encoding"
+        ),
+        "cache_order": (
+            "Serial request then EXPLAIN ANALYZE per case, then concurrent pair; "
+            "not cold-cache evidence"
+        ),
         "budgets": {
             "serial_client_seconds": 15,
             "server_seconds": 10,

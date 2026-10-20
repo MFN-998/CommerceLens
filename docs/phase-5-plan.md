@@ -4,14 +4,16 @@ Started 2026-10-05 in separate chat 01a10ae9-ebc3-74b3-8c42-018a1c90f7bf.
 Verified resume: Phase 4 exit deaa4dd, successor metadata75f5335, clean/upstream0/0.
 Phases 1–4 and governance remain COMPLETE / VERIFIED. Phase 5 is IN PROGRESS.
 
-Current 2026-10-19 checkpoint: both native builds, full-source comparisons,
+Current 2026-10-20 checkpoint: both native builds, full-source comparisons,
 fractional-review diagnostics and the remaining 18 native model-edge cases pass.
 Actual upstream money aggregation is included; metadata remains unchanged.
 See [edge evidence](phase-5-native-edges-verification.json), prior linked source
 and review evidence, and WORK_STATE. Model-edge acceptance is complete.
 Restricted reader grant/catalog/denials and positive view projections also pass;
-see [access evidence](phase-5-reader-verification.json). Next: representative
-workloads/provenance, Q01 and independent consumer/dashboard-contract reconciliation. Phase5 is incomplete.
+see [access evidence](phase-5-reader-verification.json). Sixteen representative cases,
+private parameter/model provenance and expensive overlapping client requests are now
+implemented and tested offline. Next: native Q01 and independent consumer/dashboard
+contract reconciliation. Phase5 is incomplete.
 Do not repeat accepted builds or model checks merely to resume.
 
 ## Atomic milestones
@@ -35,8 +37,8 @@ The2026-10-17 item timeout was resolved by transaction-local full-consumption
 cursor planning; the2026-10-18 read-only acceptance receipt also verifies final
 metadata and source integrity. Timing is whole comparison time, not Q01 latency.
 
-Next, finish representative Q01
-workload/provenance and independent consumer reconciliation. Preserve the private
+Next, run the prepared bounded Q01 workload, inspect its evidence and resolve any
+measured failure before independent consumer reconciliation. Preserve the private
 recovery target, NOLOGIN/NOINHERIT reader and exact source contracts.
 Phase 6 owns HTTP/database/UI integration, actual consumer authentication and exposure.
 Phase 7 owns customer360/RFM/cohorts; Phase 8 owns predictive features/models.
