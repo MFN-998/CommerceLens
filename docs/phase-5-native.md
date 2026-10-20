@@ -2,12 +2,19 @@
 
 ## Current checkpoint — 2026-10-20
 
+Native Q01 now has a measured failure at the first overview read. Three targeted
+rollback-only experiments completed but exceeded server time and temporary-disk
+budgets; no candidate is adopted. See [diagnostic evidence](phase-5-q01-diagnosis.json).
+Next is a capacity-reviewed, rollback-only normalized-identity index diagnostic;
+do not blindly rerun the full workload or relax its limits. All accepted builds,
+source comparisons, model edges and reader access remain valid.
+
 Both builds, full-source comparisons and native model edges are verified.
 Restricted reader grants and separate catalog/denial/projection checks now pass.
 See [model-edge evidence](phase-5-native-edges-verification.json) and
 [reader evidence](phase-5-reader-verification.json). Do not repeat accepted
 builds, comparisons or grants merely to resume. Representative workload preparation
-is implemented and verified offline; native Q01 and independent consumer
+is implemented and verified offline; native Q01 optimization and independent consumer
 reconciliation remain pending.
 Phase5 remains incomplete; no consumer authentication or public exposure is certified.
 
@@ -31,7 +38,8 @@ Separate synchronized seller/product requests must overlap and meet the unchange
 budgets. Overlap describes client fetch/serialization intervals, not a server trace.
 Result-shape checks establish representative populations, not KPI correctness.
 
-Next, with sufficient usage reserve, run the bounded read-only measurement:
+After a measured fix and its regression checks, with sufficient usage reserve,
+rerun the bounded read-only measurement:
 
 ```powershell
 .venv/Scripts/python.exe -B -m scripts.phase5_native measure --settings-root 'D:\My Projects\CommerceLens-Reconstruction' --expected-project-ref histbcmlctxmtxusfbzt
@@ -39,7 +47,7 @@ Next, with sufficient usage reserve, run the bounded read-only measurement:
 
 Inspect retained stages on failure; do not repeat blindly or tune without measured
 evidence. All16 cases, the concurrent pair, budgets and final identity/provenance
-checks must pass before Q01 acceptance. No native measurement ran for this checkpoint.
+checks must pass before Q01 acceptance. The diagnostic failure has not satisfied it.
 
 ## Scoped build and recovery reference
 

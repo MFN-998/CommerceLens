@@ -13,7 +13,11 @@ Restricted reader grant/catalog/denials and positive view projections also pass;
 see [access evidence](phase-5-reader-verification.json). Sixteen representative cases,
 private parameter/model provenance and expensive overlapping client requests are now
 implemented and tested offline. Next: native Q01 and independent consumer/dashboard
-contract reconciliation. Phase5 is incomplete.
+contract reconciliation. The first native overview read failed; three targeted
+planner/CTE experiments also missed time/spill budgets and were not adopted.
+See [Q01 diagnosis](phase-5-q01-diagnosis.json). Next, test normalized-identity
+index planning under a reviewed capacity/rollback guard before changing metric SQL.
+Phase5 is incomplete.
 Do not repeat accepted builds or model checks merely to resume.
 
 ## Atomic milestones

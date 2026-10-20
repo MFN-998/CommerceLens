@@ -1,0 +1,75 @@
+{
+  "date": "2026-10-20",
+  "checkpoint_tested": "f0b4897",
+  "q01": "failed_first_case_no_result",
+  "case": "overview_all",
+  "initial_artifacts": ".artifacts/phase-5/e1fca307d15a40adb81033047fabec88",
+  "plan_artifacts": ".artifacts/phase-5/6dcb040736e14fed881530471f4dff45",
+  "failure_limits": "55-second statement/600-second job; original fixed error does not preserve SQLSTATE, so exact failure cause is not asserted",
+  "prepared_cases": 16,
+  "completed_workload_cases": 0,
+  "concurrency_measured": false,
+  "source_selection_verified": true,
+  "largest_estimated_join_rows": 1667338375245183,
+  "candidate_experiments": [
+    {
+      "name": "nested_loops_discouraged",
+      "artifacts": ".artifacts/phase-5/316f692f5af743d59a4158b6a1478271",
+      "server_ms": 15831.951,
+      "temp_traffic_bytes": 959070208,
+      "output_rows": 1,
+      "nested_loop_nodes": 2,
+      "budget_passed": false
+    },
+    {
+      "name": "nested_and_merge_joins_discouraged",
+      "artifacts": ".artifacts/phase-5/c7f43001b9ae4329b5a777e159c9553b",
+      "server_ms": 14046.093,
+      "temp_traffic_bytes": 851738624,
+      "output_rows": 1,
+      "nested_loop_nodes": 2,
+      "budget_passed": false
+    },
+    {
+      "name": "same_planner_and_inlined_scope",
+      "artifacts": ".artifacts/phase-5/cc9c11cbc9314b1fa41669888f3a564b",
+      "server_ms": 14595.248,
+      "temp_traffic_bytes": 827908096,
+      "output_rows": 1,
+      "nested_loop_nodes": 2,
+      "budget_passed": false
+    }
+  ],
+  "candidate_acceptance": false,
+  "budgets": {
+    "server_ms": 10000,
+    "temp_traffic_bytes": 536870912,
+    "serial_client_seconds": 15,
+    "concurrent_client_seconds": 20
+  },
+  "identity_provenance_unchanged": true,
+  "raw_bytes": 275988480,
+  "database_bytes": 287520435,
+  "deployed_views": 22,
+  "persistent_changes": false,
+  "source_files": [
+    {
+      "sha256": "48bc24e4a11ff9ed030076b8998bc6c7a88681b49595fc78bc7cc8a87c99f6d6",
+      "path": "scripts/phase5_native.py"
+    },
+    {
+      "sha256": "26f882480c9573072b11b4cab4e10b0e0cee7f86229aea5719f44f15c3ad967e",
+      "path": "src/analytics/query.py"
+    },
+    {
+      "sha256": "db5f0322a5637bc25aabe749dd9966b509df6c379c82bf24b797d227258cd2f0",
+      "path": "src/analytics/workload.py"
+    }
+  ],
+  "limitations": [
+    "Single overview EXPLAIN ANALYZE samples; no client latency or KPI reconciliation acceptance",
+    "No planner adjustment or SQL candidate adopted",
+    "PostgreSQL estimates are not actual row fanout; largest observed cohort has96478 rows"
+  ],
+  "next": "Capacity-reviewed rollback-only normalized identity index diagnostic before persistent schema or model changes"
+}

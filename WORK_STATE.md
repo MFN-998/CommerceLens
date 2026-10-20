@@ -3,7 +3,44 @@
 Authoritative handoff updated 2026-10-20. Actual D repository, Git and verified
 evidence take precedence over chat. Read the permanent instructions before edits.
 
-## Active checkpoint — 2026-10-20 workload preparation
+## Active checkpoint — 2026-10-20 native Q01 diagnosis
+
+SAFE TO RESUME / PERFORMANCE GATE FAILED; optimization is required.
+Resumed clean published f0b4897, upstream 0/0, both usage windows 0% USED.
+Prepared all16 source-supported cases, captured private bindings/model provenance,
+and passed access/capacity prechecks. First overview_all read failed before returning
+a result; no other case or concurrent pair ran. Initial fixed error omitted SQLSTATE,
+so the exact exception is not asserted from elapsed time alone.
+
+Retained baseline plan and three bounded, rollback-only experiments. Discouraging
+the two expensive nested loops produced15.832s server/959070208 temp bytes; also
+discouraging merge joins produced14.046s/851738624 bytes; additionally inlining
+scope produced14.595s/827908096 bytes. All exceed10s/536870912-byte budgets.
+None is adopted. Estimates reach1.67e15 rows, while observed cohort is96478;
+estimates are not actual fanout. Detailed aggregate evidence and artifact paths:
+docs/phase-5-q01-diagnosis.json. Exact queries/plans remain ignored private artifacts.
+
+All diagnostic before/after metadata match the original run: raw275988480 and
+database287520435 bytes, relation identity/ACL/options and reader attributes.
+All22 deployed view hashes/settings also remain unchanged. No persistent database,
+model, query-layer, dependency or frontend change; all accepted gates remain valid.
+Offline1915-pass/Ruff/mypy and same-day advisory evidence from f0b4897 remain
+applicable to unchanged code; no redundant full-suite run. Receipt consistency
+checks compared all saved metadata and source hashes. All artifacts retained.
+
+Master Plan Agent recommends a bounded expression-index experiment before metric
+SQL refactoring. Next exact unit: verify the exact NULLIF(identity,'') COLLATE "C"
+expressions, existing indexes, key lengths/uniqueness, and capacity/build headroom
+on the isolated recovery target; prepare a rollback-only diagnostic with existing
+timeouts and explicit post-rollback verification. Do not create persistent indexes
+or change models merely from estimates. If a candidate passes, reconcile results
+and rerun the full representative Q01 gate before acceptance. Consumer/dashboard
+reconciliation and Phase5 exit still follow; Phase6 has not started.
+
+Usage48% five-hour/8% weekly USED at diagnostic preservation. The containing commit
+is this evidence checkpoint; no merge, deployment or reset credit use.
+
+## Previous checkpoint — 2026-10-20 workload preparation
 
 SAFE TO RESUME / Q01 PREPARATION IMPLEMENTED; native performance remains unverified.
 Resumed clean published753095f on feat/phase-5-kpi-analytics at11% five-hour/14%
