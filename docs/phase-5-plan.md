@@ -6,8 +6,9 @@ Phases 1–4 and governance remain COMPLETE / VERIFIED. Phase 5 is IN PROGRESS.
 
 2026-10-21: rollback-only index trials failed Q01 time/spill budgets; neither is
 adopted. Postchecks verified rollback. See phase-5-index-probe-verification.json.
-Resolve newly detected certifi advisory E12 first, then target repeated query/view
-work before full representative Q01 and consumer reconciliation.
+Certifi advisory E12 is resolved in the lock and patched retained Python environment;
+see [dependency evidence](phase-5-certifi-verification.json) and development setup.
+Next target repeated query/view work before full representative Q01 and consumer reconciliation.
 
 Current 2026-10-20 checkpoint: both native builds, full-source comparisons,
 fractional-review diagnostics and the remaining 18 native model-edge cases pass.
@@ -20,10 +21,20 @@ private parameter/model provenance and expensive overlapping client requests are
 implemented and tested offline. Next: native Q01 and independent consumer/dashboard
 contract reconciliation. The first native overview read failed; three targeted
 planner/CTE experiments also missed time/spill budgets and were not adopted.
-See [Q01 diagnosis](phase-5-q01-diagnosis.json). Next, test normalized-identity
-index planning under a reviewed capacity/rollback guard before changing metric SQL.
+See [Q01 diagnosis](phase-5-q01-diagnosis.json). The subsequent normalized-identity
+index experiments above are complete and rejected; query/view refactoring is next.
 Phase5 is incomplete.
 Do not repeat accepted builds or model checks merely to resume.
+
+Next candidate, reviewed 2026-10-21: the item fact can source purchase timestamp
+and order lineage directly from `stg_orders` instead of expanding the unused customer
+join through `fact_orders`. Preserve the complete 15-field item contract and LEFT JOIN
+semantics. First prove offline equivalence for literal/duplicate/missing parents,
+clock boundaries and lineage, including missing customer mappings and a separate
+fact-order reconciliation oracle. Verify the parsed dependency graph. The current
+selected native runner only permits KPI marts, so a bounded core-view replacement,
+rollback and native revalidation path needs review before execution. No model edit
+or performance benefit is accepted yet; defer the similar item-mart change.
 
 ## Atomic milestones
 

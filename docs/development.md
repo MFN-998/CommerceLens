@@ -37,6 +37,30 @@ Official installation references: [Git](https://git-scm.com/downloads),
 
 ## 3. Recreate the Python environment
 
+### Current retained installation (2026-10-21)
+
+The certifi security update is locked at 2026.10.19. This checkout's patched Python
+installation, including all dependency groups, is retained at
+`.artifacts/python/certifi-20261021-01`. Use its interpreter explicitly:
+
+```powershell
+.artifacts/python/certifi-20261021-01/Scripts/python.exe -B -m pip check
+```
+
+The original `.venv` remains retained with vulnerable certifi 2026.7.22; do not use
+it for HTTPS or treat it as patched. Existing historical `.venv` commands must use
+the new interpreter for current work. Do not implicitly synchronize/uninstall the
+retained environment. Fresh clones can use the locked setup below. For this existing
+checkout, a future dependency update needs another explicitly fresh retained path
+or specific approval for replacement under the deletion policy.
+
+The patched environment was created using `UV_PROJECT_ENVIRONMENT` set to that
+previously absent absolute directory and `uv sync --locked --all-groups --system-certs`.
+Normal `uv run` defaults to `.venv` unless the environment override is set; direct
+interpreter invocations avoid implicit synchronization. Never disable TLS verification.
+
+### Fresh installation
+
 ```powershell
 uv sync --locked
 uv run --locked python --version

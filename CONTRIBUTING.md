@@ -11,6 +11,12 @@ pre-risk checkpoints for broad changes and database-specific recovery plans for 
 End substantial sessions COMPLETE or SAFE TO RESUME with an appropriate Git checkpoint,
 honest validation/failures, and exact next actions; never rely only on chat history.
 
+Current checkout Python commands must use the patched retained environment documented
+in [development setup](docs/development.md#current-retained-installation-2026-10-21).
+The original `.venv` is retained with the old certifi bundle and must not be used for
+HTTPS. The setup commands below describe fresh installations; do not run an implicit
+sync against an existing retained environment without reviewing deletion effects.
+
 ## Setup and branches
 
 Use [development setup](docs/development.md) and [data setup](data/README.md). From the

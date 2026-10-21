@@ -3,7 +3,50 @@
 Authoritative handoff updated 2026-10-21. Actual D repository, Git and verified
 evidence take precedence over chat. Read the permanent instructions before edits.
 
-## Active checkpoint — 2026-10-21 index experiments
+## Active checkpoint — 2026-10-21 certificate dependency remediation
+
+SAFE TO RESUME / E12 VERIFIED IN THE LOCK AND PATCHED ENVIRONMENT. Resumed clean
+published 2912c14 at 7% five-hour/25% weekly USED. Only certifi changed in the lock,
+from 2026.7.22 to 2026.10.19. Upstream advisory/release and PyPI hash/size/non-yanked
+checks pass. A fresh all-groups install is retained at
+`.artifacts/python/certifi-20261021-01`; all 111 installed packages match the lock.
+Use its `Scripts/python.exe -B` explicitly for current Python work. Original
+`.venv` still has the vulnerable version and must not be used for HTTPS; it and
+all artifacts remain retained. Setup/contributor guides now distinguish them.
+
+Validation: new bundle loaded with hostname/certificate verification enabled,
+Requests uses that bundle, verified PyPI HTTPS 200; pip check, Ruff lint/format 201,
+mypy 36 implementation files plus native runner 1 passed. Full offline 1915 passed,
+1025 deliberate native skips, 1 known AnyIO warning in 64.96s. Fresh installed
+Python advisory scan 111 packages / 0 vulnerabilities. Same-day unchanged npm
+evidence remains 7 high/full,2 high/runtime; E11 still precedes Phase 6/public exposure.
+See docs/phase-5-certifi-verification.json for sources, retained evidence and hashes.
+
+Sandbox cache/DNS restrictions required escalated lock/install/HTTPS/audit runs.
+A sandbox offline run stalled and was interrupted; the bounded escalated run
+passed. Verification helper corrected package-name canonicalization and equivalent
+version spelling; no installed package mismatch remained. Master Plan Agent
+confirmed this unit's scope and verification. No warehouse, source, KPI, frontend
+or model changes; accepted native results remain historical/current for unchanged code.
+
+Next exact unit: prepare an equivalence-tested replacement of the unnecessary
+`fact_orders` dependency in `dbt/models/core/fact_order_items.sql` with `stg_orders`.
+The item fact needs only unchanged order timestamp/lineage; current expansion adds
+an unused customer join in three overview branches. Preserve LEFT JOIN, literal
+identity, all 15 fields, missing/duplicate parents, clocks and lineage. Extend existing
+portable tests with independent staged-order input and separate fact-order oracle;
+verify missing customer mappings and parsed graph. This is a reviewed candidate,
+not an implemented or measured fix. The native selected runner currently supports
+only KPI marts: review a bounded core-view deployment/rollback and revalidation path
+before changing recovery state. Defer the analogous item-mart join until measured.
+Then full 16-case/concurrent Q01, independent consumer reconciliation and Phase 5 exit.
+Phase 6/web MVP has not started. Do not repeat rejected index/planner experiments.
+
+Usage 65% five-hour / 34% weekly USED at preservation. Save/publish this verified unit
+and retain the reserve; no broad model/native work started. No reset, merge or deployment.
+The containing commit is the remediation checkpoint; verify clean/upstream after publishing.
+
+## Previous checkpoint — 2026-10-21 index experiments
 
 SAFE TO RESUME / Q01 STILL FAILED. Resumed clean69f3215 at15% five-hour/14%
 weekly USED. Three rollback-only unique expression indexes used13770752 bytes;

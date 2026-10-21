@@ -1,0 +1,87 @@
+{
+  "verified_on": "2026-10-21",
+  "source_checkpoint": "2912c14",
+  "scope": "E12 certifi-only locked dependency remediation; no warehouse/model/frontend change",
+  "status": "verified in the new retained environment",
+  "advisory": "PYSEC-2026-4320 / GHSA-6q48-6c7w-9gw2",
+  "sources": [
+    "https://github.com/certifi/python-certifi/security/advisories/GHSA-6q48-6c7w-9gw2",
+    "https://github.com/certifi/python-certifi/releases/tag/2026.10.19",
+    "https://pypi.org/project/certifi/2026.10.19/",
+    "https://docs.astral.sh/uv/concepts/authentication/certificates/"
+  ],
+  "environment_checks": {
+    "environment": ".artifacts/python/certifi-20261021-01",
+    "python": "3.13.14",
+    "certifi": "2026.10.19",
+    "bundle_sha256": "50f79f98dac192b20dbf73f35c56f0b0c557ab267ff5199d1117cc1180b70785",
+    "bundle_ca_count": 120,
+    "requests_uses_new_bundle": true,
+    "tls_hostname_and_certificate_verification_enabled": true,
+    "pypi_https_status": 200,
+    "pypi_artifact_hash_size_not_yanked_match": true,
+    "only_changed_lock_package": [
+      "certifi"
+    ],
+    "installed_packages_match_locked_versions": 111,
+    "retained_old_environment_certifi": "2026.07.22",
+    "old_environment_must_not_be_used_for_https": true
+  },
+  "validation": {
+    "offline_passed": 1915,
+    "offline_native_skipped": 1025,
+    "offline_failures": 0,
+    "offline_errors": 0,
+    "offline_seconds": 64.96,
+    "known_anyio_deprecation_warnings": 1,
+    "ruff_lint": "passed",
+    "ruff_format_files": 201,
+    "mypy_implementation_files": 36,
+    "mypy_native_runner_files": 1,
+    "pip_check": "passed",
+    "python_audit_packages": 111,
+    "python_audit_vulnerabilities": 0
+  },
+  "retained_attempts": [
+    "Sandbox uv interpreter-cache access denied; escalated lock/install passed",
+    "Verifier corrected package-name canonicalization and equivalent old version spelling; no package mismatch",
+    "Sandbox DNS denied HTTPS/audit; escalated verified HTTPS/audit passed",
+    "Sandbox offline suite stalled without result and was interrupted; bounded escalated suite passed"
+  ],
+  "npm_evidence": {
+    "rerun": false,
+    "previous_same_day_artifact": ".artifacts/audits/6ae45573925c478eb67e1a818da47e5f",
+    "full_high": 7,
+    "runtime_high": 2,
+    "critical": 0,
+    "disposition": "E11 remains before substantive Phase6/public exposure; frontend lock unchanged"
+  },
+  "review": "Bounded Master Plan Agent confirmed scope, retained environment and validation gates",
+  "remaining": [
+    "Q01 optimization and full16-case/concurrent workload",
+    "Independent consumer/dashboard reconciliation",
+    "Phase5 exit; Phase6 not started"
+  ],
+  "hashes": [
+    {
+      "path": "uv.lock",
+      "sha256": "a5860cf18f81c32a340b11f2c87e2990cd7c6912207d3a4b8c33e044ce8620fa"
+    },
+    {
+      "path": ".artifacts/python/verify_certifi_20261021.py",
+      "sha256": "8610745adbca5fd0a1c4445c5ea82df8c00f2d27213a00c3110f7c2bfd8e242a"
+    },
+    {
+      "path": ".artifacts/python/certifi-20261021-01-verification.json",
+      "sha256": "e77ee40726b776f65d6c25786019770ce7ce9fe21fe9d8df2cebe396ee11872f"
+    },
+    {
+      "path": ".artifacts/python/certifi-20261021-01-escalated-regressions.xml",
+      "sha256": "78d1e34064678b31c657bf930a9e387579f20d3bf4644a7f88ffcc31f4a1973c"
+    },
+    {
+      "path": ".artifacts/audits/certifi-20261021-01/python-escalated.json",
+      "sha256": "7b27a4645202bb49524cd7c701dd11de13f2a3dbea4666fbbe2a409c183f2712"
+    }
+  ]
+}

@@ -6,14 +6,15 @@ Both rollback-only index experiments are complete and rejected: original planner
 execution was cancelled; discouraging nested loops still took13.630s and789MB
 temporary traffic. Three historical totals matched; full Q01 remains unaccepted.
 Independent postchecks confirmed complete rollback and unchanged warehouse state.
-See [index probe evidence](phase-5-index-probe-verification.json). Next address the
-new certifi advisory E12, then target repeated query/view work; do not rerun these
+See [index probe evidence](phase-5-index-probe-verification.json). Certifi E12 is
+resolved in the lock and new retained environment; see
+[dependency evidence](phase-5-certifi-verification.json). Target repeated query/view work; do not rerun these
 failed experiments or adopt their indexes/settings as a fix.
 
 Native Q01 now has a measured failure at the first overview read. Three targeted
 rollback-only experiments completed but exceeded server time and temporary-disk
 budgets; no candidate is adopted. See [diagnostic evidence](phase-5-q01-diagnosis.json).
-Next is a capacity-reviewed, rollback-only normalized-identity index diagnostic;
+The later normalized-identity index diagnostics above are also complete and rejected;
 do not blindly rerun the full workload or relax its limits. All accepted builds,
 source comparisons, model edges and reader access remain valid.
 
@@ -56,7 +57,7 @@ After a measured fix and its regression checks, with sufficient usage reserve,
 rerun the bounded read-only measurement:
 
 ```powershell
-.venv/Scripts/python.exe -B -m scripts.phase5_native measure --settings-root 'D:\My Projects\CommerceLens-Reconstruction' --expected-project-ref histbcmlctxmtxusfbzt
+.artifacts/python/certifi-20261021-01/Scripts/python.exe -B -m scripts.phase5_native measure --settings-root 'D:\My Projects\CommerceLens-Reconstruction' --expected-project-ref histbcmlctxmtxusfbzt
 ```
 
 Inspect retained stages on failure; do not repeat blindly or tune without measured
