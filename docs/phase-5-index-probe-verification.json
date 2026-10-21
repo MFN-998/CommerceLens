@@ -1,0 +1,143 @@
+{
+  "date": "2026-10-21",
+  "checkpoint_tested": "69f3215",
+  "q01": "failed",
+  "adopted": false,
+  "experiments": [
+    {
+      "artifacts": ".artifacts/phase-5/bedf1e39eeac418abb1c03f6b7e58993",
+      "status": "failed_verified_rollback",
+      "adopted": false,
+      "probe": {
+        "status": "failed",
+        "stage": "explain_analyze",
+        "indexes": [
+          {
+            "table": "orders",
+            "bytes": 5898240,
+            "seconds": 2.689072,
+            "database_bytes": 293418675,
+            "raw_bytes": 281886720
+          },
+          {
+            "table": "customers",
+            "bytes": 5898240,
+            "seconds": 2.814058,
+            "database_bytes": 299316915,
+            "raw_bytes": 287784960
+          },
+          {
+            "table": "products",
+            "bytes": 1974272,
+            "seconds": 1.741816,
+            "database_bytes": 301291187,
+            "raw_bytes": 289759232
+          }
+        ],
+        "adopted": false,
+        "sqlstate": "57014"
+      },
+      "postcheck": {
+        "rollback_verified": true,
+        "database_bytes_delta": 0,
+        "database_bytes": 287520435,
+        "raw_bytes": 275988480,
+        "limits": "No persistent probe index; catalog/WAL/filesystem effects may outlive rollback"
+      },
+      "name": "original_planner",
+      "method": {
+        "sha256": "cb9edcd44cb26c5f610e00cc04cea1ef4c67dc57181f3b2702ae300346209d81",
+        "path": ".artifacts/phase-5/index_probe_20261021.py"
+      }
+    },
+    {
+      "artifacts": ".artifacts/phase-5/d19fa3a6831c4785af228c4a9c55ffcf",
+      "status": "completed",
+      "adopted": false,
+      "probe": {
+        "status": "completed",
+        "stage": "rolled_back",
+        "indexes": [
+          {
+            "table": "orders",
+            "bytes": 5898240,
+            "seconds": 2.846825,
+            "database_bytes": 293418675,
+            "raw_bytes": 281886720
+          },
+          {
+            "table": "customers",
+            "bytes": 5898240,
+            "seconds": 2.447565,
+            "database_bytes": 299316915,
+            "raw_bytes": 287784960
+          },
+          {
+            "table": "products",
+            "bytes": 1974272,
+            "seconds": 1.820298,
+            "database_bytes": 301291187,
+            "raw_bytes": 289759232
+          }
+        ],
+        "adopted": false,
+        "measured": {
+          "planning_ms": 9.763,
+          "execution_ms": 13630.005,
+          "output_rows": 1,
+          "node_types": {
+            "Aggregate": 18,
+            "CTE Scan": 4,
+            "Gather": 1,
+            "Gather Merge": 7,
+            "Hash": 9,
+            "Hash Join": 9,
+            "Limit": 1,
+            "Materialize": 3,
+            "Merge Join": 5,
+            "Nested Loop": 2,
+            "Seq Scan": 15,
+            "Sort": 18,
+            "Subquery Scan": 18,
+            "WindowAgg": 1
+          },
+          "root_buffers": {
+            "Shared Hit Blocks": 38126,
+            "Shared Read Blocks": 0,
+            "Shared Dirtied Blocks": 0,
+            "Shared Written Blocks": 0,
+            "Temp Read Blocks": 47108,
+            "Temp Written Blocks": 49226
+          },
+          "disk_sort_instances": 22,
+          "sort_disk_kb": 138896,
+          "max_hash_batches": 21,
+          "hash_disk_kb": 30128
+        },
+        "temp_traffic_bytes": 789168128,
+        "historical_totals_matched": 3,
+        "response_sha256": "3dfbeac7b06a97f546c319bde56a4f66f11dcc5daf48f5bf97f63034ac05f89b",
+        "server_spill_budgets_passed": false
+      },
+      "postcheck": {
+        "rollback_verified": true,
+        "database_bytes_delta": 0,
+        "database_bytes": 287520435,
+        "raw_bytes": 275988480,
+        "limits": "No persistent probe index; catalog/WAL/filesystem effects may outlive rollback"
+      },
+      "name": "nested_loops_discouraged",
+      "method": {
+        "sha256": "f136edaeb23faf364e57641f982ce54c50b34e0bf85b904e1d2015a9c4583d48",
+        "path": ".artifacts/phase-5/index_probe_hash_20261021.py"
+      }
+    }
+  ],
+  "verification": "Native independent postchecks both passed; syntax/lint and injected second-index failure control-flow passed",
+  "offline_fault_artifacts": ".artifacts/phase-5/offline-probe-bd150046ced3466092a57bb6b452f6d7",
+  "limitations": "No ANALYZE, full client timing, full KPI reconciliation or16-case/concurrent Q01 acceptance; catalog/WAL effects are not certified absent",
+  "next": [
+    "Remediate certifi advisory E12 with locked compatible update and checks",
+    "Target repeated query/view work using retained plans; do not adopt failed index/planner candidates"
+  ]
+}

@@ -1,9 +1,39 @@
 # CommerceLens work state
 
-Authoritative handoff updated 2026-10-20. Actual D repository, Git and verified
+Authoritative handoff updated 2026-10-21. Actual D repository, Git and verified
 evidence take precedence over chat. Read the permanent instructions before edits.
 
-## Active checkpoint — 2026-10-20 native Q01 diagnosis
+## Active checkpoint — 2026-10-21 index experiments
+
+SAFE TO RESUME / Q01 STILL FAILED. Resumed clean69f3215 at15% five-hour/14%
+weekly USED. Three rollback-only unique expression indexes used13770752 bytes;
+peak raw289759232/database301291187 stayed within ceilings. Default planner
+query was cancelled withSQLSTATE57014 at EXPLAIN ANALYZE. A separate experiment
+with transaction-local enable_nestloop=off completed at13.630s server and789168128
+temp bytes, exceeding10s/536870912 budgets. Three historical totals matched.
+Neither candidate is adopted; no persistent indexes, ANALYZE or model/query changes.
+
+Fresh independent postchecks after BOTH outcomes verified absent probe indexes,
+original index/relation/ACL/reader metadata,22view hashes and planner settings.
+Raw275988480/database287520435 bytes returned exactly; this does not certify
+zero WAL/filesystem side effects. See docs/phase-5-index-probe-verification.json.
+Master Plan Agent reviewed guards before execution. Retained probe syntax/lint
+and simulated second-index failure/rollback control-flow checks passed. Existing
+1915-test evidence applies to unchanged production code; no full-suite repeat.
+
+Fresh audit6ae45573925c478eb67e1a818da47e5f found certifi2026.7.22 advisory
+PYSEC-2026-4320/GHSA-6q48-6c7w-9gw2; scanner reports fix2026.10.19. E12 records
+this new Important dependency issue. npm remains7 high/full,2 high/runtime.
+Next FIRST: update the locked certifi dependency and verify installed compatibility,
+advisory scan and relevant regressions before further certifi-based HTTPS work.
+Warehouse connections use their explicit verified CA file, not certifi's bundle.
+Then refactor repeated query/view work using retained plans; indexes alone and
+tested planner combinations are insufficient. Do not repeat failed probes blindly.
+Full16-case/concurrency Q01, independent consumer reconciliation and Phase5 exit
+remain; Phase6 has not started. All artifacts retained. No merge/deployment/reset.
+Usage72% five-hour/23% weekly USED at preservation; publish this checkpoint and stop.
+
+## Previous checkpoint — 2026-10-20 native Q01 diagnosis
 
 SAFE TO RESUME / PERFORMANCE GATE FAILED; optimization is required.
 Diagnostic checkpoint e9272b7 is published. Subsequent read-only index preflight

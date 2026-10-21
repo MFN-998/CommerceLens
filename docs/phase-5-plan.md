@@ -4,6 +4,11 @@ Started 2026-10-05 in separate chat 01a10ae9-ebc3-74b3-8c42-018a1c90f7bf.
 Verified resume: Phase 4 exit deaa4dd, successor metadata75f5335, clean/upstream0/0.
 Phases 1–4 and governance remain COMPLETE / VERIFIED. Phase 5 is IN PROGRESS.
 
+2026-10-21: rollback-only index trials failed Q01 time/spill budgets; neither is
+adopted. Postchecks verified rollback. See phase-5-index-probe-verification.json.
+Resolve newly detected certifi advisory E12 first, then target repeated query/view
+work before full representative Q01 and consumer reconciliation.
+
 Current 2026-10-20 checkpoint: both native builds, full-source comparisons,
 fractional-review diagnostics and the remaining 18 native model-edge cases pass.
 Actual upstream money aggregation is included; metadata remains unchanged.

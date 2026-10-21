@@ -1,6 +1,14 @@
 # Phase 5 isolated native verification
 
-## Current checkpoint — 2026-10-20
+## Current checkpoint — 2026-10-21
+
+Both rollback-only index experiments are complete and rejected: original planner
+execution was cancelled; discouraging nested loops still took13.630s and789MB
+temporary traffic. Three historical totals matched; full Q01 remains unaccepted.
+Independent postchecks confirmed complete rollback and unchanged warehouse state.
+See [index probe evidence](phase-5-index-probe-verification.json). Next address the
+new certifi advisory E12, then target repeated query/view work; do not rerun these
+failed experiments or adopt their indexes/settings as a fix.
 
 Native Q01 now has a measured failure at the first overview read. Three targeted
 rollback-only experiments completed but exceeded server time and temporary-disk
