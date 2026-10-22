@@ -20,6 +20,8 @@ from pathlib import Path
 
 import pytest
 
+from tests.order_component_sql import render_order_sql
+
 PROJECT = Path(__file__).resolve().parents[1] / "dbt"
 LOAD = "11111111-1111-4111-8111-111111111111"
 OTHER_LOAD = "22222222-2222-4222-8222-222222222222"
@@ -278,17 +280,11 @@ def expected_rows(orders=ORDERS, items=ITEMS, payments=PAYMENTS, reviews=REVIEWS
 
 
 def render(relative: str) -> str:
-    jinja = pytest.importorskip("jinja2")
-    environment = jinja.Environment(undefined=jinja.StrictUndefined)
-
     def config(**options: object) -> str:
         assert options == {"severity": "error", "store_failures": False}
         return ""
 
-    return environment.from_string((PROJECT / relative).read_text("utf-8")).render(
-        ref=lambda name: name,
-        config=config,
-    )
+    return render_order_sql(relative, config=config)
 
 
 def contract() -> dict:

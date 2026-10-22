@@ -22,6 +22,7 @@ import psycopg
 import pytest
 
 from src.warehouse.config import connect, load_settings
+from tests.order_component_sql import render_order_sql
 
 pytestmark = pytest.mark.skipif(
     os.getenv("COMMERCE_WAREHOUSE_ORDER_COMPONENTS_INTEGRATION") != "1",
@@ -279,13 +280,7 @@ def _render(relative_path: str) -> str:
         assert options == {"severity": "error", "store_failures": False}
         return ""
 
-    return (
-        _environment()
-        .from_string((PROJECT / relative_path).read_text("utf-8"))
-        .render(ref=_reference, config=config)
-        .strip()
-        .removesuffix(";")
-    )
+    return render_order_sql(relative_path, ref=_reference, config=config).strip().removesuffix(";")
 
 
 def _generic_sql() -> str:

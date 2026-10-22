@@ -3,11 +3,12 @@
 from pathlib import Path
 
 import pytest
+from order_component_sql import render_order_model
 
 ROOT = Path(__file__).resolve().parents[1]
 REFERENCES = {
     "mart_order_kpis": {
-        "mart_order_components",
+        "fact_orders",
         "fact_order_items",
         "fact_payments",
         "fact_reviews",
@@ -25,6 +26,8 @@ def execute_model(connection, name, fixtures, *, upstream=()):
     parameters, ctes = [], []
 
     def render(model_name):
+        if model_name in {"mart_order_components", "mart_order_kpis"}:
+            return render_order_model(model_name, ref=lambda name: "synthetic_" + name)
         model = (ROOT / "dbt/models/marts" / (model_name + ".sql")).read_text("utf-8-sig")
         for reference in REFERENCES[model_name]:
             tag = "{{ ref('" + reference + "') }}"

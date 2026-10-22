@@ -1,6 +1,6 @@
 # Phase 5 isolated native verification
 
-## Current checkpoint — 2026-10-22
+## Current checkpoint â€” 2026-10-22
 
 The source candidate reads item timestamp/lineage directly from `stg_orders`.
 A reviewed one-view, rollback-only diagnostic now verifies all 112650 source rows
@@ -140,7 +140,7 @@ concurrency and provenance checks still require successful native execution.
 No consumer authentication or HTTP/UI
 integration is certified here; those remain Phase6.
 
-## Full-source comparison planning — 2026-10-18
+## Full-source comparison planning â€” 2026-10-18
 
 The acceptance checker consumes every row of both already-built views. Read-only
 EXPLAIN compared cursor_tuple_fraction0.1 and1.0; the default item plan contained

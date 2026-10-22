@@ -59,9 +59,7 @@ def execute_orders(connection, orders, items=(), payments=(), reviews=()):
             [(identity, score, False) for identity, score in reviews],
         ),
     }
-    rows = execute_model(
-        connection, "mart_order_kpis", fixtures, upstream=("mart_order_components",)
-    )
+    rows = execute_model(connection, "mart_order_kpis", fixtures)
     assert len(rows) == len(orders)
     assert len({row["order_id"] for row in rows}) == len(rows)
     return {row["order_id"]: row for row in rows}

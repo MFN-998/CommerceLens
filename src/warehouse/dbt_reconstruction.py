@@ -33,6 +33,7 @@ APPROVED_LOCAL_MACROS = frozenset(
     f"macro.commercelens.{name}"
     for name in (
         "generate_schema_name",
+        "order_components",
         "commercelens_nullable_money",
         "commercelens_nullable_bigint",
         "commercelens_nullable_double",

@@ -1,54 +1,79 @@
 -- Policy v1, one order; preserve the technical mart and every warning/lineage field.
--- Extra child aggregates expose missing amounts and equal-order review weighting.
-with item_coverage as (
-    select order_id collate "C" as order_id,
-        count(price) as priced_items,
-        count(freight_value) as freight_items
-    from {{ ref('fact_order_items') }}
-    group by order_id collate "C"
-), payment_coverage as (
-    select order_id collate "C" as order_id, count(payment_value) as valued_payments
-    from {{ ref('fact_payments') }}
-    group by order_id collate "C"
-), review_metrics as (
-    select order_id collate "C" as order_id,
-        count(review_score) as scored_reviews,
-        sum(review_score) as review_score_sum,
-        count(*) filter (where review_score between 1 and 2) as low_review_count,
-        count(*) filter (where review_score between 4 and 5) as high_review_count,
-        sum(review_score)::numeric / nullif(count(review_score), 0) as order_review_score,
-        count(*) filter (where review_score between 1 and 2)::numeric
-            / nullif(count(review_score), 0) as order_low_review_fraction,
-        count(*) filter (where review_score between 4 and 5)::numeric
-            / nullif(count(review_score), 0) as order_high_review_fraction
-    from {{ ref('fact_reviews') }}
-    group by order_id collate "C"
+-- Coverage and review inputs share the existing independent child aggregates.
+with components as (
+    {{ order_components(include_kpi_inputs=true) }}
 ), policy as (
-    select c.*,
+    select
+        c._load_id,
+        c._source_row,
+        c.order_id,
+        c.customer_id,
+        c.order_status,
+        c.order_purchase_timestamp,
+        c.order_approved_at,
+        c.order_delivered_carrier_date,
+        c.order_delivered_customer_date,
+        c.order_estimated_delivery_date,
+        c.is_missing_approval,
+        c.is_missing_carrier_delivery,
+        c.is_missing_customer_delivery,
+        c.is_delivered_missing_approval,
+        c.is_delivered_missing_carrier_delivery,
+        c.is_delivered_missing_customer_delivery,
+        c.is_approval_before_purchase,
+        c.is_carrier_delivery_before_purchase,
+        c.is_customer_delivery_before_purchase,
+        c.is_carrier_delivery_before_approval,
+        c.is_customer_delivery_before_approval,
+        c.is_customer_delivery_before_carrier_delivery,
+        c.customer_unique_id,
+        c.customer_zip_code_prefix,
+        c.customer_city,
+        c.customer_state,
+        c.customer_load_id,
+        c.customer_source_row,
+        c.purchase_calendar_date,
+        c.approval_calendar_date,
+        c.carrier_delivery_calendar_date,
+        c.customer_delivery_calendar_date,
+        c.estimated_delivery_calendar_date,
+        c.item_count,
+        c.source_price_sum,
+        c.source_freight_sum,
+        c.shipping_before_purchase_count,
+        c.shipping_beyond_365_days_count,
+        c.has_items,
+        c.payment_count,
+        c.source_payment_sum,
+        c.zero_installments_count,
+        c.zero_payment_value_count,
+        c.undefined_payment_type_count,
+        c.has_payments,
+        c.review_count,
+        c.answer_before_creation_count,
+        c.has_reviews,
+        c.has_multiple_reviews,
         'v1'::text as policy_version,
         coalesce(c.order_status collate "C" = 'delivered', false) as is_commerce_eligible,
-        coalesce(i.priced_items, 0) as priced_items,
-        coalesce(i.freight_items, 0) as freight_items,
-        coalesce(p.valued_payments, 0) as valued_payments,
-        c.item_count > 0 and i.priced_items = c.item_count as is_price_complete,
-        c.item_count > 0 and i.freight_items = c.item_count as is_freight_complete,
-        c.payment_count > 0 and p.valued_payments = c.payment_count as is_payment_complete,
-        coalesce(r.scored_reviews, 0) as scored_reviews,
-        r.order_review_score,
-        r.order_low_review_fraction,
-        r.order_high_review_fraction,
-        coalesce(r.review_score_sum, 0) as review_score_sum,
-        coalesce(r.low_review_count, 0) as low_review_count,
-        coalesce(r.high_review_count, 0) as high_review_count,
+        coalesce(c.priced_items, 0) as priced_items,
+        coalesce(c.freight_items, 0) as freight_items,
+        coalesce(c.valued_payments, 0) as valued_payments,
+        c.item_count > 0 and c.priced_items = c.item_count as is_price_complete,
+        c.item_count > 0 and c.freight_items = c.item_count as is_freight_complete,
+        c.payment_count > 0 and c.valued_payments = c.payment_count as is_payment_complete,
+        coalesce(c.scored_reviews, 0) as scored_reviews,
+        c.review_score_sum::numeric / nullif(c.scored_reviews, 0) as order_review_score,
+        c.low_review_count::numeric / nullif(c.scored_reviews, 0) as order_low_review_fraction,
+        c.high_review_count::numeric / nullif(c.scored_reviews, 0) as order_high_review_fraction,
+        coalesce(c.review_score_sum, 0) as review_score_sum,
+        coalesce(c.low_review_count, 0) as low_review_count,
+        coalesce(c.high_review_count, 0) as high_review_count,
         coalesce(c.order_status collate "C" = 'delivered'
             and c.order_purchase_timestamp is not null
             and c.order_delivered_customer_date is not null
             and c.order_delivered_customer_date >= c.order_purchase_timestamp,
             false) as is_delivery_eligible
-    from {{ ref('mart_order_components') }} c
-    left join item_coverage i on c.order_id collate "C" = i.order_id collate "C"
-    left join payment_coverage p on c.order_id collate "C" = p.order_id collate "C"
-    left join review_metrics r on c.order_id collate "C" = r.order_id collate "C"
+    from components c
 ), promise as (
     select policy.*,
         coalesce(is_delivery_eligible and order_estimated_delivery_date is not null

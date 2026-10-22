@@ -1,0 +1,70 @@
+{
+  "date": "2026-10-22",
+  "baseline_checkpoint": "7091ab1",
+  "status": "offline verified candidate; no native execution or adoption",
+  "change": "Shared child aggregates preserve technical49/KPI70 fields; one grouping each for items/payments/reviews",
+  "technical_rendered_sql_equivalence": "identical apart whitespace/comments",
+  "validation": {
+    "full_offline_passed": 1942,
+    "native_skipped": 1028,
+    "known_anyio_warnings": 1,
+    "seconds": 62.91,
+    "new_independent_semantic_cases": 15,
+    "focused_passed": 187,
+    "ruff": "lint and format203 passed",
+    "mypy": "36 source files passed",
+    "real_offline_dbt_parse": "passed with network denied; both model dependencies four facts and shared macro",
+    "native_fixtures": "adapted; not run"
+  },
+  "correction": "First full suite had72 failures due to fixed6-macro test/runner inventory; added only named order_components macro and updated expected7 count. Entire repeat passed; unknown macro and drift guards remain. Initial sandbox focused run stalled and was interrupted; escalation passed. All outputs retained.",
+  "security": "No dependencies changed. Same-day item-context-20261022-01 audit remains111 Python packages/0 vulnerabilities; npm7high full/2high runtime/0critical; E11 remains. Staged/history scans required before publication.",
+  "review": "Master Plan Agent reviewed scope, contracts and independent oracle; no blocker for offline checkpoint",
+  "next": "Adapted native fixtures, then reviewed rollback-only KPI-view probe against currently DEPLOYED facts; exclude unadopted item-context change. Bind macro/model/rendered hashes; verify70-field multiset/types and expecteddependency change, originallimits, independentrestore.",
+  "remaining": "Q01 performance/full16-case/concurrency, consumer reconciliation, Phase5 exit; stop and ask beforePhase6",
+  "hashes": [
+    {
+      "path": "dbt/macros/order_components.sql",
+      "sha256": "8051d7c8b1e8e39b77445764d76be8a1b406d7ebbf136a0c2a672e6c890bada8"
+    },
+    {
+      "path": "dbt/models/marts/mart_order_components.sql",
+      "sha256": "e40889b568836e6da3923ef62096e9cf42f01dcf52818ca2d2fd276c8b128d05"
+    },
+    {
+      "path": "dbt/models/marts/mart_order_kpis.sql",
+      "sha256": "d18e0ff1fee2c24156b50a516fbf967287d9a600142bc8c6a7b304025a05268b"
+    },
+    {
+      "path": "src/warehouse/dbt_reconstruction.py",
+      "sha256": "dc2c87f1280328145d08603dee579c11fe9da9b74bb173a82cb21dcaf4b4843e"
+    },
+    {
+      "path": "tests/test_phase5_aggregate_reuse.py",
+      "sha256": "8bc407973f843700b41992f0c2ca1ad5a80544dcbe036c6ce809fdeab30b6c88"
+    },
+    {
+      "path": "tests/order_component_sql.py",
+      "sha256": "fcb2629c78d5903bf0a245cfd1e40774b7676ee63d055a3bab2b26d7182175bd"
+    },
+    {
+      "path": ".artifacts/phase-5/aggregate-reuse-full-20261022-02.xml",
+      "sha256": "5cd9c234c8089c60d63df31d8aa8a6293b3ac13fe7341838f3f7d8ecaededf51"
+    },
+    {
+      "path": ".artifacts/phase-5/aggregate-reuse-baseline-20261022/mart_order_components-candidate.sql",
+      "sha256": "36e7d097c9af2c57c5cc1808825d9b18cb1224cc4205ccaba5d8f0952e851bf9"
+    },
+    {
+      "path": ".artifacts/phase-5/aggregate-reuse-baseline-20261022/mart_order_components.sql",
+      "sha256": "b207a2e77ccb875a0a2264bfe220f916ba64287185df27d3d5d65f6c6baf2a76"
+    },
+    {
+      "path": ".artifacts/phase-5/aggregate-reuse-baseline-20261022/mart_order_kpis-candidate.sql",
+      "sha256": "5e21a27dd15bff6cbeb444c974fd0749ca61a986bba5e4f5701695dbcb5ba7d2"
+    },
+    {
+      "path": ".artifacts/phase-5/aggregate-reuse-baseline-20261022/mart_order_kpis.sql",
+      "sha256": "70e4399a5c9149e2f0f843435b3578e030e710a27961a85d21bacc3688c849c1"
+    }
+  ]
+}

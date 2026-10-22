@@ -1,8 +1,8 @@
-# Phase 5 — KPI and analytics layer
+# Phase 5 â€” KPI and analytics layer
 
 Started 2026-10-05 in separate chat 01a10ae9-ebc3-74b3-8c42-018a1c90f7bf.
 Verified resume: Phase 4 exit deaa4dd, successor metadata75f5335, clean/upstream0/0.
-Phases 1–4 and governance remain COMPLETE / VERIFIED. Phase 5 is IN PROGRESS.
+Phases 1â€“4 and governance remain COMPLETE / VERIFIED. Phase 5 is IN PROGRESS.
 
 2026-10-21: rollback-only index trials failed Q01 time/spill budgets; neither is
 adopted. Postchecks verified rollback. See phase-5-index-probe-verification.json.
@@ -85,7 +85,7 @@ C fallback/three drafts and every artifact. No reload/reacquisition/credential s
 merge/deployment/paid upgrade or unapproved project-resource deletion.
 Reader stays NOLOGIN/NOINHERIT, mart-only. Native development capability checks
 are not actual consumer authentication, public security or populated backup/PITR.
-Q01 and E01–E10, source-version/date, coordinate, backup/auth/exposure/release gates
+Q01 and E01â€“E10, source-version/date, coordinate, backup/auth/exposure/release gates
 remain in governance-audit.md. Original Next16.3.5 is not patched-toolchain evidence;
 use approved isolated16.3.8 only if frontend checks become applicable.
 
@@ -93,7 +93,7 @@ Account observation at resume: 28% five-hour/51% weekly remaining; shared, not r
 Use installed locked tools, unique retained outputs and secret-safe fixed diagnostics.
 No Phase 4 tests, analysis, audit or live warehouse verification has been rerun here.
 
-## Draft preservation checkpoint — 2026-10-06
+## Draft preservation checkpoint â€” 2026-10-06
 
 Bounded query/serialization and fixed mart-reader/native verification helpers are
 drafted, not accepted. Every query currently depends on pending mart_item_kpis.
@@ -103,7 +103,7 @@ not a live model build or Q01 acceptance. No grants or API endpoints were added.
 See WORK_STATE.md for exact verification and the usage-reserve stop/resume gate.
 Historical M2a observations above retain their original scope/date.
 
-## Access safeguard checkpoint — 2026-10-07
+## Access safeguard checkpoint â€” 2026-10-07
 
 Published94db831 adds effective reader capability checks, transactional post-grant
 assertions and attempted/committed failure evidence.16 focused cases and full
@@ -114,7 +114,7 @@ closed. Q01 requires deadline enforcement throughout, representative item filter
 and pagination/concurrency, reproducible parameters/model hashes and independent
 native coverage/review/lateness/cross-dashboard acceptance. No Phase5 exit claim.
 
-## Item mart source checkpoint — 2026-10-09
+## Item mart source checkpoint â€” 2026-10-09
 
 M2b adds mart_item_kpis at retained (order_id, order_item_id) grain, preserving all
 15 fact item fields and adding11 order/product policy/context fields. Literal
@@ -135,7 +135,7 @@ and complete native/cross-dashboard query acceptance still precede Phase5 exit.
 New frontend dependency findings are tracked as E11 in the governance audit;
 historical runtime-zero advisory evidence must not be presented as current.
 
-## Selected build/test tooling checkpoint — 2026-10-09
+## Selected build/test tooling checkpoint â€” 2026-10-09
 
 The isolated two-mart runner and native CLI dispatch are implemented.149 focused
 runner/graph/access regressions pass. Target guards reject original/default or

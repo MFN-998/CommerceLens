@@ -5,10 +5,9 @@ from __future__ import annotations
 import os
 from decimal import ROUND_HALF_UP, Decimal
 from fractions import Fraction
-from pathlib import Path
 
 import pytest
-from test_phase5_order_kpis import COLUMNS, order
+from test_phase5_order_postgres import execute_orders, parent
 from test_phase5_query_postgres import connection as connection
 
 pytestmark = pytest.mark.skipif(
@@ -16,88 +15,13 @@ pytestmark = pytest.mark.skipif(
     reason="Phase5 native checks require explicit isolated-target opt-in",
 )
 
-COMPONENT_TYPES = (
-    "text",
-    "text",
-    "timestamp",
-    "timestamp",
-    "timestamp",
-    "date",
-    "date",
-    "bigint",
-    "bigint",
-    "bigint",
-    "numeric",
-    "numeric",
-    "numeric",
-    "bigint",
-    "text",
-    "boolean",
-)
-
 
 def execute_reviews(connection, groups):
-    parameters = []
-    components = []
-    reviews = []
-    for identity, scores in groups.items():
-        # Empty independent amount families have no measured sum. Override every
-        # portable fixture float; no binary float enters these native inputs.
-        row = order(
-            identity,
-            item_count=0,
-            payment_count=0,
-            review_count=len(scores),
-            source_price_sum=None,
-            source_freight_sum=None,
-            source_payment_sum=None,
-        )
-        components.append("(" + ",".join("%s::" + kind for kind in COMPONENT_TYPES) + ")")
-        parameters.extend(row[column] for column in COLUMNS)
-    for identity, scores in groups.items():
-        for score in scores:
-            reviews.append("(%s::text,%s::bigint)")
-            parameters.extend((identity, score))
-    review_cte = (
-        "synthetic_reviews(order_id,review_score) as (values " + ",".join(reviews) + ")"
-        if reviews
-        else "synthetic_reviews as (select NULL::text as order_id, "
-        "NULL::bigint as review_score where false)"
+    return execute_orders(
+        connection,
+        [parent(identity) for identity in groups],
+        reviews=[(identity, score) for identity, scores in groups.items() for score in scores],
     )
-    prefix = (
-        "with synthetic_components("
-        + ",".join(COLUMNS)
-        + ") as (values "
-        + ",".join(components)
-        + "), "
-        + review_cte
-        + ", synthetic_items as (select NULL::text as order_id, NULL::numeric as price, "
-        "NULL::numeric as freight_value where false), "
-        "synthetic_payments as (select NULL::text as order_id, "
-        "NULL::numeric as payment_value where false), verified as ("
-    )
-    model = (
-        Path(__file__).resolve().parents[1] / "dbt/models/marts/mart_order_kpis.sql"
-    ).read_text("utf-8-sig")
-    for source, fixture in (
-        ("mart_order_components", "synthetic_components"),
-        ("fact_order_items", "synthetic_items"),
-        ("fact_payments", "synthetic_payments"),
-        ("fact_reviews", "synthetic_reviews"),
-    ):
-        model = model.replace("{{ ref('" + source + "') }}", fixture)
-    try:
-        cursor = connection.execute(
-            prefix + model + ") select * from verified", parameters, binary=True
-        )
-        names = [column.name for column in cursor.description]
-        rows = [dict(zip(names, values, strict=True)) for values in cursor.fetchall()]
-    except Exception:
-        pytest.fail(
-            "Native mart review verification failed; no private detail logged", pytrace=False
-        )
-    assert len(rows) == len(groups)
-    return {row["order_id"]: row for row in rows}
 
 
 def assert_diagnostic(value, numerator, denominator, rounded):

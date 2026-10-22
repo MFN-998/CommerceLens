@@ -10,56 +10,27 @@ import re
 import sqlite3
 from contextlib import closing
 from datetime import datetime
-from pathlib import Path
 
 import pytest
-
-ROOT = Path(__file__).resolve().parents[1]
-COLUMNS = (
-    "order_id",
-    "order_status",
-    "order_purchase_timestamp",
-    "order_delivered_customer_date",
-    "order_estimated_delivery_date",
-    "customer_delivery_calendar_date",
-    "estimated_delivery_calendar_date",
-    "item_count",
-    "payment_count",
-    "review_count",
-    "source_price_sum",
-    "source_freight_sum",
-    "source_payment_sum",
-    "_source_row",
-    "customer_unique_id",
-    "is_missing_approval",
-)
+from order_component_sql import render_order_model
+from test_warehouse_order_components import ORDER_COLUMNS, ORDER_NORMAL
 
 
 def order(identifier: str = "a", **changes: object) -> dict[str, object]:
-    row: dict[str, object] = dict(
-        zip(
-            COLUMNS,
-            (
-                identifier,
-                "delivered",
-                "2018-01-01 12:00:00",
-                "2018-01-03 12:00:00",
-                "2018-01-03 00:00:00",
-                "2018-01-03",
-                "2018-01-03",
-                2,
-                2,
-                2,
-                1.5,
-                0.5,
-                2.0,
-                41,
-                "same-customer",
-                True,
-            ),
-            strict=True,
-        )
+    row: dict[str, object] = dict(zip(ORDER_COLUMNS, ORDER_NORMAL, strict=True))
+    row.update(
+        order_id=identifier,
+        order_status="delivered",
+        order_purchase_timestamp="2018-01-01 12:00:00",
+        order_delivered_customer_date="2018-01-03 12:00:00",
+        order_estimated_delivery_date="2018-01-03 00:00:00",
+        customer_delivery_calendar_date="2018-01-03",
+        estimated_delivery_calendar_date="2018-01-03",
+        _source_row=41,
+        customer_unique_id="same-customer",
+        is_missing_approval=True,
     )
+    assert set(changes) <= set(ORDER_COLUMNS)
     row.update(changes)
     return row
 
@@ -70,8 +41,7 @@ def execute(
     payments: list[tuple[object, ...]] | None = None,
     reviews: list[tuple[object, ...]] | None = None,
 ) -> list[dict[str, object]]:
-    sql = (ROOT / "dbt/models/marts/mart_order_kpis.sql").read_text("utf-8-sig")
-    sql = re.sub(r"{{ ref\('([a-z_]+)'\) }}", r"\1", sql)
+    sql = render_order_model("mart_order_kpis")
     sql = sql.replace('collate "C"', "collate BINARY")
     sql = sql.replace("::numeric", " * 1.0").replace("::text", "")
     sql = re.sub(r"extract\(epoch from \((\w+) - (\w+)\)\)", r"seconds(\1, \2)", sql)
@@ -82,25 +52,40 @@ def execute(
             2,
             lambda a, b: (datetime.fromisoformat(a) - datetime.fromisoformat(b)).total_seconds(),
         )
-        connection.execute("create table mart_order_components (" + ",".join(COLUMNS) + ")")
+        connection.execute("create table fact_orders (" + ",".join(ORDER_COLUMNS) + ")")
+        parents = [{**dict(zip(ORDER_COLUMNS, ORDER_NORMAL, strict=True)), **row} for row in orders]
         connection.executemany(
-            "insert into mart_order_components values (" + ",".join("?" for _ in COLUMNS) + ")",
-            [tuple(r[c] for c in COLUMNS) for r in orders],
+            "insert into fact_orders values (" + ",".join("?" for _ in ORDER_COLUMNS) + ")",
+            [tuple(row[column] for column in ORDER_COLUMNS) for row in parents],
         )
-        connection.execute("create table fact_order_items (order_id, price, freight_value)")
-        connection.execute("create table fact_payments (order_id, payment_value)")
-        connection.execute("create table fact_reviews (order_id, review_score)")
-        connection.executemany(
-            "insert into fact_order_items values (?,?,?)",
-            [("a", 1.0, 0.25), ("a", 0.5, 0.25)] if items is None else items,
+        connection.execute(
+            "create table fact_order_items (order_id, price, freight_value, "
+            "is_shipping_before_purchase, is_shipping_beyond_365_days)"
+        )
+        connection.execute(
+            "create table fact_payments (order_id, payment_value, "
+            "is_zero_installments, is_zero_payment_value, is_undefined_payment_type)"
+        )
+        connection.execute(
+            "create table fact_reviews (order_id, review_score, is_answer_before_creation)"
         )
         connection.executemany(
-            "insert into fact_payments values (?,?)",
-            [("a", 1.0), ("a", 1.0)] if payments is None else payments,
+            "insert into fact_order_items values (?,?,?,?,?)",
+            [
+                (*row, False, False)
+                for row in ([("a", 1.0, 0.25), ("a", 0.5, 0.25)] if items is None else items)
+            ],
         )
         connection.executemany(
-            "insert into fact_reviews values (?,?)",
-            [("a", 1), ("a", 5)] if reviews is None else reviews,
+            "insert into fact_payments values (?,?,?,?,?)",
+            [
+                (*row, False, row[1] == 0, False)
+                for row in ([("a", 1.0), ("a", 1.0)] if payments is None else payments)
+            ],
+        )
+        connection.executemany(
+            "insert into fact_reviews values (?,?,?)",
+            [(*row, False) for row in ([("a", 1), ("a", 5)] if reviews is None else reviews)],
         )
         connection.execute("pragma query_only=on")
         return [dict(row) for row in connection.execute(sql)]
@@ -133,9 +118,7 @@ def test_literal_noncommerce_status_retained(status: str) -> None:
 
 
 def test_absent_partial_and_zero_amounts_are_distinct() -> None:
-    absent = execute(
-        [order(item_count=0, payment_count=0, review_count=0, source_price_sum=None)], [], [], []
-    )[0]
+    absent = execute([order()], [], [], [])[0]
     assert absent["is_price_complete"] == absent["is_payment_complete"] == 0
     assert absent["order_review_score"] is None
     partial = execute([order()], [("a", None, 0.0), ("a", 0.0, 0.0)])[0]
@@ -163,7 +146,7 @@ def test_invalid_delivery_has_no_operational_measure(actual: str | None) -> None
 
 def test_equal_order_weight_avoids_pair_weight_and_selects_no_review() -> None:
     rows = execute(
-        [order(), order("b", review_count=1)],
+        [order(), order("b")],
         reviews=[
             ("a", 1),
             ("a", 1),

@@ -283,41 +283,28 @@ def test_native_order_view_preserves_exact_components_and_clock_policy(connectio
     # Execute the actual view SQL against typed synthetic base/child relations.
     # Native numeric beyond(18,2) aggregate headroom and independent child fanout
     # are verified here; these fixtures never read warehouse source records.
-    model = (
-        Path(__file__).resolve().parents[1] / "dbt/models/marts/mart_order_kpis.sql"
-    ).read_text("utf-8-sig")
-    for name in ("mart_order_components", "fact_order_items", "fact_payments", "fact_reviews"):
-        model = model.replace("{{ ref('" + name + "') }}", name)
-    prefix = """with mart_order_components as (
-        select 'a'::text as order_id, 'delivered'::text as order_status,
-            timestamp '2020-02-29 00:00:00' as order_purchase_timestamp,
-            timestamp '2020-03-02 12:00:00' as order_delivered_customer_date,
-            timestamp '2020-03-02 00:00:00' as order_estimated_delivery_date,
-            date '2020-03-02' as customer_delivery_calendar_date,
-            date '2020-03-02' as estimated_delivery_calendar_date,
-            2::bigint as item_count, 2::bigint as payment_count,
-            19999999999999999.98::numeric as source_price_sum,
-            0.03::numeric as source_freight_sum, 0.00::numeric as source_payment_sum,
-            3::bigint as review_count, 41::bigint as _source_row,
-            '00123'::text as customer_zip_code_prefix, true as is_missing_approval
-    ), fact_order_items(order_id, price, freight_value) as (
-        values ('a',9999999999999999.99::numeric,0.01::numeric),
-               ('a',9999999999999999.99::numeric,0.02::numeric)
-    ), fact_payments(order_id,payment_value) as (
-        values ('a',0.00::numeric),('a',0.00::numeric)
-    ), fact_reviews(order_id,review_score) as (
-        values ('a',1::bigint),('a',1::bigint),('a',5::bigint)
-    ), verified as ("""
-    try:
-        cursor = connection.execute(prefix + model + ") select * from verified", binary=True)
-        names = [column.name for column in cursor.description]
-        rows = [dict(zip(names, row, strict=True)) for row in cursor.fetchall()]
-    except Exception:
-        pytest.fail(
-            "Native order view verification failed; no private detail logged", pytrace=False
-        )
-    assert len(rows) == 1
-    row = rows[0]
+    # Local import avoids the shared connection fixture's module dependency cycle.
+    from test_phase5_order_postgres import execute_orders, parent
+
+    row = execute_orders(
+        connection,
+        [
+            parent(
+                "a",
+                order_purchase_timestamp=datetime(2020, 2, 29),
+                order_delivered_customer_date=datetime(2020, 3, 2, 12),
+                order_estimated_delivery_date=datetime(2020, 3, 2),
+                customer_zip_code_prefix="00123",
+                is_missing_approval=True,
+            )
+        ],
+        items=[
+            ("a", Decimal("9999999999999999.99"), freight)
+            for freight in (Decimal("0.01"), Decimal("0.02"))
+        ],
+        payments=[("a", Decimal("0.00"))] * 2,
+        reviews=[("a", score) for score in (1, 1, 5)],
+    )["a"]
     assert row["source_price_sum"] == Decimal("19999999999999999.98")
     assert row["source_freight_sum"] == Decimal("0.03")
     assert row["source_payment_sum"] == Decimal("0.00")
