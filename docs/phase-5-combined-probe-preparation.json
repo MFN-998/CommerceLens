@@ -1,0 +1,45 @@
+{
+  "date": "2026-10-22",
+  "baseline_checkpoint": "f911eec",
+  "status": "PREPARED AND REVIEWED; NOT RUN ON DATABASE",
+  "scope": "Combine previously equivalent item-context and KPI aggregation candidates; exactly two temporary views; no new production change.",
+  "validation": {
+    "candidate_hashes_bound": {
+      "dbt/models/marts/mart_order_kpis.sql": "d18e0ff1fee2c24156b50a516fbf967287d9a600142bc8c6a7b304025a05268b",
+      "dbt/macros/order_components.sql": "8051d7c8b1e8e39b77445764d76be8a1b406d7ebbf136a0c2a672e6c890bada8",
+      ".artifacts/phase-5/aggregate-reuse-baseline-20261022/mart_order_kpis-candidate.sql": "5e21a27dd15bff6cbeb444c974fd0749ca61a986bba5e4f5701695dbcb5ba7d2"
+    },
+    "hash_drifts_rejected": 5,
+    "contract_columns": [
+      15,
+      70
+    ],
+    "literal_text_columns": 8,
+    "metadata_mutations_rejected": 12,
+    "baseline_mutations_rejected": 9,
+    "capacity_overflows_rejected": 2,
+    "failure_paths_force_rollback": 11,
+    "restore_view_and_capacity_drift_rejected": true,
+    "planner_only_after_both_replacements_in_nested_rollback": true,
+    "item_candidate_hash": "14a85958b395a3af1e31c53555d3d7bdaeb087ddb79da66027c4a667e990bde3",
+    "artifacts": ".artifacts/phase-5/offline-combined-aggregate-item-061eb9b6e91e4a1bad7baf2e3c519c49"
+  },
+  "static_checks": "syntax, Ruff lint and formatting passed",
+  "review": "Master Plan Agent found no script blocker; offline failure guards subsequently passed",
+  "next": "Run retained combined_aggregate_item_probe_20261022.py with patched Python under approved recovery access. Require item15-field equality before its replacement, then KPI70-field equality using proven-equivalent items; exactly two catalog/dependency deltas, local planner experiment, fresh independent restoration. Do not persist candidates.",
+  "limits": "Original 55s statements/600s total, memory/capacity/reader constraints unchanged; no Q01 acceptance",
+  "hashes": [
+    {
+      "path": ".artifacts/phase-5/combined_aggregate_item_probe_20261022.py",
+      "sha256": "b0b91d55e4ab89551beb29930b8b979f98db4ef4dee86bc3da848fd1c1a7cd0b"
+    },
+    {
+      "path": ".artifacts/phase-5/test_combined_aggregate_item_probe_20261022.py",
+      "sha256": "ca7ff4a3c2d49b216ca7260b43a7c621772677030c544d5c95587eff75d54feb"
+    },
+    {
+      "path": ".artifacts/phase-5/offline-combined-aggregate-item-061eb9b6e91e4a1bad7baf2e3c519c49/receipt.json",
+      "sha256": "13687022b21d6412f3e2ed5ba2dfde9e9e7bac4d5b4f2b683e60645bede6c76c"
+    }
+  ]
+}

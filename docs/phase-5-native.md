@@ -1,5 +1,11 @@
 # Phase 5 isolated native verification
 
+Next diagnostic is prepared and reviewed, but has not run: combine the separately
+verified item-context and KPI candidates in one forced-rollback transaction.
+See [combined probe preparation](phase-5-combined-probe-preparation.json) and WORK_STATE
+for exact guards and execution entry point. No persistent adoption is authorized
+by this preparation receipt.
+
 ## Current candidate — shared child aggregation, 2026-10-22
 
 Published source checkpoint a2a9715 consolidates child counts, amounts, warnings,

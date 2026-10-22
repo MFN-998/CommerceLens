@@ -3,7 +3,35 @@
 Authoritative handoff updated 2026-10-22. Actual D repository, Git and verified
 evidence take precedence over chat. Read the permanent instructions before edits.
 
-## Current checkpoint — 2026-10-22 aggregate planner measurement
+## Current checkpoint — combined probe prepared, not executed
+
+SAFE TO RESUME. Published measurement checkpoint f911eec before preparing this
+next unit. The KPI-plus-planner experiment still fails at10.286s/767246336 temp
+bytes; full equivalence and rollback passed. No candidate is adopted.
+
+Prepared .artifacts/phase-5/combined_aggregate_item_probe_20261022.py and its test.
+Master Plan review found no blocker. Syntax/Ruff lint/format and11 forced-rollback
+failure paths pass, along with12 metadata drifts,5 hash drifts,9 baseline drifts,
+capacity checks and restoration drift for both views. No combined database run.
+Evidence: docs/phase-5-combined-probe-preparation.json. All artifacts retained.
+
+Next FIRST: run this reviewed combined probe with the patched Python environment
+against the fixed recovery target. It proves15-field item equivalence before the
+first temporary replacement, then70-field KPI equivalence using those identical
+item values. Exactly two definitions/dependency deltas are permitted; planner
+setting is local to the reader savepoint. Original budgets and fresh independent
+restoration are required. Do not persist either view or setting.
+
+Usage was 69% five-hour/11% weekly at the preservation decision; the final
+pre-publication check reported 84%/13% used. The planned reserve was exceeded;
+close this checkpoint only and do not start the combined run in this session.
+Production code/dependencies unchanged; previous offline,
+native and same-day advisory evidence remains applicable within its stated scope.
+Phase5 Q01, consumer reconciliation and exit remain pending. Phase6 not started;
+STOP and ask owner after verified Phase5 completion. The containing commit is this
+checkpoint. Scan staged/history contents and verify clean/upstream0/0 after push.
+
+## Previous checkpoint — 2026-10-22 aggregate planner measurement
 
 SAFE TO RESUME / BOTH PERFORMANCE BUDGETS STILL FAIL; NOT ADOPTED.
 Resumed clean published7845936 at2% five-hour/0% weekly used. The consolidated

@@ -1,5 +1,11 @@
 # Phase 5 — KPI and analytics layer
 
+Next diagnostic is prepared and reviewed, but has not run: combine the separately
+verified item-context and KPI candidates in one forced-rollback transaction.
+See [combined probe preparation](phase-5-combined-probe-preparation.json) and WORK_STATE
+for exact guards and execution entry point. No persistent adoption is authorized
+by this preparation receipt.
+
 Started 2026-10-05 in separate chat 01a10ae9-ebc3-74b3-8c42-018a1c90f7bf.
 Verified resume: Phase 4 exit deaa4dd, successor metadata75f5335, clean/upstream0/0.
 Phases 1–4 and governance remain COMPLETE / VERIFIED. Phase 5 is IN PROGRESS.
