@@ -2,6 +2,28 @@
 
 ## Current checkpoint — 2026-10-21
 
+2026-10-22 source update: `fact_order_items` now reads its unchanged timestamp and
+lineage context directly from `stg_orders`. This candidate is verified offline only;
+the deployed warehouse still has the previous accepted definition. No Q01 improvement
+is claimed. Do not run `measure` as if the candidate were already deployed.
+
+Next native unit requires a reviewed one-view diagnostic; the existing selected
+runner's two-mart allowlist remains unchanged. First compare the full 15-field
+candidate and deployed baseline as multisets over the same source, preserving
+literal identities and checking counts, exact money and parent uniqueness. Retain
+the original view definition and the exact candidate/source hashes. Only after
+equivalence succeeds, test a fixed `CREATE OR REPLACE VIEW core.fact_order_items`
+inside a force-rollback transaction, with original time/memory limits. Preserve
+column types, OID, owner, ACL/options and all other view definitions; no DROP,
+COMMIT, grant change, index change or full-graph build. Measure the unchanged overview
+under the existing reader role. A fresh independent connection must verify restored
+definitions, relation metadata, permissions and capacity after success or failure.
+Review deadline/failure handling before execution. This diagnostic is not implemented
+or executed yet; passing it would still require broader acceptance before adoption.
+
+Owner gate: after Phase 5 is completely verified and checkpointed, stop and ask for
+further instructions before creating or starting Phase 6 (2026-10-22 clarification).
+
 Both rollback-only index experiments are complete and rejected: original planner
 execution was cancelled; discouraging nested loops still took13.630s and789MB
 temporary traffic. Three historical totals matched; full Q01 remains unaccepted.

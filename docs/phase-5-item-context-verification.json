@@ -1,0 +1,96 @@
+{
+  "verified_on": "2026-10-22",
+  "baseline_checkpoint": "f6b3722",
+  "status": "candidate verified offline only; not deployed or measured",
+  "change": "Item fact sources unchanged order timestamp and lineage directly from staging.stg_orders; omits unrelated customer enrichment",
+  "contract": {
+    "output_columns": 15,
+    "literal_left_join_preserved": true,
+    "fact_orders_reconciliation_oracle_unchanged": true,
+    "validity_precondition": "Upstream parent uniqueness; invalid duplicate customer maps remain blocked by independent reconciliation",
+    "source_model_sha256_before": "c33552219160f9cf47e6ac275e50eac889c46aaced435038706a7dd760320990"
+  },
+  "validation": {
+    "portable_item_fact_passed": 91,
+    "new_portable_cases": 12,
+    "full_offline_passed": 1927,
+    "native_skipped": 1028,
+    "new_native_cases_not_run": 3,
+    "errors": 0,
+    "failures": 0,
+    "known_anyio_warnings": 1,
+    "elapsed_seconds": 64.97,
+    "ruff_lint": "passed",
+    "ruff_formatted_files": 201,
+    "real_offline_dbt_parse": "passed with network denied; item dependencies staged_orders/staged_items; reconciliation retains fact_orders",
+    "mypy": "not rerun: no production Python changes",
+    "native_database": "not run",
+    "frontend_build": "not applicable"
+  },
+  "security": {
+    "python_packages": 111,
+    "python_vulnerabilities": 0,
+    "npm_full": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 7,
+      "critical": 0,
+      "total": 7
+    },
+    "npm_runtime": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 2,
+      "critical": 0,
+      "total": 2
+    },
+    "exception": "E11 remains before substantive Phase6/public exposure; no dependency changes"
+  },
+  "review": "Master Plan Agent reviewed scope and equivalence/native gate; bounded implementation agent completed portable checks",
+  "remaining": [
+    "Review/prepare one-view rollback-only diagnostic with full source multiset comparison and independent restore verification",
+    "Measure unchanged overview before any adoption decision",
+    "Full representative Q01/concurrency, consumer reconciliation and Phase5 exit"
+  ],
+  "phase_boundary": "After verified Phase5 checkpoint, STOP and ask owner for further instructions before creating/starting Phase6",
+  "hashes": [
+    {
+      "path": "dbt/models/core/fact_order_items.sql",
+      "sha256": "14a85958b395a3af1e31c53555d3d7bdaeb087ddb79da66027c4a667e990bde3"
+    },
+    {
+      "path": "dbt/models/core/fact_order_items.yml",
+      "sha256": "147921fde7dd0f59c704da2a4ad99d60ad7b93b4a6898881388bafc7ca0a9ce1"
+    },
+    {
+      "path": "tests/test_warehouse_fact_order_items.py",
+      "sha256": "5f9e157cdb7e635375afea9587f76247323f7bcf8b50e67aff3864664535c5e0"
+    },
+    {
+      "path": "tests/test_warehouse_fact_order_items_postgres_integration.py",
+      "sha256": "cf879322349849f221101cfca029a4609039c39d87681c3f787475d8944148d6"
+    },
+    {
+      "path": "tests/test_warehouse_dbt.py",
+      "sha256": "3957ac047b51880e9d5f2334499bd3cdb7d7f7bdb118ce60c0a12af2176adda4"
+    },
+    {
+      "path": ".artifacts/phase-5/item-context-20261022-offline.xml",
+      "sha256": "a12279045df52755301d3d892d783dd3c9466ac2d26e824ec58aac08ccd78829"
+    },
+    {
+      "path": ".artifacts/audits/item-context-20261022-01/python.json",
+      "sha256": "7b27a4645202bb49524cd7c701dd11de13f2a3dbea4666fbbe2a409c183f2712"
+    },
+    {
+      "path": ".artifacts/audits/item-context-20261022-01/npm-full.json",
+      "sha256": "6e97c48181284aa615c7951a2244917c735c5d4fea2e6c47159f3efa3456f026"
+    },
+    {
+      "path": ".artifacts/audits/item-context-20261022-01/npm-runtime.json",
+      "sha256": "20c1fa23b8c2c5c42ac5a29f5f6107e3164c779ff96d25436ee9675cf6d8870f"
+    }
+  ]
+}

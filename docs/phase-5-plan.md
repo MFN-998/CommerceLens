@@ -26,15 +26,23 @@ index experiments above are complete and rejected; query/view refactoring is nex
 Phase5 is incomplete.
 Do not repeat accepted builds or model checks merely to resume.
 
-Next candidate, reviewed 2026-10-21: the item fact can source purchase timestamp
-and order lineage directly from `stg_orders` instead of expanding the unused customer
-join through `fact_orders`. Preserve the complete 15-field item contract and LEFT JOIN
-semantics. First prove offline equivalence for literal/duplicate/missing parents,
-clock boundaries and lineage, including missing customer mappings and a separate
-fact-order reconciliation oracle. Verify the parsed dependency graph. The current
-selected native runner only permits KPI marts, so a bounded core-view replacement,
-rollback and native revalidation path needs review before execution. No model edit
-or performance benefit is accepted yet; defer the similar item-mart change.
+Candidate implemented 2026-10-22: the item fact sources purchase timestamp and order
+lineage directly from `stg_orders`, removing the unused customer enrichment from
+its dependency path. The complete 15-field contract and literal LEFT JOIN remain.
+Portable tests compare against the actual order fact with complete, partial and
+absent customer mappings. Separate staged/core fixtures preserve the independent
+fact-order reconciliation oracle and reject differing clocks, lineage or multiplicity.
+Duplicate customer maps remain invalid and blocked; universal equivalence for an
+invalid upstream graph is not claimed. The real offline parse asserts the new
+model dependencies and unchanged reconciliation dependency on `fact_orders`.
+
+See [offline candidate evidence](phase-5-item-context-verification.json).
+The recovery warehouse still contains the previous accepted view. Native fixture
+mapping is updated, with three new opt-in oracle-divergence cases, but these native
+checks have not run. No performance benefit or deployed acceptance is claimed.
+The selected native runner still permits only KPI marts. Next review a bounded,
+rollback-only one-view diagnostic as described in the native guide, then measure
+before considering adoption. Defer the similar item-mart change.
 
 ## Atomic milestones
 
@@ -45,8 +53,9 @@ or performance benefit is accepted yet; defer the similar item-mart change.
    need under ADR0004, with explicit capacity and compatibility verification.
 4. Implement bounded parameterized query contracts and exact response serialization;
    verify executive/trend/category/seller/geography consistency independently.
-5. Verify native results/access, regressions and evidence; publish Phase 5 exit and
-   create the separately authorized Phase 6 chat only after that exit gate.
+5. Verify native results/access, regressions and evidence; publish Phase 5 exit,
+   then STOP and ask the owner for further instructions before starting Phase 6.
+   Owner clarification dated 2026-10-22 overrides the earlier automatic transition.
 
 Current implementation: M1 dictionary, M2a order and M2b item views, the selected
 runner, bounded query/serialization contracts and measurement supervision are

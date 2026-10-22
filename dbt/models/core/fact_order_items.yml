@@ -2,10 +2,11 @@ version: 2
 models:
 - name: fact_order_items
   description: Private core view at (order_id, order_item_id). Retains all nine accepted item fields,
-    including exact numeric(18,2) source money and lineage. One literal LEFT JOIN to accepted fact_orders
-    adds purchase and distinct parent lineage. Exact elapsed chronology warnings and a shipping calendar
-    key do not filter, normalize, aggregate, deduplicate or invent business eligibility. Missing context
-    remains NULL and blocks acceptance. No product/seller attributes, durations or child joins.
+    including exact numeric(18,2) source money and lineage. One literal LEFT JOIN to accepted stg_orders
+    adds unchanged purchase and distinct parent lineage without customer enrichment. Exact elapsed
+    chronology warnings and a shipping calendar key do not filter, normalize, aggregate, deduplicate
+    or invent business eligibility. Missing context remains NULL and blocks acceptance.
+    No product/seller attributes, durations or child joins.
   config:
     materialized: view
     schema: core
@@ -57,7 +58,7 @@ models:
     - not_null
   - name: order_purchase_timestamp
     data_type: timestamp without time zone
-    description: Purchase context from accepted fact_orders, without timezone conversion.
+    description: Purchase context from accepted stg_orders, without timezone conversion.
     data_tests:
     - not_null
   - name: order_load_id

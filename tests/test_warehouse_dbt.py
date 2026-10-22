@@ -269,6 +269,19 @@ def test_real_dbt_parse_without_network_preserves_sources_and_schema_boundaries(
     manifest = json.loads(
         (dbt_root / str(result["artifacts"]) / "target/manifest.json").read_text(encoding="utf-8")
     )
+    # The item model avoids customer expansion, while its reconciliation keeps
+    # the independently derived order fact as an oracle.
+    item_node = manifest["nodes"]["model.commercelens.fact_order_items"]
+    assert set(item_node["depends_on"]["nodes"]) == {
+        "model.commercelens.stg_order_items",
+        "model.commercelens.stg_orders",
+    }
+    reconciliation = next(
+        node
+        for node in manifest["nodes"].values()
+        if node.get("name") == "fact_order_items_source_reconciliation"
+    )
+    assert "model.commercelens.fact_orders" in reconciliation["depends_on"]["nodes"]
     sources = {source["name"]: source for source in manifest["sources"].values()}
     assert set(sources) == set(TABLES)
     for name, contract in TABLES.items():

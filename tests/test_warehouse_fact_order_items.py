@@ -18,6 +18,7 @@ from datetime import datetime
 from pathlib import Path
 
 import pytest
+import test_warehouse_fact_orders as order_fixture
 
 PROJECT = Path(__file__).resolve().parents[1] / "dbt"
 LOAD = "11111111-1111-4111-8111-111111111111"
@@ -168,6 +169,7 @@ def run_sql(
     *,
     items: tuple[tuple[object, ...], ...] = ITEMS,
     orders: tuple[tuple[object, ...], ...] = ORDERS,
+    staged_orders: tuple[tuple[object, ...], ...] | None = None,
     products: tuple[tuple[object, ...], ...] = PRODUCTS,
     sellers: tuple[tuple[object, ...], ...] = SELLERS,
     dates: tuple[tuple[object, ...], ...] = DATES,
@@ -181,6 +183,7 @@ def run_sql(
     ctes, values = [], []
     for name, columns, rows in (
         ("stg_order_items", SOURCE_COLUMNS, items),
+        ("stg_orders", ORDER_COLUMNS, orders if staged_orders is None else staged_orders),
         ("fact_orders", ORDER_COLUMNS, orders),
         ("dim_product", ("product_id",), products),
         ("dim_seller", ("seller_id",), sellers),
@@ -258,6 +261,86 @@ def test_composite_item_grain_preserves_source_money_context_lineage_and_warning
     for column in COLUMNS:
         assert run_sql(generic=column) == []
     assert sum(len(item["data_tests"]) for item in contract()["columns"]) == 15
+
+
+@pytest.mark.parametrize("customers", [order_fixture.CUSTOMERS, order_fixture.CUSTOMERS[1:], ()])
+def test_staged_context_matches_actual_order_fact_with_missing_customer_mappings(
+    customers: tuple[tuple[object, ...], ...],
+) -> None:
+    source_orders = order_fixture.ORDERS[:2]
+    fact_orders = order_fixture.run_sql(orders=source_orders, customers=customers)
+    staged_context = tuple(
+        tuple(row[order_fixture.SOURCE_COLUMNS.index(column)] for column in ORDER_COLUMNS)
+        for row in source_orders
+    )
+    fact_context = tuple(
+        tuple(row[order_fixture.COLUMNS.index(column)] for column in ORDER_COLUMNS)
+        for row in fact_orders
+    )
+    if not customers:
+        assert all(
+            row[order_fixture.COLUMNS.index("customer_unique_id")] is None for row in fact_orders
+        )
+    expected = [
+        (*ITEMS[0], "2018-01-10 23:59:59", LOAD, 10, True, False, "2018-01-10"),
+        (*ITEMS[1], "2018-01-10 23:59:59", LOAD, 10, False, False, "2019-01-10"),
+        (*ITEMS[2], "2018-02-28 23:59:59", OTHER_LOAD, 1, False, True, "2021-02-28"),
+    ]
+    inputs = {"orders": fact_context, "staged_orders": staged_context}
+    assert sorted(run_sql(**inputs), key=lambda row: row[2:4]) == expected
+    assert run_sql("fact_order_items_source_reconciliation", **inputs) == []
+
+
+def test_duplicate_customer_mapping_remains_blocked_by_independent_fact_order_oracle() -> None:
+    source_orders = order_fixture.ORDERS[:2]
+    customers = (*order_fixture.CUSTOMERS, order_fixture.CUSTOMERS[0])
+    fact_orders = order_fixture.run_sql(orders=source_orders, customers=customers)
+    inputs = {
+        "staged_orders": tuple(
+            tuple(row[order_fixture.SOURCE_COLUMNS.index(column)] for column in ORDER_COLUMNS)
+            for row in source_orders
+        ),
+        "orders": tuple(
+            tuple(row[order_fixture.COLUMNS.index(column)] for column in ORDER_COLUMNS)
+            for row in fact_orders
+        ),
+    }
+    # Invalid customer-map multiplicity no longer fans out the item model, but
+    # its separate core-order reconciliation must still reject the invalid graph.
+    assert len(run_sql(**inputs)) == len(ITEMS)
+    assert run_sql("fact_order_items_source_reconciliation", **inputs) == [(3, 3, 2, 0)]
+
+
+@pytest.mark.parametrize(
+    "staged_orders,expected_rows,missing,extra",
+    [
+        ((), 3, 3, 3),
+        (ORDERS[1:], 3, 2, 2),
+        ((*ORDERS, ORDERS[0]), 5, 0, 2),
+        (((*ORDERS[0][:2], None, ORDERS[0][3]), ORDERS[1]), 3, 2, 2),
+        (((*ORDERS[0][:3], None), ORDERS[1]), 3, 2, 2),
+        (((LOAD, ORDERS[0][1], *ORDERS[0][2:]), ORDERS[1]), 3, 2, 2),
+        (((ORDERS[0][0], 999, *ORDERS[0][2:]), ORDERS[1]), 3, 2, 2),
+    ],
+    ids=["empty", "missing-parent", "duplicate", "null-identity", "null-clock", "load", "ordinal"],
+)
+def test_staged_parent_changes_cannot_silently_change_the_fact_order_oracle(
+    staged_orders: tuple[tuple[object, ...], ...], expected_rows: int, missing: int, extra: int
+) -> None:
+    assert len(run_sql(staged_orders=staged_orders)) == expected_rows
+    assert run_sql("fact_order_items_source_reconciliation", staged_orders=staged_orders) == [
+        (len(ITEMS), expected_rows, missing, extra)
+    ]
+
+
+def test_null_item_identity_does_not_match_null_staged_parent_identity() -> None:
+    item = (*ITEMS[0][:2], None, *ITEMS[0][3:])
+    parent = (*ORDERS[0][:2], None, ORDERS[0][3])
+    inputs = {"items": (item,), "orders": (parent,), "staged_orders": (parent,)}
+    assert run_sql(**inputs) == [(*item, None, None, None, False, False, "2018-01-10")]
+    assert run_sql("fact_order_items_source_reconciliation", **inputs) == []
+    assert run_sql(generic="order_id", **inputs) == [(None,)]
+    assert run_sql("fact_order_items_relationships", **inputs) == [(1, 0, 0, 0)]
 
 
 @pytest.mark.parametrize("column", COLUMNS)

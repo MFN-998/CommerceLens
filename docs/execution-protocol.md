@@ -182,6 +182,11 @@ Phase 3 according to the master plan and professional standards.
 
 ## Separate chats for phase handoffs — owner requirement 2026-10-04
 
+Boundary override (2026-10-22): once Phase 5 is completely verified and checkpointed,
+stop and ask whether the owner has further instructions before starting Phase 6.
+Do not automatically create or begin its successor chat. The prior conditional
+authorization below remains subject to this explicit owner instruction.
+
 Finish Phase 3 in its current chat. Once its functionality and exit evidence are
 verified, checkpoint the handoff and start the required post-Phase 3 governance
 audit in a new CommerceLens chat/work task. Do not run that audit in the long

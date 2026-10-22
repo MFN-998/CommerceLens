@@ -1,9 +1,57 @@
 # CommerceLens work state
 
-Authoritative handoff updated 2026-10-21. Actual D repository, Git and verified
+Authoritative handoff updated 2026-10-22. Actual D repository, Git and verified
 evidence take precedence over chat. Read the permanent instructions before edits.
 
-## Active checkpoint — 2026-10-21 certificate dependency remediation
+## Active checkpoint — 2026-10-22 item-context optimization
+
+SAFE TO RESUME / CANDIDATE VERIFIED OFFLINE, NOT DEPLOYED OR MEASURED.
+Resumed clean published f6b3722 at 2% five-hour / 36% weekly usage consumed.
+The item fact now reads order timestamp/lineage directly from stg_orders, removing
+the unused customer enrichment join from that model path. All 15 fields, literal
+LEFT JOIN and independent fact_orders-based reconciliation are preserved. No other
+model, KPI definition, runtime dependency, runner allowlist or warehouse state changed.
+
+Validation: 91 focused portable cases passed, including 12 new cases for missing
+customer mappings, independent staged/core mismatch, duplicates, null identity,
+clocks and lineage. Invalid customer multiplicity remains rejected by reconciliation;
+equivalence for invalid upstream graphs is not claimed. Full offline 1927 passed,
+1028 intentional native skips, 1 known AnyIO warning in 64.97s. Ruff lint/format
+201 files passed. Actual network-blocked dbt parse verifies new item dependencies
+and retained fact_orders reconciliation dependency. Native fixture mapping and
+three new oracle-divergence cases are prepared but not executed. No production
+Python changes require another mypy run; no frontend build applies.
+
+Fresh 2026-10-22 advisory results: Python 111 packages / 0 vulnerabilities; npm
+7 high/full, 2 high/runtime, 0 critical. E11 remains. Use patched environment
+`.artifacts/python/certifi-20261021-01/Scripts/python.exe -B`; old `.venv` remains
+retained with the vulnerable certificate bundle. See
+docs/phase-5-item-context-verification.json for retained evidence and hashes.
+Master Plan Agent reviewed alignment; all artifacts are retained.
+
+IMPORTANT: local candidate and deployed view intentionally differ. Existing native
+acceptance applies to the unchanged deployed baseline, not this candidate. Next:
+prepare and review a fixed one-view rollback-only diagnostic on the recovery target.
+First compare all 15 fields as multisets against the deployed baseline on the same
+source, including parent uniqueness/counts/exact money. Retain original definition,
+candidate hashes and relation metadata. If equivalent, measure unchanged overview
+after a preserving CREATE OR REPLACE VIEW inside force_rollback, with no commit,
+drop, grant, index or planner-limit change. Require fresh independent restoration
+checks after success/failure. The native guide records the exact plan; no diagnostic
+script or native change was made today. Do not widen the mart-only runner casually.
+Then decide adoption from evidence and complete full 16-case/concurrent Q01,
+independent consumer reconciliation and Phase 5 exit. Defer the item-mart analogue.
+
+Usage 57% five-hour / 44% weekly consumed at preservation. Save/publish this offline
+checkpoint before beginning native work; no reset credit, merge or deployment.
+The containing commit is this checkpoint. Verify clean/upstream after publication.
+
+NEW OWNER GATE: when Phase 5 is completely verified and checkpointed, STOP and ask
+whether the owner has further instructions before starting Phase 6. Do not create
+or start the successor automatically. This boundary is also recorded in AGENTS,
+the execution protocol and Phase 5 plan.
+
+## Previous checkpoint — 2026-10-21 certificate dependency remediation
 
 SAFE TO RESUME / E12 VERIFIED IN THE LOCK AND PATCHED ENVIRONMENT. Resumed clean
 published 2912c14 at 7% five-hour/25% weekly USED. Only certifi changed in the lock,

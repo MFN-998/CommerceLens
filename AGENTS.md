@@ -42,3 +42,8 @@ After that audit gate passes, each later master-plan phase gets a separate new c
 Save a verified repository/Git/WORK_STATE handoff before transitions, and follow
 the execution protocol's conditional creation/resume rules. Do not start the audit
 prematurely or carry subsequent phases on in the long Phase 3 chat.
+
+Owner clarification (2026-10-22): after Phase 5 is completely verified and its
+checkpoint saved, STOP and ask whether the owner has further instructions before
+starting Phase 6. Do not automatically create or begin the Phase 6 chat. This
+overrides the earlier automatic transition authorization for this boundary.

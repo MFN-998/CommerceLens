@@ -196,6 +196,7 @@ def _environment():
 def _reference(name: str) -> str:
     return {
         "stg_order_items": "synthetic_items",
+        "stg_orders": "synthetic_staged_orders",
         "fact_orders": "synthetic_orders",
         "dim_product": "synthetic_products",
         "dim_seller": "synthetic_sellers",
@@ -264,6 +265,7 @@ def _cte(
     *,
     items=ITEMS,
     orders=ORDERS,
+    staged_orders=None,
     products=(PRODUCT_ID,),
     sellers=(SELLER_ID,),
     dates=DATES,
@@ -277,6 +279,12 @@ def _cte(
     ctes, parameters = [], []
     for name, columns, types, rows in (
         ("items", SOURCE_COLUMNS, SOURCE_TYPES, items),
+        (
+            "staged_orders",
+            ORDER_COLUMNS,
+            ORDER_TYPES,
+            orders if staged_orders is None else staged_orders,
+        ),
         ("orders", ORDER_COLUMNS, ORDER_TYPES, orders),
         ("products", ("product_id",), ("text",), tuple((v,) for v in products)),
         ("sellers", ("seller_id",), ("text",), tuple((v,) for v in sellers)),
@@ -438,6 +446,27 @@ def test_actual_model_keeps_exact_money_composite_grain_both_lineages_and_elapse
     for name in SINGULAR_COLUMNS:
         assert _singular(transformer_connection, name, **options) == []
     assert _null_counts(transformer_connection, **options) == dict.fromkeys(COLUMNS, 0)
+
+
+@pytest.mark.parametrize("oracle_change", ["missing", "timestamp", "lineage"])
+def test_staged_order_context_is_independent_of_fact_order_reconciliation(
+    transformer_connection: psycopg.Connection, oracle_change: str
+) -> None:
+    orders = (
+        ()
+        if oracle_change == "missing"
+        else _changed(
+            ORDERS,
+            ORDER_COLUMNS,
+            "order_purchase_timestamp" if oracle_change == "timestamp" else "_source_row",
+            datetime(2019, 1, 1) if oracle_change == "timestamp" else 7,
+        )
+    )
+    options = {"orders": orders, "staged_orders": ORDERS}
+    result = _query(transformer_connection, "select * from synthetic_actual", **options)
+    _assert_shape(result)
+    assert Counter(result.fetchall()) == _expected()
+    assert _singular(transformer_connection, "fact_order_items_source_reconciliation", **options)
 
 
 def test_actual_yaml_all_15_required_fields_block_null_output(
