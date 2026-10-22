@@ -1,0 +1,232 @@
+{
+  "verified_on": "2026-10-22",
+  "source_checkpoint": "74818e0",
+  "status": "Native full-source equivalence verified; both performance budgets fail; rollback verified; candidate not adopted",
+  "method": {
+    "target": "isolated recovery only",
+    "replacement": "fixed core.fact_order_items inside force_rollback",
+    "equivalence": "Same-snapshot full multiset comparison of all 15 fields, literal identities and parent uniqueness",
+    "source_rows": 112650,
+    "baseline_parent_orders": 99441,
+    "reader": "existing restricted reader",
+    "source_oracle": "deployed baseline; independent fact_orders reconciliation remains unchanged",
+    "job_seconds": 600,
+    "probe_seconds": 480,
+    "independent_postcheck_max_seconds": 110,
+    "statement_seconds": 55,
+    "server_budget_ms": 10000,
+    "temp_traffic_budget_bytes": 536870912,
+    "raw_capacity_bytes": 367000000,
+    "database_capacity_bytes": 400000000,
+    "planned_persistent_changes": false
+  },
+  "attempts": [
+    {
+      "variant": "initial strict historical size guard",
+      "interpretation": "Stopped before DDL: total database size was 8192 bytes above historical observation; no cause asserted",
+      "receipt": {
+        "artifacts": ".artifacts/phase-5/4fdf67af1e5844928b93203baa9e2674",
+        "status": "failed_verified_rollback",
+        "adopted": false,
+        "probe": {
+          "status": "failed",
+          "stage": "before",
+          "adopted": false,
+          "sqlstate": null
+        },
+        "postcheck": {
+          "rollback_verified": true,
+          "database_bytes": 287528627,
+          "database_bytes_delta": 0,
+          "raw_bytes": 275988480,
+          "limits": "No persistent candidate; not proof of absent WAL/catalog/filesystem effects"
+        }
+      }
+    },
+    {
+      "variant": "reviewed total-size-only guard adjustment; default planner",
+      "interpretation": "Full-source equivalence and preserving replacement verified; EXPLAIN ANALYZE canceled at statement deadline; execution/temp metrics not available",
+      "receipt": {
+        "artifacts": ".artifacts/phase-5/1c9be456211844e9a9596bc47234590b",
+        "status": "failed_verified_rollback",
+        "adopted": false,
+        "probe": {
+          "status": "failed",
+          "stage": "explain_analyze",
+          "adopted": false,
+          "equivalence": [
+            112650,
+            112650,
+            0,
+            0,
+            "13591643.70",
+            "2251909.54",
+            0
+          ],
+          "sqlstate": "57014"
+        },
+        "postcheck": {
+          "rollback_verified": true,
+          "database_bytes": 287528627,
+          "database_bytes_delta": 0,
+          "raw_bytes": 275988480,
+          "limits": "No persistent candidate; not proof of absent WAL/catalog/filesystem effects"
+        }
+      }
+    },
+    {
+      "variant": "same candidate; transaction-local enable_nestloop=off only",
+      "interpretation": "Measured combined experiment, not default-planner performance or full Q01; both budgets failed",
+      "receipt": {
+        "artifacts": ".artifacts/phase-5/c66bf79f0ada4342ade3d0577d640085",
+        "status": "completed",
+        "adopted": false,
+        "probe": {
+          "status": "completed",
+          "stage": "rolled_back",
+          "adopted": false,
+          "equivalence": [
+            112650,
+            112650,
+            0,
+            0,
+            "13591643.70",
+            "2251909.54",
+            0
+          ],
+          "measured": {
+            "planning_ms": 8.883,
+            "execution_ms": 12540.395,
+            "output_rows": 1,
+            "node_types": {
+              "Aggregate": 18,
+              "CTE Scan": 4,
+              "Gather": 1,
+              "Gather Merge": 7,
+              "Hash": 9,
+              "Hash Join": 9,
+              "Limit": 1,
+              "Materialize": 4,
+              "Merge Join": 6,
+              "Nested Loop": 2,
+              "Seq Scan": 16,
+              "Sort": 20,
+              "Subquery Scan": 18,
+              "WindowAgg": 1
+            },
+            "root_buffers": {
+              "Shared Hit Blocks": 39863,
+              "Shared Read Blocks": 0,
+              "Shared Dirtied Blocks": 0,
+              "Shared Written Blocks": 0,
+              "Temp Read Blocks": 46778,
+              "Temp Written Blocks": 48986
+            },
+            "disk_sort_instances": 24,
+            "sort_disk_kb": 139032,
+            "max_hash_batches": 21,
+            "hash_disk_kb": 30136
+          },
+          "temp_traffic_bytes": 784498688,
+          "historical_totals_matched": 3,
+          "response_sha256": "3dfbeac7b06a97f546c319bde56a4f66f11dcc5daf48f5bf97f63034ac05f89b",
+          "server_spill_budgets_passed": false
+        },
+        "postcheck": {
+          "rollback_verified": true,
+          "database_bytes": 287536819,
+          "database_bytes_delta": 8192,
+          "raw_bytes": 275988480,
+          "limits": "No persistent candidate; not proof of absent WAL/catalog/filesystem effects"
+        }
+      }
+    }
+  ],
+  "restore_checks": [
+    "22 deployed view hashes/settings",
+    "Full relation identities/owners/ACL/options",
+    "Column contract/ACL and view dependency edges",
+    "Original index inventory",
+    "Reader role attributes and access/denial checks",
+    "Planner settings",
+    "Raw bytes unchanged; total database bytes within existing ceiling"
+  ],
+  "restore_limit": "Final total database size increased 8192 bytes. No cause inferred; no persistent candidate does not prove absent WAL/catalog/filesystem effects.",
+  "offline_probe_validation": {
+    "syntax": "passed",
+    "ruff_lint_format": "passed; bootstrap E402 excluded",
+    "catalog_mutation_rejections": 6,
+    "other_baseline_mutation_rejections": 6,
+    "capacity_overflow_rejections": 2,
+    "forced_rollback_failure_paths": 4,
+    "independent_restore_drift": "rejected",
+    "safe_failure_output": "verified"
+  },
+  "existing_regression_evidence": {
+    "receipt": "docs/phase-5-item-context-verification.json",
+    "full_offline_passed": 1927,
+    "native_skipped": 1028,
+    "new_native_candidate_cases_unrun": 3,
+    "repeat": "Not repeated: no production code or dependencies changed in this diagnostic checkpoint"
+  },
+  "security_evidence": {
+    "same_day_audit": ".artifacts/audits/item-context-20261022-01",
+    "python_packages": 111,
+    "python_vulnerabilities": 0,
+    "npm_high_full": 7,
+    "npm_high_runtime": 2,
+    "npm_critical": 0,
+    "exception": "E11 remains before substantive Phase6/public exposure"
+  },
+  "review": "Master Plan Agent reviewed guards, size-only correction, transaction-local planner variant and final next-step alignment",
+  "remaining": [
+    "Inspect executed plan for repeated child aggregates and spill-producing nodes; prepare smallest reuse refactor with portable semantic checks",
+    "Candidate native edge cases and adoption review remain required before any persistent candidate",
+    "Full 16-case/concurrent Q01 and independent consumer reconciliation",
+    "Phase5 exit verification and publication"
+  ],
+  "phase_boundary": "STOP and ask owner for instructions after verified Phase5 completion; do not create/start Phase6 automatically",
+  "reference": "https://www.postgresql.org/docs/17/sql-createview.html",
+  "hashes": [
+    {
+      "path": "dbt/models/core/fact_order_items.sql",
+      "sha256": "14a85958b395a3af1e31c53555d3d7bdaeb087ddb79da66027c4a667e990bde3"
+    },
+    {
+      "path": "docs/phase-5-item-context-verification.json",
+      "sha256": "a34f86f670e71dc74a4cfb2026358489a208bf56aebb28bb5b6481a47eff0918"
+    },
+    {
+      "path": ".artifacts/phase-5/test_item_context_probe_20261022.py",
+      "sha256": "78cb40da8da019f806e76829f69bf7ee1d26e7c3404bb9d9db5aff670e55ab84"
+    },
+    {
+      "path": ".artifacts/phase-5/offline-context-5ccc0f4f6987448099f3b6e7d6c45ee6/receipt.json",
+      "sha256": "6bd8590e9f3fd723ec762d62ea739bb1ba40e0abeabc25017e8cf4cb529bd6b6"
+    },
+    {
+      "path": ".artifacts/phase-5/4fdf67af1e5844928b93203baa9e2674/probe-source.py",
+      "sha256": "c2b992ce836b12ea672470a99249954775bc8b1d7f09551fc2d5dd5026d1f619"
+    },
+    {
+      "path": ".artifacts/phase-5/4fdf67af1e5844928b93203baa9e2674/receipt.json",
+      "sha256": "1bd7eb8eade3b45993e6c3fd1f1b0c46122e4cf4850e9d1301eadc3364558071"
+    },
+    {
+      "path": ".artifacts/phase-5/1c9be456211844e9a9596bc47234590b/probe-source.py",
+      "sha256": "eb6c20d8ed126f79cf8252227d29c2d5c20ea1f60730688dedf2a72bb4699ce6"
+    },
+    {
+      "path": ".artifacts/phase-5/1c9be456211844e9a9596bc47234590b/receipt.json",
+      "sha256": "a8012063b2f1270c0e71c729c7bc6b8a09665ba5acf5739f96e144d921d15582"
+    },
+    {
+      "path": ".artifacts/phase-5/c66bf79f0ada4342ade3d0577d640085/probe-source.py",
+      "sha256": "6f25592581533c9dd10578dd7027498572cd0c6ad64c1113d80fc97b6408f60d"
+    },
+    {
+      "path": ".artifacts/phase-5/c66bf79f0ada4342ade3d0577d640085/receipt.json",
+      "sha256": "913f3a4d5cc2c348a6b2483bf26cd381ef7bfe1d2f50569ba8c459eb13081717"
+    }
+  ]
+}

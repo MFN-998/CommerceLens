@@ -1,25 +1,34 @@
 # Phase 5 isolated native verification
 
-## Current checkpoint — 2026-10-21
+## Current checkpoint — 2026-10-22
 
-2026-10-22 source update: `fact_order_items` now reads its unchanged timestamp and
-lineage context directly from `stg_orders`. This candidate is verified offline only;
-the deployed warehouse still has the previous accepted definition. No Q01 improvement
-is claimed. Do not run `measure` as if the candidate were already deployed.
+The source candidate reads item timestamp/lineage directly from `stg_orders`.
+A reviewed one-view, rollback-only diagnostic now verifies all 112650 source rows
+and all 15 fields against the deployed baseline as multisets, with zero differences,
+exact money, parent uniqueness and unchanged column/ownership/access metadata.
+The default-planner overview still timed out (SQLSTATE 57014). The same candidate
+with only transaction-local `enable_nestloop=off` completed at 12540.395ms and
+784498688 temporary-traffic bytes: BOTH 10000ms/536870912-byte budgets failed.
+Three historical totals matched; this is not full consumer reconciliation or Q01.
 
-Next native unit requires a reviewed one-view diagnostic; the existing selected
-runner's two-mart allowlist remains unchanged. First compare the full 15-field
-candidate and deployed baseline as multisets over the same source, preserving
-literal identities and checking counts, exact money and parent uniqueness. Retain
-the original view definition and the exact candidate/source hashes. Only after
-equivalence succeeds, test a fixed `CREATE OR REPLACE VIEW core.fact_order_items`
-inside a force-rollback transaction, with original time/memory limits. Preserve
-column types, OID, owner, ACL/options and all other view definitions; no DROP,
-COMMIT, grant change, index change or full-graph build. Measure the unchanged overview
-under the existing reader role. A fresh independent connection must verify restored
-definitions, relation metadata, permissions and capacity after success or failure.
-Review deadline/failure handling before execution. This diagnostic is not implemented
-or executed yet; passing it would still require broader acceptance before adoption.
+Fresh independent postchecks verified restoration after every attempt, including
+view definitions, relation/column/dependency metadata, indexes, reader access and
+planner settings. Final raw/database sizes were 275988480/287536819 bytes, within
+existing ceilings; total database size increased 8192 bytes during the final run.
+No cause is asserted and rollback does not prove absent WAL/filesystem effects.
+An earlier pre-DDL abort caught an 8192-byte difference from historical database
+size; the reviewed guard permits only that total-size variation within capacity,
+while keeping raw size, identities, indexes, permissions and definitions strict.
+
+See [native candidate evidence](phase-5-item-context-native-verification.json).
+Nothing was adopted; the recovery warehouse retains its previous accepted views,
+and the selected runner's two-mart allowlist is unchanged. Native candidate edge
+cases remain unrun. Do not measure as though the candidate were already deployed.
+Next inspect repeated child aggregates and spill-producing nodes in the retained
+executed plan, then prepare a minimal reuse refactor with portable semantic checks.
+Preserve independent child aggregation, coverage, literal identities and purchase
+cohorts. Review another bounded native probe only after those checks. Do not repeat
+the rejected experiments, relax budgets or infer acceptance from three totals.
 
 Owner gate: after Phase 5 is completely verified and checkpointed, stop and ask for
 further instructions before creating or starting Phase 6 (2026-10-22 clarification).
@@ -40,11 +49,9 @@ The later normalized-identity index diagnostics above are also complete and reje
 do not blindly rerun the full workload or relax its limits. All accepted builds,
 source comparisons, model edges and reader access remain valid.
 
-Read-only index preflight passed for normalized order/customer/product identities.
-Estimated indexes total22.88MB; a double build allowance stays below the existing
-raw/database ceilings. Actual index size, build/WAL headroom, planner benefit and
-rollback remain unverified. No index was created; the evidence receipt records
-the preflight and exact next diagnostic boundary.
+Historical read-only index preflight estimated 22.88MB. The subsequent completed
+rollback-only builds used 13770752 bytes and failed the performance budgets, as
+recorded above; the preflight is not an outstanding action.
 
 Both builds, full-source comparisons and native model edges are verified.
 Restricted reader grants and separate catalog/denial/projection checks now pass.

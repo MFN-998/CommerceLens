@@ -3,7 +3,57 @@
 Authoritative handoff updated 2026-10-22. Actual D repository, Git and verified
 evidence take precedence over chat. Read the permanent instructions before edits.
 
-## Active checkpoint — 2026-10-22 item-context optimization
+## Current checkpoint — 2026-10-22 native item-context diagnostic
+
+SAFE TO RESUME / Q01 STILL FAILED; CANDIDATE NOT ADOPTED.
+Resumed clean published 74818e0 at 0% five-hour / 47% weekly usage consumed.
+The rollback-only diagnostic verifies all 112650 rows/all 15 fields, exact money,
+zero missing/extra rows and parent grain against the deployed item fact. Default
+planner EXPLAIN ANALYZE still timed out (57014). The final variant changed only
+transaction-local enable_nestloop=off and completed at 12540.395ms server time and
+784498688 temporary-traffic bytes, failing BOTH 10000ms/536870912-byte budgets.
+Three historical totals matched; this is not full consumer reconciliation or Q01.
+
+Fresh independent restoration/access checks passed after ALL three attempts:
+view hashes, relation/column/dependency metadata, ownership/ACLs, indexes, reader
+attributes/denials and planner settings. Final raw/database sizes were
+275988480/287536819 bytes, within ceilings. Total database size grew 8192 bytes
+in the final run; no cause is asserted, and rollback does not prove absent WAL or
+filesystem effects. The first attempt stopped before DDL over a historical 8192-byte
+database-size difference; the reviewed correction permits only total-size variation
+within capacity, keeping raw bytes and every other baseline guard strict.
+
+No persistent warehouse change, model adoption, runner allowlist change, index,
+grant or memory/budget relaxation. Local candidate and deployed view still differ.
+See docs/phase-5-item-context-native-verification.json for aggregate receipts and
+immutable retained probe/source hashes. All private evidence remains ignored.
+Offline probe syntax/lint/format and failure injection pass, including six catalog
+and six baseline drift rejections, two capacity rejections, four forced rollback
+failure paths, safe errors and independent restoration drift. Previous 1927 passed /
+1028 native skips / one known warning remains applicable to unchanged production
+code; three new candidate native oracle cases remain unrun. No full suite repeated.
+Same-day audit remains Python111/zero vulnerabilities; npm7 high/full,2 high/runtime,
+zero critical. E11 remains. Use patched certifi environment; retain old environment.
+Master Plan Agent reviewed guards, final variant and next-step alignment.
+
+Exact next unit: inspect retained executed plan in
+.artifacts/phase-5/c66bf79f0ada4342ade3d0577d640085/execution-private.json for repeated
+child aggregates and spill-producing nodes. Prepare the smallest query/view reuse
+refactor with portable semantic tests before another bounded native probe. Preserve
+independent item/payment/review aggregation, coverage semantics, literal identities
+and purchase-cohort boundaries. Do not repeat rejected probes or infer complete
+consumer equivalence from three totals. Candidate native edges/adoption review,
+full 16-case/concurrent Q01, independent consumer reconciliation and Phase5 exit
+remain pending. Phases1-4/governance complete; user-facing Phase6 MVP has not started.
+After verified Phase5 completion/checkpoint, STOP and ask for owner instructions.
+
+Usage 69% five-hour / 58% weekly USED at preservation decision; finish this evidence
+checkpoint and stop before the reserve. Changed only WORK_STATE, phase5 plan/native
+guide, governance Q01 entry and the new aggregate receipt. No deletions or dependency
+changes. Branch feat/phase-5-kpi-analytics; containing commit is this checkpoint.
+Scan staged contents/history and verify clean/upstream0/0 after authorized publication.
+
+## Previous checkpoint — 2026-10-22 item-context optimization
 
 SAFE TO RESUME / CANDIDATE VERIFIED OFFLINE, NOT DEPLOYED OR MEASURED.
 Resumed clean published f6b3722 at 2% five-hour / 36% weekly usage consumed.

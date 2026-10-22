@@ -37,12 +37,17 @@ invalid upstream graph is not claimed. The real offline parse asserts the new
 model dependencies and unchanged reconciliation dependency on `fact_orders`.
 
 See [offline candidate evidence](phase-5-item-context-verification.json).
-The recovery warehouse still contains the previous accepted view. Native fixture
-mapping is updated, with three new opt-in oracle-divergence cases, but these native
-checks have not run. No performance benefit or deployed acceptance is claimed.
-The selected native runner still permits only KPI marts. Next review a bounded,
-rollback-only one-view diagnostic as described in the native guide, then measure
-before considering adoption. Defer the similar item-mart change.
+Native full-source equivalence now passes: all 112650 rows/all 15 fields, exact
+money and parent grain. Default-planner overview timed out; the candidate with
+transaction-local nested loops discouraged completed in 12.540s with 784498688
+temporary-traffic bytes, failing BOTH budgets. Independent rollback/access checks
+passed after every attempt. See [native evidence](phase-5-item-context-native-verification.json).
+The recovery warehouse still contains the previous accepted view. Three new native
+oracle-divergence cases remain unrun. Neither adoption nor Q01 acceptance is claimed.
+Next inspect repeated child aggregates/spills in the retained executed plan and
+prepare a minimal reuse refactor with portable semantic checks before another
+bounded native probe. Preserve coverage and purchase-cohort boundaries. The selected
+runner remains limited to KPI marts; defer the similar item-mart change.
 
 ## Atomic milestones
 
@@ -66,8 +71,8 @@ The2026-10-17 item timeout was resolved by transaction-local full-consumption
 cursor planning; the2026-10-18 read-only acceptance receipt also verifies final
 metadata and source integrity. Timing is whole comparison time, not Q01 latency.
 
-Next, run the prepared bounded Q01 workload, inspect its evidence and resolve any
-measured failure before independent consumer reconciliation. Preserve the private
+After resolving the measured first-overview failure, run the full prepared Q01
+workload and independent consumer reconciliation. Preserve the private
 recovery target, NOLOGIN/NOINHERIT reader and exact source contracts.
 Phase 6 owns HTTP/database/UI integration, actual consumer authentication and exposure.
 Phase 7 owns customer360/RFM/cohorts; Phase 8 owns predictive features/models.
