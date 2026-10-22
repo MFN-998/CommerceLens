@@ -1,6 +1,22 @@
 # Phase 5 isolated native verification
 
-## Current checkpoint â€” 2026-10-22
+## Current candidate — shared child aggregation, 2026-10-22
+
+Published source checkpoint a2a9715 consolidates child counts, amounts, warnings,
+coverage and review inputs. Technical output remains 49 columns; KPI output stays
+70 columns. See [offline evidence](phase-5-aggregate-reuse-verification.json).
+All13 native synthetic cases passed. The rollback-only KPI replacement matched
+all99441rows/all70fields and preserved native column/catalog/access contracts.
+Default-planner overview EXPLAIN ANALYZE timed out57014; no timing/spill result is
+accepted. Fresh independent rollback and access checks passed. Raw size was
+275988480 bytes and database size was 287569587 bytes, within ceilings. Database
+size increased 32768 bytes; no cause is asserted. No candidate was adopted.
+See [native evidence](phase-5-aggregate-reuse-native-verification.json).
+Next review the retained nested-loop plan and one transaction-local loop-discouraged
+variant of ONLY this KPI candidate; deployedfacts, memory/budgets, full-equivalence
+and independent-restoration guards remain. FullQ01/consumeracceptance stillpending.
+
+## Previous diagnostic — item context, 2026-10-22
 
 The source candidate reads item timestamp/lineage directly from `stg_orders`.
 A reviewed one-view, rollback-only diagnostic now verifies all 112650 source rows
@@ -140,7 +156,7 @@ concurrency and provenance checks still require successful native execution.
 No consumer authentication or HTTP/UI
 integration is certified here; those remain Phase6.
 
-## Full-source comparison planning â€” 2026-10-18
+## Full-source comparison planning — 2026-10-18
 
 The acceptance checker consumes every row of both already-built views. Read-only
 EXPLAIN compared cursor_tuple_fraction0.1 and1.0; the default item plan contained

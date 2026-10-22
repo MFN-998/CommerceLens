@@ -1,0 +1,157 @@
+{
+  "verified_on": "2026-10-22",
+  "source_checkpoint": "a2a9715",
+  "status": "Native correctness/full-source equivalence verified; default-planner overview timeout; rollback verified; not adopted",
+  "synthetic": {
+    "artifacts": ".artifacts/phase-5/5385df3d0ce946f39bb76fe2da0b9b65",
+    "status": "passed",
+    "tests": {
+      "exit_code": 0,
+      "tests": 13,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "read_only": true
+    },
+    "postcheck": {
+      "rollback_verified": true,
+      "database_bytes": 287536819,
+      "database_bytes_delta": 0,
+      "raw_bytes": 275988480,
+      "limits": "No persistent candidate; not proof of absent WAL/catalog/filesystem effects"
+    }
+  },
+  "full_source": {
+    "artifacts": ".artifacts/phase-5/3e55ec0d0b434f7688e33686b671247e",
+    "status": "failed_verified_rollback",
+    "adopted": false,
+    "probe": {
+      "status": "failed",
+      "stage": "explain_analyze",
+      "adopted": false,
+      "equivalence": [
+        99441,
+        99441,
+        0,
+        0,
+        "13591643.70",
+        "2251909.54",
+        "16008872.12",
+        99441,
+        0
+      ],
+      "sqlstate": "57014"
+    },
+    "postcheck": {
+      "rollback_verified": true,
+      "database_bytes": 287569587,
+      "database_bytes_delta": 32768,
+      "raw_bytes": 275988480,
+      "limits": "No persistent candidate; not proof of absent WAL/catalog/filesystem effects"
+    }
+  },
+  "contract": {
+    "columns": 70,
+    "rows": 99441,
+    "text_comparison": "C collation for8textfields",
+    "same_snapshot_multiset": "EXCEPT ALL bothways;zero differences",
+    "native_shape": "names/types/precision/scale and catalogtypmod/collations preserved",
+    "dependency_delta": "KPI->mart_order_components removed;KPI->fact_orders added;otheredges unchanged",
+    "deployed_facts_only": true,
+    "unadopted_item_context_included": false,
+    "planner_changed": false
+  },
+  "offline_guard_checks": {
+    "candidate_hashes_bound": {
+      "dbt/models/marts/mart_order_kpis.sql": "d18e0ff1fee2c24156b50a516fbf967287d9a600142bc8c6a7b304025a05268b",
+      "dbt/macros/order_components.sql": "8051d7c8b1e8e39b77445764d76be8a1b406d7ebbf136a0c2a672e6c890bada8",
+      ".artifacts/phase-5/aggregate-reuse-baseline-20261022/mart_order_kpis-candidate.sql": "5e21a27dd15bff6cbeb444c974fd0749ca61a986bba5e4f5701695dbcb5ba7d2"
+    },
+    "hash_drifts_rejected": 3,
+    "contract_columns": 70,
+    "literal_text_columns": 8,
+    "metadata_mutations_rejected": 6,
+    "baseline_mutations_rejected": 9,
+    "capacity_overflows_rejected": 2,
+    "failure_paths_force_rollback": 7,
+    "restore_view_and_capacity_drift_rejected": true,
+    "planner_unchanged": true,
+    "artifacts": ".artifacts/phase-5/offline-aggregate-reuse-be573273d4df4bcf89d7a65c89929bd0"
+  },
+  "budgets": {
+    "statement_seconds": 55,
+    "lock_seconds": 5,
+    "probe_seconds": 480,
+    "overall_seconds": 600,
+    "server_ms": 10000,
+    "temporary_traffic_bytes": 536870912,
+    "raw_bytes": 367000000,
+    "database_bytes": 400000000
+  },
+  "limitations": [
+    "Timeout provides no accepted execution_ms or temporarytraffic measurement",
+    "Total DB size increased32768bytes in probe; no cause inferred or zeroWAL/filesystemclaim",
+    "No persistent adoption/fullQ01/consumer acceptance"
+  ],
+  "plan_summary": {
+    "aggregates": 12,
+    "sorts": 17,
+    "nested_loops": 3,
+    "maximum_estimated_rows": 1667338375245183,
+    "warning": "Estimates are not observed fanout"
+  },
+  "prior_validation": "1942 offline passed/1028 intentional native skips; no production changes thisunit; same-day Python111/0vulnerabilities,npm7highfull/2highruntime/E11 remains",
+  "review": "Master Plan Agent reviewed adaptation and final guard implementation before execution",
+  "next": "Review retained nested-loop plan; prepare one bounded transaction-local enable_nestloop=off variant for this consolidatedKPI candidate only, without item-context or memory/budget changes. Require same guards/independentrollback; then fullrepresentativeQ01 and consumer reconciliation before adoption/exit. Do not repeat rejected unchangedprobes.",
+  "phase_boundary": "STOP and ask owner after verifiedPhase5completion beforePhase6",
+  "hashes": [
+    {
+      "path": ".artifacts/phase-5/5385df3d0ce946f39bb76fe2da0b9b65/receipt.json",
+      "sha256": "6dd94fec802620a189991983994a730cc58ab61c0c9240748daefca73b0d3571"
+    },
+    {
+      "path": ".artifacts/phase-5/5385df3d0ce946f39bb76fe2da0b9b65/probe-source.py",
+      "sha256": "5c5c7b1d8a6011cf319b96fb9dac071ec1b8caa32e44de4c1de6671f54fca52a"
+    },
+    {
+      "path": ".artifacts/phase-5/3e55ec0d0b434f7688e33686b671247e/receipt.json",
+      "sha256": "c590728a3edf50e3801749e4a35d64be7a94fc11064a44fd10ce18bb54cb835f"
+    },
+    {
+      "path": ".artifacts/phase-5/3e55ec0d0b434f7688e33686b671247e/probe-source.py",
+      "sha256": "8bb79f1d961b786d08aad592c295ee4458c90ecd0c24f777a0b45f5028b1fd1e"
+    },
+    {
+      "path": ".artifacts/phase-5/3e55ec0d0b434f7688e33686b671247e/method.json",
+      "sha256": "0926314a281e150af14ea4917f44e2da856ec9ab3c2cade2925ff95e4fa502f1"
+    },
+    {
+      "path": ".artifacts/phase-5/3e55ec0d0b434f7688e33686b671247e/equivalence.json",
+      "sha256": "69c8ba7b57ff03308352eb3434bd05f60395753c75e99bf1f030982461bee39d"
+    },
+    {
+      "path": ".artifacts/phase-5/3e55ec0d0b434f7688e33686b671247e/plan-private.json",
+      "sha256": "64871706fa21c4e20afb76f5775542aa00d831568063e1803510e2fa5c468d6f"
+    },
+    {
+      "path": ".artifacts/phase-5/offline-aggregate-reuse-be573273d4df4bcf89d7a65c89929bd0/receipt.json",
+      "sha256": "0cdbb44d94e63a2e389125baef6075ecc070856f7ee79591cf1fc3f38dfd8850"
+    },
+    {
+      "path": ".artifacts/phase-5/test_aggregate_reuse_probe_20261022.py",
+      "sha256": "db294e0c43e98d570ab1daafffb2acc0c5e882cb81f31ea16dc6ec3fd32bd35e"
+    },
+    {
+      "path": ".artifacts/phase-5/item_context_probe_20261022.py",
+      "sha256": "eb6c20d8ed126f79cf8252227d29c2d5c20ea1f60730688dedf2a72bb4699ce6"
+    },
+    {
+      "path": "dbt/models/marts/mart_order_kpis.sql",
+      "sha256": "d18e0ff1fee2c24156b50a516fbf967287d9a600142bc8c6a7b304025a05268b"
+    },
+    {
+      "path": "dbt/macros/order_components.sql",
+      "sha256": "8051d7c8b1e8e39b77445764d76be8a1b406d7ebbf136a0c2a672e6c890bada8"
+    }
+  ]
+}

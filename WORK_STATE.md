@@ -3,7 +3,43 @@
 Authoritative handoff updated 2026-10-22. Actual D repository, Git and verified
 evidence take precedence over chat. Read the permanent instructions before edits.
 
-## Current checkpoint — 2026-10-22 shared child aggregation
+## Current checkpoint — 2026-10-22 native aggregate reuse
+
+SAFE TO RESUME / NATIVE EQUIVALENCE VERIFIED; Q01 STILL FAILED; NOT ADOPTED.
+Resumed publisheda2a9715 at1%five-hour/0%weekly used. All13 adapted synthetic
+native cases passed without skips, including exactmoney/reviewweights/clocks.
+The fixed rollback-only KPI probe used deployedfacts only and unchangedplanner.
+All99441rows/all70fields matched as multisets; exactmoney,parentgrain,nativecolumn
+shape and preserving catalog/dependency checks passed. The defaultoverview then
+timed out at EXPLAIN ANALYZE with57014. No accepted timing/spill result exists.
+
+Fresh independent restoration/access checks passed after bothjobs. Raw275988480;
+finalDB287569587 bytes, withinceilings. DB increased32768 duringprobe; cause not
+asserted and rollback is not proof of absentWAL/filesystemeffects. No persistent
+view/index/grant/plannerchanges. Both sourcecandidates remain unadopted. Evidence:
+docs/phase-5-aggregate-reuse-native-verification.json. MasterPlan reviewedguards.
+Offlineprobe syntax/lint/format and hash/metadata/failure-injectionchecks passed.
+Existing1942offlinepasses remain applicable; production unchangedthisunit.
+Same-day audit unchanged:Python111/0vulnerabilities,npm7highfull/2highruntime/E11.
+Repaired priorWindows-default text-decoding damage with explicitUTF8 and corrected
+stale phaseguide headings. All originalprivateartifacts retained.
+
+Exactnext: review retained plan in
+.artifacts/phase-5/3e55ec0d0b434f7688e33686b671247e/plan-private.json. It stilluses
+3nestedloops, including a childestimate200, and maximumestimate1.667e15 (notactual
+fanout). Prepare/review one transaction-local enable_nestloop=off variant forONLY
+this consolidatedKPI candidate, preserving all70-field equivalence, deployedfacts,
+originalmemory/deadlines/capacity, and freshindependentrollback. This combination
+has not been measured. Do not combineunadopteditemcontext or repeatunchangedprobes.
+Full16-case/concurrentQ01, independentconsumerreconciliation and Phase5exit remain.
+Phases1-4/governance complete; Phase6notstarted. STOPandask afterPhase5completion.
+
+Preservation decision70%five-hour/11%weekly used; finish currentprobe/checkpoint,
+thenstop. Containingcommit is checkpoint on feat/phase-5-kpi-analytics. Changesonly
+handoff/phaseguides/governance andaggregateevidence. Stage/historyscan and authorized
+publication; verifyclean/upstream0/0. No merge/deployment/deletion/resetcredits.
+
+## Previous checkpoint — 2026-10-22 shared child aggregation
 
 SAFE TO RESUME / CANDIDATE VERIFIED OFFLINE, NOT DEPLOYED OR MEASURED.
 Resumed clean7091ab1 at1% five-hour/60% weekly used. Shared SQL macro combines
@@ -37,7 +73,7 @@ verification used additional allowance. No new unit started. Containing commit i
 this checkpoint on feat/phase-5-kpi-analytics. Publish after staged/history scans
 and verify clean/upstream0/0. All files/artifacts retained; no merge/deployment.
 
-## Previous checkpoint â€” 2026-10-22 native item-context diagnostic
+## Previous checkpoint — 2026-10-22 native item-context diagnostic
 
 SAFE TO RESUME / Q01 STILL FAILED; CANDIDATE NOT ADOPTED.
 Resumed clean published 74818e0 at 0% five-hour / 47% weekly usage consumed.
@@ -87,7 +123,7 @@ guide, governance Q01 entry and the new aggregate receipt. No deletions or depen
 changes. Branch feat/phase-5-kpi-analytics; containing commit is this checkpoint.
 Scan staged contents/history and verify clean/upstream0/0 after authorized publication.
 
-## Previous checkpoint â€” 2026-10-22 item-context optimization
+## Previous checkpoint — 2026-10-22 item-context optimization
 
 SAFE TO RESUME / CANDIDATE VERIFIED OFFLINE, NOT DEPLOYED OR MEASURED.
 Resumed clean published f6b3722 at 2% five-hour / 36% weekly usage consumed.
@@ -135,7 +171,7 @@ whether the owner has further instructions before starting Phase 6. Do not creat
 or start the successor automatically. This boundary is also recorded in AGENTS,
 the execution protocol and Phase 5 plan.
 
-## Previous checkpoint â€” 2026-10-21 certificate dependency remediation
+## Previous checkpoint — 2026-10-21 certificate dependency remediation
 
 SAFE TO RESUME / E12 VERIFIED IN THE LOCK AND PATCHED ENVIRONMENT. Resumed clean
 published 2912c14 at 7% five-hour/25% weekly USED. Only certifi changed in the lock,
@@ -178,7 +214,7 @@ Usage 65% five-hour / 34% weekly USED at preservation. Save/publish this verifie
 and retain the reserve; no broad model/native work started. No reset, merge or deployment.
 The containing commit is the remediation checkpoint; verify clean/upstream after publishing.
 
-## Previous checkpoint â€” 2026-10-21 index experiments
+## Previous checkpoint — 2026-10-21 index experiments
 
 SAFE TO RESUME / Q01 STILL FAILED. Resumed clean69f3215 at15% five-hour/14%
 weekly USED. Three rollback-only unique expression indexes used13770752 bytes;
@@ -208,7 +244,7 @@ Full16-case/concurrency Q01, independent consumer reconciliation and Phase5 exit
 remain; Phase6 has not started. All artifacts retained. No merge/deployment/reset.
 Usage72% five-hour/23% weekly USED at preservation; publish this checkpoint and stop.
 
-## Previous checkpoint â€” 2026-10-20 native Q01 diagnosis
+## Previous checkpoint — 2026-10-20 native Q01 diagnosis
 
 SAFE TO RESUME / PERFORMANCE GATE FAILED; optimization is required.
 Diagnostic checkpoint e9272b7 is published. Subsequent read-only index preflight
@@ -264,7 +300,7 @@ reconciliation and Phase5 exit still follow; Phase6 has not started.
 Usage48% five-hour/8% weekly USED at diagnostic preservation. The containing commit
 is this evidence checkpoint; no merge, deployment or reset credit use.
 
-## Previous checkpoint â€” 2026-10-20 workload preparation
+## Previous checkpoint — 2026-10-20 workload preparation
 
 SAFE TO RESUME / Q01 PREPARATION IMPLEMENTED; native performance remains unverified.
 Resumed clean published753095f on feat/phase-5-kpi-analytics at11% five-hour/14%
@@ -301,7 +337,7 @@ must pass. Then independent consumer/dashboard reconciliation and Phase5 exit re
 Do not redo accepted phases/builds/source comparisons/edge checks/grants.
 Phase6 owns the usable web MVP and has not started; Phase5 is incomplete.
 
-## Active checkpoint â€” 2026-10-19 reader access
+## Active checkpoint — 2026-10-19 reader access
 
 SAFE TO RESUME / MODEL VALIDATION AND INTERNAL READER ACCESS VERIFIED. Published
 pre-grant model-edge checkpoint1f9faa4, then granted SELECT on the exact three
@@ -329,7 +365,7 @@ Usage66% five-hour/10% weekly USED at closing checkpoint. Preservation only; no
 new unit, reset credit, merge, deployment or paid operation. All artifacts retained.
 The containing commit is the access checkpoint; Git cannot undo the committed grant.
 
-## Previous model-edge checkpoint â€” 2026-10-19
+## Previous model-edge checkpoint — 2026-10-19
 
 SAFE TO RESUME / MODEL EDGE ACCEPTANCE VERIFIED. Resumed clean5534a4d,
 usage2% five-hour/0% weekly. Eighteen native cases passed in80.87s, exercising
@@ -359,7 +395,7 @@ three approved marts; no public/API role exposure. Then representative workloads
 parameter/model provenance/Q01 and independent consumer reconciliation remain.
 Phase5 is incomplete. Later phase work, deployment and merge remain pending.
 
-## Active continuation checkpoint â€” 2026-10-18
+## Active continuation checkpoint — 2026-10-18
 
 SAFE TO RESUME. Resumed clean published d894b1f at59% five-hour/55% weekly USED.
 Added three opt-in native cases using the actual order-mart SQL and typed CTEs
@@ -388,7 +424,7 @@ reader catalog/grant/denials, representative Q01 performance/provenance and cons
 reconciliation. Phase5 remains incomplete; all previously completed builds and
 full-source comparisons remain accepted. The containing commit is this checkpoint.
 
-## Active checkpoint â€” 2026-10-18
+## Active checkpoint — 2026-10-18
 
 SAFE TO RESUME / CURRENT-SOURCE NATIVE ACCEPTANCE VERIFIED. Resumed clean
 published6ece4d6, upstream0/0, usage2% five-hour/46% weekly. The containing commit
@@ -427,7 +463,7 @@ concurrent workload/provenance/Q01, and consumer/dashboard-contract reconciliati
 Both native builds remain complete. Phase5 exit must precede Phase6 web MVP.
 Earlier dated sections below are historical wherever this checkpoint differs.
 
-## Previous checkpoint â€” 2026-10-17
+## Previous checkpoint — 2026-10-17
 
 SAFE TO RESUME / PARTIAL NATIVE ACCEPTANCE. Resumed clean published312bdfd,
 upstream0/0, usage2% five-hour/30% weekly. New independent source oracle and
@@ -458,7 +494,7 @@ workload/concurrency/provenance, Q01 and consumer/dashboard reconciliation remai
 Both KPI builds at312bdfd stay complete; no rebuild or Phase6 transition.
 Earlier dated sections below are historical where this section differs.
 
-## Previous checkpoint â€” 2026-10-16
+## Previous checkpoint — 2026-10-16
 
 SAFE TO RESUME / PHASE5 PARTIALLY COMPLETE. Resumed clean published5d23210,
 upstream0/0, usage3% five-hour/16% weekly USED. Current milestone completes the
