@@ -8,10 +8,11 @@ Latest source checkpoint a2a9715 consolidates duplicate child aggregation throug
 a shared macro, preserving all49 technical and70 KPI output fields. Offline1942
 tests pass. Native13syntheticcases and full99441row/70field equivalence nowpass;
 default-planner overview stilltimesout57014. Independentrollback/accesspassed.
-See [native evidence](phase-5-aggregate-reuse-native-verification.json). Next review
-one transaction-local loop-discouraged variant of thisKPIcandidate only; preserve
-alldeployedfacts, memory/budgets, metadata/equivalence and freshrestorationguards.
-Neither candidate is adopted. FullQ01 and consumerreconciliation remainpending.
+See [native evidence](phase-5-aggregate-reuse-native-verification.json).
+The local planner variant completed at10.286s and767246336 temporary bytes;
+both budgets still fail, with verified rollback. See [planner evidence](phase-5-aggregate-planner-verification.json).
+Next reduce remaining repeated order context using the executed plan. Neither
+candidate is adopted. Full Q01 and consumer reconciliation remain pending.
 
 2026-10-21: rollback-only index trials failed Q01 time/spill budgets; neither is
 adopted. Postchecks verified rollback. See phase-5-index-probe-verification.json.

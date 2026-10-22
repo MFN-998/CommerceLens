@@ -1,0 +1,123 @@
+{
+  "date": "2026-10-22",
+  "baseline_checkpoint": "7845936",
+  "status": "Combined candidate and local planner experiment completed; both budgets failed; not adopted",
+  "receipt": {
+    "artifacts": ".artifacts/phase-5/e39930b6c8d4403aa4898b3daace6de8",
+    "status": "completed",
+    "adopted": false,
+    "probe": {
+      "status": "completed",
+      "stage": "rolled_back",
+      "adopted": false,
+      "equivalence": [
+        99441,
+        99441,
+        0,
+        0,
+        "13591643.70",
+        "2251909.54",
+        "16008872.12",
+        99441,
+        0
+      ],
+      "measured": {
+        "planning_ms": 11.38,
+        "execution_ms": 10286.49,
+        "output_rows": 1,
+        "node_types": {
+          "Aggregate": 12,
+          "CTE Scan": 4,
+          "Gather": 1,
+          "Gather Merge": 4,
+          "Hash": 7,
+          "Hash Join": 7,
+          "Limit": 1,
+          "Materialize": 5,
+          "Merge Join": 6,
+          "Nested Loop": 2,
+          "Seq Scan": 14,
+          "Sort": 17,
+          "Subquery Scan": 13,
+          "WindowAgg": 1
+        },
+        "root_buffers": {
+          "Shared Hit Blocks": 42871,
+          "Shared Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Written Blocks": 0,
+          "Temp Read Blocks": 46400,
+          "Temp Written Blocks": 47258
+        },
+        "disk_sort_instances": 26,
+        "sort_disk_kb": 154888,
+        "max_hash_batches": 21,
+        "hash_disk_kb": 14384
+      },
+      "temp_traffic_bytes": 767246336,
+      "historical_totals_matched": 3,
+      "response_sha256": "3dfbeac7b06a97f546c319bde56a4f66f11dcc5daf48f5bf97f63034ac05f89b",
+      "server_spill_budgets_passed": false
+    },
+    "postcheck": {
+      "rollback_verified": true,
+      "database_bytes": 287594163,
+      "database_bytes_delta": 24576,
+      "raw_bytes": 275988480,
+      "limits": "No persistent candidate; not proof of absent WAL/catalog/filesystem effects"
+    }
+  },
+  "guard_validation": {
+    "candidate_hashes_bound": {
+      "dbt/models/marts/mart_order_kpis.sql": "d18e0ff1fee2c24156b50a516fbf967287d9a600142bc8c6a7b304025a05268b",
+      "dbt/macros/order_components.sql": "8051d7c8b1e8e39b77445764d76be8a1b406d7ebbf136a0c2a672e6c890bada8",
+      ".artifacts/phase-5/aggregate-reuse-baseline-20261022/mart_order_kpis-candidate.sql": "5e21a27dd15bff6cbeb444c974fd0749ca61a986bba5e4f5701695dbcb5ba7d2"
+    },
+    "hash_drifts_rejected": 3,
+    "contract_columns": 70,
+    "literal_text_columns": 8,
+    "metadata_mutations_rejected": 6,
+    "baseline_mutations_rejected": 9,
+    "capacity_overflows_rejected": 2,
+    "failure_paths_force_rollback": 8,
+    "restore_view_and_capacity_drift_rejected": true,
+    "planner_change": "only transaction-local enable_nestloop=off; restoration drift rejected",
+    "artifacts": ".artifacts/phase-5/offline-aggregate-reuse-no-nestloop-2de4a22d6d8041e4bb194b82d41c8de6"
+  },
+  "limits": {
+    "server_ms": 10000,
+    "temporary_traffic_bytes": 536870912,
+    "statement_seconds": 55,
+    "overall_seconds": 600
+  },
+  "interpretation": "All 99441 rows and70 fields match; three historical overview totals match. This is neither default-planner performance nor complete consumer or Q01 acceptance. No persistent candidate/settings. Database size grew24576 bytes; cause not inferred.",
+  "review": "Master Plan Agent reviewed the diff and forced-rollback setting/restoration guards before execution",
+  "validation": "Syntax/Ruff lint/format pass. Eight forced-rollback failure paths and planner-restoration drift rejection pass. Prior1942 offline and13native cases remain applicable; no production changes. Same-day advisory evidence unchanged.",
+  "next": "Use retained executed plan to choose the next targeted removal of repeated order context; preserve budgets and independent equivalence/restoration gates.",
+  "hashes": [
+    {
+      "path": ".artifacts/phase-5/e39930b6c8d4403aa4898b3daace6de8/receipt.json",
+      "sha256": "9c89c81e9840a57d35f58cff67b3d313471e7a65f37ef5e0ebf82f1c7530ddaf"
+    },
+    {
+      "path": ".artifacts/phase-5/e39930b6c8d4403aa4898b3daace6de8/probe-source.py",
+      "sha256": "6392c0025495a5d71de3bc53d6248c199872ea1e1e8b5c6becd64a538a7e2a58"
+    },
+    {
+      "path": ".artifacts/phase-5/e39930b6c8d4403aa4898b3daace6de8/method.json",
+      "sha256": "23ce9017b8f782e21c2562a86926e750f7b2423d6977bf5243f151db1452b3ba"
+    },
+    {
+      "path": ".artifacts/phase-5/e39930b6c8d4403aa4898b3daace6de8/execution-private.json",
+      "sha256": "f3e01d6771e310dff12a0bb89a171145f2bf49be880daaa42c63686f28cf0e24"
+    },
+    {
+      "path": ".artifacts/phase-5/offline-aggregate-reuse-no-nestloop-2de4a22d6d8041e4bb194b82d41c8de6/receipt.json",
+      "sha256": "4256d35dee81c6deb32ee57cc691d0e5ca2288aa3fe0fca5f7ce0305431cea29"
+    },
+    {
+      "path": ".artifacts/phase-5/test_aggregate_reuse_probe_no_nestloop_20261022.py",
+      "sha256": "99aa1ce560eadfc119f9acc777976e8e8908a00c442da31434473cd5f33c16e1"
+    }
+  ]
+}

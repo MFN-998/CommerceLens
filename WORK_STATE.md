@@ -3,7 +3,34 @@
 Authoritative handoff updated 2026-10-22. Actual D repository, Git and verified
 evidence take precedence over chat. Read the permanent instructions before edits.
 
-## Current checkpoint — 2026-10-22 native aggregate reuse
+## Current checkpoint — 2026-10-22 aggregate planner measurement
+
+SAFE TO RESUME / BOTH PERFORMANCE BUDGETS STILL FAIL; NOT ADOPTED.
+Resumed clean published7845936 at2% five-hour/0% weekly used. The consolidated
+KPI candidate with only transaction-local enable_nestloop=off completed at
+10286.49ms and767246336 temporary-traffic bytes, above10000ms/536870912 budgets.
+All99441rows/all70fields, exact money and grain match; three overview totals match.
+Fresh independent restoration/access/catalog/planner checks passed. No persistent
+change or item-context candidate included. Raw275988480; database287594163 bytes
+within ceilings. Database grew24576 bytes; cause not inferred.
+
+Master Plan Agent reviewed the narrow variant. Offline hash/catalog/capacity tests,
+eight forced-rollback failure paths and planner-restoration drift rejection pass;
+syntax/Ruff lint/format pass. Prior1942 offline/13 native cases remain applicable
+to unchanged production code. Same-day Python111/0 vulnerabilities and npm7high
+full/2high runtime evidence applies; E11 remains. All artifacts retained.
+See docs/phase-5-aggregate-planner-verification.json. Full Q01 and independent
+consumer reconciliation remain pending; this combined measurement is not adoption.
+
+Next: use the retained executed plan to target remaining repeated order-context
+work, preserving original budgets and full equivalence/restoration guards.
+Phase5 remains incomplete; STOP and ask owner after verified completion before
+creating or starting Phase6. Containing commit is this checkpoint. Publish after
+staged/history scans and verify clean/upstream0/0 before another atomic unit.
+Usage28% five-hour/4% weekly at measurement milestone. No new dependencies,
+production changes, deletion, merge or deployment in this checkpoint.
+
+## Previous checkpoint — 2026-10-22 native aggregate reuse
 
 SAFE TO RESUME / NATIVE EQUIVALENCE VERIFIED; Q01 STILL FAILED; NOT ADOPTED.
 Resumed publisheda2a9715 at1%five-hour/0%weekly used. All13 adapted synthetic

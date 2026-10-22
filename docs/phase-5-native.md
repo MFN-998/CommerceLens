@@ -12,9 +12,11 @@ accepted. Fresh independent rollback and access checks passed. Raw size was
 275988480 bytes and database size was 287569587 bytes, within ceilings. Database
 size increased 32768 bytes; no cause is asserted. No candidate was adopted.
 See [native evidence](phase-5-aggregate-reuse-native-verification.json).
-Next review the retained nested-loop plan and one transaction-local loop-discouraged
-variant of ONLY this KPI candidate; deployedfacts, memory/budgets, full-equivalence
-and independent-restoration guards remain. FullQ01/consumeracceptance stillpending.
+The subsequent local planner variant completed at10286.49ms and767246336 temporary
+bytes, failing both budgets. Full equivalence and independent rollback passed;
+no persistent adoption. See [planner evidence](phase-5-aggregate-planner-verification.json).
+Next use the executed plan to reduce remaining repeated order-context work;
+full Q01 and consumer acceptance remain pending.
 
 ## Previous diagnostic — item context, 2026-10-22
 
