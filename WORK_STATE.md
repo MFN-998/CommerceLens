@@ -3,7 +3,34 @@
 Authoritative handoff updated 2026-10-23. Actual D repository, Git and verified
 evidence take precedence over chat. Read the permanent instructions before edits.
 
-## Current checkpoint — combined native measurement, 2026-10-23
+## Current checkpoint — incomplete item-mart preparation, 2026-10-23
+
+SAFE TO RESUME. Source implementation did not complete. Resumed published
+82fd575 at 2% five-hour/25% weekly used. A bounded implementation agent's large
+write was interrupted after a prolonged tool delay; subsequent status checks
+showed no owned source/test files landed. Do not claim the candidate is built.
+At 77% five-hour/37% weekly used, stopped implementation to preserve state.
+
+Root's preliminary YAML description and parsed-graph assertion edits were copied
+with WORK_STATE and the working diff to .artifacts/phase-5/item-mart-incomplete-94aac4d0226c40489614a7f5c6d684b3, then restored to the
+published baseline because the candidate and its required oracle do not exist.
+No production source/dependency/database changes, native run, frontend launch,
+resource deletion or Phase 6 work occurred. No regression run is claimed.
+
+Master Plan review clarified the next atomic unit: replace mart_item_kpis's direct
+fact_orders lookup with stg_orders for only identity/status, preserving all 26
+fields and literal LEFT JOIN behavior. Add dbt/tests/item_kpis_source_reconciliation.sql
+using fact_orders as the independent full-row oracle; this test does not exist yet.
+Use separate staged/fact fixtures covering missing customer maps, NULL/literal
+statuses, differing status/presence and invalid parent/customer multiplicity.
+Then update parsed dependencies and native fixture references, run offline gates,
+review and checkpoint before any native adoption/performance experiment.
+Native fixture-supervisor preparation was deferred; no new usable runner exists.
+Previous combined measurement and E11/E13 advisory gates below remain current.
+All agents stopped; publish this handoff after secret/whitespace checks and verify
+clean/upstream 0/0. Stop until usage supports a complete verified unit.
+
+## Previous checkpoint — combined native measurement, 2026-10-23
 
 SAFE TO RESUME / BOTH PERFORMANCE BUDGETS FAILED / NOT ADOPTED.
 Resumed clean published 652649c at 1% five-hour/14% weekly used. Combined item
