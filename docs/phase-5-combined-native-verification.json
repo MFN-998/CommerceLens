@@ -1,0 +1,166 @@
+{
+  "date": "2026-10-23",
+  "baseline_checkpoint": "652649c",
+  "status": "BOTH PERFORMANCE BUDGETS FAILED; DATA EQUIVALENT; RESTORATION VERIFIED; NOT ADOPTED",
+  "first_attempt": {
+    "artifacts": ".artifacts/phase-5/41dd6205b0324f8d9a85cfb3c0eeec46",
+    "status": "failed_verified_rollback",
+    "adopted": false,
+    "probe": {
+      "status": "failed",
+      "stage": "before",
+      "adopted": false,
+      "sqlstate": null
+    },
+    "postcheck": {
+      "rollback_verified": true,
+      "database_bytes": 287594163,
+      "database_bytes_delta": 0,
+      "raw_bytes": 275988480,
+      "limits": "No persistent candidate; not proof of absent WAL/catalog/filesystem effects"
+    }
+  },
+  "first_attempt_interpretation": "Stopped after method preparation and before parent-grain/equivalence/replacement markers. Cause not established; independent unchanged-state/access checks passed. Original artifact retained.",
+  "instrumentation_change": "Only fixed preflight stages and private catalog mismatch evidence; no guard or resource relaxation.",
+  "receipt": {
+    "artifacts": ".artifacts/phase-5/d29e630174cb4b79baac020a02ef9874",
+    "status": "completed",
+    "adopted": false,
+    "probe": {
+      "status": "completed",
+      "stage": "rolled_back",
+      "adopted": false,
+      "item_equivalence": [
+        112650,
+        112650,
+        0,
+        0,
+        "13591643.70",
+        "2251909.54",
+        0
+      ],
+      "equivalence": [
+        99441,
+        99441,
+        0,
+        0,
+        "13591643.70",
+        "2251909.54",
+        "16008872.12",
+        99441,
+        0
+      ],
+      "measured": {
+        "planning_ms": 16.112,
+        "execution_ms": 11873.351,
+        "output_rows": 1,
+        "node_types": {
+          "Aggregate": 12,
+          "CTE Scan": 4,
+          "Gather": 1,
+          "Gather Merge": 4,
+          "Hash": 6,
+          "Hash Join": 6,
+          "Limit": 1,
+          "Materialize": 3,
+          "Merge Join": 5,
+          "Nested Loop": 2,
+          "Seq Scan": 12,
+          "Sort": 16,
+          "Subquery Scan": 12,
+          "WindowAgg": 1
+        },
+        "root_buffers": {
+          "Shared Hit Blocks": 35628,
+          "Shared Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Written Blocks": 0,
+          "Temp Read Blocks": 42234,
+          "Temp Written Blocks": 43307
+        },
+        "disk_sort_instances": 23,
+        "sort_disk_kb": 135256,
+        "max_hash_batches": 21,
+        "hash_disk_kb": 18040
+      },
+      "temp_traffic_bytes": 700751872,
+      "historical_totals_matched": 3,
+      "response_sha256": "3dfbeac7b06a97f546c319bde56a4f66f11dcc5daf48f5bf97f63034ac05f89b",
+      "server_spill_budgets_passed": false
+    },
+    "postcheck": {
+      "rollback_verified": true,
+      "database_bytes": 287618739,
+      "database_bytes_delta": 24576,
+      "raw_bytes": 275988480,
+      "limits": "No persistent candidate; not proof of absent WAL/catalog/filesystem effects"
+    }
+  },
+  "guard_validation": {
+    "candidate_hashes_bound": {
+      "dbt/models/marts/mart_order_kpis.sql": "d18e0ff1fee2c24156b50a516fbf967287d9a600142bc8c6a7b304025a05268b",
+      "dbt/macros/order_components.sql": "8051d7c8b1e8e39b77445764d76be8a1b406d7ebbf136a0c2a672e6c890bada8",
+      ".artifacts/phase-5/aggregate-reuse-baseline-20261022/mart_order_kpis-candidate.sql": "5e21a27dd15bff6cbeb444c974fd0749ca61a986bba5e4f5701695dbcb5ba7d2"
+    },
+    "hash_drifts_rejected": 5,
+    "contract_columns": [
+      15,
+      70
+    ],
+    "literal_text_columns": 8,
+    "metadata_mutations_rejected": 12,
+    "baseline_mutations_rejected": 9,
+    "capacity_overflows_rejected": 2,
+    "failure_paths_force_rollback": 17,
+    "preflight_failure_paths_without_ddl": 7,
+    "connection_entry_failure_before_transaction": true,
+    "original_failure_paths_retained": 11,
+    "preflight_catalog_private_copy_and_safe_categories": true,
+    "restore_view_and_capacity_drift_rejected": true,
+    "planner_only_after_both_replacements_in_nested_rollback": true,
+    "item_candidate_hash": "14a85958b395a3af1e31c53555d3d7bdaeb087ddb79da66027c4a667e990bde3",
+    "artifacts": ".artifacts/phase-5/offline-combined-aggregate-item-3402fe6319c44deb890dd6e7eff6d17d"
+  },
+  "static_checks": "Syntax, Ruff lint (existing E402 bootstrap exception) and formatting passed for revised diagnostic and guard test.",
+  "equivalence": "Same-snapshot 112650 rows/all15 item fields first; existing KPI then reads identical item values; 99441 rows/all70 KPI fields match before second temporary replacement. Exactly two allowed view/dependency changes; original columns/owners/grants/indexes retained.",
+  "limits": {
+    "server_ms": 10000,
+    "temporary_traffic_bytes": 536870912,
+    "statement_seconds": 55,
+    "overall_seconds": 600
+  },
+  "interpretation": "The planner setting was local to the reader savepoint. Three historical totals and prior response hash match; not full consumer reconciliation or Q01 acceptance. No persistent candidate adopted. Database bytes increased24576 within ceiling; cause not inferred. Temporary traffic uses root counters, not sums of overlapping descendants.",
+  "review": "Master Plan Agent confirmed phase/guard alignment before execution and reviewed the preflight instrumentation need. Post-result plan review selected mart_item_kpis direct parent context as the next minimal target; no query/cohort rewrite.",
+  "advisories": "Fresh scans found E11 critical frontend and E13 moderate telemetry advisories. See phase-5-advisories-20261023.json and governance-audit.md; no frontend launch/exposure.",
+  "next": "Next FIRST: simplify only dbt/models/marts/mart_item_kpis.sql parent context: its direct fact_orders dependency uses only order_id/order_status. Evaluate stg_orders for those two fields, preserving the LEFT JOIN, literal identity, all 26 output fields, missing-order behavior and category coverage. Master Plan review of the executed plan identifies unnecessary customer enrichment/sorts in the matching-items branch; the remaining customer scan is required. Add independent staged-order versus fact-order fixtures for missing customer mappings, NULL/status values and duplicate-parent rejection; keep customer-map uniqueness as a precondition. Keep reconciliation independent. Require native 26-field multiset/type equivalence and a reviewed rollback-only measurement before adoption. Do not rewrite query/cohort scope in this unit.",
+  "hashes": [
+    {
+      "path": ".artifacts/phase-5/41dd6205b0324f8d9a85cfb3c0eeec46/receipt.json",
+      "sha256": "194f0c90d3449c03867195aaa0544e45323b1318472bea938d80785f39eea38a"
+    },
+    {
+      "path": ".artifacts/phase-5/d29e630174cb4b79baac020a02ef9874/receipt.json",
+      "sha256": "78f048cbe6b3c41be385e7a9a077bde4a794583a6b1d138b18d44dc3f535cc2c"
+    },
+    {
+      "path": ".artifacts/phase-5/d29e630174cb4b79baac020a02ef9874/probe-source.py",
+      "sha256": "2e2ea87b8533e574a32ac9dbc4328d320e30816ef7f29bec8079e5ca366e88d6"
+    },
+    {
+      "path": ".artifacts/phase-5/d29e630174cb4b79baac020a02ef9874/method.json",
+      "sha256": "b5dc6c8d2a5061d4b9680a646006aca6ebf38b40a54a0d263a679c221ed44c8b"
+    },
+    {
+      "path": ".artifacts/phase-5/d29e630174cb4b79baac020a02ef9874/execution-private.json",
+      "sha256": "3d506c25e3c42993a41bb9bfefe8731fef103f77d3e0776a8ba5c8445980420c"
+    },
+    {
+      "path": ".artifacts/phase-5/offline-combined-aggregate-item-3402fe6319c44deb890dd6e7eff6d17d/receipt.json",
+      "sha256": "f3b4fc218f4478ff5377f2c898bd16e7b7ad66ba7a2384c9e92565500891ff6a"
+    },
+    {
+      "path": ".artifacts/phase-5/test_combined_aggregate_item_probe_20261023.py",
+      "sha256": "9394bbedd9a8b52891819bbcea1b5004502e7b67a28eeb130017771f2b8871b6"
+    }
+  ]
+}

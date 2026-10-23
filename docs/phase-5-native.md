@@ -1,10 +1,14 @@
 # Phase 5 isolated native verification
 
-Next diagnostic is prepared and reviewed, but has not run: combine the separately
-verified item-context and KPI candidates in one forced-rollback transaction.
-See [combined probe preparation](phase-5-combined-probe-preparation.json) and WORK_STATE
-for exact guards and execution entry point. No persistent adoption is authorized
-by this preparation receipt.
+2026-10-23: the combined item-context/KPI candidate with a local planner setting
+completed at 11.873 seconds and 700751872 temporary-traffic bytes: both budgets
+still fail. All 112650 item rows/15 fields and 99441 KPI rows/70 fields matched;
+fresh restoration/access checks passed. Neither candidate is persistently adopted.
+The first attempt stopped in preflight with unknown cause and verified restoration;
+a revision added fixed-stage diagnostics without weakening guards.
+See [combined native evidence](phase-5-combined-native-verification.json) and
+WORK_STATE for the next step. New E11/E13 advisory gates are recorded in
+[the current audit evidence](phase-5-advisories-20261023.json).
 
 ## Current candidate — shared child aggregation, 2026-10-22
 

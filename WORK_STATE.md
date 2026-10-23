@@ -1,9 +1,60 @@
 # CommerceLens work state
 
-Authoritative handoff updated 2026-10-22. Actual D repository, Git and verified
+Authoritative handoff updated 2026-10-23. Actual D repository, Git and verified
 evidence take precedence over chat. Read the permanent instructions before edits.
 
-## Current checkpoint — combined probe prepared, not executed
+## Current checkpoint — combined native measurement, 2026-10-23
+
+SAFE TO RESUME / BOTH PERFORMANCE BUDGETS FAILED / NOT ADOPTED.
+Resumed clean published 652649c at 1% five-hour/14% weekly used. Combined item
+context and KPI aggregation plus a reader-local planner setting completed in
+11873.351 ms with 700751872 temporary-traffic bytes, above the unchanged
+10000 ms/536870912-byte limits. All 112650 item rows/15 fields and 99441 KPI
+rows/70 fields matched. Three historical totals and the prior response hash match.
+
+Fresh independent restoration/access checks passed. Both view definitions,
+complete catalog and planner settings restored. Raw size 275988480; database
+287618739 bytes, increase 24576 within ceiling; cause not inferred. No persistent
+candidate, index, grant or planner changes. The first attempt stopped during
+preflight with unknown cause and unchanged-state restoration; it is retained.
+The second added only fixed stages/private catalog diagnostics. Syntax/lint/format,
+original 11 failure paths and seven new preflight failures passed; preflight
+failures made no DDL changes. See docs/phase-5-combined-native-verification.json.
+
+Next FIRST: simplify only dbt/models/marts/mart_item_kpis.sql parent context:
+its direct fact_orders dependency uses only order_id/order_status. Evaluate
+stg_orders for those two fields, preserving the LEFT JOIN, literal identity,
+all 26 output fields, missing-order behavior and category coverage. Master Plan
+review of the executed plan identifies unnecessary customer enrichment/sorts
+in the matching-items branch; the remaining customer scan is required.
+Add independent staged-order versus fact-order fixtures for missing customer
+mappings, NULL/status values and duplicate-parent rejection; keep customer-map
+uniqueness as a precondition. Keep reconciliation independent. Require native
+26-field multiset/type equivalence and a reviewed rollback-only measurement
+before adoption. Do not rewrite query/cohort scope in this unit.
+
+Fresh advisory scans are NOT clean: Python 111 packages/one moderate telemetry
+finding (E13); npm full 1 critical/7 high and runtime 1 critical/2 high (E11).
+E11 blocks frontend launch/exposure until verified patching. E13 must be resolved
+before untrusted trace headers/instrumentation/public API exposure. No such input
+path is configured in the current fixed-input direct-database diagnostic.
+See docs/phase-5-advisories-20261023.json and governance-audit.md. Preserve old
+environments; use only .artifacts/python/certifi-20261021-01 for current Python.
+
+Master Plan Agent reviewed alignment, applicability and measured next target.
+Production code/dependencies unchanged; prior offline/model-edge evidence remains
+historical and applicable within its scope. Full 16-case/concurrent Q01,
+independent consumer reconciliation and Phase 5 exit remain pending. Phases 1–4
+and governance remain complete; Phase 6 not started. STOP and ask the owner after
+verified Phase 5 completion before starting Phase 6.
+
+Usage at completed native milestone: 56% five-hour/23% weekly used; at preservation
+63%/24%. Finish publication and stop before another implementation unit to retain
+the reserve. Do not repeat unchanged probes.
+All artifacts retained. Scan staged/history contents, publish the containing
+checkpoint and verify clean/upstream 0/0. No merge or deployment.
+
+## Previous checkpoint — combined probe prepared, not executed
 
 SAFE TO RESUME. Published measurement checkpoint f911eec before preparing this
 next unit. The KPI-plus-planner experiment still fails at10.286s/767246336 temp

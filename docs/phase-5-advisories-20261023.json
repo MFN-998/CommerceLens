@@ -1,0 +1,59 @@
+{
+  "date": "2026-10-23",
+  "baseline_checkpoint": "652649c",
+  "status": "ADVISORIES FOUND; not a clean security gate",
+  "python": {
+    "packages": 111,
+    "findings": [
+      {
+        "package": "opentelemetry-api",
+        "version": "1.44.0",
+        "advisories": [
+          {
+            "id": "CVE-2026-114603",
+            "aliases": [
+              "GHSA-xcq7-p3pf-p88h"
+            ],
+            "fix_versions": [
+              "1.45.1"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "npm": {
+    "npm-full": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 7,
+      "critical": 1,
+      "total": 8
+    },
+    "npm-runtime": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 2,
+      "critical": 1,
+      "total": 3
+    }
+  },
+  "limits": "E11 blocks frontend launch/exposure; E13 blocks untrusted telemetry input. Private fixed-input database diagnostic may continue; no dependency change or security acceptance. Master Plan Agent reviewed applicability boundary.",
+  "audit_attempts": "Initial Python command used an incompatible --disable-pip option and failed before scanning. Corrected --local invocation completed; both reports retained.",
+  "hashes": [
+    {
+      "path": ".artifacts/audits/phase5-20261023-5d075526e8ad4f2b93222bb4045a18bb/python-corrected.json",
+      "sha256": "0d0ee5f14208685e78eafabfda8868db9dbd27657fda6f28f0ebc5f4becffad2"
+    },
+    {
+      "path": ".artifacts/audits/phase5-20261023-5d075526e8ad4f2b93222bb4045a18bb/npm-full.json",
+      "sha256": "c3302c1318bd3d6274f1195b7821f747652a842d5b2c0c80ea7415190e90f57d"
+    },
+    {
+      "path": ".artifacts/audits/phase5-20261023-5d075526e8ad4f2b93222bb4045a18bb/npm-runtime.json",
+      "sha256": "f340dcea1d9e2a64c5d289e394dc6e7582813d515db638d1ef5fac98ef438e76"
+    }
+  ]
+}
