@@ -1,0 +1,78 @@
+{
+  "date": "2026-10-24",
+  "baseline_checkpoint": "5d6b256",
+  "status": "OFFLINE PREPARATION VERIFIED; NATIVE EXECUTION NOT STARTED",
+  "scope": "Three-view rollback-only diagnostic: sequential 15-field item, 70-field order KPI and 26-field item KPI equivalence before each temporary replacement; exact catalog/dependency changes.",
+  "guards": {
+    "candidate_hashes_bound": {
+      "dbt/models/marts/mart_order_kpis.sql": "d18e0ff1fee2c24156b50a516fbf967287d9a600142bc8c6a7b304025a05268b",
+      "dbt/macros/order_components.sql": "8051d7c8b1e8e39b77445764d76be8a1b406d7ebbf136a0c2a672e6c890bada8",
+      ".artifacts/phase-5/aggregate-reuse-baseline-20261022/mart_order_kpis-candidate.sql": "5e21a27dd15bff6cbeb444c974fd0749ca61a986bba5e4f5701695dbcb5ba7d2"
+    },
+    "hash_drifts_rejected": 6,
+    "contract_columns": [
+      15,
+      70,
+      26
+    ],
+    "literal_text_columns": 8,
+    "metadata_mutations_rejected": 18,
+    "baseline_mutations_rejected": 9,
+    "capacity_overflows_rejected": 2,
+    "failure_paths_force_rollback": 38,
+    "preflight_failure_paths_without_ddl": 7,
+    "connection_entry_failure_before_transaction": true,
+    "original_failure_paths_retained": 11,
+    "preflight_catalog_private_copy_and_safe_categories": true,
+    "restore_view_and_capacity_drift_rejected": true,
+    "planner_only_after_three_replacements_in_nested_rollback": true,
+    "item_candidate_hash": "14a85958b395a3af1e31c53555d3d7bdaeb087ddb79da66027c4a667e990bde3",
+    "item_mart_hash": "970a5a3c470e41f9b3e14b01dd1a5397e5d18787027e801dcfb408862c492e12",
+    "successful_path_force_rollback": true,
+    "item_mart_comparison_mutations_rejected": 12,
+    "preimport_hash_drift_rejected": true,
+    "empty_source_bindings_rejected": true,
+    "wrong_target_and_role_rejected_before_connections": true,
+    "supervisor_failure_paths_independently_restored": true,
+    "independent_restoration_failure_propagates": true,
+    "remaining_overall_budget_limits_postcheck": true,
+    "time_and_spill_failure_flags_checked": true,
+    "main_preparation_and_settings_failure_redacted": true,
+    "missing_or_negative_restoration_receipt_rejected": true,
+    "artifacts": ".artifacts/phase-5/offline-three-view-73ca131dd8f842409a895f7949befd06"
+  },
+  "source_bindings": 95,
+  "validation": {
+    "syntax_render_lint_format": "passed",
+    "full_regression": "Not rerun; production sources unchanged. Prior accepted synthetic native cases not repeated.",
+    "native": "NOT RUN"
+  },
+  "review": "Master Plan Agent confirmed alignment and required explicit positive restoration receipt. That guard and failure tests now pass. Root review required sanitized preparation failures; implemented and tested.",
+  "limits": {
+    "statement_seconds": 55,
+    "lock_seconds": 5,
+    "probe_seconds": 480,
+    "independent_postcheck_seconds_max": 110,
+    "overall_seconds": 600
+  },
+  "usage_at_preservation": {
+    "five_hour_used": 75,
+    "weekly_used": 36
+  },
+  "security": "Same-day E11/E13/E14 findings remain open; no dependencies or exposure changed.",
+  "next": "Verify source bindings and usage; execute retained three_view_probe_20261024.py with patched retained Python when reserve permits. Require independent restoration even on failure. Inspect sanitized receipt before any retry. This is diagnostic only: no persistent adoption, full Q01 or consumer reconciliation acceptance.",
+  "hashes": [
+    {
+      "path": ".artifacts/phase-5/three_view_probe_20261024.py",
+      "sha256": "1d4d1a80d825d0c4f4a209645dab89ba21298046cba06c5063859a16b5661224"
+    },
+    {
+      "path": ".artifacts/phase-5/test_three_view_probe_20261024.py",
+      "sha256": "d130c7050036067e8e3445a6a2847ee32e3bc0a3d6619ebdb80b86bd0307eac7"
+    },
+    {
+      "path": ".artifacts/phase-5/offline-three-view-73ca131dd8f842409a895f7949befd06/receipt.json",
+      "sha256": "dd4a08c5bc4b3dbc1ea7e7c747a96c20ca541908397aa1b3630eeec5a85b59e2"
+    }
+  ]
+}

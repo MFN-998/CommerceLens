@@ -1,5 +1,11 @@
 # Phase 5 — KPI and analytics layer
 
+2026-10-24 three-view diagnostic preparation is verified offline. The retained
+runner now includes full item-mart equivalence and independent failure/restoration
+guards. Native execution was deferred at the usage reserve; no database changes.
+See [preparation evidence](phase-5-three-view-preparation-verification.json) and
+WORK_STATE for the exact execution step. Phase 5 remains incomplete.
+
 2026-10-24 native fixture update: all50 item-model/reconciliation cases passed,
 including41 new typed cases. Fresh independent catalog/access restoration passed;
 no persistent adoption. Full-source equivalence/performance remains pending.

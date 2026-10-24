@@ -3,7 +3,44 @@
 Authoritative handoff updated 2026-10-24. Actual D repository, Git and verified
 evidence take precedence over chat. Read the permanent instructions before edits.
 
-## Current checkpoint — native item reconciliation passed, 2026-10-24
+## Current checkpoint — three-view probe prepared, 2026-10-24
+
+SAFE TO RESUME / OFFLINE PREPARATION VERIFIED; NATIVE EXECUTION NOT STARTED.
+Resumed clean published 5d6b256 at 1% five-hour / 24% weekly used. New retained
+.artifacts/phase-5/three_view_probe_20261024.py and its test_three_view_probe_20261024.py
+are prepared and verified. Sequential full 15/70/26-field equivalence precedes each
+of three temporary replacements; native shape, exact money, non-null unique item
+keys, parent/product coverage and exact catalog/dependency changes are enforced.
+All 95 reviewed source/helper/model/evidence hashes are checked before imports.
+
+Offline guards passed, including third-view failures, column/type/money/grain
+mutations, fixed target/role, preimport source drift, successful and failing budget
+paths, independent postcheck after failure/timeout, negative/missing restoration
+receipts and sanitized preparation/settings failures. Syntax/rendering and Ruff
+lint/format pass. Master Plan review completed; its positive-restoration requirement
+and root's preparation-error redaction finding are fixed and tested.
+Evidence: docs/phase-5-three-view-preparation-verification.json.
+Guard receipt: .artifacts/phase-5/offline-three-view-73ca131dd8f842409a895f7949befd06.
+No production code or dependencies changed; no full-suite repeat or native run.
+Previously accepted 50 synthetic native cases remain accepted. No database changes.
+
+Next FIRST: verify evidence/source hashes and usage, then execute the prepared
+three_view_probe_20261024.py with .artifacts/python/certifi-20261021-01/Scripts/python.exe
+-B when allowance permits. Keep the fixed recovery target, 55s statement / 5s lock,
+480s probe plus independent <=110s postcheck within 600s, original memory/capacity,
+reader role and nested rollback. Require restoration before any retry. Preserve
+all output; inspect sanitized receipt and plans. Do not recreate preparation or
+repeat accepted synthetic cases. No persistent adoption is authorized by success.
+
+Usage reached 75% five-hour / 36% weekly used during final guards; therefore do not
+start the native unit this session. Publish this verified preparation and stop.
+Full-source candidate acceptance, full 16-case/concurrent Q01, independent consumer
+reconciliation and Phase 5 exit remain open. Phases 1–4/governance are complete;
+Phase 6 not started. STOP and ask owner after verified Phase 5 completion.
+E11/E13/E14 findings remain unresolved. No frontend launch, merge, deployment or
+deletion. Containing commit is this checkpoint; verify clean/upstream 0/0 after push.
+
+## Previous checkpoint — native item reconciliation passed, 2026-10-24
 
 SAFE TO RESUME / SYNTHETIC NATIVE VERIFIED; NO ADOPTION OR PERFORMANCE CLAIM.
 Resumed clean b032790 at 2% five-hour/13% weekly used. All 50 read-only native
