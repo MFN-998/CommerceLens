@@ -3,7 +3,48 @@
 Authoritative handoff updated 2026-10-24. Actual D repository, Git and verified
 evidence take precedence over chat. Read the permanent instructions before edits.
 
-## Current checkpoint — item KPI context verified offline, 2026-10-24
+## Current checkpoint — native item reconciliation passed, 2026-10-24
+
+SAFE TO RESUME / SYNTHETIC NATIVE VERIFIED; NO ADOPTION OR PERFORMANCE CLAIM.
+Resumed clean b032790 at 2% five-hour/13% weekly used. All 50 read-only native
+cases passed without errors/failures/skips: 41 new reconciliation cases and nine
+adapted item-model cases. Actual SQL checks typed inputs, all26 fields, exact
+money, NULL/literal status, independent parent presence/status, duplicate-row
+multiplicity, orphans and empty populations. Customer-map fanout is represented
+by duplicate fact rows; the upstream customer join was not rerun in this job.
+
+Hash-bound source/helper copies retained. Wrong target/role, read-only failure,
+mutation statements, missing/failed/skipped tests and source drift are rejected;
+worker failure still triggers independently bounded restoration. Guards, syntax,
+Ruff lint/format pass. Targeted offline59 passed/41intentional native skips.
+Prior1986 offline passes remain historical/applicable to unchanged production;
+no full repeat claimed. Earlier same-day E11/E13/E14 findings remain unresolved.
+
+Independent final catalog/access/settings verification passed. Database287635123
+and raw275988480 bytes; zero size delta during this job. No persistent changes.
+Evidence: docs/phase-5-item-mart-native-fixtures-verification.json.
+Native artifact: .artifacts/phase-5/52897f927c534a92935e9d09cdef1b88.
+
+Next FIRST: prepare (not yet created) a new retained three-view rollback-only
+probe based on .artifacts/phase-5/combined_aggregate_item_probe_20261023.py.
+Retain sequential full15-field item and70-field KPI equivalence. Add full26-field
+item-mart multiset/type/grain/money equivalence against its deployed definition
+using the already-proven-identical item values, then its temporary replacement.
+Allow exactly three view definitions and reviewed dependency deltas, including
+mart_item_kpis: fact_orders -> stg_orders. Bind all source/helpers; preserve
+original55s/5s statements/locks,480s probe plus <=110s independent restore within
+600s, original memory/capacity, reader role and reader-local planner experiment.
+Extend offline failure/catalog/restoration guards and obtain Master Plan review
+before running. Do not persist candidates or repeat completed synthetic fixtures.
+
+At native milestone usage63% five-hour/22% weekly used. Publish verified unit and
+stop before another unit to preserve reserve. Full-source candidate acceptance,
+full16-case/concurrent Q01, independent consumer reconciliation and Phase5 exit
+remain open. Phases1–4/governance complete; Phase6 not started. STOP and ask owner
+after verified Phase5 completion. No frontend launch, deployment, merge or deletion.
+Containing commit is this checkpoint; scan and verify clean/upstream0/0 after push.
+
+## Previous checkpoint — item KPI context verified offline, 2026-10-24
 
 SAFE TO RESUME / CANDIDATE VERIFIED OFFLINE; NOT ADOPTED OR MEASURED.
 Resumed clean 84d2759 at 11% five-hour/2% weekly used. mart_item_kpis now

@@ -1,0 +1,93 @@
+{
+  "date": "2026-10-24",
+  "baseline_checkpoint": "b032790",
+  "status": "SYNTHETIC NATIVE VERIFICATION PASSED; NOT ADOPTED OR PERFORMANCE MEASURED",
+  "receipt": {
+    "artifacts": ".artifacts/phase-5/52897f927c534a92935e9d09cdef1b88",
+    "status": "passed",
+    "adopted": false,
+    "tests": {
+      "exit_code": 0,
+      "tests": 50,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "accepted": true,
+      "read_only": true
+    },
+    "postcheck": {
+      "rollback_verified": true,
+      "database_bytes": 287635123,
+      "database_bytes_delta": 0,
+      "raw_bytes": 275988480,
+      "limits": "No persistent candidate; not proof of absent WAL/catalog/filesystem effects"
+    }
+  },
+  "native_seconds": 213.283,
+  "scope": {
+    "new_reconciliation_cases": 41,
+    "adapted_item_model_cases": 9,
+    "all26_output_fields_checked": true,
+    "customer_fanout": "Duplicated fact rows represent invalid customer mapping multiplicity; this job does not rerun the upstream customer join."
+  },
+  "guards": {
+    "source_bindings": 145,
+    "hash_drift_rejected": true,
+    "wrong_target_or_role_rejected": true,
+    "read_only_verified_and_failure_closes": true,
+    "per_statement_deadline_enforced": true,
+    "mutation_statements_rejected": 3,
+    "rollback_required": true,
+    "empty_incomplete_skipped_failed_jobs_rejected": true,
+    "independent_postcheck_on_worker_failure": true,
+    "restore_failure_propagates": true,
+    "artifacts": ".artifacts/phase-5/offline-item-native-supervisor-de728b6fb2a34beb886be905517e3fae"
+  },
+  "validation": {
+    "syntax_lint_format": "passed",
+    "targeted_offline_passed": 59,
+    "native_cases_skipped_during_offline_run": 41,
+    "full_offline": "Previous1986passes remain historical/applicable to unchanged production code; not rerun this test-only unit.",
+    "advisories": "Earlier2026-10-24 scan remains dated evidence; E11/E13/E14 unresolved, no dependency changes or frontend launch."
+  },
+  "review": "Master Plan Agent reviewed typed fixtures and hash-bound read-only supervisor before execution; no critical blocker.",
+  "limits": {
+    "statement_seconds": 55,
+    "lock_seconds": 5,
+    "fixture_job_seconds": 480,
+    "independent_postcheck_seconds_max": 110,
+    "overall_seconds": 600
+  },
+  "interpretation": "No persistent candidate/schema/grant/planner changes; catalog/access restoration passed. Database/raw sizes unchanged within this job. Synthetic exact-money/NULL/literal-text/multiset checks do not establish full-source equivalence, physical deployed column contracts or Q01.",
+  "next": "Prepare a new retained three-view rollback-only probe from combined_aggregate_item_probe_20261023.py: first existing15-field item and70-field KPI sequential equivalence, then26-field item-mart equivalence using those proven-identical inputs; exact3definition/dependency deltas, unchangedreader/localplanner/budgets and freshindependentrestoration. Review offline failure guards before execution. Do not repeat accepted synthetic cases merely to resume.",
+  "hashes": [
+    {
+      "path": "tests/test_phase5_item_reconciliation_postgres.py",
+      "sha256": "173ad9df80333d4691181ca67202c4dc3a2c82194f622650c1098494ab7969d3"
+    },
+    {
+      "path": ".artifacts/phase-5/item_mart_native_fixtures_20261024.py",
+      "sha256": "b5e234c83e47678e10977bc7949912237779a5e031638b9e8b79d06e980734f4"
+    },
+    {
+      "path": ".artifacts/phase-5/test_item_mart_native_fixtures_20261024.py",
+      "sha256": "3f0bf3639f5846347e29bfeb75ea633983b5bd280f1720ab1a84d3b8acae9a27"
+    },
+    {
+      "path": ".artifacts/phase-5/52897f927c534a92935e9d09cdef1b88/receipt.json",
+      "sha256": "90dd414c4d365315fd4759b13469da4e77d8dd2b7b07b1a7198ad85293a1d8eb"
+    },
+    {
+      "path": ".artifacts/phase-5/52897f927c534a92935e9d09cdef1b88/source-hashes.json",
+      "sha256": "961d3dccc86f7b436dad25e46f5f93a594053ed2c8958a57e6b679c6a5050703"
+    },
+    {
+      "path": ".artifacts/phase-5/52897f927c534a92935e9d09cdef1b88/synthetic-private.xml",
+      "sha256": "8e4b9d67873f225717e97c49474fc5be9e5bf2e445763a41aa748c7e1f17c2fa"
+    },
+    {
+      "path": ".artifacts/phase-5/offline-item-native-supervisor-de728b6fb2a34beb886be905517e3fae/receipt.json",
+      "sha256": "490fc2bafd27bb0714b98effe510b9dfa4857ae5df7b88714e1b634237817345"
+    }
+  ]
+}

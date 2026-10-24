@@ -1,5 +1,11 @@
 # Phase 5 — KPI and analytics layer
 
+2026-10-24 native fixture update: all50 item-model/reconciliation cases passed,
+including41 new typed cases. Fresh independent catalog/access restoration passed;
+no persistent adoption. Full-source equivalence/performance remains pending.
+See [native fixture evidence](phase-5-item-mart-native-fixtures-verification.json)
+and WORK_STATE for the next guarded probe. Earlier offline-only status is historical.
+
 2026-10-24 source candidate: item KPI parent identity/status now comes directly
 from staged orders; independent full-row reconciliation retains fact_orders.
 All 26 fields are preserved. Offline 1986 tests pass; native checks/performance
