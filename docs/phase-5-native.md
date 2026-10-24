@@ -1,5 +1,11 @@
 # Phase 5 isolated native verification
 
+2026-10-24 source candidate: item KPI parent identity/status now comes directly
+from staged orders; independent full-row reconciliation retains fact_orders.
+All 26 fields are preserved. Offline 1986 tests pass; native checks/performance
+remain unrun for this candidate. See [offline evidence](phase-5-item-mart-context-verification.json)
+and WORK_STATE for the exact next unit. No persistent adoption or Q01 acceptance.
+
 2026-10-23: the combined item-context/KPI candidate with a local planner setting
 completed at 11.873 seconds and 700751872 temporary-traffic bytes: both budgets
 still fail. All 112650 item rows/15 fields and 99441 KPI rows/70 fields matched;

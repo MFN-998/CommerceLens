@@ -102,7 +102,7 @@ def execute(
             + ",".join(f"{name} collate NOCASE" for name in ITEM_COLUMNS)
             + ")"
         )
-        connection.execute("create table fact_orders (order_id collate NOCASE, order_status)")
+        connection.execute("create table stg_orders (order_id collate NOCASE, order_status)")
         connection.execute(
             "create table dim_product ("
             + ",".join(f"{name} collate NOCASE" for name in PRODUCT_COLUMNS)
@@ -113,7 +113,7 @@ def execute(
             [tuple(row[name] for name in ITEM_COLUMNS) for row in items],
         )
         connection.executemany(
-            "insert into fact_orders values (?,?)",
+            "insert into stg_orders values (?,?)",
             [("a", "delivered")] if orders is None else orders,
         )
         connection.executemany(

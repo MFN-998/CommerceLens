@@ -1,0 +1,158 @@
+{
+  "date": "2026-10-24",
+  "baseline_checkpoint": "84d2759",
+  "status": "OFFLINE VERIFIED CANDIDATE; NOT ADOPTED OR MEASURED",
+  "change": "mart_item_kpis sources only parent identity/status from stg_orders, removing unused customer enrichment; full26field projection unchanged.",
+  "reconciliation": "New item_kpis_source_reconciliation uses independent fact_orders, literal full26field EXCEPT ALL in both directions and independent item count to reject shared fanout.",
+  "validation": {
+    "focused_passed": 59,
+    "new_portable_cases": 44,
+    "full_passed": 1986,
+    "native_skipped": 1028,
+    "failures": 0,
+    "errors": 0,
+    "elapsed_seconds": 68.859,
+    "ruff": "passed",
+    "format_files": 204,
+    "actual_network_blocked_parse": "passed;22models/305tests; selected-runner includes new oracle",
+    "mypy": "not rerun; production Python unchanged",
+    "native": "not run; new SQL reconciliation has portable execution evidence only"
+  },
+  "test_scope": "Actual fact_orders with complete/partial/absent customer mappings, separate stage/fact status/presence divergence, NULL/literal status, each26field changed, duplicate parent/customer multiplicity, empty/orphan/category/money behavior. Portable EXCEPTALL adaptation does not establish native types.",
+  "review": "Master Plan Agent found no SQL correctness blocker; required actual closed-graph/selected-runner integration was subsequently verified by full suite.",
+  "initial_attempt": "Sandbox full-suite attempt stalled before results and was interrupted; artifacts retained. Bounded escalated run passed.",
+  "security": {
+    "artifacts": ".artifacts/audits/item-mart-20261024-ca51abec7e9140c9a88270c9b6e306a7",
+    "exit_codes": {
+      "python": 1,
+      "npm-full": 1,
+      "npm-runtime": 1
+    },
+    "python": {
+      "packages": 111,
+      "vulnerabilities": [
+        {
+          "package": "filelock",
+          "version": "4.0.1",
+          "advisories": [
+            {
+              "id": "CVE-2026-112940",
+              "aliases": [
+                "GHSA-v4x8-3wr5-3wq8"
+              ],
+              "fix_versions": [
+                "4.2.1"
+              ]
+            },
+            {
+              "id": "CVE-2026-112913",
+              "aliases": [
+                "GHSA-9vhv-jxww-xfm5"
+              ],
+              "fix_versions": [
+                "4.2.1"
+              ]
+            },
+            {
+              "id": "CVE-2026-112907",
+              "aliases": [
+                "GHSA-567q-5qvw-pf92"
+              ],
+              "fix_versions": [
+                "4.2.1"
+              ]
+            }
+          ]
+        },
+        {
+          "package": "opentelemetry-api",
+          "version": "1.44.0",
+          "advisories": [
+            {
+              "id": "CVE-2026-114603",
+              "aliases": [
+                "GHSA-xcq7-p3pf-p88h"
+              ],
+              "fix_versions": [
+                "1.45.1"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "npm-full": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 3,
+      "critical": 1,
+      "total": 4
+    },
+    "npm-runtime": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 2,
+      "critical": 1,
+      "total": 3
+    }
+  },
+  "security_disposition": "E11 critical frontend launch/exposure gate and E13 telemetry gate remain. E14 filelock findings recorded for remediation; no direct affected lock API use in tracked source/scripts/tests found, no security clearance.",
+  "next": "Add native typed reconciliation/divergence/fanout fixtures and verify under a hash-bound read-only supervisor. Then prepare/review a bounded full26field source-equivalence and performance diagnostic with exact allowed catalog changes and fresh restoration, integrating previously equivalent candidates only with reviewed guards. No persistent adoption until accepted.",
+  "phase_boundary": "Full Q01/concurrency, independent consumer reconciliation and Phase5 exit pending; stop and ask before Phase6.",
+  "hashes": [
+    {
+      "path": "dbt/models/marts/mart_item_kpis.sql",
+      "sha256": "970a5a3c470e41f9b3e14b01dd1a5397e5d18787027e801dcfb408862c492e12"
+    },
+    {
+      "path": "dbt/models/marts/mart_item_kpis.yml",
+      "sha256": "1ca7fe8f5aa9124bb62a10b884b5e002ba31170361025069a69b2b7cd7890896"
+    },
+    {
+      "path": "dbt/tests/item_kpis_source_reconciliation.sql",
+      "sha256": "de6c02bb762c769c46d8cee0e2b665ecd14a4fac5cf9400ac0f7df0e8a22389f"
+    },
+    {
+      "path": "tests/test_phase5_item_context.py",
+      "sha256": "18c02a2d09745cda83ef723704d5cadba4e290bf94a5a6a05d600ce7a89661a0"
+    },
+    {
+      "path": "tests/test_phase5_item_kpis.py",
+      "sha256": "0827fe2d4cbb51d0189826d90b9accbb705d0642411faec71aa7a42dcf476c44"
+    },
+    {
+      "path": "tests/test_phase5_item_postgres.py",
+      "sha256": "927e04fb8ef0c0cede399f57327ce8ad6283b127105206ca0b20316c1160a192"
+    },
+    {
+      "path": "tests/phase5_native_fixtures.py",
+      "sha256": "5f30cab22b66403d2062fbf6ddf40526c021054f8204b0c2a60ce43f2b2c50a7"
+    },
+    {
+      "path": "tests/test_warehouse_dbt.py",
+      "sha256": "8edb3c26c764e1fc05f86057a945845b1cab6600b009d3d3138d176b292ae06b"
+    },
+    {
+      "path": "tests/test_warehouse_dbt_reconstruction.py",
+      "sha256": "7e399f6808bfd5be93d3ff744bbf8a4e5fd5e1c4d93906fb43683bc768288a7b"
+    },
+    {
+      "path": ".artifacts/phase-5/item-mart-offline-escalated-7634ff3e66e64328acf9b0439f84ff10/offline.xml",
+      "sha256": "28764f01b1969892580254f3660229505becaa09dff211f1ddcf19a1e6ad80c9"
+    },
+    {
+      "path": ".artifacts/audits/item-mart-20261024-ca51abec7e9140c9a88270c9b6e306a7/python.json",
+      "sha256": "0db35263c381a461e857799778cf90d9b252dec47b652913840da862a9c1ca4d"
+    },
+    {
+      "path": ".artifacts/audits/item-mart-20261024-ca51abec7e9140c9a88270c9b6e306a7/npm-full.json",
+      "sha256": "13f016e0339a41ce69f2a8bdb510c9c8328f3558b47c4116ae96810ec256d065"
+    },
+    {
+      "path": ".artifacts/audits/item-mart-20261024-ca51abec7e9140c9a88270c9b6e306a7/npm-runtime.json",
+      "sha256": "30b497984f8381dc31ef7f710d3cd0b2d8f7c47104ae074b78634ed2fda7f05e"
+    }
+  ]
+}

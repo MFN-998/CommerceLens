@@ -79,7 +79,7 @@ def execute_items(connection, items, *, orders=None, products=None):
                 ITEM_TYPES,
                 [tuple(row[column] for column in ITEM_COLUMNS) for row in items],
             ),
-            "fact_orders": (
+            "stg_orders": (
                 {"order_id": "text", "order_status": "text"},
                 [("a", "delivered")] if orders is None else orders,
             ),

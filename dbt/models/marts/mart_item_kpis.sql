@@ -14,7 +14,7 @@ select
     p.is_missing_category,
     p.is_untranslated_category
 from {{ ref('fact_order_items') }} i
-left join {{ ref('fact_orders') }} o
+left join {{ ref('stg_orders') }} o
     on i.order_id collate "C" = o.order_id collate "C"
 left join {{ ref('dim_product') }} p
     on i.product_id collate "C" = p.product_id collate "C"

@@ -13,7 +13,7 @@ REFERENCES = {
         "fact_payments",
         "fact_reviews",
     },
-    "mart_item_kpis": {"fact_order_items", "fact_orders", "dim_product"},
+    "mart_item_kpis": {"fact_order_items", "stg_orders", "dim_product"},
     "mart_order_components": {"fact_orders", "fact_order_items", "fact_payments", "fact_reviews"},
 }
 

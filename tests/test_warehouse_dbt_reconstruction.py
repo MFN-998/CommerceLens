@@ -724,7 +724,7 @@ def test_real_offline_parse_of_unmodified_graph_has_no_network_or_private_settin
     result = _run(settings_root)
     assert result["status"] == "passed"
     assert result["models"] == 22
-    assert result["tests"] == 304
+    assert result["tests"] == 305
     assert live_commands == ["build"] and not marker.exists()
     manifests = list((settings_root / ".artifacts/dbt-reconstruction").rglob("manifest.json"))
     assert len(manifests) == 2
@@ -735,6 +735,15 @@ def test_real_offline_parse_of_unmodified_graph_has_no_network_or_private_settin
         }
         assert models == set(MODEL_SCHEMAS)
         assert len(manifest["sources"]) == 9
+        from src.warehouse.dbt_selected import _selected_tests
+
+        oracle_ids = {
+            key
+            for key, node in manifest["nodes"].items()
+            if node.get("name") == "item_kpis_source_reconciliation"
+        }
+        assert len(oracle_ids) == 1
+        assert oracle_ids <= _selected_tests(manifest, "mart_item_kpis")
         assert result["tests"] == sum(
             node["resource_type"] == "test" for node in manifest["nodes"].values()
         )

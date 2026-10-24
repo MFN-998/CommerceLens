@@ -1,9 +1,50 @@
 # CommerceLens work state
 
-Authoritative handoff updated 2026-10-23. Actual D repository, Git and verified
+Authoritative handoff updated 2026-10-24. Actual D repository, Git and verified
 evidence take precedence over chat. Read the permanent instructions before edits.
 
-## Current checkpoint — incomplete item-mart preparation, 2026-10-23
+## Current checkpoint — item KPI context verified offline, 2026-10-24
+
+SAFE TO RESUME / CANDIDATE VERIFIED OFFLINE; NOT ADOPTED OR MEASURED.
+Resumed clean 84d2759 at 11% five-hour/2% weekly used. mart_item_kpis now
+reads parent identity/status from stg_orders, preserving all 26 fields and literal
+LEFT JOIN behavior. New item_kpis_source_reconciliation independently uses
+fact_orders and compares full-row multisets plus source count, catching shared
+fanout. Existing fact_order_items reconciliation is unchanged.
+
+Validation: focused 59 passed, including 44 new portable cases; full offline
+1986 passed/1028 intentional native skips/zero failures or errors in 68.859s.
+Ruff lint and format (204 files) passed. Actual network-denied dbt parse and
+closed graph passed with 22 models/305 tests; selected-runner includes new oracle.
+Master Plan Agent reviewed correctness and phase alignment. Production Python
+unchanged; mypy not rerun. Initial sandbox full-suite attempt stalled and was
+interrupted; retained bounded escalated run passed. See
+ docs/phase-5-item-mart-context-verification.json for hashes and precise scope.
+
+Next FIRST: add typed native cases for the new reconciliation, including
+status/presence divergence and duplicate-parent/customer fanout. Adapted existing
+native model fixtures now reference stg_orders but were not run this unit.
+Prepare a new hash-bound read-only fixture supervisor with independent before/
+after catalog/access verification; prior runner preparation created no script.
+Then prepare/review full 26-field source equivalence and a bounded rollback-only
+performance test. Combining prior candidates requires reviewed sequential
+full-field equivalence/catalog guards. Preserve original budgets; no adoption yet.
+
+Fresh audits: Python111 packages with four advisories across filelock/telemetry;
+npm full1critical/3high, runtime1critical/2high. E11 frontend launch/exposure and
+E13 telemetry gates remain. New E14 filelock findings need compatible remediation;
+tracked source/scripts/tests contain no direct affected lock API calls. This is
+not a clean security gate. Keep retained environments and current patched-certifi
+Python; do not implicitly sync/install or launch frontend services.
+
+Usage at validation/preservation: 62% five-hour/10% weekly used. Finish verified
+publication and stop before a new native unit. All artifacts retained; no database
+changes, deployment, merge or deletion. Full Q01/concurrency, independent consumer
+reconciliation and Phase5 exit remain open. Phases1–4/governance complete;
+Phase6 not started. STOP and ask owner after verified Phase5 completion.
+Containing commit is this checkpoint; verify clean/upstream0/0 after publication.
+
+## Previous checkpoint — incomplete item-mart preparation, 2026-10-23
 
 SAFE TO RESUME. Source implementation did not complete. Resumed published
 82fd575 at 2% five-hour/25% weekly used. A bounded implementation agent's large

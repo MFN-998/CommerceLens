@@ -282,6 +282,20 @@ def test_real_dbt_parse_without_network_preserves_sources_and_schema_boundaries(
         if node.get("name") == "fact_order_items_source_reconciliation"
     )
     assert "model.commercelens.fact_orders" in reconciliation["depends_on"]["nodes"]
+    item_mart = manifest["nodes"]["model.commercelens.mart_item_kpis"]
+    assert set(item_mart["depends_on"]["nodes"]) == {
+        "model.commercelens." + parent
+        for parent in ("fact_order_items", "stg_orders", "dim_product")
+    }
+    item_oracle = next(
+        node
+        for node in manifest["nodes"].values()
+        if node.get("name") == "item_kpis_source_reconciliation"
+    )
+    assert set(item_oracle["depends_on"]["nodes"]) == {
+        "model.commercelens." + parent
+        for parent in ("mart_item_kpis", "fact_order_items", "fact_orders", "dim_product")
+    }
     for name in ("mart_order_components", "mart_order_kpis"):
         node = manifest["nodes"]["model.commercelens." + name]
         assert set(node["depends_on"]["nodes"]) == {
