@@ -202,7 +202,7 @@ def _local_macros() -> dict:
                 "macro_sql": match[0],
                 "depends_on": {"macros": []},
             }
-    assert len(macros) == 7
+    assert len(macros) == 8
     return macros
 
 

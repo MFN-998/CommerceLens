@@ -3,7 +3,38 @@
 Authoritative handoff updated 2026-10-25. Actual D repository, Git and verified
 evidence take precedence over chat. Read the permanent instructions before edits.
 
-## Current checkpoint — incomplete shared projection candidate, 2026-10-25
+## Current checkpoint — shared projection verified offline, 2026-10-25
+
+SAFE TO RESUME / OFFLINE VERIFIED; NEW NATIVE/PERFORMANCE VERIFICATION PENDING.
+Published recovery72edbd8 preserved the source candidate and graph failures.
+Corrected the synthetic local-macro count from7 to8 after adding the explicitly
+reviewed macro to the exact allowlist. All71 integration failures are resolved.
+Full offline1986 passed/1069 intentional native skips/zero failures or errors;
+Ruff lint/format206 files and mypy36 source files pass. Real network-denied dbt
+parse, closedgraph and selectedrunner checks passed in the fullsuite.
+Receipt .artifacts/phase-5/item-projection-verified-1e00f108f2804a15ae3da33d7965ae05.
+Evidence docs/phase-5-item-projection-verification.json.
+
+The shared item_order_projection macro retains15 item fields by default and adds
+internal parent identity/status for the item mart's explicit26-field projection.
+Both use one staged-order join per item branch. Independent fact_orders oracles
+remain; duplicate parents remain invalid/blocking, not universally equivalent.
+Master semantic review passed; required allowlist/integration gaps now resolved.
+
+Next FIRST: refresh the retained read-only50case fixture supervisor's bindings for
+this macro and adapted tests/renderers, verify guards and run typed nativecases.
+Then prepare a NEW full15/70/26-field source/performance diagnostic with revised
+item-mart dependencies (stg_order_items/stg_orders/dim_product), exactcatalogguards
+and independentrestoration. Previous boundrunners are stale; do not bypass hashes.
+No native or performance claim for this new candidate, no persistentadoption.
+
+Prior verified73eae66 three-view diagnostic still fails both performancebudgets;
+its independentrestoration passed. Fresh25October advisory findings remain E11/
+E13/E14. Phases1–4/governance complete; Phase5open; Phase6notstarted. STOP and ask
+owner beforePhase6. No frontendlaunch/merge/deployment/deletion. At this milestone
+usage20%five-hour/3%weeklyused after reported allowance refresh. Publishcheckpoint.
+
+## Previous checkpoint — incomplete shared projection candidate, 2026-10-25
 
 SAFE TO RESUME / PARTIALLY IMPLEMENTED; GRAPH VALIDATION FAILING; NOT ADOPTED.
 Published native result73eae66 remains verified: full15/70/26 equivalence passed;

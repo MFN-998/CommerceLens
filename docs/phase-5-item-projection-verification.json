@@ -1,0 +1,55 @@
+{
+  "date": "2026-10-25",
+  "baseline_checkpoint": "72edbd8",
+  "status": "SHARED ITEM PROJECTION VERIFIED OFFLINE; NATIVE AND PERFORMANCE PENDING",
+  "change": "Shared macro preserves15field item contract and explicit26field item KPI contract, supplying internalparentidentity/status so item KPIs need one stagedorderjoin. Independentfact_orders reconciliation unchanged.",
+  "validation": {
+    "artifacts": ".artifacts/phase-5/item-projection-verified-1e00f108f2804a15ae3da33d7965ae05",
+    "checks": {
+      "pytest": 0,
+      "ruff": 0,
+      "format": 0,
+      "mypy": 0
+    },
+    "tests": {
+      "tests": 3055,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 1069
+    },
+    "seconds": 73.105
+  },
+  "passed": 1986,
+  "format_files": 206,
+  "mypy_files": 36,
+  "integration_repair": "New reviewed macro already registered in exact allowlist. Synthetic inventory expected7 instead of8; corrected fixture assertion, resolving all71 graph/selectedrunner failures. Unknown-macro rejection remains tested.",
+  "review": "Master Plan Agent found no semantic blocker; allowlist and subsequent fixture integration failures now resolved. Duplicateparents remain invalid and blocked; no universal equivalence on invalid parents claimed.",
+  "security": "Fresh2026-10-25 scans unchanged: fourPythonadvisories acrossfilelock/opentelemetry; npmfull1critical/3high, runtime1critical/2high. E11/E13/E14 remain; see previous incomplete evidence audit receipt.",
+  "next": "Refresh hash-bound read-only typed fixture supervisor for this changedmacro/renderers and run50adaptedcases. Then new full-source15/70/26equivalence/performance diagnostic with revieweddependencydeltas and independentrestoration. Oldsourcebindings are stale.",
+  "hashes": [
+    {
+      "path": "dbt/macros/item_order_projection.sql",
+      "sha256": "6c4ac8b8bbd3d409f9b28129669a411f9f08f71157e622c21d49b5e88bc3b5a4"
+    },
+    {
+      "path": "dbt/models/core/fact_order_items.sql",
+      "sha256": "8642965b7c96c7474f55f6052a34630e15d781178a2be37f8d8e27278a72e538"
+    },
+    {
+      "path": "dbt/models/marts/mart_item_kpis.sql",
+      "sha256": "66dfd9be5bae2c765f725fa5c13f99d3cf230001b62d361b3edae20b72483f01"
+    },
+    {
+      "path": "src/warehouse/dbt_reconstruction.py",
+      "sha256": "d76ece58785edc21ced9c72b55186b9a81001f3d34416189aa76b9e2fd0125c2"
+    },
+    {
+      "path": "tests/item_projection_sql.py",
+      "sha256": "45e119924fb6131a40cd800ecfce3d540be9ad226f2569593e82de1afa99de00"
+    },
+    {
+      "path": "tests/test_warehouse_dbt_reconstruction.py",
+      "sha256": "938ed34e4268ebb87c78f663e51f56fedcc644d917efb910b23b650065803571"
+    }
+  ]
+}
