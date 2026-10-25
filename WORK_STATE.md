@@ -3,7 +3,35 @@
 Authoritative handoff updated 2026-10-25. Actual D repository, Git and verified
 evidence take precedence over chat. Read the permanent instructions before edits.
 
-## Current checkpoint — shared projection native fixtures passed, 2026-10-25
+## Current checkpoint — shared projection full-source verification, 2026-10-25
+
+SAFE TO RESUME / FULL SOURCE AND TIME PASSED; TEMPORARY TRAFFIC FAILED; NOT ADOPTED.
+Unchanged accepted sharedprojection passed all112650x15 item,99441x70 orderKPI,
+and112650x26 itemKPI comparisons, native types, exact money, grain and coverage.
+All98 source bindings matched before/after. Strict renderer and revised exact
+catalog dependency guards passed offline and Master Plan review before execution.
+
+Overview7917.06ms passes10000ms limit;565272576 temporary bytes still exceed
+536870912. Three historical totals and fullresponse hash match previousdiagnostics.
+Independent catalog/access/settings restoration passed; no persistentcandidate.
+Database287725235 bytes (+40960, causeunknown), raw275988480 unchanged.
+Artifact .artifacts/phase-5/6af2f679a1e942019e3a126766e28f51.
+Evidence docs/phase-5-shared-projection-full-source-verification.json.
+
+Next FIRST: prepare/review a bounded query-local scope inlining variant of
+three_view_projection_probe_20261025.py. Currentplan materializes cohort and an
+unfiltered scope; isolate scope AS NOT MATERIALIZED with exact query hashes and
+full serialized overview response equality. Preserve all data/model equality,
+catalog/access, role, original resource limits and independent restoration. A
+similar hint failed on the old graph; its combination with this sourcecandidate
+has not been measured. Do not change production query/planner settings or adopt.
+
+Usage41%five-hour/17%weeklyused at native milestone; reassess before newunit.
+Full16-case/concurrent Q01, independent consumer reconciliation and Phase5exit
+remain. Phases1–4/governance complete; Phase6notstarted. STOP and ask owner before
+Phase6. E11/E13/E14 findings remain; no frontendlaunch, merge, deployment/deletion.
+
+## Previous checkpoint — shared projection native fixtures passed, 2026-10-25
 
 SAFE TO RESUME / OFFLINE AND TYPED SYNTHETIC VERIFIED; NOT ADOPTED.
 Offline candidate46da211 remains accepted:1986 passed,1069 intentional native
