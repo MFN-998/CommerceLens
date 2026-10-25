@@ -1,5 +1,11 @@
 # Phase 5 — KPI and analytics layer
 
+2026-10-25: the combined three-view diagnostic passed all full-source 15/70/26-field
+comparisons and independent restoration. Overview11.831s /631332864 temporary
+bytes still fail both budgets; no candidate adopted. See
+[three-view native evidence](phase-5-three-view-native-verification.json) and
+WORK_STATE for the remaining plan-driven optimization and acceptance steps.
+
 2026-10-24 three-view diagnostic preparation is verified offline. The retained
 runner now includes full item-mart equivalence and independent failure/restoration
 guards. Native execution was deferred at the usage reserve; no database changes.

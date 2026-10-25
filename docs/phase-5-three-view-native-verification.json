@@ -1,0 +1,142 @@
+{
+  "date": "2026-10-25",
+  "baseline_checkpoint": "51651dc",
+  "status": "FULL SOURCE EQUIVALENCE PASSED; BOTH PERFORMANCE BUDGETS FAILED; RESTORATION VERIFIED; NOT ADOPTED",
+  "receipt": {
+    "artifacts": ".artifacts/phase-5/89f4112385c54db19f7cd32976b24375",
+    "status": "completed",
+    "adopted": false,
+    "probe": {
+      "status": "completed",
+      "stage": "rolled_back",
+      "adopted": false,
+      "item_equivalence": [
+        112650,
+        112650,
+        0,
+        0,
+        "13591643.70",
+        "2251909.54",
+        0
+      ],
+      "equivalence": [
+        99441,
+        99441,
+        0,
+        0,
+        "13591643.70",
+        "2251909.54",
+        "16008872.12",
+        99441,
+        0
+      ],
+      "item_mart_equivalence": [
+        112650,
+        112650,
+        0,
+        0,
+        "13591643.70",
+        "2251909.54",
+        112650,
+        112650,
+        0,
+        0,
+        0
+      ],
+      "measured": {
+        "planning_ms": 7.277,
+        "execution_ms": 11830.902,
+        "output_rows": 1,
+        "node_types": {
+          "Aggregate": 12,
+          "CTE Scan": 4,
+          "Gather": 1,
+          "Gather Merge": 4,
+          "Hash": 6,
+          "Hash Join": 6,
+          "Limit": 1,
+          "Materialize": 2,
+          "Merge Join": 4,
+          "Nested Loop": 2,
+          "Seq Scan": 11,
+          "Sort": 14,
+          "Subquery Scan": 12,
+          "WindowAgg": 1
+        },
+        "root_buffers": {
+          "Shared Hit Blocks": 32012,
+          "Shared Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Written Blocks": 0,
+          "Temp Read Blocks": 38027,
+          "Temp Written Blocks": 39040
+        },
+        "disk_sort_instances": 18,
+        "sort_disk_kb": 101256,
+        "max_hash_batches": 21,
+        "hash_disk_kb": 18128
+      },
+      "temp_traffic_bytes": 631332864,
+      "historical_totals_matched": 3,
+      "response_sha256": "3dfbeac7b06a97f546c319bde56a4f66f11dcc5daf48f5bf97f63034ac05f89b",
+      "server_spill_budgets_passed": false
+    },
+    "postcheck": {
+      "rollback_verified": true,
+      "database_bytes": 287684275,
+      "database_bytes_delta": 49152,
+      "raw_bytes": 275988480,
+      "limits": "No persistent candidate; not proof of absent WAL/catalog/filesystem effects"
+    }
+  },
+  "scope": "Same snapshot: item15 fields first, order KPI70 fields second, item KPI26 fields third. All complete multisets, native column contracts, exact money and required grain/coverage checks passed before each temporary replacement.",
+  "validation": {
+    "reviewed_runner_unchanged": true,
+    "source_bindings_verified_before_and_after": 95,
+    "offline_guards": "Historical verified preparation, unchanged; not repeated.",
+    "full_regression": "Not rerun: no production source changes.",
+    "master_plan_review": "Execution scope confirmed before run. No Phase 5 acceptance or adoption implied."
+  },
+  "budgets": {
+    "server_ms": 10000,
+    "temp_traffic_bytes": 536870912,
+    "statement_seconds": 55,
+    "lock_seconds": 5,
+    "probe_seconds": 480,
+    "independent_postcheck_seconds_max": 110,
+    "overall_seconds": 600
+  },
+  "interpretation": "Single overview diagnostic with local nested-loop discouragement. Same response hash as previous experiment; no full Q01/concurrency/consumer acceptance. Database size grew49152 bytes within capacity; cause not established. Raw size and catalog/access/settings verified unchanged; no claim of absent WAL/catalog/filesystem effects.",
+  "security": "2026-10-24 advisory evidence remains historical; E11/E13/E14 unresolved, no dependency or exposure changes.",
+  "next": "Inspect retained executed plan for remaining repeated parent joins and spilling aggregates. Prepare a minimal source candidate with independent semantic checks before another bounded native experiment; do not adopt failed candidates.",
+  "hashes": [
+    {
+      "path": ".artifacts/phase-5/89f4112385c54db19f7cd32976b24375/probe-source.py",
+      "sha256": "1d4d1a80d825d0c4f4a209645dab89ba21298046cba06c5063859a16b5661224"
+    },
+    {
+      "path": ".artifacts/phase-5/89f4112385c54db19f7cd32976b24375/source-hashes.json",
+      "sha256": "598991769117b8e7ea5fd72bd2749d14eea92cafc5512bec90082fd0f83bcab7"
+    },
+    {
+      "path": ".artifacts/phase-5/89f4112385c54db19f7cd32976b24375/receipt.json",
+      "sha256": "28a4aa647a16944e6fd069b4e2c7803a1e1db73c7b6795717c5aa3ed4e9814f1"
+    },
+    {
+      "path": ".artifacts/phase-5/89f4112385c54db19f7cd32976b24375/execution-private.json",
+      "sha256": "301ad04c224011b883eede6b650a8d67069a56e304f691e0f3608c5b06080f69"
+    },
+    {
+      "path": ".artifacts/phase-5/89f4112385c54db19f7cd32976b24375/before-private.json",
+      "sha256": "0ae5131b192be5193c1c2972f8ced3d69b29d59c98a043ee1e206b0fe800d570"
+    },
+    {
+      "path": ".artifacts/phase-5/89f4112385c54db19f7cd32976b24375/after-private.json",
+      "sha256": "316c3fe6186a23e3bc5f82229486303d9aa16cda253838fe6d9ba4e95c910df2"
+    },
+    {
+      "path": ".artifacts/phase-5/89f4112385c54db19f7cd32976b24375/item-mart-equivalence.json",
+      "sha256": "1d701c59fd42396f02c98c8e830820684f0bafe17ec98d134c1db4e97b997f35"
+    }
+  ]
+}

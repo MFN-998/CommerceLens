@@ -1,5 +1,11 @@
 # Phase 5 isolated native verification
 
+2026-10-25: the combined three-view diagnostic passed all full-source 15/70/26-field
+comparisons and independent restoration. Overview11.831s /631332864 temporary
+bytes still fail both budgets; no candidate adopted. See
+[three-view native evidence](phase-5-three-view-native-verification.json) and
+WORK_STATE for the remaining plan-driven optimization and acceptance steps.
+
 2026-10-24 native fixture update: all50 item-model/reconciliation cases passed,
 including41 new typed cases. Fresh independent catalog/access restoration passed;
 no persistent adoption. Full-source equivalence/performance remains pending.

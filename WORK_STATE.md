@@ -1,9 +1,41 @@
 # CommerceLens work state
 
-Authoritative handoff updated 2026-10-24. Actual D repository, Git and verified
+Authoritative handoff updated 2026-10-25. Actual D repository, Git and verified
 evidence take precedence over chat. Read the permanent instructions before edits.
 
-## Current checkpoint — three-view probe prepared, 2026-10-24
+## Current checkpoint — three-view native result, 2026-10-25
+
+SAFE TO RESUME / FULL SOURCE EQUIVALENCE PASSED; PERFORMANCE FAILED; NOT ADOPTED.
+Resumed clean published 51651dc at 2% five-hour / 0% weekly used. Unchanged reviewed
+runner and all 95 source bindings verified before and after execution. All 112650
+item rows / 15 fields, 99441 order KPI rows / 70 fields, and 112650 item KPI rows /
+26 fields matched, including native types, exact money, grain and coverage.
+
+Overview completed in 11830.902ms with 631332864 temporary-traffic bytes: BOTH
+10000ms / 536870912-byte limits fail. Three historical totals and response hash
+match earlier experiments. This is one diagnostic, not full Q01 or consumer
+acceptance. All three candidate replacements were rolled back. Independent
+catalog/access/settings restoration passed. Database287684275 bytes (+49152;
+cause not established), raw275988480 unchanged; within original ceilings.
+Evidence: docs/phase-5-three-view-native-verification.json.
+Artifact: .artifacts/phase-5/89f4112385c54db19f7cd32976b24375.
+
+Next FIRST: inspect remaining repeated parent joins and spilling aggregates in
+the retained executed plan. The item mart still reaches staged orders twice
+through item clocks and its separate status join. Review a minimal shared item /
+parent projection candidate before implementation, preserving 15/26-field
+contracts, independent fact_orders reconciliation and literal LEFT JOIN behavior.
+Do not repeat accepted synthetic fixtures or unchanged source equivalence merely
+to resume; a changed candidate requires its own appropriate evidence.
+
+No production source/dependency changes this unit; no full regression repeated.
+Prior 2026-10-24 E11/E13/E14 findings remain unresolved dated evidence. No frontend
+launch, deployment, merge, resource deletion or persistent candidate adoption.
+Phases 1–4/governance complete; Phase 5 remains open; Phase 6 not started. After
+verified Phase 5 completion STOP and ask owner before Phase 6. Containing commit
+is this checkpoint; verify clean/upstream 0/0 after publication.
+
+## Previous checkpoint — three-view probe prepared, 2026-10-24
 
 SAFE TO RESUME / OFFLINE PREPARATION VERIFIED; NATIVE EXECUTION NOT STARTED.
 Resumed clean published 5d6b256 at 1% five-hour / 24% weekly used. New retained
