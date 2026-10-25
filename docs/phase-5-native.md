@@ -1,5 +1,11 @@
 # Phase 5 isolated native verification
 
+2026-10-25: all 50 typed PostgreSQL fixtures passed for the shared item/order
+projection. Independent catalog/access/settings checks passed, with unchanged
+database/raw sizes. Full-dataset equivalence and performance for this candidate
+remain pending. See [native evidence](phase-5-item-projection-native-verification.json)
+and WORK_STATE for the next three-view probe preparation.
+
 2026-10-25 shared item/order projection candidate now passes all offline checks:
 1986 tests, lint/format/types and real dbt graph/selected-runner verification.
 Native and performance verification of this new macro remain pending. See

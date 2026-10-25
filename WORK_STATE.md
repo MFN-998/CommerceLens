@@ -3,7 +3,46 @@
 Authoritative handoff updated 2026-10-25. Actual D repository, Git and verified
 evidence take precedence over chat. Read the permanent instructions before edits.
 
-## Current checkpoint — shared projection verified offline, 2026-10-25
+## Current checkpoint — shared projection native fixtures passed, 2026-10-25
+
+SAFE TO RESUME / OFFLINE AND TYPED SYNTHETIC VERIFIED; NOT ADOPTED.
+Offline candidate46da211 remains accepted:1986 passed,1069 intentional native
+skips, lint/format206 files, mypy36 files, real parse/graph/selectedrunner passed.
+New read-only native fixture run passed all50 cases with zero failures/errors/
+skips in324.951s. All147 reviewed source bindings still match after execution.
+Master Plan Agent reviewed the refreshed supervisor and positive restoration
+receipt guard; offline failure guards, lint and format passed before execution.
+
+Independent catalog/access/settings restoration passed. Database287684275 bytes
+and raw275988480 bytes, with zero delta during this job. No persistent changes.
+Native artifact: .artifacts/phase-5/66f5366e00284821b06f283d9e9e0693.
+Evidence: docs/phase-5-item-projection-native-verification.json.
+Runner: .artifacts/phase-5/item_projection_native_fixtures_20261025.py.
+No full-source equality or performance claim for the shared projection yet.
+
+Next FIRST: prepare a NEW retained three-view full-source/performance probe from
+.artifacts/phase-5/three_view_probe_20261024.py; no updated probe exists yet.
+Render both item candidates using item_order_projection and bind source, macro,
+rendered SQL and helper hashes. Preserve sequential full15-field item,70-field
+order KPI and26-field item KPI equivalence, exact money, native shape/grain and
+coverage before temporary replacements. Review catalog deltas: the item-mart
+now replaces BOTH core.fact_order_items and core.fact_orders dependencies with
+staging.stg_order_items and staging.stg_orders, retaining core.dim_product.
+Update guard tests for these exact edges/rendering and require Master review
+before native execution. Keep original55s/5s,480s plus independent<=110s within
+600s, memory/capacity, reader role and local planner experiment. No adoption.
+Do not repeat the accepted50 synthetic cases merely to resume. Old bound probe
+sources are stale and must not be bypassed. Preserve all prior artifacts.
+
+At this milestone usage59% five-hour/9% weekly used; save/publish and stop before
+a larger diagnostic unit. Prior73eae66 three-view overview still fails time/spill
+budgets; full16-case/concurrent Q01 and independent consumer reconciliation remain.
+E11/E13/E14 findings persist from25October scans. Phases1–4/governance complete;
+Phase5open; Phase6notstarted. STOP and ask owner before Phase6. No frontendlaunch,
+merge, deployment or deletion. Containing commit is this checkpoint; verify clean
+and upstream0/0 after publication.
+
+## Previous checkpoint — shared projection verified offline, 2026-10-25
 
 SAFE TO RESUME / OFFLINE VERIFIED; NEW NATIVE/PERFORMANCE VERIFICATION PENDING.
 Published recovery72edbd8 preserved the source candidate and graph failures.

@@ -1,0 +1,79 @@
+{
+  "date": "2026-10-25",
+  "baseline_checkpoint": "46da211",
+  "status": "TYPED SYNTHETIC NATIVE VERIFICATION PASSED; FULL-SOURCE/PERFORMANCE PENDING; NOT ADOPTED",
+  "receipt": {
+    "artifacts": ".artifacts/phase-5/66f5366e00284821b06f283d9e9e0693",
+    "status": "passed",
+    "adopted": false,
+    "tests": {
+      "exit_code": 0,
+      "tests": 50,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "accepted": true,
+      "read_only": true
+    },
+    "postcheck": {
+      "rollback_verified": true,
+      "database_bytes": 287684275,
+      "database_bytes_delta": 0,
+      "raw_bytes": 275988480,
+      "limits": "No persistent candidate; not proof of absent WAL/catalog/filesystem effects"
+    }
+  },
+  "native_test_seconds": 324.951,
+  "scope": "50 typed item-model and independent reconciliation cases run against the new shared projection; all26 fields, literal and NULL semantics, exact money, lineage, missing parents, and invalid multiplicity guards. This is synthetic native evidence, not full-source or performance acceptance.",
+  "source_bindings_verified_before_and_after": 147,
+  "guards": {
+    "source_bindings": 147,
+    "hash_drift_rejected": true,
+    "wrong_target_or_role_rejected": true,
+    "read_only_verified_and_failure_closes": true,
+    "per_statement_deadline_enforced": true,
+    "mutation_statements_rejected": 3,
+    "rollback_required": true,
+    "empty_incomplete_skipped_failed_jobs_rejected": true,
+    "independent_postcheck_on_worker_failure": true,
+    "restore_failure_propagates": true,
+    "positive_restoration_receipt_required": true,
+    "artifacts": ".artifacts/phase-5/offline-item-native-supervisor-0d295259a30a4ee09a5425338b9ff57b"
+  },
+  "review": "Master Plan Agent confirmed updated supervisor only refreshes source bindings and adds a positive restoration receipt requirement. Root verified the normalized diff. Offline guard tests, lint and format passed.",
+  "limits": {
+    "statement_seconds": 55,
+    "lock_seconds": 5,
+    "fixture_job_seconds": 480,
+    "independent_postcheck_seconds_max": 110,
+    "overall_seconds": 600
+  },
+  "next": "Prepare a new three-view full-source/performance runner based on three_view_probe_20261024.py. Render both item models through the reviewed shared macro with bound source/rendered hashes. Preserve sequential15/70/26field equality and exact catalog checks; item-mart dependencies now replace BOTH core.fact_order_items/core.fact_orders with staging.stg_order_items/staging.stg_orders. Retain dim_product, original budgets, reader-local experiment and independent restoration. Review guards before execution.",
+  "security": "25October E11/E13/E14 findings remain unresolved; no dependency or exposure changes.",
+  "hashes": [
+    {
+      "path": ".artifacts/phase-5/item_projection_native_fixtures_20261025.py",
+      "sha256": "48d31796482f3e213891eab0de40accb2ab87028e9ecfa85043991a7ebf40f39"
+    },
+    {
+      "path": ".artifacts/phase-5/test_item_projection_native_fixtures_20261025.py",
+      "sha256": "efc18a1c4ddd2af03bb8b6d7e4563382129d73bac140638d542c55db96a3b34a"
+    },
+    {
+      "path": ".artifacts/phase-5/66f5366e00284821b06f283d9e9e0693/receipt.json",
+      "sha256": "077e8db670dc64cf35b1b75cce431a34b91541760cb4ad4b398d3d0160a7e098"
+    },
+    {
+      "path": ".artifacts/phase-5/66f5366e00284821b06f283d9e9e0693/source-hashes.json",
+      "sha256": "c2175c37bd6f66126da15cda3b5c63670d69c545aae7fa92ec1847b7b4a4c648"
+    },
+    {
+      "path": ".artifacts/phase-5/66f5366e00284821b06f283d9e9e0693/synthetic-private.xml",
+      "sha256": "b11a3859f8968bee31e9c0aad3ff4030f0486827df7e0c3f4ed8acf183b54427"
+    },
+    {
+      "path": ".artifacts/phase-5/offline-item-native-supervisor-0d295259a30a4ee09a5425338b9ff57b/receipt.json",
+      "sha256": "988756d886cb0bc2aa016f0d930c2b721e09dc4753c75467c0da0bd469afafd5"
+    }
+  ]
+}
