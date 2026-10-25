@@ -3,7 +3,46 @@
 Authoritative handoff updated 2026-10-25. Actual D repository, Git and verified
 evidence take precedence over chat. Read the permanent instructions before edits.
 
-## Current checkpoint — shared projection full-source verification, 2026-10-25
+## Current checkpoint — full-source equality verified; performance still open, 2026-10-25
+
+SAFE TO RESUME / FULL SOURCE VERIFIED; NO PERFORMANCE ACCEPTANCE OR ADOPTION.
+Resumed clean1f0d674 at0%five-hour/10%weeklyused. Both new bounded diagnostics
+passed all112650x15 item,99441x70 orderKPI and112650x26 itemKPI full-row/type/money/
+grain/coverage comparisons and independent catalog/access/settings restoration.
+All98 source bindings matched before/after. Production sources remain unchanged.
+
+Shared-projection baseline:7917.06ms passes10000ms;565272576 temporary bytes fails
+536870912. Saved in af8bea5; artifact6af2f679a1e942019e3a126766e28f51, under
+.artifacts/phase-5. Evidence phase-5-shared-projection-full-source-verification.json.
+Scope AS NOT MATERIALIZED variant:14057.275ms and542613504 bytes BOTH fail.
+Full serialized overview hash remains3dfbeac7b06a97f546c319bde56a4f66f11dcc5daf48f5bf97f63034ac05f89b.
+Artifact .artifacts/phase-5/098206449879439799a65838f1a71d62.
+Evidence docs/phase-5-shared-projection-scope-verification.json. Both variants are
+single samples; timing variance cause is not established. No JIT details in plans.
+Final database287758003 bytes (+32768 in secondjob), raw275988480 unchanged.
+Size growth cause unknown; capacity, catalog/access/settings checks passed.
+
+Next FIRST: review eliminating redundant reference-customer count for the fixed
+unfiltered overview. With no state filter, scope equals cohort and its distinct
+customer count equals totals.active_customers. Preserve independent globalcohort
+reference for state-filtered/grouped queries; do not change their definitions.
+Prepare a NEW bounded exact-query diagnostic based on the shared-projection
+baseline, verify fullresponse equality, original limits and independentrestore;
+Master review before execution. No such new runner exists yet. Do not adopt the
+scope-inlining variant or rerun unchangedaccepted fixtures merely to resume.
+Retained runners: three_view_projection_probe_20261025.py and
+three_view_projection_inline_scope_20261025.py in .artifacts/phase-5.
+
+Offline guards/lint/format for both probes passed; Master Plan reviews passed.
+No production edits or full-regression repeat this unit. Prior1986offline and50
+native fixtures remain accepted. E11/E13/E14 findings from25October remain open.
+At finalexperiment usage66%five-hour/21%weeklyused; save/publish and STOP before
+any new unit. Full16-case/concurrent Q01, independent consumer reconciliation and
+Phase5exit remain. Phases1–4/governance complete; Phase6notstarted. STOP and ask
+owner beforePhase6. No frontendlaunch, merge, deployment or deletion. Containing
+commit is checkpoint; verify clean/upstream0/0 after authorized publication.
+
+## Previous checkpoint — shared projection full-source verification, 2026-10-25
 
 SAFE TO RESUME / FULL SOURCE AND TIME PASSED; TEMPORARY TRAFFIC FAILED; NOT ADOPTED.
 Unchanged accepted sharedprojection passed all112650x15 item,99441x70 orderKPI,

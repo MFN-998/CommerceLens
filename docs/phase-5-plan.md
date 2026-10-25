@@ -1,5 +1,12 @@
 # Phase 5 — KPI and analytics layer
 
+2026-10-25 full-source verification passed for the shared projection. Its overview
+sample met the time limit at7.917s, but565272576 temporary bytes exceeded budget.
+A scope-inlining variant preserved the full response and restored all state, but
+failed both limits at14.057s/542613504 bytes. Neither is adopted; fullQ01 remains
+open. See [full-source evidence](phase-5-shared-projection-full-source-verification.json),
+[scope evidence](phase-5-shared-projection-scope-verification.json) and WORK_STATE.
+
 2026-10-25: all 50 typed PostgreSQL fixtures passed for the shared item/order
 projection. Independent catalog/access/settings checks passed, with unchanged
 database/raw sizes. Full-dataset equivalence and performance for this candidate

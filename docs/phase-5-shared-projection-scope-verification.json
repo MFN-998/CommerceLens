@@ -1,0 +1,128 @@
+{
+  "date": "2026-10-25",
+  "baseline_checkpoint": "af8bea5",
+  "status": "SCOPE INLINING FAILED BOTH PERFORMANCE BUDGETS; RESPONSE EQUAL; RESTORATION VERIFIED; NOT ADOPTED",
+  "receipt": {
+    "artifacts": ".artifacts/phase-5/098206449879439799a65838f1a71d62",
+    "status": "completed",
+    "adopted": false,
+    "probe": {
+      "status": "completed",
+      "stage": "rolled_back",
+      "adopted": false,
+      "item_equivalence": [
+        112650,
+        112650,
+        0,
+        0,
+        "13591643.70",
+        "2251909.54",
+        0
+      ],
+      "equivalence": [
+        99441,
+        99441,
+        0,
+        0,
+        "13591643.70",
+        "2251909.54",
+        "16008872.12",
+        99441,
+        0
+      ],
+      "item_mart_equivalence": [
+        112650,
+        112650,
+        0,
+        0,
+        "13591643.70",
+        "2251909.54",
+        112650,
+        112650,
+        0,
+        0,
+        0
+      ],
+      "measured": {
+        "planning_ms": 7.855,
+        "execution_ms": 14057.275,
+        "output_rows": 1,
+        "node_types": {
+          "Aggregate": 12,
+          "CTE Scan": 3,
+          "Gather": 1,
+          "Gather Merge": 4,
+          "Hash": 7,
+          "Hash Join": 7,
+          "Limit": 1,
+          "Materialize": 1,
+          "Merge Join": 2,
+          "Nested Loop": 2,
+          "Seq Scan": 10,
+          "Sort": 11,
+          "Subquery Scan": 11,
+          "WindowAgg": 1
+        },
+        "root_buffers": {
+          "Shared Hit Blocks": 23540,
+          "Shared Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Written Blocks": 0,
+          "Temp Read Blocks": 33843,
+          "Temp Written Blocks": 32394
+        },
+        "disk_sort_instances": 15,
+        "sort_disk_kb": 78088,
+        "max_hash_batches": 21,
+        "hash_disk_kb": 18472
+      },
+      "temp_traffic_bytes": 542613504,
+      "historical_totals_matched": 3,
+      "response_sha256": "3dfbeac7b06a97f546c319bde56a4f66f11dcc5daf48f5bf97f63034ac05f89b",
+      "server_spill_budgets_passed": false
+    },
+    "postcheck": {
+      "rollback_verified": true,
+      "database_bytes": 287758003,
+      "database_bytes_delta": 32768,
+      "raw_bytes": 275988480,
+      "limits": "No persistent candidate; not proof of absent WAL/catalog/filesystem effects"
+    }
+  },
+  "source_bindings_verified_before_and_after": 98,
+  "guard_receipt": ".artifacts/phase-5/offline-three-view-52c61f2c0d7746f3a2a82832a52da7e7",
+  "review": "Master Plan Agent reviewed fixed original/candidate query hashes, complete response equality and unchanged resource/catalog/rollback guards.",
+  "budgets": {
+    "server_ms": 10000,
+    "temporary_traffic_bytes": 536870912,
+    "statement_seconds": 55,
+    "lock_seconds": 5,
+    "probe_seconds": 480,
+    "postcheck_seconds_max": 110,
+    "overall_seconds": 600
+  },
+  "interpretation": "Single fixed-overview sample. Scope inlining reduced measured temporary traffic from565272576 to542613504 bytes but still exceeded budget; observed14.057275s also failed. Timing variance cause not established; no JIT details reported in either plan. Full15/70/26field equivalence and complete serialized response hash passed. No persistent model/query/planner adoption; fullQ01/concurrency/consumer acceptance remains open. Database size+32768bytes withincapacity, causeunknown; raw/catalog/access/settings restored.",
+  "next": "Review removing the redundant reference-customer distinct aggregate only for an overview with no state filter, where it equals totals.active_customers. Preserve separate global cohort reference for state-filtered/grouped cases. Begin with a bounded exact-query diagnostic and fullresponse equality against the shared-projection baseline, original limits and independent rollback. No variant has been prepared yet.",
+  "hashes": [
+    {
+      "path": ".artifacts/phase-5/098206449879439799a65838f1a71d62/probe-source.py",
+      "sha256": "8287834e16175fb9e8d5cc718ebf7b0da4b26c6fbb939b1e66406ab538b3d63e"
+    },
+    {
+      "path": ".artifacts/phase-5/098206449879439799a65838f1a71d62/receipt.json",
+      "sha256": "27c20567b6f84d22f089a6e62cd8f54aae0f73cdf9e59230b1a3d5e175b38e72"
+    },
+    {
+      "path": ".artifacts/phase-5/098206449879439799a65838f1a71d62/source-hashes.json",
+      "sha256": "32bd62ac56c89563d7d946b6da36d91afffb12e9dec11c19df53d2ba00e02896"
+    },
+    {
+      "path": ".artifacts/phase-5/098206449879439799a65838f1a71d62/execution-private.json",
+      "sha256": "07d01768d572505afdd252bd45540b186475bc6b0e53051311df1bd34663bdd7"
+    },
+    {
+      "path": ".artifacts/phase-5/test_three_view_projection_inline_scope_20261025.py",
+      "sha256": "8e41d0531941a592bdac4ee42fa84722816dcc540cdce9451dc16161a0f75e61"
+    }
+  ]
+}
