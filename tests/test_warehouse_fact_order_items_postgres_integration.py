@@ -210,13 +210,9 @@ def _render(relative_path: str) -> str:
         assert options == {"severity": "error", "store_failures": False}
         return ""
 
-    return (
-        _environment()
-        .from_string((PROJECT / relative_path).read_text("utf-8"))
-        .render(ref=_reference, config=config)
-        .strip()
-        .removesuffix(";")
-    )
+    from item_projection_sql import render_item_sql
+
+    return render_item_sql(relative_path, ref=_reference, config=config).strip().removesuffix(";")
 
 
 def _generic_sql(column: str) -> str:

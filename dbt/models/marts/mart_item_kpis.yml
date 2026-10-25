@@ -5,8 +5,9 @@ models:
     description: >-
       Policy v1 private item-grain view. All 15 fact_order_items fields remain
       unchanged, including exact money, missing amounts, naive purchase/shipping
-      clocks, warnings and lineage. Two literal one-to-one LEFT JOINs add staged order
-      status and product category context without customer enrichment. Independent
+      clocks, warnings and lineage. Shared item_order_projection reads staged items
+      and their order context once; a literal LEFT JOIN adds product context. Parent
+      uniqueness remains required and invalid fanout blocks acceptance. Independent
       full-row reconciliation retains fact_orders as the order-status oracle. No filtering, aggregation, deduplication,
       category fallback, payment attribution or repeated order outcome measures.
       Missing parents remain visible and fail acceptance instead of dropping items.

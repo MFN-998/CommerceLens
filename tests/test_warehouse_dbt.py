@@ -285,8 +285,10 @@ def test_real_dbt_parse_without_network_preserves_sources_and_schema_boundaries(
     item_mart = manifest["nodes"]["model.commercelens.mart_item_kpis"]
     assert set(item_mart["depends_on"]["nodes"]) == {
         "model.commercelens." + parent
-        for parent in ("fact_order_items", "stg_orders", "dim_product")
+        for parent in ("stg_order_items", "stg_orders", "dim_product")
     }
+    for node in (item_node, item_mart):
+        assert "macro.commercelens.item_order_projection" in node["depends_on"]["macros"]
     item_oracle = next(
         node
         for node in manifest["nodes"].values()

@@ -8,7 +8,15 @@ from contextlib import closing
 
 import pytest
 import test_warehouse_fact_orders as order_fixture
-from test_phase5_item_kpis import ITEM_COLUMNS, PRODUCT_COLUMNS, ROOT, item, product
+from item_projection_sql import (
+    ORDER_COLUMNS,
+    SOURCE_COLUMNS,
+    independent_items,
+    render_item_sql,
+    staged_orders,
+)
+from test_phase5_item_kpis import ITEM_COLUMNS, PRODUCT_COLUMNS, item, product
+from test_warehouse_fact_order_items import elapsed_seconds, sqlite_statement
 
 COLUMNS = (
     *ITEM_COLUMNS,
@@ -27,9 +35,10 @@ COLUMNS = (
 
 
 def render(path):
-    sql = (ROOT / path).read_text("utf-8")
-    sql = re.sub(r"{{ config\(.*?\) }}", "", sql)
-    return re.sub(r"{{ ref\('([a-z_]+)'\) }}", r"\1", sql).replace("::text", "")
+    sql = render_item_sql(path.removeprefix("dbt/"))
+    if path.startswith("dbt/models/"):
+        sql = sqlite_statement(sql)
+    return sql.replace("::text", "")
 
 
 def portable_multisets(sql):
@@ -67,10 +76,21 @@ def evaluate(
 ):
     items = [item()] if items is None else items
     products = [product()] if products is None else products
+    facts = staged if facts is None else facts
+    expected_items = independent_items(items, facts)
     ctes, values = [], []
     for name, columns, rows in (
-        ("fact_order_items", ITEM_COLUMNS, [tuple(row[c] for c in ITEM_COLUMNS) for row in items]),
-        ("stg_orders", ("order_id", "order_status"), staged),
+        (
+            "fact_order_items",
+            ITEM_COLUMNS,
+            [tuple(row[c] for c in ITEM_COLUMNS) for row in expected_items],
+        ),
+        (
+            "stg_order_items",
+            SOURCE_COLUMNS,
+            [tuple(row[c] for c in SOURCE_COLUMNS) for row in items],
+        ),
+        ("stg_orders", ORDER_COLUMNS, staged_orders(items, staged)),
         ("fact_orders", ("order_id", "order_status"), staged if facts is None else facts),
         ("dim_product", PRODUCT_COLUMNS, products),
     ):
@@ -95,6 +115,7 @@ def evaluate(
     sql = portable_multisets("with " + ",".join(ctes) + " select * from (" + query + ") result")
     with closing(sqlite3.connect(":memory:")) as connection:
         connection.create_collation("C", lambda a, b: (a > b) - (a < b))
+        connection.create_function("elapsed_seconds", 2, elapsed_seconds)
         connection.execute("pragma query_only=on")
         cursor = connection.execute(sql, values)
         if not reconcile:

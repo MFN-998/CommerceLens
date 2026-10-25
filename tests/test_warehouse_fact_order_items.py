@@ -80,17 +80,13 @@ EXTRA_OUTPUT = (
 
 
 def render(relative: str) -> str:
-    jinja = pytest.importorskip("jinja2")
-    environment = jinja.Environment(undefined=jinja.StrictUndefined)
+    from item_projection_sql import render_item_sql
 
     def config(**options: object) -> str:
         assert options == {"severity": "error", "store_failures": False}
         return ""
 
-    return environment.from_string((PROJECT / relative).read_text("utf-8")).render(
-        ref=lambda name: name,
-        config=config,
-    )
+    return render_item_sql(relative, config=config)
 
 
 def contract() -> dict:

@@ -34,6 +34,7 @@ APPROVED_LOCAL_MACROS = frozenset(
     for name in (
         "generate_schema_name",
         "order_components",
+        "item_order_projection",
         "commercelens_nullable_money",
         "commercelens_nullable_bigint",
         "commercelens_nullable_double",

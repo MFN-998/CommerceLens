@@ -3,13 +3,18 @@
 from __future__ import annotations
 
 import os
-import re
 from decimal import Decimal
 
 import pytest
+from item_projection_sql import SOURCE_COLUMNS, independent_items, render_item_sql, staged_orders
 from test_phase5_item_context import COLUMNS
-from test_phase5_item_kpis import ROOT
-from test_phase5_item_postgres import ITEM_TYPES, PRODUCT_TYPES, native_item, native_product
+from test_phase5_item_postgres import (
+    ITEM_TYPES,
+    ORDER_TYPES,
+    PRODUCT_TYPES,
+    native_item,
+    native_product,
+)
 from test_phase5_query_postgres import connection as connection
 
 pytestmark = pytest.mark.skipif(
@@ -33,9 +38,7 @@ TYPES = {
 
 
 def render(path):
-    sql = (ROOT / path).read_text("utf-8")
-    sql = re.sub(r"{{ config\(.*?\) }}", "", sql)
-    return re.sub(r"{{ ref\('([a-z_]+)'\) }}", r"\1", sql)
+    return render_item_sql(path.removeprefix("dbt/"))
 
 
 def statement(
@@ -51,10 +54,21 @@ def statement(
     assert tuple(TYPES) == COLUMNS
     assert null_field is None or null_field in TYPES
     items = [native_item()] if items is None else items
+    facts = staged if facts is None else facts
+    expected_items = independent_items(items, facts)
     ctes, parameters = [], []
     for name, types, rows in (
-        ("fact_order_items", ITEM_TYPES, [tuple(row[c] for c in ITEM_TYPES) for row in items]),
-        ("stg_orders", {"order_id": "text", "order_status": "text"}, staged),
+        (
+            "fact_order_items",
+            ITEM_TYPES,
+            [tuple(row[c] for c in ITEM_TYPES) for row in expected_items],
+        ),
+        (
+            "stg_order_items",
+            {c: ITEM_TYPES[c] for c in SOURCE_COLUMNS},
+            [tuple(row[c] for c in SOURCE_COLUMNS) for row in items],
+        ),
+        ("stg_orders", ORDER_TYPES, staged_orders(items, staged)),
         (
             "fact_orders",
             {"order_id": "text", "order_status": "text"},

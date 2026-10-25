@@ -8,6 +8,7 @@ from decimal import Decimal
 from uuid import UUID
 
 import pytest
+from item_projection_sql import SOURCE_COLUMNS, staged_orders
 from phase5_native_fixtures import execute_model
 from test_phase5_item_kpis import ITEM_COLUMNS, PRODUCT_COLUMNS, item, product
 from test_phase5_query_postgres import connection as connection
@@ -48,6 +49,14 @@ PRODUCT_TYPES = dict(
     )
 )
 
+ORDER_TYPES = {
+    "order_id": "text",
+    "order_status": "text",
+    "_load_id": "uuid",
+    "_source_row": "bigint",
+    "order_purchase_timestamp": "timestamp",
+}
+
 
 def native_item(**changes):
     row = item()
@@ -75,13 +84,13 @@ def execute_items(connection, items, *, orders=None, products=None):
         connection,
         "mart_item_kpis",
         {
-            "fact_order_items": (
-                ITEM_TYPES,
-                [tuple(row[column] for column in ITEM_COLUMNS) for row in items],
+            "stg_order_items": (
+                {c: ITEM_TYPES[c] for c in SOURCE_COLUMNS},
+                [tuple(row[column] for column in SOURCE_COLUMNS) for row in items],
             ),
             "stg_orders": (
-                {"order_id": "text", "order_status": "text"},
-                [("a", "delivered")] if orders is None else orders,
+                ORDER_TYPES,
+                staged_orders(items, [("a", "delivered")] if orders is None else orders),
             ),
             "dim_product": (
                 PRODUCT_TYPES,

@@ -3,7 +3,41 @@
 Authoritative handoff updated 2026-10-25. Actual D repository, Git and verified
 evidence take precedence over chat. Read the permanent instructions before edits.
 
-## Current checkpoint — three-view native result, 2026-10-25
+## Current checkpoint — incomplete shared projection candidate, 2026-10-25
+
+SAFE TO RESUME / PARTIALLY IMPLEMENTED; GRAPH VALIDATION FAILING; NOT ADOPTED.
+Published native result73eae66 remains verified: full15/70/26 equivalence passed;
+overview11.831s/631332864 temporary bytes failed both budgets; restoration passed.
+
+New shared item_order_projection macro and15/26-field model refactor are saved,
+with portable/native fixture render adaptations and explicit macro provenance.
+Focused150 passed/50 intentional native skips; focused Ruff passed. Master review
+found missing APPROVED_LOCAL_MACROS registration; added only the new macro, but
+subsequent graph checks failed40/passed47. Cause is not yet established. The
+implementation agent stopped at the usage limit. Full regression:1915 passed/71 failed/1069 intentional native skips/zero errors
+in65.405s. All failures are in graph reconstruction/selected-runner integration;
+54 show the stale expected local macro count7 versus actual8, and17 fail downstream
+selected preflight expectations. Full Ruff/format/mypy were not run after that
+failed gate. Receipt at .artifacts/phase-5/item-projection-offline-6406086e1e694cef9b256b4d404d579e.
+Do NOT claim this candidate verified.
+
+Next FIRST: inspect graph failure diagnostics in that retained pytest report and
+fix the graph fixture/copy/inventory integration for the new macro, without
+weakening unknown-macro rejection. Re-run failed graph/parse/selected-runner
+checks, full offline regression, Ruff/format and mypy before acceptance. Then
+prepare newly hash-bound typed native fixtures and full-source/performance probe;
+old diagnostic bindings are stale. Preserve independent fact_orders reconciliation
+and duplicate-parent blocking precondition. No new candidate native run occurred.
+
+Fresh2026-10-25 advisory scan: unchanged four Python advisories across filelock/
+opentelemetry and npm full1critical/3high, runtime1critical/2high. E11/E13/E14 remain.
+Receipt .artifacts/audits/item-projection-20261025-08d0efce3b854c4d9c417aa1d0367130.
+No dependency changes or frontend launch. All artifacts retained. Source candidate
+is a recovery checkpoint, not accepted code. No merge/deploy/deletion. Phases1–4
+complete; Phase5 open; Phase6 not started. STOP and ask owner before Phase6.
+Usage crossed90%5h while completing current unit; stop after preservation.
+
+## Previous checkpoint — three-view native result, 2026-10-25
 
 SAFE TO RESUME / FULL SOURCE EQUIVALENCE PASSED; PERFORMANCE FAILED; NOT ADOPTED.
 Resumed clean published 51651dc at 2% five-hour / 0% weekly used. Unchanged reviewed

@@ -6,13 +6,14 @@ values. These portable join tests do not establish PostgreSQL numeric acceptance
 
 from __future__ import annotations
 
-import re
 import sqlite3
 from contextlib import closing
 from decimal import Decimal
 from pathlib import Path
 
 import pytest
+from item_projection_sql import ORDER_COLUMNS, SOURCE_COLUMNS, render_item_sql, staged_orders
+from test_warehouse_fact_order_items import elapsed_seconds, sqlite_statement
 
 ROOT = Path(__file__).resolve().parents[1]
 ITEM_COLUMNS = (
@@ -91,30 +92,30 @@ def execute(
     orders: list[tuple[object, ...]] | None = None,
     products: list[tuple[object, ...]] | None = None,
 ) -> list[dict[str, object]]:
-    sql = (ROOT / "dbt/models/marts/mart_item_kpis.sql").read_text("utf-8-sig")
-    sql = re.sub(r"{{ ref\('([a-z_]+)'\) }}", r"\1", sql)
+    sql = sqlite_statement(render_item_sql("models/marts/mart_item_kpis.sql"))
     sql = sql.replace('collate "C"', "collate BINARY").replace("::text", "")
     with closing(sqlite3.connect(":memory:")) as connection:
         connection.row_factory = sqlite3.Row
+        connection.create_function("elapsed_seconds", 2, elapsed_seconds)
         # Hostile default collation proves both joins/status use literal identity.
         connection.execute(
-            "create table fact_order_items ("
-            + ",".join(f"{name} collate NOCASE" for name in ITEM_COLUMNS)
+            "create table stg_order_items ("
+            + ",".join(f"{name} collate NOCASE" for name in SOURCE_COLUMNS)
             + ")"
         )
-        connection.execute("create table stg_orders (order_id collate NOCASE, order_status)")
+        connection.execute("create table stg_orders (" + ",".join(ORDER_COLUMNS) + ")")
         connection.execute(
             "create table dim_product ("
             + ",".join(f"{name} collate NOCASE" for name in PRODUCT_COLUMNS)
             + ")"
         )
         connection.executemany(
-            "insert into fact_order_items values (" + ",".join("?" for _ in ITEM_COLUMNS) + ")",
-            [tuple(row[name] for name in ITEM_COLUMNS) for row in items],
+            "insert into stg_order_items values (" + ",".join("?" for _ in SOURCE_COLUMNS) + ")",
+            [tuple(row[name] for name in SOURCE_COLUMNS) for row in items],
         )
         connection.executemany(
-            "insert into stg_orders values (?,?)",
-            [("a", "delivered")] if orders is None else orders,
+            "insert into stg_orders values (?,?,?,?,?)",
+            staged_orders(items, [("a", "delivered")] if orders is None else orders),
         )
         connection.executemany(
             "insert into dim_product values (" + ",".join("?" for _ in PRODUCT_COLUMNS) + ")",
@@ -235,7 +236,7 @@ def test_missing_purchase_clock_and_shipping_warnings_do_not_exclude_commerce() 
     row = execute([item(order_purchase_timestamp=None, is_shipping_beyond_365_days=True)])[0]
     assert row["is_commerce_eligible"] == 1
     assert row["order_purchase_timestamp"] is None
-    assert row["is_shipping_before_purchase"] == row["is_shipping_beyond_365_days"] == 1
+    assert row["is_shipping_before_purchase"] == row["is_shipping_beyond_365_days"] == 0
 
 
 def test_empty_item_population_creates_no_synthetic_items() -> None:

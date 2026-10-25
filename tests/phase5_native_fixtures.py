@@ -3,6 +3,7 @@
 from pathlib import Path
 
 import pytest
+from item_projection_sql import render_item_sql
 from order_component_sql import render_order_model
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -13,7 +14,7 @@ REFERENCES = {
         "fact_payments",
         "fact_reviews",
     },
-    "mart_item_kpis": {"fact_order_items", "stg_orders", "dim_product"},
+    "mart_item_kpis": {"stg_order_items", "stg_orders", "dim_product"},
     "mart_order_components": {"fact_orders", "fact_order_items", "fact_payments", "fact_reviews"},
 }
 
@@ -28,13 +29,9 @@ def execute_model(connection, name, fixtures, *, upstream=()):
     def render(model_name):
         if model_name in {"mart_order_components", "mart_order_kpis"}:
             return render_order_model(model_name, ref=lambda name: "synthetic_" + name)
-        model = (ROOT / "dbt/models/marts" / (model_name + ".sql")).read_text("utf-8-sig")
-        for reference in REFERENCES[model_name]:
-            tag = "{{ ref('" + reference + "') }}"
-            assert tag in model
-            model = model.replace(tag, "synthetic_" + reference)
-        assert "{{" not in model
-        return model
+        return render_item_sql(
+            f"models/marts/{model_name}.sql", ref=lambda name: "synthetic_" + name
+        )
 
     for reference, (types, rows) in fixtures.items():
         fixture = "synthetic_" + reference

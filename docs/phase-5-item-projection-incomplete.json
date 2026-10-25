@@ -1,0 +1,164 @@
+{
+  "date": "2026-10-25",
+  "baseline_checkpoint": "73eae66",
+  "status": "INCOMPLETE SOURCE CANDIDATE; GRAPH VALIDATION FAILING; NO NATIVE RUN OR ADOPTION",
+  "change": "Shared item/order projection removes repeated parent lookup while preserving explicit15/26field outputs and independent reconciliation.",
+  "validation": {
+    "focused_passed": 150,
+    "focused_native_skips": 50,
+    "focused_ruff": "passed",
+    "full": {
+      "artifacts": ".artifacts/phase-5/item-projection-offline-6406086e1e694cef9b256b4d404d579e",
+      "checks": {
+        "pytest": 1
+      },
+      "tests": {
+        "tests": 3055,
+        "errors": 0,
+        "failures": 71,
+        "skipped": 1069
+      },
+      "seconds": 65.405
+    },
+    "full_passed": 1915,
+    "remaining_gates": "Full Ruff/format/mypy not run after failed regression; native not run."
+  },
+  "failure_scope": "54 reconstruction tests report stale local macro count7 versus actual8;17 selected-runner failures at preflight or downstream expectations. Fix exact fixture inventory without weakening unknown-macro rejection, then rerun gates.",
+  "review": "Master semantic review found no blocker; required explicit macro allowlist registration was added but integration remains failing.",
+  "security": {
+    "artifacts": ".artifacts/audits/item-projection-20261025-08d0efce3b854c4d9c417aa1d0367130",
+    "exit_codes": {
+      "python": 1,
+      "npm-full": 1,
+      "npm-runtime": 1
+    },
+    "python": {
+      "packages": 111,
+      "vulnerabilities": [
+        {
+          "package": "filelock",
+          "version": "4.0.1",
+          "advisories": [
+            {
+              "id": "CVE-2026-112940",
+              "aliases": [
+                "GHSA-v4x8-3wr5-3wq8"
+              ],
+              "fix_versions": [
+                "4.2.1"
+              ]
+            },
+            {
+              "id": "CVE-2026-112913",
+              "aliases": [
+                "GHSA-9vhv-jxww-xfm5"
+              ],
+              "fix_versions": [
+                "4.2.1"
+              ]
+            },
+            {
+              "id": "CVE-2026-112907",
+              "aliases": [
+                "GHSA-567q-5qvw-pf92"
+              ],
+              "fix_versions": [
+                "4.2.1"
+              ]
+            }
+          ]
+        },
+        {
+          "package": "opentelemetry-api",
+          "version": "1.44.0",
+          "advisories": [
+            {
+              "id": "CVE-2026-114603",
+              "aliases": [
+                "GHSA-xcq7-p3pf-p88h"
+              ],
+              "fix_versions": [
+                "1.45.1"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "npm-full": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 3,
+      "critical": 1,
+      "total": 4
+    },
+    "npm-runtime": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 2,
+      "critical": 1,
+      "total": 3
+    }
+  },
+  "next": "Repair tests/test_warehouse_dbt_reconstruction.py macro-count/inventory fixture and resolve downstream selected-runner checks; full offline gates before new hash-bound native verification. Preserve duplicate-parent rejection and independent oracles.",
+  "hashes": [
+    {
+      "path": "dbt/models/core/fact_order_items.sql",
+      "sha256": "8642965b7c96c7474f55f6052a34630e15d781178a2be37f8d8e27278a72e538"
+    },
+    {
+      "path": "dbt/models/marts/mart_item_kpis.sql",
+      "sha256": "66dfd9be5bae2c765f725fa5c13f99d3cf230001b62d361b3edae20b72483f01"
+    },
+    {
+      "path": "dbt/models/marts/mart_item_kpis.yml",
+      "sha256": "c76285a430c547eedb3d77893928b6ac40449199f5e83ef4ea38d264b872f572"
+    },
+    {
+      "path": "src/warehouse/dbt_reconstruction.py",
+      "sha256": "d76ece58785edc21ced9c72b55186b9a81001f3d34416189aa76b9e2fd0125c2"
+    },
+    {
+      "path": "tests/phase5_native_fixtures.py",
+      "sha256": "35587a235473b046f2a7ce5ace58c7e3422a7dfcb937ccd3876c6408a237094a"
+    },
+    {
+      "path": "tests/test_phase5_item_context.py",
+      "sha256": "5685bd73a06c4f6dbb55aeab89487d734e349885160ce2d0c384884c4f8e3e72"
+    },
+    {
+      "path": "tests/test_phase5_item_kpis.py",
+      "sha256": "052b15a3aa886e8a15b4e08e47c6e12745577d4e5b00c7f7ea88b1c55f212139"
+    },
+    {
+      "path": "tests/test_phase5_item_postgres.py",
+      "sha256": "bb7fdbfd00b011a2013829f1b083f5c19d0e95464099d0459b808bfd470e59e3"
+    },
+    {
+      "path": "tests/test_phase5_item_reconciliation_postgres.py",
+      "sha256": "1149d995afd9c024ff89d2e3ede2775a0e1716d8b52052d7f00368e5b7c8b0f4"
+    },
+    {
+      "path": "tests/test_warehouse_dbt.py",
+      "sha256": "e6a3b8d35e86e5b4ea321abd3381a2099a287d317cb134c3db8f453ae45e65a4"
+    },
+    {
+      "path": "tests/test_warehouse_fact_order_items.py",
+      "sha256": "011dcd435b4b0c92d10855d86468b23b7c569f679d324550532e2c343684a796"
+    },
+    {
+      "path": "tests/test_warehouse_fact_order_items_postgres_integration.py",
+      "sha256": "46050a293d7dca0068d473a08ac5eb7d43cf0c6445bfabeb6c83d3775ea243ca"
+    },
+    {
+      "path": "dbt/macros/item_order_projection.sql",
+      "sha256": "6c4ac8b8bbd3d409f9b28129669a411f9f08f71157e622c21d49b5e88bc3b5a4"
+    },
+    {
+      "path": "tests/item_projection_sql.py",
+      "sha256": "45e119924fb6131a40cd800ecfce3d540be9ad226f2569593e82de1afa99de00"
+    }
+  ]
+}
