@@ -3,7 +3,44 @@
 Authoritative handoff updated 2026-10-26. Actual D repository, Git and verified
 evidence take precedence over chat. Read the permanent instructions before edits.
 
-## Current checkpoint — reference reuse reduces temporary traffic, 2026-10-26
+## Current checkpoint — normal planner cancelled; estimate diagnosis next, 2026-10-26
+
+SAFE TO RESUME / TWO BOUNDED RESULTS SAVED; Q01 OPEN; NOT ADOPTED.
+Reference reuse saved in f5179e4: full source and complete response equality,
+504496128 temporary bytes PASS, 17578.984ms FAIL. New same-query normal-planner
+variant verifies baseline reader enable_nestloop=on without an override. It passed
+all112650x15 item,99441x70 order KPI,112650x26 item KPI full-source/type/money/grain/
+coverage checks, then was cancelled during EXPLAIN ANALYZE (SQLSTATE57014) under
+unchanged deadlines. No completed runtime/traffic or response check for this run.
+
+Artifact .artifacts/phase-5/5907daf257e84de3975d9c8fbe6f3849. All98 bindings matched
+afterward. Independent catalog/access/settings restoration passed. Database287594163
+bytes (+8192 during job; starting size decreased since prior job, cause unknown),
+raw275988480 unchanged. No persistent model/query/planner adoption. Evidence:
+docs/phase-5-reference-default-planner-verification.json. Both runner/test pairs
+retained under .artifacts/phase-5. Default-planner43 offline scenarios, lint/format
+and Master Plan diff review passed. Production sources/dependencies unchanged.
+
+Next FIRST: inspect the retained plan-private.json nested loop joining filtered
+raw.orders to materialized item aggregation. Estimates249 orders/200 item groups
+contrast with96478/98666 actuals in the prior disabled-planner executed plan at
+.artifacts/phase-5/e40b3181c2404b1cb1d6feacfb45239d. Review the prior expression-index
+trial (docs/phase-5-index-probe-verification.json records no ANALYZE) and official
+statistics/role-visibility references in docs/phase-5-performance-research-20261026.md.
+Determine the smallest safe estimate diagnostic before implementation. No new
+statistics runner exists; do not add statistics or ANALYZE blindly. Preserve reader
+grants/security barriers and require catalog/statistics restoration evidence for
+any future mutation. No extension, LEAKPROOF change or persistent planner override.
+
+Usage60% five-hour/9% weekly USED at native completion;68%/11% at preservation:
+next investigation is a larger unit. Full16-case/concurrent Q01, independent consumer
+reconciliation and Phase5 exit remain. Phases1–4/governance complete; Phase5 open;
+Phase6 not started. STOP and ask owner before Phase6. E11/E13/E14 remain unresolved
+from25October scans; no new advisory scan for this diagnostics/docs-only unit.
+No package installation, frontend launch, merge, deployment or deletion. Containing
+commit is checkpoint; verify clean/upstream0/0 after authorized publication.
+
+## Previous checkpoint — reference reuse reduces temporary traffic, 2026-10-26
 
 SAFE TO RESUME / RESPONSE VERIFIED; TIME BUDGET FAILED; NOT ADOPTED.
 Resumed clean published cd960c8 at 3% five-hour / 0% weekly used. Official

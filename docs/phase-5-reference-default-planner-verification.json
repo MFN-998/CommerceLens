@@ -1,0 +1,110 @@
+{
+  "date": "2026-10-26",
+  "baseline_checkpoint": "f5179e4",
+  "status": "NORMAL PLANNER EXECUTION CANCELLED; SOURCE EQUALITY AND RESTORATION VERIFIED; NOT ADOPTED",
+  "receipt": {
+    "artifacts": ".artifacts/phase-5/5907daf257e84de3975d9c8fbe6f3849",
+    "status": "failed_verified_rollback",
+    "adopted": false,
+    "probe": {
+      "status": "failed",
+      "stage": "explain_analyze",
+      "adopted": false,
+      "item_equivalence": [
+        112650,
+        112650,
+        0,
+        0,
+        "13591643.70",
+        "2251909.54",
+        0
+      ],
+      "equivalence": [
+        99441,
+        99441,
+        0,
+        0,
+        "13591643.70",
+        "2251909.54",
+        "16008872.12",
+        99441,
+        0
+      ],
+      "item_mart_equivalence": [
+        112650,
+        112650,
+        0,
+        0,
+        "13591643.70",
+        "2251909.54",
+        112650,
+        112650,
+        0,
+        0,
+        0
+      ],
+      "sqlstate": "57014"
+    },
+    "postcheck": {
+      "rollback_verified": true,
+      "database_bytes": 287594163,
+      "database_bytes_delta": 8192,
+      "raw_bytes": 275988480,
+      "limits": "No persistent candidate; not proof of absent WAL/catalog/filesystem effects"
+    }
+  },
+  "source_bindings_verified_before_and_after": 98,
+  "guard_receipt": ".artifacts/phase-5/offline-three-view-3b8932f80f0f4e108438f89da8553a7b",
+  "review": "Master Plan Agent reviewed removal of the local planner override, verification of baseline reader enable_nestloop=on, added failure guard and unchanged query/model/resource/restoration protections before execution.",
+  "checks": {
+    "offline_scenarios": 43,
+    "forced_rollback_failure_paths": 39,
+    "ruff": "passed",
+    "format": "passed",
+    "production_sources_changed": false,
+    "packages_added": false
+  },
+  "query_sha256": "bf74f40b4b8e7dac6fd4dcd503ab36858ae5abd52aede25f010a00669f431859",
+  "budgets": {
+    "server_ms": 10000,
+    "temporary_traffic_bytes": 536870912,
+    "statement_seconds": 55,
+    "lock_seconds": 5,
+    "probe_seconds": 480,
+    "postcheck_seconds_max": 110,
+    "overall_seconds": 600
+  },
+  "interpretation": "Same fixed query and model candidate as f5179e4, without local planner override. SQLSTATE57014 during EXPLAIN ANALYZE under unchanged deadlines. No completed execution time/traffic metrics and no serialized response verification for this run. All15/70/26field full-source comparisons passed. Independent rollback/catalog/access/settings verified. No persistent adoption. Database+8192bytes during job; lower starting size than prior job, cause unknown; raw unchanged.",
+  "estimate_diagnosis": {
+    "normal_plan_filtered_orders_estimate": 249,
+    "normal_plan_item_groups_estimate": 200,
+    "prior_disabled_planner_actual_filtered_orders": 96478,
+    "prior_disabled_planner_actual_item_groups": 98666,
+    "actuals_source": ".artifacts/phase-5/e40b3181c2404b1cb1d6feacfb45239d/execution-private.json",
+    "limitation": "Poor estimates and nested-loop choice are observed; no completed normal-plan runtime explains exact causal contribution."
+  },
+  "next": "Inspect the retained normal-plan nested loop between filtered raw.orders and materialized item aggregation, compare prior expression-index trial (no ANALYZE), and review statistics/role visibility feasibility before preparing any new guarded diagnostic. Preserve reader grants and security barriers; no extension, leakproof change or planner-setting adoption.",
+  "hashes": [
+    {
+      "path": ".artifacts/phase-5/5907daf257e84de3975d9c8fbe6f3849/probe-source.py",
+      "sha256": "826a08cd3a9d92deeb88494f12c35b4fff488132ebc85b72f6a32f371557e5a6"
+    },
+    {
+      "path": ".artifacts/phase-5/5907daf257e84de3975d9c8fbe6f3849/receipt.json",
+      "sha256": "474695289b508088ec8fbfdc30a3e74fdba6b0db5d9da6aab29a812a00eee91c"
+    },
+    {
+      "path": ".artifacts/phase-5/5907daf257e84de3975d9c8fbe6f3849/source-hashes.json",
+      "sha256": "32bd62ac56c89563d7d946b6da36d91afffb12e9dec11c19df53d2ba00e02896"
+    },
+    {
+      "path": ".artifacts/phase-5/5907daf257e84de3975d9c8fbe6f3849/plan-private.json",
+      "sha256": "f5621cd06fbc6f1be1758ee4c9ead9838581975e3876601c61b25f25a3e164e3"
+    },
+    {
+      "path": ".artifacts/phase-5/test_three_view_projection_reference_default_planner_20261026.py",
+      "sha256": "9005805ba59d4d9ccfab58295994a7eca62ea9bbd89af013735c73b015819a97"
+    }
+  ],
+  "handoff_review": "Master Plan Agent accepted failed-measurement interpretation and next bounded estimate/role investigation, with no grant widening, leakproof change, extension or further native experiment this unit."
+}

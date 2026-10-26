@@ -1,5 +1,13 @@
 # Phase 5 isolated native verification
 
+2026-10-26 follow-up: the same fixed reference-reuse query with normal planner
+settings was cancelled during EXPLAIN ANALYZE. Full source equality and independent
+restoration passed; no execution metrics or response check completed in this run.
+See [default-planner evidence](phase-5-reference-default-planner-verification.json).
+Next investigate the order/item-group estimates before a new statistics experiment;
+no production adoption, full Q01 acceptance or Phase 6 transition.
+
+
 2026-10-26: fixed overview reference reuse preserves full source and response
 contracts and passes temporary traffic (504496128 bytes), but 17.579s fails the
 10s limit. Independent restoration passed; no adoption. See

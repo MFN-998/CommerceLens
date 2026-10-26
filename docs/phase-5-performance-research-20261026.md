@@ -43,7 +43,8 @@ experiment; their independent reference population remains unchanged in source.
 
 This is an inference to test. One measured overview does not establish full Q01,
 concurrency, consumer reconciliation, production adoption or Phase 5 completion.
-The existing reader-local nested-loop setting is still an experimental condition.
+The first variant retains the reader-local nested-loop experiment; the subsequent
+normal-planner variant removes it and is recorded separately below.
 
 ## Dependency security boundary
 
@@ -54,3 +55,31 @@ use pinned versions and an isolated retained environment where practical. A clea
 advisory scan cannot guarantee absence of vulnerabilities. Existing E11/E13/E14
 findings remain open under their documented release gates; they are not resolved
 by this performance experiment.
+
+## Follow-up: estimate diagnosis before another mutation
+
+The same query without the nested-loop override was cancelled during measurement.
+Its retained estimated plan uses 249 filtered orders and 200 item groups, whereas
+the prior executed plan observed 96478 and 98666 respectively. This is evidence of
+poor estimates and a different join choice, not proof of each operation's runtime.
+
+[PostgreSQL CREATE STATISTICS](https://www.postgresql.org/docs/17/sql-createstatistics.html)
+documents per-expression statistics that can improve filter and grouping estimates
+without maintaining an expression index. It also explicitly limits extended
+statistics: they are not used for table-join selectivity. Creating an object alone
+does not establish usefulness; collection, expression matching, privileges and the
+actual resulting plan must be checked. The historical expression-index trial
+records that ANALYZE was not run, so it does not answer this statistics question.
+
+[PostgreSQL planner statistics security](https://www.postgresql.org/docs/17/planner-stats-security.html)
+explains that statistics use can be constrained by privileges and operator safety,
+including when reading security-barrier views. It also distinguishes generic
+statistics that do not require evaluating stored values. These are hypotheses to
+review against our exact expressions and roles, not reasons to widen reader grants
+or mark functions LEAKPROOF.
+
+Next inspect the retained subtree and prior index evidence, then determine the
+smallest safe estimate/role diagnostic. No statistics collection, statistics object,
+privilege change, extension or new package was introduced. Any future statistics
+mutation requires reviewed rollback and independent restoration coverage beyond
+the current view-catalog checks. No new statistics runner is prepared yet.
