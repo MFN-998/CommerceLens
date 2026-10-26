@@ -1,0 +1,141 @@
+{
+  "date": "2026-10-26",
+  "baseline_checkpoint": "cd960c8",
+  "status": "REFERENCE REUSE PASSED TEMPORARY TRAFFIC; TIME FAILED; RESPONSE EQUAL; RESTORATION VERIFIED; NOT ADOPTED",
+  "receipt": {
+    "artifacts": ".artifacts/phase-5/e40b3181c2404b1cb1d6feacfb45239d",
+    "status": "completed",
+    "adopted": false,
+    "probe": {
+      "status": "completed",
+      "stage": "rolled_back",
+      "adopted": false,
+      "item_equivalence": [
+        112650,
+        112650,
+        0,
+        0,
+        "13591643.70",
+        "2251909.54",
+        0
+      ],
+      "equivalence": [
+        99441,
+        99441,
+        0,
+        0,
+        "13591643.70",
+        "2251909.54",
+        "16008872.12",
+        99441,
+        0
+      ],
+      "item_mart_equivalence": [
+        112650,
+        112650,
+        0,
+        0,
+        "13591643.70",
+        "2251909.54",
+        112650,
+        112650,
+        0,
+        0,
+        0
+      ],
+      "measured": {
+        "planning_ms": 7.577,
+        "execution_ms": 17578.984,
+        "output_rows": 1,
+        "node_types": {
+          "Aggregate": 11,
+          "CTE Scan": 2,
+          "Gather": 1,
+          "Gather Merge": 4,
+          "Hash": 7,
+          "Hash Join": 7,
+          "Limit": 1,
+          "Materialize": 1,
+          "Merge Join": 2,
+          "Nested Loop": 1,
+          "Seq Scan": 10,
+          "Sort": 10,
+          "Subquery Scan": 11,
+          "WindowAgg": 1
+        },
+        "root_buffers": {
+          "Shared Hit Blocks": 23540,
+          "Shared Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Written Blocks": 0,
+          "Temp Read Blocks": 30220,
+          "Temp Written Blocks": 31364
+        },
+        "disk_sort_instances": 14,
+        "sort_disk_kb": 74224,
+        "max_hash_batches": 21,
+        "hash_disk_kb": 17728
+      },
+      "temp_traffic_bytes": 504496128,
+      "historical_totals_matched": 3,
+      "response_sha256": "3dfbeac7b06a97f546c319bde56a4f66f11dcc5daf48f5bf97f63034ac05f89b",
+      "server_spill_budgets_passed": false
+    },
+    "postcheck": {
+      "rollback_verified": true,
+      "database_bytes": 287798963,
+      "database_bytes_delta": 40960,
+      "raw_bytes": 275988480,
+      "limits": "No persistent candidate; not proof of absent WAL/catalog/filesystem effects"
+    }
+  },
+  "source_bindings_verified_before_and_after": 98,
+  "guard_receipt": ".artifacts/phase-5/offline-three-view-7bec5de8db9946cfa7e58868a5a07163",
+  "review": "Master Plan Agent accepted fixed query/parameters, original and candidate digests, full response equality and unchanged model/resource/catalog/restoration guards before execution.",
+  "checks": {
+    "offline_failure_guards": "passed",
+    "ruff": "passed",
+    "format": "passed",
+    "production_sources_changed": false,
+    "packages_added": false
+  },
+  "query_sha256": "bf74f40b4b8e7dac6fd4dcd503ab36858ae5abd52aede25f010a00669f431859",
+  "budgets": {
+    "server_ms": 10000,
+    "temporary_traffic_bytes": 536870912,
+    "statement_seconds": 55,
+    "lock_seconds": 5,
+    "probe_seconds": 480,
+    "postcheck_seconds_max": 110,
+    "overall_seconds": 600
+  },
+  "interpretation": "One fixed-overview sample. Removing the redundant reference aggregate reduced measured temporary traffic to504496128bytes, within budget;17578.984ms failed time budget. Single-sample timing cause is not established. Full15/70/26field and complete serialized response equality passed. No persistent model/query/planner adoption; full Q01/concurrency/consumer acceptance remains open. Database size+40960bytes within capacity, cause unknown; raw/catalog/access/settings restoration verified.",
+  "research": "docs/phase-5-performance-research-20261026.md",
+  "preparation_failure": {
+    "artifact": ".artifacts/phase-5/dc60e89273cb416dbdd683b9a4b92eb3",
+    "stage": "isolated_root PermissionError before connection; authorized elevated retry completed"
+  },
+  "next": "Review the same fixed query with normal baseline nested-loop planner setting, retaining all guards and resource budgets. This is a bounded diagnostic, not adoption.",
+  "hashes": [
+    {
+      "path": ".artifacts/phase-5/e40b3181c2404b1cb1d6feacfb45239d/probe-source.py",
+      "sha256": "8e6555e3e5f914f603d39281a2ab81e93b654513dc84088aeff94eca9a341014"
+    },
+    {
+      "path": ".artifacts/phase-5/e40b3181c2404b1cb1d6feacfb45239d/receipt.json",
+      "sha256": "b67e35d59ee1b2f8546b48af37934ca20b881cdee67f2e22fc2d9410971b2266"
+    },
+    {
+      "path": ".artifacts/phase-5/e40b3181c2404b1cb1d6feacfb45239d/source-hashes.json",
+      "sha256": "32bd62ac56c89563d7d946b6da36d91afffb12e9dec11c19df53d2ba00e02896"
+    },
+    {
+      "path": ".artifacts/phase-5/e40b3181c2404b1cb1d6feacfb45239d/execution-private.json",
+      "sha256": "4001223a8eb138102bad2a4c84f6eb7ab6d187a4ab321496207be68ceafc8a04"
+    },
+    {
+      "path": ".artifacts/phase-5/test_three_view_projection_reference_reuse_20261026.py",
+      "sha256": "27e42f404d52b670d93dab2273a9ee0bf0b80a97cc156d802800124974f3c259"
+    }
+  ]
+}

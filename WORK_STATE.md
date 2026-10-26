@@ -1,9 +1,41 @@
 # CommerceLens work state
 
-Authoritative handoff updated 2026-10-25. Actual D repository, Git and verified
+Authoritative handoff updated 2026-10-26. Actual D repository, Git and verified
 evidence take precedence over chat. Read the permanent instructions before edits.
 
-## Current checkpoint — full-source equality verified; performance still open, 2026-10-25
+## Current checkpoint — reference reuse reduces temporary traffic, 2026-10-26
+
+SAFE TO RESUME / RESPONSE VERIFIED; TIME BUDGET FAILED; NOT ADOPTED.
+Resumed clean published cd960c8 at 3% five-hour / 0% weekly used. Official
+PostgreSQL research supports inspecting redundant CTE work; no package added.
+The new fixed unfiltered overview reuses active_customers as reference_customers.
+Exact query/parameters, source bindings and all prior safety guards were reviewed
+by the Master Plan Agent and passed offline before native execution.
+
+Artifact .artifacts/phase-5/e40b3181c2404b1cb1d6feacfb45239d passed full
+112650x15 item, 99441x70 order KPI and 112650x26 item KPI equality, native types,
+money/grain/coverage, all 98 source bindings and complete serialized response hash.
+Temporary traffic 504496128 bytes PASSES 536870912; 17578.984ms FAILS 10000ms.
+This is one sample; timing cause is not established. Independent catalog/access/
+settings restoration passed. Database287798963 bytes (+40960, cause unknown),
+raw275988480 unchanged. No persistent model/query/planner changes.
+Evidence: docs/phase-5-reference-reuse-verification.json. Research/security approach:
+docs/phase-5-performance-research-20261026.md. Restricted preparation failed before
+connection (.artifacts/phase-5/dc60e89273cb416dbdd683b9a4b92eb3); authorized retry
+completed. Runner three_view_projection_reference_reuse_20261026.py and its guard
+test are retained under .artifacts/phase-5. Guard receipt offline-three-view-
+7bec5de8db9946cfa7e58868a5a07163; lint/format pass. Production sources unchanged.
+
+Next FIRST: review a bounded same-query diagnostic with the normal baseline
+nested-loop planner setting, removing the experimental local disable. Preserve
+all query/model equality, time/memory/capacity limits and independent restoration.
+Do not adopt from this one overview; full16-case/concurrent Q01, independent consumer
+reconciliation and Phase5 exit remain. E11/E13/E14 unresolved; no frontend launch.
+Phases1–4/governance complete; Phase5 open; Phase6 not started. STOP and ask owner
+before Phase6. Latest usage38% five-hour/6% weekly used. Containing commit is this
+checkpoint; authorized publication pending. No merge/deployment/deletion.
+
+## Previous checkpoint — full-source equality verified; performance still open, 2026-10-25
 
 SAFE TO RESUME / FULL SOURCE VERIFIED; NO PERFORMANCE ACCEPTANCE OR ADOPTION.
 Resumed clean1f0d674 at0%five-hour/10%weeklyused. Both new bounded diagnostics

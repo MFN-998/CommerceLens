@@ -1,5 +1,13 @@
 # Phase 5 isolated native verification
 
+2026-10-26: fixed overview reference reuse preserves full source and response
+contracts and passes temporary traffic (504496128 bytes), but 17.579s fails the
+10s limit. Independent restoration passed; no adoption. See
+[verification](phase-5-reference-reuse-verification.json) and
+[primary-source research](phase-5-performance-research-20261026.md).
+Next review normal-planner measurement of the same query; full Q01 remains open.
+
+
 2026-10-25 full-source verification passed for the shared projection. Its overview
 sample met the time limit at7.917s, but565272576 temporary bytes exceeded budget.
 A scope-inlining variant preserved the full response and restored all state, but
