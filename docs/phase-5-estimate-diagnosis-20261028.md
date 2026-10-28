@@ -1,5 +1,29 @@
 # Read-only estimate diagnosis — 2026-10-28
 
+## Follow-up: controlled boundary reproduced
+
+The [fixed paired comparison](phase-5-cte-boundary-pair-verification.json) now
+reproduces the estimate loss: plain derived SELECT87208 groups, WITH-containing
+subquery200 groups. Both use identical normalized IDs, C collation, transformer
+role, snapshot and settings. Both raw scans estimate112650 rows and both top
+aggregates are simple hashed aggregates. Only the WITH version retains a Subquery
+Scan. Independent restoration passed, with unchanged database/raw sizes.
+
+This justifies testing a CTE-free item staging projection. It is not executed
+latency evidence or full model equivalence. Preserve parsing and independent
+reconciliation before adopting any model rewrite.
+
+The broader search included GitHub, Stack Overflow and developer discussions.
+The directly relevant primary references remain the PostgreSQL17 source and
+developer proposal linked below. The [official patch tracker](https://commitfest.postgresql.org/patch/7283/)
+currently lists a proposed PostgreSQL20 change needing review; it is not an
+available fix for this PostgreSQL17 recovery database. No patch, package,
+extension or upgrade was installed. Proposed third-party packages would require
+provenance, maintenance, advisory, dependency, install-script and permission
+review before installation; none is needed for this SQL comparison.
+
+## Earlier 15-plan diagnosis
+
 All 15 fixed EXPLAIN-only cases completed against unchanged deployed views.
 Independent catalog/access/settings restoration and all 99 source bindings passed;
 database287594163 bytes and raw275988480 bytes were unchanged during the job.

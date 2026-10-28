@@ -3,7 +3,38 @@
 Authoritative handoff updated 2026-10-28. Actual D repository, Git and verified
 evidence take precedence over chat. Read the permanent instructions before edits.
 
-## Current checkpoint — estimate loss isolated at staging boundary, 2026-10-28
+## Current checkpoint — CTE boundary reproduced, 2026-10-28
+
+SAFE TO RESUME / PAIRED READ-ONLY DIAGNOSIS VERIFIED; Q01 OPEN.
+Resumed clean published73e7877, upstream0/0, usage4% five-hour/1% weekly used.
+The fixed pair groups identical normalized raw item IDs with C collation in one
+read-only transformer snapshot. Plain derived SELECT estimates87208 groups;
+WITH-containing subquery estimates200 and retains a Subquery Scan. Both raw scans
+estimate112650, both aggregates are simple hashed: no parallel-count ambiguity.
+This isolates the structural estimate difference; it does not prove runtime gain.
+
+Artifact .artifacts/phase-5/8f42a12c69e346d1b9943e00723c7eff completed. All99 bindings
+matched afterward; independent catalog/access/settings restoration passed. Database
+287594163 and raw275988480 bytes unchanged. No production source/package/DDL/
+statistics/grant/planner change. Restricted attempt11b3b941184b495789e2124aeffd27cb
+stopped in preparation; protected-settings retry completed. Prior artifacts retained.
+New retained cte_boundary_pair_20261028.py and test_cte_boundary_pair_20261028.py
+passed11 role success/failure cases,6supervisor cases, fixedSQL/source/privacy guards,
+Ruff lint/format and Master Plan pre-native review. Evidence and exactSQL/hashes:
+docs/phase-5-cte-boundary-pair-verification.json; research below in dated diagnosis.
+
+Next FIRST: review and implement only a CTE-free stg_order_items derived projection,
+keeping the nine outputs, order/types, source normalization, safe numeric/timestamp
+parsing and lineage unchanged. Existing independent fixtures/reconciliation must pass.
+Then prepare a new bounded native/full-source probe: old source hashes become stale
+on model edit and must fail closed. No candidate adoption from an estimate alone.
+Full16-case/concurrent Q01, consumer reconciliation and Phase5exit remain. Phases1–4
+and governance complete; Phase6notstarted. STOP and ask owner beforePhase6. E11/E13/
+E14 dated findings remain unresolved; no frontendlaunch/merge/deployment/deletion.
+Latest usage36%five-hour/6%weekly used before result preservation; recheck at nextunit.
+Containing commit is checkpoint; verify clean/upstream0/0 after publication.
+
+## Previous checkpoint — estimate loss isolated at staging boundary, 2026-10-28
 
 SAFE TO RESUME / READ-ONLY DIAGNOSIS VERIFIED; Q01 STILL OPEN.
 Resumed clean published688f20b at9% five-hour/13% weekly used. New retained

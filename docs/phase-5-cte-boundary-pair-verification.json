@@ -1,0 +1,133 @@
+{
+  "date": "2026-10-28",
+  "baseline_checkpoint": "73e7877",
+  "status": "PAIRED ESTIMATE DIAGNOSIS VERIFIED; NO PERFORMANCE ACCEPTANCE",
+  "artifacts": ".artifacts/phase-5/8f42a12c69e346d1b9943e00723c7eff",
+  "source_bindings_verified_before_and_after": 99,
+  "server_version_num": "170011",
+  "queries": {
+    "derived_item_group": "SELECT order_id COLLATE \"C\", count(*) FROM (SELECT nullif(order_id, '') AS order_id FROM raw.order_items) s GROUP BY order_id COLLATE \"C\"",
+    "with_item_group": "SELECT order_id COLLATE \"C\", count(*) FROM (WITH normalized AS (SELECT nullif(order_id, '') AS order_id FROM raw.order_items) SELECT order_id FROM normalized) s GROUP BY order_id COLLATE \"C\""
+  },
+  "query_sha256": {
+    "derived_item_group": "1baa2d96a40702bb6c58c8f3db9836989a1e443cee9bf9ad683425526adf1086",
+    "with_item_group": "8c658bc80497c8ad25424a37ce881d6f3552dfb6cf4d1313876603b394e8cd7c"
+  },
+  "plan_nodes": {
+    "derived_item_group": [
+      {
+        "path": "0",
+        "Node Type": "Aggregate",
+        "Strategy": "Hashed",
+        "Partial Mode": "Simple",
+        "Plan Rows": 87208,
+        "Plan Width": 40,
+        "Total Cost": 11188.76
+      },
+      {
+        "path": "0.0",
+        "Node Type": "Seq Scan",
+        "Relation Name": "order_items",
+        "Alias": "order_items",
+        "Plan Rows": 112650,
+        "Plan Width": 32,
+        "Total Cost": 4048.12
+      }
+    ],
+    "with_item_group": [
+      {
+        "path": "0",
+        "Node Type": "Aggregate",
+        "Strategy": "Hashed",
+        "Partial Mode": "Simple",
+        "Plan Rows": 200,
+        "Plan Width": 40,
+        "Total Cost": 4613.38
+      },
+      {
+        "path": "0.0",
+        "Node Type": "Subquery Scan",
+        "Alias": "s",
+        "Plan Rows": 112650,
+        "Plan Width": 32,
+        "Total Cost": 4048.12
+      },
+      {
+        "path": "0.0.0",
+        "Node Type": "Seq Scan",
+        "Relation Name": "order_items",
+        "Alias": "order_items",
+        "Plan Rows": 112650,
+        "Plan Width": 32,
+        "Total Cost": 4048.12
+      }
+    ]
+  },
+  "settings_verified": true,
+  "postcheck": {
+    "rollback_verified": true,
+    "database_bytes": 287594163,
+    "database_bytes_delta": 0,
+    "raw_bytes": 275988480,
+    "limits": "No persistent candidate; not proof of absent WAL/catalog/filesystem effects"
+  },
+  "guards": {
+    "status": "passed",
+    "source_bindings": 99,
+    "role_success_failure_cases": 11,
+    "supervisor_cases": 6,
+    "fixed_sql_read_only_guard": true,
+    "transformer_only_pair": true,
+    "statistics_no_sample_values": true,
+    "safe_failure_details": true,
+    "forced_rollback_and_independent_restore": true,
+    "artifacts": ".artifacts/phase-5/offline-cte-pair-5c91a8f9debb4dc9b1c651c4549e5255"
+  },
+  "lint_and_format": "passed",
+  "master_plan_review": "Scope and final runner reviewed before native execution; no material blocker.",
+  "limits": {
+    "statement_seconds": 55,
+    "lock_seconds": 5,
+    "probe_seconds": 180,
+    "postcheck_seconds_max": 110,
+    "overall_seconds": 300
+  },
+  "prior_attempt": {
+    "artifacts": ".artifacts/phase-5/11b3b941184b495789e2124aeffd27cb",
+    "status": "preparation_failed",
+    "note": "Restricted attempt stopped before supervision; protected-settings retry completed. No database outcome claimed for preparation failure."
+  },
+  "findings": [
+    "The plain derived SELECT estimates87208 groups; the WITH-containing subquery estimates200. Both raw scans estimate112650 rows.",
+    "The WITH variant retains a Subquery Scan; the plain variant does not. Both aggregates are simple hashed aggregates, so these group estimates are directly comparable.",
+    "Same normalization, collation, source, grouping, transformer role, read-only snapshot and baseline settings isolate this structural boundary for the fixed pair."
+  ],
+  "limitations": "EXPLAIN only; no runtime, spill, full staging equivalence or Q01 acceptance. No DDL, statistics, planner/grant or package changes. Existing E11/E13/E14 findings remain dated unresolved, not freshly audited.",
+  "next": "Review CTE-free stg_order_items projection preserving all nine columns, types, normalization, invalid parsing, lineage and independent reconciliation; run existing offline and native correctness gates before any adoption/performance claim.",
+  "hashes": [
+    {
+      "path": ".artifacts/phase-5/8f42a12c69e346d1b9943e00723c7eff/probe-source.py",
+      "sha256": "e82d3f5ebd670795468134660cd78d280e3ec3ebabd07f6e4c372c6fa04e37cd"
+    },
+    {
+      "path": ".artifacts/phase-5/8f42a12c69e346d1b9943e00723c7eff/receipt.json",
+      "sha256": "5ed9c36e2c692cee4c2a0ee179a32a481eae33f5e6006bec128fea8c050dae3b"
+    },
+    {
+      "path": ".artifacts/phase-5/8f42a12c69e346d1b9943e00723c7eff/source-hashes.json",
+      "sha256": "a12ec9843674812204f0a0a2f27fba8772863d1ab8a76a9913e93ab8ecdd0465"
+    },
+    {
+      "path": ".artifacts/phase-5/8f42a12c69e346d1b9943e00723c7eff/method.json",
+      "sha256": "4ae2590181ad58e1afecf5c2399e61fad0a0ca39eb252ea85b9003a93fc9470d"
+    },
+    {
+      "path": ".artifacts/phase-5/offline-cte-pair-5c91a8f9debb4dc9b1c651c4549e5255/receipt.json",
+      "sha256": "c0a9baf5294a548d208d8443b6d1177ec2762f779ca01b03ead8e2de99529011"
+    },
+    {
+      "path": ".artifacts/phase-5/test_cte_boundary_pair_20261028.py",
+      "sha256": "dd91d1be4b1c63f1144aae6f186c41afcdeecebb397769243d2a84b3bf27d7e0"
+    }
+  ]
+}

@@ -1,5 +1,12 @@
 # Phase 5 isolated native verification
 
+2026-10-28 paired follow-up: identical normalized item grouping estimates87208
+through a plain derived SELECT versus200 through a WITH-containing subquery.
+Independent restoration and99source bindings passed; no performance acceptance.
+See [paired evidence](phase-5-cte-boundary-pair-verification.json). Next review a
+CTE-free item staging projection with unchanged parsing/contracts before native gates.
+
+
 2026-10-28: read-only15-plan diagnosis passed with independent restoration. Shared
 mart estimates match across reader/transformer roles; raw/normalized item grouping
 estimates87208 but staging/mart estimate200. Next isolate the WITH/subquery boundary
