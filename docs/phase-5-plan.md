@@ -1,5 +1,13 @@
 # Phase 5 — KPI and analytics layer
 
+2026-10-28 source follow-up: stg_order_items now uses a derived normalization
+projection with unchanged nine-field parsing/lineage contract. Full offline1986
+passed, including132 staging cases and real closed-graph parse; lint/format/types
+passed. [Evidence](phase-5-item-staging-derived-verification.json). Native83staging
+fixtures, full staging/downstream equivalence and performance remain pending.
+Deployed views unchanged; old probe hashes must reject this changed source.
+
+
 2026-10-28 paired follow-up: identical normalized item grouping estimates87208
 through a plain derived SELECT versus200 through a WITH-containing subquery.
 Independent restoration and99source bindings passed; no performance acceptance.

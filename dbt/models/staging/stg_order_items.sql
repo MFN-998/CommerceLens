@@ -3,7 +3,19 @@
 -- flags belong to fact_order_items later, together with any duration eligibility.
 -- Exact empty text becomes NULL; rejected numeric/date text becomes typed NULL
 -- and fails blocking tests. Price/freight zero is valid and retained without flags.
-with normalized as (
+-- A derived projection lets PostgreSQL retain item-ID estimates when grouping
+-- through this view; a WITH-containing boundary can hide those estimates.
+select
+    _load_id,
+    _source_row,
+    order_id,
+    {{ commercelens_nullable_bigint('order_item_id') }} as order_item_id,
+    product_id,
+    seller_id,
+    {{ commercelens_nullable_timestamp('shipping_limit_date') }} as shipping_limit_date,
+    {{ commercelens_nullable_money('price') }} as price,
+    {{ commercelens_nullable_money('freight_value') }} as freight_value
+from (
     select
         _load_id,
         _source_row,
@@ -15,16 +27,4 @@ with normalized as (
         nullif(price, '') as price,
         nullif(freight_value, '') as freight_value
     from {{ source('raw', 'order_items') }}
-)
-
-select
-    _load_id,
-    _source_row,
-    order_id,
-    {{ commercelens_nullable_bigint('order_item_id') }} as order_item_id,
-    product_id,
-    seller_id,
-    {{ commercelens_nullable_timestamp('shipping_limit_date') }} as shipping_limit_date,
-    {{ commercelens_nullable_money('price') }} as price,
-    {{ commercelens_nullable_money('freight_value') }} as freight_value
-from normalized
+) normalized

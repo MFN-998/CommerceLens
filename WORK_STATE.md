@@ -3,7 +3,49 @@
 Authoritative handoff updated 2026-10-28. Actual D repository, Git and verified
 evidence take precedence over chat. Read the permanent instructions before edits.
 
-## Current checkpoint — CTE boundary reproduced, 2026-10-28
+## Current checkpoint — item staging rewrite verified offline, 2026-10-28
+
+SAFE TO RESUME / SOURCE VERIFIED OFFLINE; NATIVE AND PERFORMANCE PENDING.
+Published26c95d1 records the fixed pair: derived87208 groups versus WITH200,
+independent restoration and99bindings passed. Clean/upstream0/0 verified before
+this source unit. Only dbt/models/staging/stg_order_items.sql changes: normalized
+WITH replaced by derived SELECT. All nine output expressions/order, safe parsing,
+normalization, raw source and lineage stay identical; no filter/join/deduplication.
+Master Plan Agent reviewed proposed scope and final diff with no material blocker.
+
+Full offline1986 passed/1069 intentional native skips, including132 item staging
+cases and real network-blocked parse/closed22model305test graph. Ruff lint/format
+208files and mypy36files passed. Artifact .artifacts/phase-5/item-staging-derived-
+984b3ba9cab8407c87fc8767d91867bb; receipt seconds73.987. Evidence:
+docs/phase-5-item-staging-derived-verification.json. New retained supervisor:
+.artifacts/phase-5/verify_item_staging_derived_20261028.py. Initial root-path typo
+stopped before checks and was corrected; restricted test run d8e0cfa967ea48f5b50883e8456230ed
+timed out300s without results; normal-permission retry passed. All outputs retained.
+No native type/full-source/performance acceptance for this rewrite; deployed views
+unchanged. Existing probes' staging source bindings are stale and must fail closed.
+
+Next FIRST: prepare a NEW retained read-only native fixture supervisor for the83
+existing tests/test_warehouse_item_postgres_integration.py cases. Review the prior
+item_projection_native_fixtures_20261025.py supervisor, but explicitly adapt the
+older fixture load_settings path to recovery root D:\My Projects\CommerceLens-Reconstruction
+and expected histbcmlctxmtxusfbzt; reject protectedoriginalimvahwzlovgmaltuysmb.
+Refresh only reviewed source bindings, retain bounded read-only synthetic SQL,
+source/role/TLS/deadline/privacy guards and independent positive restoration, and
+get Master Plan review before execution. No new native supervisor exists yet.
+After typed fixtures, prepare full9field staging equivalence before temporary
+replacement, then downstream15/70/26field equality and bounded performance on the
+candidate graph, with exact catalog/dependency/access restoration. Do not bypass
+old hashes or persistently adopt from the paired estimate alone.
+
+Usage70%five-hour/11%weekly used at preservation; no new unit this session.
+Save/scan/commit/publish and stop before reserve. Full16-case/concurrent Q01,
+consumer reconciliation and Phase5exit remain. Phases1–4/governance complete;
+Phase6notstarted. STOP and ask owner beforePhase6. E11/E13/E14 dated25October
+findings remain unresolved; no fresh advisory scan, package, frontendlaunch,
+merge, deployment or deletion. Containing commit is checkpoint; verify clean/
+upstream0/0 after authorized publication. Resume with fresh usage/Git checks.
+
+## Previous checkpoint — CTE boundary reproduced, 2026-10-28
 
 SAFE TO RESUME / PAIRED READ-ONLY DIAGNOSIS VERIFIED; Q01 OPEN.
 Resumed clean published73e7877, upstream0/0, usage4% five-hour/1% weekly used.

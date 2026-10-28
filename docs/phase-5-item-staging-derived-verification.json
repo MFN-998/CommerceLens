@@ -1,0 +1,66 @@
+{
+  "date": "2026-10-28",
+  "baseline_checkpoint": "26c95d1",
+  "status": "ITEM STAGING DERIVED PROJECTION VERIFIED OFFLINE; NATIVE AND PERFORMANCE PENDING",
+  "change": "Only stg_order_items replaces the normalized WITH boundary with an ordinary derived SELECT; all nine output expressions/order, normalization, raw source, parsing macros and lineage are unchanged.",
+  "validation": {
+    "artifacts": ".artifacts/phase-5/item-staging-derived-984b3ba9cab8407c87fc8767d91867bb",
+    "checks": {
+      "pytest": 0,
+      "ruff": 0,
+      "format": 0,
+      "mypy": 0
+    },
+    "tests": {
+      "tests": 3055,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 1069
+    },
+    "seconds": 73.987
+  },
+  "passed": 1986,
+  "item_staging_cases_passed": 132,
+  "native_item_staging_cases_skipped": 83,
+  "format_files": 208,
+  "mypy_files": 36,
+  "real_offline_parse": "Passed with network/adapter guards; unchanged22model/305test graph.",
+  "review": "Master Plan Agent reviewed scope before edit and final source diff; no material blocker.",
+  "earlier_validation_attempts": [
+    "Initial local supervisor root-path typo stopped before any checks or artifact folder creation; corrected.",
+    "Restricted test run retained at .artifacts/phase-5/item-staging-derived-d8e0cfa967ea48f5b50883e8456230ed reached300s without results; normal-permission retry passed."
+  ],
+  "security": "No dependency, grant, environment or database change. No new advisory scan; E11/E13/E14 from25October remain unresolved before their existing release/use gates.",
+  "native_limitations": "No current native type/invalid-input acceptance, full staging/downstream equivalence, runtime/spill or Q01 acceptance. Deployed views unchanged. Existing probes with old staging hashes must fail closed.",
+  "next": "Prepare a newly bound read-only supervisor for83existing tests/test_warehouse_item_postgres_integration.py cases against explicit recovery project histbcmlctxmtxusfbzt and root D:/My Projects/CommerceLens-Reconstruction. Adapt settings loading explicitly; never let older fixture defaults select the protected original project. Preserve resource/source/SQL/privacy guards and independent restoration; Master Plan review before execution. Then full9field staging equivalence and downstream15/70/26field equivalence before rollback-only candidate replacements and bounded performance. No such new supervisor exists yet.",
+  "hashes": [
+    {
+      "path": "dbt/models/staging/stg_order_items.sql",
+      "sha256": "580e9b86c438b7d7334defa9ca3b01e8105c60fb8c497c30099f0b77f1a4ab3c"
+    },
+    {
+      "path": "dbt/macros/source_numeric.sql",
+      "sha256": "f46e11b62f05338ec55f3184395c8b005c6a35bda4b70a81a3c896b7b0532c78"
+    },
+    {
+      "path": "dbt/macros/source_timestamp.sql",
+      "sha256": "529a5d2907d6a4a1ac714589e016640a95c3918507ce0c3322905fdfc324452c"
+    },
+    {
+      "path": "dbt/macros/source_money.sql",
+      "sha256": "a72351fad822e541fd18b92be8c85e0f0263789c8636c1f987f145164f6feed4"
+    },
+    {
+      "path": ".artifacts/phase-5/item-staging-derived-984b3ba9cab8407c87fc8767d91867bb/receipt.json",
+      "sha256": "1c9c2b9c7f7f447b4e5b55dcae161b2981ec400622c1b5d300d0312b099d1c40"
+    },
+    {
+      "path": ".artifacts/phase-5/item-staging-derived-984b3ba9cab8407c87fc8767d91867bb/junit.xml",
+      "sha256": "91abd802df9a05678c27db33c8085b1f666e2532ac9ada28da0db74133856baa"
+    },
+    {
+      "path": ".artifacts/phase-5/verify_item_staging_derived_20261028.py",
+      "sha256": "e04431648b1f29e23c6f349a752dbf8c4af4bd93ad6beae8a414e57f3e3776a8"
+    }
+  ]
+}
