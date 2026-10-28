@@ -1,0 +1,316 @@
+{
+  "date": "2026-10-28",
+  "baseline_checkpoint": "688f20b",
+  "status": "READ-ONLY ESTIMATE DIAGNOSIS COMPLETED; INDEPENDENT RESTORATION VERIFIED; NO PERFORMANCE ACCEPTANCE",
+  "artifacts": ".artifacts/phase-5/84740eb8e09e44b8a1720b6075c31bcf",
+  "source_bindings_verified_before_and_after": 99,
+  "server_version_num": "170011",
+  "plans_completed": 15,
+  "common_plan_numeric_summaries_equal_across_roles": true,
+  "visible_numeric_statistics": {
+    "commercelens_transformer": [
+      [
+        "order_items",
+        "order_id",
+        false,
+        0.0,
+        33,
+        -0.77415
+      ],
+      [
+        "orders",
+        "order_id",
+        false,
+        0.0,
+        33,
+        -1.0
+      ],
+      [
+        "orders",
+        "order_purchase_timestamp",
+        false,
+        0.0,
+        20,
+        -0.991985
+      ],
+      [
+        "orders",
+        "order_status",
+        false,
+        0.0,
+        9,
+        7.0
+      ]
+    ],
+    "commercelens_reader": []
+  },
+  "relation_statistics_metadata": [
+    [
+      "order_items",
+      112650.0,
+      2640,
+      0,
+      0,
+      false,
+      false
+    ],
+    [
+      "orders",
+      99441.0,
+      2824,
+      0,
+      0,
+      false,
+      false
+    ]
+  ],
+  "extended_statistics_object_and_expression_counts": [
+    [
+      "order_items",
+      0,
+      0
+    ],
+    [
+      "orders",
+      0,
+      0
+    ]
+  ],
+  "estimated_nodes": {
+    "mart_order_eligible": [
+      {
+        "Node Type": "Aggregate",
+        "Plan Rows": 1,
+        "Partial Mode": "Finalize"
+      },
+      {
+        "Node Type": "Aggregate",
+        "Plan Rows": 1,
+        "Partial Mode": "Partial"
+      },
+      {
+        "Node Type": "Seq Scan",
+        "Relation Name": "orders",
+        "Plan Rows": 29247
+      }
+    ],
+    "mart_order_period": [
+      {
+        "Node Type": "Aggregate",
+        "Plan Rows": 1,
+        "Partial Mode": "Finalize"
+      },
+      {
+        "Node Type": "Aggregate",
+        "Plan Rows": 1,
+        "Partial Mode": "Partial"
+      },
+      {
+        "Node Type": "Seq Scan",
+        "Relation Name": "orders",
+        "Plan Rows": 292
+      }
+    ],
+    "mart_order_eligible_period": [
+      {
+        "Node Type": "Aggregate",
+        "Plan Rows": 1,
+        "Partial Mode": "Finalize"
+      },
+      {
+        "Node Type": "Aggregate",
+        "Plan Rows": 1,
+        "Partial Mode": "Partial"
+      },
+      {
+        "Node Type": "Seq Scan",
+        "Relation Name": "orders",
+        "Plan Rows": 146
+      }
+    ],
+    "mart_item_group": [
+      {
+        "Node Type": "Aggregate",
+        "Plan Rows": 200,
+        "Partial Mode": "Finalize"
+      },
+      {
+        "Node Type": "Aggregate",
+        "Plan Rows": 200,
+        "Partial Mode": "Partial"
+      },
+      {
+        "Node Type": "Seq Scan",
+        "Relation Name": "order_items",
+        "Plan Rows": 66265
+      },
+      {
+        "Node Type": "Seq Scan",
+        "Relation Name": "orders",
+        "Plan Rows": 99441
+      },
+      {
+        "Node Type": "Seq Scan",
+        "Relation Name": "orders",
+        "Plan Rows": 99441
+      }
+    ],
+    "raw_item_group": [
+      {
+        "Node Type": "Aggregate",
+        "Plan Rows": 87208,
+        "Partial Mode": "Simple"
+      },
+      {
+        "Node Type": "Seq Scan",
+        "Relation Name": "order_items",
+        "Plan Rows": 112650
+      }
+    ],
+    "normalized_item_group": [
+      {
+        "Node Type": "Aggregate",
+        "Plan Rows": 87208,
+        "Partial Mode": "Simple"
+      },
+      {
+        "Node Type": "Seq Scan",
+        "Relation Name": "order_items",
+        "Plan Rows": 112650
+      }
+    ],
+    "staged_item_group": [
+      {
+        "Node Type": "Aggregate",
+        "Plan Rows": 200,
+        "Partial Mode": "Finalize"
+      },
+      {
+        "Node Type": "Aggregate",
+        "Plan Rows": 200,
+        "Partial Mode": "Partial"
+      },
+      {
+        "Node Type": "Seq Scan",
+        "Relation Name": "order_items",
+        "Plan Rows": 66265
+      }
+    ],
+    "raw_order_status": [
+      {
+        "Node Type": "Aggregate",
+        "Plan Rows": 1,
+        "Partial Mode": "Simple"
+      },
+      {
+        "Node Type": "Seq Scan",
+        "Relation Name": "orders",
+        "Plan Rows": 96454
+      }
+    ],
+    "normalized_order_status": [
+      {
+        "Node Type": "Aggregate",
+        "Plan Rows": 1,
+        "Partial Mode": "Simple"
+      },
+      {
+        "Node Type": "Seq Scan",
+        "Relation Name": "orders",
+        "Plan Rows": 49720
+      }
+    ],
+    "staged_order_period": [
+      {
+        "Node Type": "Aggregate",
+        "Plan Rows": 1,
+        "Partial Mode": "Finalize"
+      },
+      {
+        "Node Type": "Aggregate",
+        "Plan Rows": 1,
+        "Partial Mode": "Partial"
+      },
+      {
+        "Node Type": "Seq Scan",
+        "Relation Name": "orders",
+        "Plan Rows": 292
+      }
+    ],
+    "staged_order_eligible_period": [
+      {
+        "Node Type": "Aggregate",
+        "Plan Rows": 1,
+        "Partial Mode": "Finalize"
+      },
+      {
+        "Node Type": "Aggregate",
+        "Plan Rows": 1,
+        "Partial Mode": "Partial"
+      },
+      {
+        "Node Type": "Seq Scan",
+        "Relation Name": "orders",
+        "Plan Rows": 146
+      }
+    ]
+  },
+  "postcheck": {
+    "rollback_verified": true,
+    "database_bytes": 287594163,
+    "database_bytes_delta": 0,
+    "raw_bytes": 275988480,
+    "limits": "No persistent candidate; not proof of absent WAL/catalog/filesystem effects"
+  },
+  "guards": {
+    "receipt": ".artifacts/phase-5/offline-estimate-c707ea48c2ff433d9ef7a9defed7c47d",
+    "role_success_failure_cases": 22,
+    "supervisor_cases": 6,
+    "fixed_allowlist_no_query_execution_or_mutations": true,
+    "reader_marts_only": true,
+    "sample_values_excluded": true,
+    "ruff": "passed",
+    "format": "passed"
+  },
+  "review": "Master Plan Agent reviewed diagnostic scope, source/SQL guards, role boundaries, all six planner settings, bounded private outputs and independent positive restoration before execution.",
+  "limits": {
+    "statement_seconds": 55,
+    "lock_seconds": 5,
+    "probe_seconds": 180,
+    "postcheck_seconds_max": 110,
+    "overall_seconds": 300
+  },
+  "findings": [
+    "Four selected raw-column statistics are visible to the transformer and none to the reader; absence from reader pg_stats is visibility evidence, not proof statistics do not exist.",
+    "All four common mart plan numeric summaries are identical across roles; this comparison does not support attributing these estimate differences to reader privileges.",
+    "Raw and directly normalized item-ID grouping both estimate87208 groups; staging and mart grouping estimate200. The direct NULLIF expression alone does not reproduce the loss.",
+    "Staging order and item view reloptions are null: neither currently specifies security_barrier. No security option was changed.",
+    "Raw delivered-status estimate96454 becomes49720 with the normalized/coalesced predicate. Typed period and combined filters retain low estimates; parallel scan estimates are per plan node/worker, not measured totals.",
+    "No extended statistics objects on the two raw tables. Analysis counters/timestamps are zero/absent despite existing column statistics; these counters do not prove ANALYZE never occurred.",
+    "PostgreSQL17 stable-branch source rejects subquery pull-up when a WITH list is present. This supports a controlled CTE-boundary hypothesis; it is not yet measured proof for a rewritten model."
+  ],
+  "next": "Prepare a new read-only EXPLAIN-only pair grouping the same normalized raw.order_items ID through an ordinary derived SELECT versus an otherwise identical WITH-containing subquery. Keep expressions, collation and role equal. If the estimate changes, review a CTE-free staging projection before source changes, preserving all columns, parsing/missingness/lineage and independent tests. No statistics mutation or package needed for this first comparison.",
+  "limitations": "Deployed original views only, not prior temporary candidate graph. No query execution, latency/traffic improvement, new full-source equivalence or Q01 acceptance. No production source/dependency/DDL/statistics/grant/planner change. Existing E11/E13/E14 remain dated unresolved findings; no fresh advisory scan this diagnostic-only unit.",
+  "hashes": [
+    {
+      "path": ".artifacts/phase-5/84740eb8e09e44b8a1720b6075c31bcf/probe-source.py",
+      "sha256": "8af92d9e1f553e9293aac6f149a7dbf5df84e852f115404a9ba261d61df9b5df"
+    },
+    {
+      "path": ".artifacts/phase-5/84740eb8e09e44b8a1720b6075c31bcf/receipt.json",
+      "sha256": "cb2fcbd045f93645ae7e5e3c31ce9e112a5ef0bb4c46504cd50dd1f6cf5130e9"
+    },
+    {
+      "path": ".artifacts/phase-5/84740eb8e09e44b8a1720b6075c31bcf/source-hashes.json",
+      "sha256": "a12ec9843674812204f0a0a2f27fba8772863d1ab8a76a9913e93ab8ecdd0465"
+    },
+    {
+      "path": ".artifacts/phase-5/84740eb8e09e44b8a1720b6075c31bcf/method.json",
+      "sha256": "835575f86f9a38b61754b3e81d5e000f9822d266d34318e8c9626b6263ee3f2a"
+    },
+    {
+      "path": ".artifacts/phase-5/test_estimate_diagnosis_20261028.py",
+      "sha256": "1dd6ee0cd5ac79361deb4a6c7218ff689e7fc76b0932a8417ad22cc3fe0ef724"
+    }
+  ]
+}

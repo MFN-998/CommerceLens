@@ -1,5 +1,12 @@
 # Phase 5 — KPI and analytics layer
 
+2026-10-28: read-only15-plan diagnosis passed with independent restoration. Shared
+mart estimates match across reader/transformer roles; raw/normalized item grouping
+estimates87208 but staging/mart estimate200. Next isolate the WITH/subquery boundary
+before statistics or model changes. See [evidence](phase-5-estimate-diagnosis-verification.json)
+and [research](phase-5-estimate-diagnosis-20261028.md). No performance acceptance.
+
+
 2026-10-26 follow-up: the same fixed reference-reuse query with normal planner
 settings was cancelled during EXPLAIN ANALYZE. Full source equality and independent
 restoration passed; no execution metrics or response check completed in this run.

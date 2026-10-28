@@ -1,9 +1,50 @@
 # CommerceLens work state
 
-Authoritative handoff updated 2026-10-26. Actual D repository, Git and verified
+Authoritative handoff updated 2026-10-28. Actual D repository, Git and verified
 evidence take precedence over chat. Read the permanent instructions before edits.
 
-## Current checkpoint — normal planner cancelled; estimate diagnosis next, 2026-10-26
+## Current checkpoint — estimate loss isolated at staging boundary, 2026-10-28
+
+SAFE TO RESUME / READ-ONLY DIAGNOSIS VERIFIED; Q01 STILL OPEN.
+Resumed clean published688f20b at9% five-hour/13% weekly used. New retained
+estimate_diagnosis_20261028.py and test_estimate_diagnosis_20261028.py passed
+22role success/failure cases,6supervisor cases, SQL/source/privacy guards and
+Ruff lint/format. Master Plan Agent reviewed before native execution.
+
+All15 EXPLAIN-only cases completed against unchanged deployed views in artifact
+.artifacts/phase-5/84740eb8e09e44b8a1720b6075c31bcf. All99 bindings matched after.
+Independent catalog/access/settings restoration passed; database287594163 and
+raw275988480 bytes unchanged. Server reports170011. No DDL, ANALYZE, statistics,
+grant/planner override, package or production source change. No query execution,
+new latency/result equality or performance acceptance is claimed.
+
+Transformer sees four selected raw-column statistics; reader sees none. All four
+shared mart plan summaries match across roles. Direct raw and NULLIF item grouping
+estimate87208; staging/mart estimate200. Staging retains a Subquery Scan despite
+both relevant views having null reloptions (no configured security_barrier).
+The direct NULLIF expression alone does not reproduce the loss. Raw status96454
+versus normalized/coalesced49720 and parsed-date low estimates also remain.
+Zero analysis counters do not mean analysis never occurred: column statistics exist.
+Evidence docs/phase-5-estimate-diagnosis-verification.json and primary-source research
+docs/phase-5-estimate-diagnosis-20261028.md contain details and caveats.
+
+Next FIRST: prepare a new fixed read-only EXPLAIN pair grouping the same normalized
+raw.order_items ID through an ordinary derived SELECT and an otherwise identical
+WITH-containing subquery, same C collation/transformer role/settings. PostgreSQL17
+source rejects pull-up when a WITH list remains; test this boundary before adding
+statistics. No new paired runner exists yet. If estimates change, review a CTE-free
+stg_order_items projection preserving all columns/types/parsing/missingness/lineage
+before source edits and independent equivalence/performance gates. Do not install
+the linked proposed PostgreSQL patch or weaken grants/security barriers.
+
+Usage65% five-hour/22% weekly used at completed diagnosis: preserve/publish then
+stop before a larger unit. Full16-case/concurrent Q01, consumer reconciliation and
+Phase5exit remain. Phases1–4/governance complete; Phase6notstarted. STOP and ask owner
+before Phase6. E11/E13/E14 remain dated25October unresolved findings; no fresh audit
+for this diagnostics-only unit. No frontend launch, merge, deployment or deletion.
+Containing commit is checkpoint; verify clean/upstream0/0 after publication.
+
+## Previous checkpoint — normal planner cancelled; estimate diagnosis next, 2026-10-26
 
 SAFE TO RESUME / TWO BOUNDED RESULTS SAVED; Q01 OPEN; NOT ADOPTED.
 Reference reuse saved in f5179e4: full source and complete response equality,
