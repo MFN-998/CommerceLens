@@ -1,9 +1,52 @@
 # CommerceLens work state
 
-Authoritative handoff updated 2026-10-28. Actual D repository, Git and verified
+Authoritative handoff updated 2026-11-04. Actual D repository, Git and verified
 evidence take precedence over chat. Read the permanent instructions before edits.
 
-## Current checkpoint — item staging rewrite verified offline, 2026-10-28
+## Current checkpoint — native staging setup assertion isolated, 2026-11-04
+
+SAFE TO RESUME / NATIVE SETUP FAILED; INDEPENDENT RESTORATION VERIFIED.
+Resumed clean published9eded40, upstream0/0; initial usage7%five-hour/13%weekly.
+New retained item_staging_native_fixtures_20261104.py and its test_ counterpart
+passed offline source/target/settings/transaction/deadline/failure/restoration
+checks plus Ruff lint/format. Master Plan Agent reviewed before native execution.
+All147 inherited bindings unchanged;11new inputs bind stagingSQL/parsing/singular
+checks/installeddbtgenericSQL/manifest/lock,158total. Explicit recovery settings
+adapter preserves original83testbodies/login/TLS/role assertions. No tracked
+application, test, model or dependency change this unit.
+
+Native artifact .artifacts/phase-5/652aad0500aa48d781e2ea685f9b399d collected83
+cases, all83errored at the same module setup assertion; ZERO test bodies completed.
+Tupleindex3 is pg_stat_ssl.ssl for current backend: False versus expectedTrue.
+Do not label these83data failures or claim native model acceptance. All158source
+bindings matched afterward. Independent catalog/access/settings restoration passed;
+database287602355/raw275988480 bytes, jobdelta0. Database8192larger than28October,
+causeunknown. Evidence docs/phase-5-item-staging-native-verification.json.
+
+Next FIRST: prepare a small bounded read-only transport diagnostic on explicit
+recoveryroot D:\My Projects\CommerceLens-Reconstruction, refhistbcmlctxmtxusfbzt.
+Collect only fixed identity/effective-role/read-only checks, actual client
+connection.pgconn.ssl_in_use and backend pg_stat_ssl.ssl; preserve verify-full,
+trustedCA/hostname verification and independentrestoration. Installedpsycopg3.3.6
+has pq.PGconn.ssl_in_use; ConnectionInfo does not. No live clientflag yet measured.
+OfficialPostgreSQL says pg_stat_ssl describes backendconnection, while Supabase
+supports verify-full for the sessionpooler. Pooler-hop mismatch is a hypothesis
+requiring direct evidence, not permission to discard securityassertions. No new
+transport runner exists. Do not substitute testresults or downgradeTLS. After
+verified transport-scope resolution, adapt83casefixture with negative coverage
+and Masterreview, rerun it, then full9field staging and downstream15/70/26field
+source equivalence plus bounded performance/restoration. Earlier runtime probes
+remain stale for currentstagingSQL; no persistentcandidate adoption.
+
+Usage65%five-hour/22%weekly at preservation: save/scan/commit/publish thenstop.
+Prior1986offline/132staging cases remain accepted; no unchangedfullsuite rerun.
+Full16-case/concurrentQ01, independentconsumerreconciliation and Phase5exitremain.
+Phases1–4/governancecomplete; Phase6notstarted. STOP and askowner beforePhase6.
+E11/E13/E14 are dated25October unresolvedfindings, not freshlyrescanned. No package,
+frontendlaunch, merge, deployment or deletion. See docs/phase-5-progress-20261104.md
+for progress/delayanalysis. Containingcommit is checkpoint; verifyclean/upstream0/0.
+
+## Previous checkpoint — item staging rewrite verified offline, 2026-10-28
 
 SAFE TO RESUME / SOURCE VERIFIED OFFLINE; NATIVE AND PERFORMANCE PENDING.
 Published26c95d1 records the fixed pair: derived87208 groups versus WITH200,

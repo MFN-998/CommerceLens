@@ -1,5 +1,13 @@
 # Phase 5 isolated native verification
 
+2026-11-04: the new83case native staging job stopped at a shared setup assertion:
+backend pg_stat_ssl.ssl=False versus expectedTrue on the session-pooler route.
+No test body completed. All158bindings and independent restoration passed; no
+persistent change. Next verify actual client TLS and backend-hop scope before
+adapting the fixture. See [evidence](phase-5-item-staging-native-verification.json)
+and [progress report](phase-5-progress-20261104.md). Phase5 remains incomplete.
+
+
 2026-10-28 source follow-up: stg_order_items now uses a derived normalization
 projection with unchanged nine-field parsing/lineage contract. Full offline1986
 passed, including132 staging cases and real closed-graph parse; lint/format/types

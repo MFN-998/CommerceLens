@@ -1,0 +1,103 @@
+{
+  "date": "2026-11-04",
+  "baseline_checkpoint": "9eded40",
+  "status": "NATIVE FIXTURE SETUP FAILED; INDEPENDENT RESTORATION VERIFIED; NO MODEL ACCEPTANCE",
+  "artifacts": ".artifacts/phase-5/652aad0500aa48d781e2ea685f9b399d",
+  "source_bindings_verified_before_and_after": 158,
+  "tests": {
+    "exit_code": 1,
+    "tests": 83,
+    "errors": 83,
+    "failures": 0,
+    "skipped": 0,
+    "accepted": false,
+    "read_only": true
+  },
+  "postcheck": {
+    "rollback_verified": true,
+    "database_bytes": 287602355,
+    "database_bytes_delta": 0,
+    "raw_bytes": 275988480,
+    "limits": "No persistent candidate; not proof of absent WAL/catalog/filesystem effects"
+  },
+  "failure_diagnosis": {
+    "all83_errors_same_module_setup_assertion": true,
+    "failed_tuple_index": 3,
+    "field": "pg_stat_ssl.ssl for pg_backend_pid()",
+    "actual": false,
+    "expected": true,
+    "test_bodies_executed": 0,
+    "interpretation": "Legacy direct-backend SSL assertion fails on the verified-full session-pooler route. Client TLS state was not separately collected. Do not infer client transport insecurity or certify end-to-end transport from this result."
+  },
+  "guards": {
+    "source_bindings": 158,
+    "hash_drift_rejected": true,
+    "wrong_target_or_role_rejected": true,
+    "read_only_verified_and_failure_closes": true,
+    "per_statement_deadline_enforced": true,
+    "mutation_statements_rejected": 4,
+    "rollback_required": true,
+    "legacy_default_transaction_forced_rollback": true,
+    "explicit_recovery_settings_routing": true,
+    "fixture_config_restored_on_success_and_failure": true,
+    "empty_incomplete_skipped_failed_jobs_rejected": true,
+    "independent_postcheck_on_worker_failure": true,
+    "restore_failure_propagates": true,
+    "positive_restoration_receipt_required": true,
+    "artifacts": ".artifacts/phase-5/offline-item-staging-native-00bbdfd82cbc43458b3c6e7108f4b0f6"
+  },
+  "ruff_lint_and_format": "passed",
+  "master_plan_review": "Scope and final harness reviewed before native execution; no material blocker.",
+  "supervision": {
+    "fixture_seconds": 480,
+    "restoration_seconds_max": 110,
+    "overall_seconds": 600,
+    "statement_seconds": 55,
+    "lock_seconds": 5
+  },
+  "changes": "New retained supervisor only: explicit recovery settings adapter, unchanged83testbodies/identityassertions, forced rollback for legacy transaction defaults, fixed transformer role control, admin target guard,158bindings including11additional staging/genericSQL/lock inputs. No tracked application/test/model or dependency edits.",
+  "research": [
+    {
+      "url": "https://www.postgresql.org/docs/17/monitoring-stats.html#MONITORING-PG-STAT-SSL-VIEW",
+      "finding": "pg_stat_ssl describes each backend connection; it does not separately measure the client-to-pooler leg."
+    },
+    {
+      "url": "https://supabase.com/docs/guides/database/psql",
+      "finding": "Official session-pooler connection example uses verify-full and a trusted CA."
+    }
+  ],
+  "local_api_check": {
+    "psycopg_version": "3.3.6",
+    "pq_PGconn_ssl_in_use_available": true,
+    "ConnectionInfo_ssl_in_use_available": false,
+    "live_client_ssl_in_use_measured": false
+  },
+  "next": "Prepare a small bounded read-only transport diagnostic using the explicit recovery transformer connection. Collect only fixed identity/role/read-only booleans, live connection.pgconn.ssl_in_use, and backend pg_stat_ssl.ssl; retain verify-full/CA/hostname validation and independent restoration. Establish pooler-hop scope before changing the native fixture. No substitution of test results, TLS downgrade, or removal of security assertions. Then adapt the fixture deliberately with negative regression coverage and rerun83cases before full9/15/70/26source and performance gates.",
+  "limitations": "No native model acceptance, new performance result or Q01 acceptance. No persistent database or package change. Database grew8192bytes since28October, cause unknown; within this job delta0. Existing E11/E13/E14 advisories remain dated25October observations, no fresh scan this verification-only unit.",
+  "hashes": [
+    {
+      "path": ".artifacts/phase-5/652aad0500aa48d781e2ea685f9b399d/probe-source.py",
+      "sha256": "0f9f4ea3d050862797946efbd958b0e0ab5c53bfbcbe2d4c14a4d4c27ded9e51"
+    },
+    {
+      "path": ".artifacts/phase-5/652aad0500aa48d781e2ea685f9b399d/receipt.json",
+      "sha256": "390f8ea58e2ed44b52f1d02c91c1c087143c6709627b397f112b2c2b0c99d385"
+    },
+    {
+      "path": ".artifacts/phase-5/652aad0500aa48d781e2ea685f9b399d/source-hashes.json",
+      "sha256": "7a5baaa5ce7fb34842e0977e08cd91b48d925d47e7a9b360ab2543c2f31db828"
+    },
+    {
+      "path": ".artifacts/phase-5/652aad0500aa48d781e2ea685f9b399d/synthetic-private.xml",
+      "sha256": "3819d82ab4053be06dbe683a8e0d58ab4a09e59c5fc7201ed8112bcba4e1cafc"
+    },
+    {
+      "path": ".artifacts/phase-5/offline-item-staging-native-00bbdfd82cbc43458b3c6e7108f4b0f6/receipt.json",
+      "sha256": "7d4fc38c1730bf468565d55d8d4330a902010318054c4c0af0be12aa63369ef6"
+    },
+    {
+      "path": ".artifacts/phase-5/test_item_staging_native_fixtures_20261104.py",
+      "sha256": "6e35b9924ac5b65a9e0f7c4a8fe819458a082564aaaf63863b27d916a2e45d19"
+    }
+  ]
+}
