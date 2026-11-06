@@ -1,0 +1,101 @@
+{
+  "date": "2026-11-06",
+  "baseline_checkpoint": "04b033b",
+  "status": "ALL83NATIVE STAGING CASES PASSED; INDEPENDENT RESTORATION VERIFIED; NO ADOPTION",
+  "result": {
+    "artifacts": ".artifacts/phase-5/9fe604cba7f24954aec7a77dacc2cb57",
+    "status": "passed",
+    "adopted": false,
+    "tests": {
+      "exit_code": 0,
+      "tests": 83,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "accepted": true,
+      "read_only": true,
+      "transport": {
+        "client_tls": true,
+        "client_sslmode": "verify-full",
+        "backend_ssl": false
+      }
+    },
+    "postcheck": {
+      "rollback_verified": true,
+      "database_bytes": 287626931,
+      "database_bytes_delta": 0,
+      "raw_bytes": 275988480,
+      "limits": "No persistent candidate; not proof of absent WAL/catalog/filesystem effects"
+    }
+  },
+  "native_seconds": 167.853,
+  "source_bindings_verified_before_and_after": 160,
+  "offline": {
+    "focused_client_transport_tests": 15,
+    "seconds": 0.4,
+    "lint": "passed",
+    "format_files": 5,
+    "mypy_helper_files": 1,
+    "guard_receipt": {
+      "source_bindings": 160,
+      "hash_drift_rejected": true,
+      "wrong_target_or_role_rejected": true,
+      "read_only_verified_and_failure_closes": true,
+      "per_statement_deadline_enforced": true,
+      "mutation_statements_rejected": 4,
+      "rollback_required": true,
+      "legacy_default_transaction_forced_rollback": true,
+      "explicit_recovery_settings_routing": true,
+      "fixture_config_restored_on_success_and_failure": true,
+      "empty_incomplete_skipped_failed_jobs_rejected": true,
+      "independent_postcheck_on_worker_failure": true,
+      "restore_failure_propagates": true,
+      "positive_restoration_receipt_required": true,
+      "artifacts": ".artifacts/phase-5/offline-item-staging-native-505fe12899244d6bb4191ba030f8bfa4"
+    }
+  },
+  "review": "Master Plan reviewed diagnosis and finalfixture/supervisor. RelativeCA compatibilityfinding corrected with certificate_path() and regression. Finalreview cleared nativeexecution.",
+  "change": "Only test transport assertions change. Actual libpq clientTLS/effectiveverify-full/expectedhostuser/resolvedCA asserted; backendflag observed separately. Existing83data testbodies unchanged. Wrapper forwards actual connection attributes and requires recordedTLS/backendproperties.",
+  "scope": "Synthetic typed PostgreSQL staging correctness, including guardedcast edgecases/exactmoney/timestamps/nulls/grain/lineage. This is not fullsource/downstreamequality or performance acceptance. No model/dependency/databasepersistentchange. BackendSSLfalse is recorded, not certification of internal-hop encryption.",
+  "limits": "55sstatement/5slock;480sfixtures+<=110srestorationwithin600s",
+  "security": "No newpackage or advisoryscan. ExistingE11/E13/E14 remain dated25October unresolvedrelease/use gates. No public exposure.",
+  "next": "Prepare newly bound four-view rollback-only full-source diagnostic. First compare all112650staging rows/all9fields and nativecolumn/types/grain/lineage against deployed view before temporary replacement. Then existing15fieldfactitem/70fieldorderKPI/26fielditemKPI fullsourcechecks and fixedoverview with normalplanner; retain deadlines/capacity/exactcatalogdependencypermissions/independentrestore. No new four-viewprobe exists.",
+  "hashes": [
+    {
+      "path": "tests/native_connection.py",
+      "sha256": "2f300a3d391189693268cd65c792ae5aa905be2f6f1e335c3303a484e193de6f"
+    },
+    {
+      "path": "tests/test_native_connection.py",
+      "sha256": "41479947f297fa27019a6d1e1e34c0181263a79b1154e54f0c23a1fdba3fd3bd"
+    },
+    {
+      "path": "tests/test_warehouse_item_postgres_integration.py",
+      "sha256": "a8325c71421013b3d91e6266feca18485731876cbb316bc396f3fd71cdeae6f8"
+    },
+    {
+      "path": ".artifacts/phase-5/9fe604cba7f24954aec7a77dacc2cb57/probe-source.py",
+      "sha256": "311f1c35be5bd4adbb798db871737c972a5d6c452c1f661a6a0f224121696d4f"
+    },
+    {
+      "path": ".artifacts/phase-5/9fe604cba7f24954aec7a77dacc2cb57/receipt.json",
+      "sha256": "35dd6ed4e86ba45086e856e7e5fa8ebbd23440b3260f9ab0943b02f69f4f77fb"
+    },
+    {
+      "path": ".artifacts/phase-5/9fe604cba7f24954aec7a77dacc2cb57/source-hashes.json",
+      "sha256": "70fc984ff170cb68773f122adbf55352d5f25f6c9d1981bb59b7533c13158984"
+    },
+    {
+      "path": ".artifacts/phase-5/9fe604cba7f24954aec7a77dacc2cb57/synthetic-private.xml",
+      "sha256": "ad470817c5a0cce71bd5fcd832a3622c9526f9c22d17197d43190802ea4bf2be"
+    },
+    {
+      "path": ".artifacts/phase-5/offline-item-staging-native-505fe12899244d6bb4191ba030f8bfa4/receipt.json",
+      "sha256": "ca68a34cd3e34a7306bc63234721a9786f71e1bbcd48e0247317296e30311eac"
+    },
+    {
+      "path": ".artifacts/phase-5/test_item_staging_native_fixtures_20261106.py",
+      "sha256": "62a41b78eba906c0ef906032a409b463cd5796e4ba8d01bcc38c9984a53395c9"
+    }
+  ]
+}

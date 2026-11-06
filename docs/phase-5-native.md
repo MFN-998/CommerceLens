@@ -1,5 +1,13 @@
 # Phase 5 isolated native verification
 
+2026-11-06: client TLS/verify-full/host/user/CA verified separately from backendSSL.
+The corrected fixture now passes all83native item-staging cases;160sourcebindings
+and independent restoration passed.15client-transport regressions/lint/types pass.
+No model adoption or performance acceptance. Next full9field staging equivalence,
+then downstream15/70/26field/fullworkload gates. See [transport evidence](phase-5-transport-verification.json)
+and [native passes](phase-5-item-staging-native-passed-verification.json).
+
+
 2026-11-04: the new83case native staging job stopped at a shared setup assertion:
 backend pg_stat_ssl.ssl=False versus expectedTrue on the session-pooler route.
 No test body completed. All158bindings and independent restoration passed; no

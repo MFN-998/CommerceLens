@@ -18,6 +18,7 @@ from uuid import UUID
 
 import psycopg
 import pytest
+from native_connection import assert_verified_client_transport
 
 from src.validation.contracts import TABLES
 from src.warehouse.config import connect, load_settings
@@ -200,14 +201,22 @@ def _synthetic_cte(
 
 
 @pytest.fixture(scope="module")
-def transformer_connection() -> Iterator[psycopg.Connection]:
+def transformer_connection(record_testsuite_property) -> Iterator[psycopg.Connection]:
     # Existing purpose-specific configuration enforces transformer credentials/TLS.
-    with connect(load_settings(purpose="transformer")) as connection, connection.transaction():
+    settings = load_settings(purpose="transformer")
+    with connect(settings) as connection, connection.transaction():
+        assert_verified_client_transport(connection, settings)
+        record_testsuite_property("client_tls", True)
+        record_testsuite_property("client_sslmode", "verify-full")
         connection.execute("SET TRANSACTION READ ONLY")
-        assert connection.execute(
+        identity = connection.execute(
             "SELECT session_user, current_user, current_database(), "
             "(SELECT ssl FROM pg_stat_ssl WHERE pid=pg_backend_pid())"
-        ).fetchone() == ("commercelens_transform", "commercelens_transform", "postgres", True)
+        ).fetchone()
+        assert identity[:3] == ("commercelens_transform", "commercelens_transform", "postgres")
+        # PostgreSQL reports the pooler's backend hop, not the client TLS session.
+        assert type(identity[3]) is bool
+        record_testsuite_property("backend_ssl", identity[3])
         connection.execute("SET LOCAL ROLE commercelens_transformer")
         assert connection.execute(
             "SELECT current_user, current_setting('transaction_read_only')"

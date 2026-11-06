@@ -1,5 +1,12 @@
 # CommerceLens progress — 4 November 2026
 
+Update6November: the setup blocker described below is resolved. Actual clientTLS
+and verify-full parameters were verified; backendSSL remains separatelyobserved.
+All83native staging cases now pass with independentrestoration. Full-source and
+performance gates remain open; see [new evidence](phase-5-item-staging-native-passed-verification.json).
+The remaining text preserves the4November report and its historical status.
+
+
 Phase 5 remains partially complete. The main remaining product gate is proving
 that the analytics layer returns consistent results within its resource limits.
 The latest source candidate is verified offline but has not been adopted in the

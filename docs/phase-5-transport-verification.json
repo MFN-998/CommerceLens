@@ -1,0 +1,66 @@
+{
+  "date": "2026-11-06",
+  "baseline_checkpoint": "04b033b",
+  "status": "CLIENT TRANSPORT VERIFIED; BACKEND SSL OBSERVED SEPARATELY",
+  "result": {
+    "status": "passed",
+    "adopted": false,
+    "artifacts": ".artifacts/phase-5/c01482c6d36c4685aff4cc67ba999fef",
+    "transport": {
+      "client_tls": true,
+      "effective_sslmode": "verify-full",
+      "expected_host_user_ca_verified": true,
+      "session_identity_verified": true,
+      "transformer_role_and_read_only_verified": true,
+      "backend_ssl": false,
+      "backend_scope": "Observed PostgreSQL backend connection; not internal-hop certification"
+    },
+    "postcheck": {
+      "rollback_verified": true,
+      "database_bytes": 287626931,
+      "database_bytes_delta": 0,
+      "raw_bytes": 275988480,
+      "limits": "No persistent candidate; not proof of absent WAL/catalog/filesystem effects"
+    }
+  },
+  "source_bindings_verified_before_and_after": 159,
+  "guards": {
+    "status": "passed",
+    "source_bindings": 159,
+    "client_and_effective_parameter_rejections": 8,
+    "identity_role_shape_rejections": 7,
+    "wrong_target_rejections": 2,
+    "backend_false_null_true_preserved": true,
+    "fixed_sql_and_source_drift_rejected": true,
+    "forced_rollback_verified": true,
+    "supervisor_success_failure_cases": 5,
+    "private_attributes_and_errors_not_exported": true,
+    "artifacts": ".artifacts/phase-5/offline-transport-40eb4c61d492403fa4819290cb158b2e"
+  },
+  "lint_and_format": "passed",
+  "review": "Master Plan scope/final runner review passed before execution.",
+  "limits": "55sstatement/5slock;180sprobe+<=110srestorationwithin300s",
+  "scope": "Client connection TLS, effective verify-full/expected host/user/CA, identity/role/read-only verified. BackendSSLfalse does not certify internal-hop encryption. No native83case acceptance or performance claim. No DB/package change.",
+  "hashes": [
+    {
+      "path": ".artifacts/phase-5/c01482c6d36c4685aff4cc67ba999fef/probe-source.py",
+      "sha256": "a8b8e5306fcd2a6e977007c2921c4e196ed0e02a62ebb4b346425bf65f2bdd9f"
+    },
+    {
+      "path": ".artifacts/phase-5/c01482c6d36c4685aff4cc67ba999fef/receipt.json",
+      "sha256": "1cfd3c7e946c0ddee38d8b44088b474ac854ec46bc9034f68c7ad44618a8a79d"
+    },
+    {
+      "path": ".artifacts/phase-5/c01482c6d36c4685aff4cc67ba999fef/source-hashes.json",
+      "sha256": "304926fa7d9b0f67ee9bc9343ad5a7698763e56229fbbccb006be919138a0336"
+    },
+    {
+      "path": ".artifacts/phase-5/offline-transport-40eb4c61d492403fa4819290cb158b2e/receipt.json",
+      "sha256": "7045fb3b4179004c96422583d82e42f3f70c837362b4877504e046692386330f"
+    },
+    {
+      "path": ".artifacts/phase-5/test_transport_diagnosis_20261106.py",
+      "sha256": "388051ba2866e73c1ab8d30b75b5a59b7c75cd4a08ec448d7db0297ad62f1d17"
+    }
+  ]
+}

@@ -1,9 +1,58 @@
 # CommerceLens work state
 
-Authoritative handoff updated 2026-11-04. Actual D repository, Git and verified
+Authoritative handoff updated 2026-11-06. Actual D repository, Git and verified
 evidence take precedence over chat. Read the permanent instructions before edits.
 
-## Current checkpoint — native staging setup assertion isolated, 2026-11-04
+## Current checkpoint — native staging tests passed, 2026-11-06
+
+SAFE TO RESUME. All 83 native staging cases passed in 167.853 seconds, with
+zero errors, failures or skips. Full-source equivalence and performance remain open.
+Resumed published checkpoint 04b033b with clean Git and upstream 0/0.
+
+The read-only transport diagnosis verified actual client TLS, effective verify-full,
+expected host/user/CA, identity, role and read-only settings. PostgreSQL backend SSL
+was separately observed as false; internal-hop encryption is not certified.
+All 159 diagnostic source bindings and independent restoration checks passed.
+Evidence: docs/phase-5-transport-verification.json.
+
+Only the native fixture transport assertions changed. The helper uses the same
+certificate_path() resolver as the connection setup. All 15 focused regressions
+passed, including relative CA paths and missing/insecure/mismatched parameters.
+The Master Plan Agent identified the relative-path issue; it was fixed and reviewed
+before execution. Existing 83 data test bodies are unchanged. Ruff lint/format
+passed for five files; helper type checking passed. The previous 1,986-test offline
+result remains historical evidence and was not repeated for this fixture change.
+
+Native artifact: .artifacts/phase-5/9fe604cba7f24954aec7a77dacc2cb57.
+All 160 source bindings matched after execution. Independent catalog, access and
+settings restoration passed. Database size 287626931 bytes, raw size 275988480;
+database-size delta during the job was zero. No persistent candidate was adopted.
+Evidence: docs/phase-5-item-staging-native-passed-verification.json.
+Reviewed supervisor: item_staging_native_fixtures_20261106.py and its test_ counterpart.
+Guard receipt: offline-item-staging-native-505fe12899244d6bb4191ba030f8bfa4.
+Prior failed runs and tools are retained.
+
+Next FIRST: prepare a NEW four-view full-source rollback-only probe, extending
+three_view_projection_reference_default_planner_20261026.py. Refresh only reviewed
+changed source bindings. Compare all 112650 staging rows and all nine fields,
+including native types, precision, grain and lineage, BEFORE temporary replacement.
+Check exact catalog dependencies, owner, ACL and options; preserve the raw item
+dependency. Continue the existing 15-field fact-item, 70-field order-KPI and 26-field
+item-KPI equivalence checks, then measure the fixed overview with the normal planner.
+Preserve statement/job/memory/capacity limits and independent fresh-process
+restoration. No new four-view probe exists. Do not repeat the accepted 83 typed
+cases merely to resume or bypass stale historical source hashes.
+
+Usage: 67% five-hour / 11% weekly before native execution; latest preservation
+check was 95% / 15%. The intended reserve was exceeded. Stop development now;
+finish publication only, then resume with fresh usage and Git checks.
+Full 16-case/concurrent Q01, independent consumer reconciliation and Phase 5 exit
+remain. Phases 1–4 and governance are complete. Phase 6 has not started: STOP
+and ask the owner before starting it. E11/E13/E14 findings dated 25 October remain;
+no fresh advisory audit or package changes occurred. No frontend launch or deployment.
+Containing commit is the checkpoint; verify clean Git and upstream 0/0 after publication.
+
+## Previous checkpoint — native staging setup assertion isolated, 2026-11-04
 
 SAFE TO RESUME / NATIVE SETUP FAILED; INDEPENDENT RESTORATION VERIFIED.
 Resumed clean published9eded40, upstream0/0; initial usage7%five-hour/13%weekly.
