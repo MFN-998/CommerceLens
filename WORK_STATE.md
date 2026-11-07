@@ -1,7 +1,25 @@
 # CommerceLens work state
 
-Authoritative handoff updated 2026-11-06. Actual D repository, Git and verified
+Authoritative handoff updated 2026-11-08. Actual D repository, Git and verified
 evidence take precedence over chat. Read the permanent instructions before edits.
+
+## Active unit — four-view probe prepared, 2026-11-08
+
+Resumed clean published 8513f1d, upstream 0/0. Initial usage 1% five-hour / 15%
+weekly; preparation review reading 46% / 22%. New retained four_view_staging_probe_20261107.py
+and its test_ counterpart passed offline guards and Ruff lint/format. All 103 source
+bindings match; only the accepted staging SQL differs from the old 98 bindings.
+The Master Plan Agent and root reviewed the added staging gate and transport check.
+Final guard artifact: .artifacts/phase-5/offline-four-view-a0237740ef844020893305f3e571e261.
+Evidence: docs/phase-5-four-view-preparation.json. No database run yet.
+
+FIRST: recheck usage, then run the new probe once with the retained patched Python
+and explicit recovery settings already enforced by its main(). Preserve all outputs.
+It compares nine staging fields before any replacement, then existing 15/70/26-field
+contracts and the fixed normal-planner overview; independent restoration is mandatory.
+After execution, verify all 103 source bindings, inspect aggregate receipts, save the
+result and publish. Do not expand into a second experiment this session. No adoption.
+Do not repeat the accepted 83 typed staging tests. Phase 5 remains open; Phase 6 forbidden.
 
 ## Current checkpoint — native staging tests passed, 2026-11-06
 

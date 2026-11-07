@@ -1,0 +1,91 @@
+{
+  "date": "2026-11-08",
+  "baseline_checkpoint": "8513f1d",
+  "status": "PREPARED AND VERIFIED OFFLINE; NATIVE EXECUTION PENDING",
+  "adopted": false,
+  "source_bindings": 103,
+  "original_binding_changes": [
+    "dbt/models/staging/stg_order_items.sql"
+  ],
+  "staging_rendered_sha256": "d1f500b4e5341a331fd9ae8de71f738b623cea0267b28a2daa7bbb1e657007ce",
+  "guard_receipt": {
+    "candidate_hashes_bound": {
+      "dbt/models/marts/mart_order_kpis.sql": "d18e0ff1fee2c24156b50a516fbf967287d9a600142bc8c6a7b304025a05268b",
+      "dbt/macros/order_components.sql": "8051d7c8b1e8e39b77445764d76be8a1b406d7ebbf136a0c2a672e6c890bada8",
+      ".artifacts/phase-5/aggregate-reuse-baseline-20261022/mart_order_kpis-candidate.sql": "5e21a27dd15bff6cbeb444c974fd0749ca61a986bba5e4f5701695dbcb5ba7d2"
+    },
+    "hash_drifts_rejected": 9,
+    "contract_columns": [
+      9,
+      15,
+      70,
+      26
+    ],
+    "fixed_reference_reuse_query_parameters_and_complete_response_hash_guards": true,
+    "shared_projection_reference_digest_and_dependency_guards": true,
+    "literal_text_columns": 8,
+    "metadata_mutations_rejected": 24,
+    "baseline_mutations_rejected": 9,
+    "capacity_overflows_rejected": 2,
+    "failure_paths_force_rollback": 61,
+    "failure_paths_without_ddl": 35,
+    "connection_entry_failure_before_transaction": true,
+    "original_failure_paths_retained": 11,
+    "preflight_catalog_private_copy_and_safe_categories": true,
+    "restore_view_and_capacity_drift_rejected": true,
+    "baseline_reader_planner_verified_without_override_after_four_replacements": true,
+    "staging_candidate_hash": "580e9b86c438b7d7334defa9ca3b01e8105c60fb8c497c30099f0b77f1a4ab3c",
+    "staging_comparison_mutations_rejected": 13,
+    "staging_shape_type_precision_scale_and_order_guards": true,
+    "staging_definition_raw_dependency_and_sequence_guards": true,
+    "actual_transport_helper_failures_before_role_transaction_or_ddl": 6,
+    "transport_source_preimport_hash_guard": true,
+    "item_candidate_hash": "8642965b7c96c7474f55f6052a34630e15d781178a2be37f8d8e27278a72e538",
+    "item_mart_hash": "66dfd9be5bae2c765f725fa5c13f99d3cf230001b62d361b3edae20b72483f01",
+    "successful_path_force_rollback": true,
+    "item_mart_comparison_mutations_rejected": 12,
+    "preimport_hash_drift_rejected": true,
+    "empty_source_bindings_rejected": true,
+    "wrong_target_and_role_rejected_before_connections": true,
+    "supervisor_failure_paths_independently_restored": true,
+    "independent_restoration_failure_propagates": true,
+    "remaining_overall_budget_limits_postcheck": true,
+    "time_and_spill_failure_flags_checked": true,
+    "main_preparation_and_settings_failure_redacted": true,
+    "missing_or_negative_restoration_receipt_rejected": true,
+    "artifacts": ".artifacts/phase-5/offline-four-view-a0237740ef844020893305f3e571e261"
+  },
+  "review": "Master Plan Agent cleared staging-before-replacement, four exact definition changes, raw dependency, metadata, source binding, client TLS, bounds and independent restoration. Root reviewed the diff.",
+  "validation": {
+    "ruff": "passed for runner and guard",
+    "format": "passed for runner and guard",
+    "lint_exception": "E402 only: source hashes must be verified before repository imports. No repository-wide suppression.",
+    "native": "not yet run",
+    "historical_native_typed_cases": 83
+  },
+  "method": "One repeatable-read snapshot: nine-field staging equality before temporary replacement, then 15-field fact-item, 70-field order-KPI and 26-field item-KPI equivalence. Exact catalog checks after each replacement. Fixed unfiltered overview reference reuse under normal planner. All replacements roll back; independent fresh-process restoration required.",
+  "limits": {
+    "statement_seconds": 55,
+    "lock_seconds": 5,
+    "probe_seconds": 480,
+    "postcheck_max_seconds": 110,
+    "overall_seconds": 600,
+    "server_budget_ms": 10000,
+    "temp_traffic_budget_bytes": 536870912
+  },
+  "scope": "No persistent model adoption, production query change, dependency installation, public exposure or Phase 6 work. Full 16-case/concurrent Q01 and consumer reconciliation remain open.",
+  "hashes": [
+    {
+      "path": ".artifacts/phase-5/four_view_staging_probe_20261107.py",
+      "sha256": "d2a7dbf847d74181d730626416337b7703dc3306adde86c0303ed0781487384b"
+    },
+    {
+      "path": ".artifacts/phase-5/test_four_view_staging_probe_20261107.py",
+      "sha256": "732d2170a293c73df8ab759436514f1584744861af886d83bd873f5c1e348af7"
+    },
+    {
+      "path": ".artifacts/phase-5/offline-four-view-a0237740ef844020893305f3e571e261/receipt.json",
+      "sha256": "686cf870ac9bc9c5697771c5eb6dcf28042c205a404aff030290b255e56e017b"
+    }
+  ]
+}
