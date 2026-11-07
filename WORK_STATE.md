@@ -3,25 +3,44 @@
 Authoritative handoff updated 2026-11-08. Actual D repository, Git and verified
 evidence take precedence over chat. Read the permanent instructions before edits.
 
-## Active unit — four-view probe prepared, 2026-11-08
+## Current checkpoint — full-source equality passed, runtime gate open, 2026-11-08
 
-Resumed clean published 8513f1d, upstream 0/0. Initial usage 1% five-hour / 15%
-weekly; preparation review reading 46% / 22%. New retained four_view_staging_probe_20261107.py
-and its test_ counterpart passed offline guards and Ruff lint/format. All 103 source
-bindings match; only the accepted staging SQL differs from the old 98 bindings.
-The Master Plan Agent and root reviewed the added staging gate and transport check.
-Final guard artifact: .artifacts/phase-5/offline-four-view-a0237740ef844020893305f3e571e261.
-Evidence: docs/phase-5-four-view-preparation.json. No database run yet.
+SAFE TO RESUME. Preparation checkpoint 7accbbe was published, then one reviewed
+four-view rollback-only probe ran on the explicit recovery target. Artifact:
+.artifacts/phase-5/d4a3e6eb59f14e3097e0f98d57d4f302. All 103 source bindings matched
+before and after. Master Plan review and offline failure guards passed.
 
-FIRST: recheck usage, then run the new probe once with the retained patched Python
-and explicit recovery settings already enforced by its main(). Preserve all outputs.
-It compares nine staging fields before any replacement, then existing 15/70/26-field
-contracts and the fixed normal-planner overview; independent restoration is mandatory.
-After execution, verify all 103 source bindings, inspect aggregate receipts, save the
-result and publish. Do not expand into a second experiment this session. No adoption.
-Do not repeat the accepted 83 typed staging tests. Phase 5 remains open; Phase 6 forbidden.
+All four full-source comparisons passed: 112650 staging rows across nine fields,
+112650 fact-item rows across 15 fields, 99441 order-KPI rows across 70 fields,
+and 112650 item-KPI rows across 26 fields. Exact types/precision, money, grain,
+lineage and accumulated catalog/dependency/access contracts passed. The complete
+overview response hash matched. Client TLS and effective verify-full were verified.
 
-## Current checkpoint — native staging tests passed, 2026-11-06
+Normal-planner runtime was 10292.353 ms: FAIL against the unchanged 10000 ms limit.
+Temporary traffic 519340032 bytes: PASS against 536870912. This single diagnostic
+sample is not full Q01 acceptance or stable production performance. No adoption.
+Independent fresh-process restoration passed. Database size 287594163 bytes,
+raw size 275988480; database-size delta -32768 bytes, cause unknown. Catalog,
+access, settings and raw state restored. No claim of absent WAL/filesystem effects.
+Evidence: docs/phase-5-four-view-verification.json; preparation and final offline
+receipt remain in docs/phase-5-four-view-preparation.json. No production source or
+package change this unit. Prior 83 native staging cases remain accepted.
+
+FIRST NEXT: inspect the retained execution-private.json from the artifact above,
+focusing on expensive sorts/aggregates and remaining row-estimate errors. Select
+one evidence-supported bounded follow-up; retain normal planner, exact source and
+response contracts, original limits and independent restoration. Do not adopt,
+loosen budgets, or repeat completed correctness phases merely to resume.
+Full 16-case/concurrent Q01, independent consumer reconciliation and Phase 5 exit
+remain. Phases 1–4/governance are complete. Phase 6 remains unstarted: stop and ask
+the owner before beginning it. E11/E13/E14 dated 25 October remain unresolved;
+no fresh advisory audit, public deployment, package install or deletion occurred.
+
+Latest usage 76% five-hour / 27% weekly: preservation only, then stop. This result
+checkpoint must be scanned, published and verified clean/upstream 0/0. Containing
+commit is the checkpoint; resume with fresh usage and Git checks.
+
+## Previous checkpoint — native staging tests passed, 2026-11-06
 
 SAFE TO RESUME. All 83 native staging cases passed in 167.853 seconds, with
 zero errors, failures or skips. Full-source equivalence and performance remain open.

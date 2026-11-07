@@ -1,5 +1,12 @@
 # Phase 5 — KPI and analytics layer
 
+2026-11-08: all four full-source contracts (9/15/70/26 fields) and the complete
+response matched. Normal-planner runtime 10292.353 ms exceeded the 10000 ms limit;
+temporary traffic 519340032 bytes passed. Independent restoration and 103 source
+bindings passed. No adoption or full Q01 acceptance. Next inspect the retained
+execution plan. See [verified result](phase-5-four-view-verification.json).
+
+
 2026-11-06: client TLS/verify-full/host/user/CA verified separately from backendSSL.
 The corrected fixture now passes all83native item-staging cases;160sourcebindings
 and independent restoration passed.15client-transport regressions/lint/types pass.

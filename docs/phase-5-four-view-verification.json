@@ -1,0 +1,161 @@
+{
+  "date": "2026-11-08",
+  "preparation_checkpoint": "7accbbe",
+  "status": "FULL-SOURCE AND RESPONSE EQUIVALENCE PASSED; RUNTIME BUDGET FAILED; RESTORATION VERIFIED",
+  "result": {
+    "artifacts": ".artifacts/phase-5/d4a3e6eb59f14e3097e0f98d57d4f302",
+    "status": "completed",
+    "adopted": false,
+    "probe": {
+      "status": "completed",
+      "stage": "rolled_back",
+      "adopted": false,
+      "transport": {
+        "client_tls": true,
+        "effective_sslmode": "verify-full"
+      },
+      "staging_equivalence": [
+        112650,
+        112650,
+        0,
+        0,
+        "13591643.70",
+        "2251909.54",
+        112650,
+        112650,
+        112650,
+        112650,
+        0,
+        0
+      ],
+      "item_equivalence": [
+        112650,
+        112650,
+        0,
+        0,
+        "13591643.70",
+        "2251909.54",
+        0
+      ],
+      "equivalence": [
+        99441,
+        99441,
+        0,
+        0,
+        "13591643.70",
+        "2251909.54",
+        "16008872.12",
+        99441,
+        0
+      ],
+      "item_mart_equivalence": [
+        112650,
+        112650,
+        0,
+        0,
+        "13591643.70",
+        "2251909.54",
+        112650,
+        112650,
+        0,
+        0,
+        0
+      ],
+      "measured": {
+        "planning_ms": 8.82,
+        "execution_ms": 10292.353,
+        "output_rows": 1,
+        "node_types": {
+          "Aggregate": 11,
+          "CTE Scan": 2,
+          "Gather": 1,
+          "Gather Merge": 4,
+          "Hash": 7,
+          "Hash Join": 7,
+          "Limit": 1,
+          "Materialize": 1,
+          "Merge Join": 2,
+          "Nested Loop": 1,
+          "Seq Scan": 10,
+          "Sort": 10,
+          "Subquery Scan": 11,
+          "WindowAgg": 1
+        },
+        "root_buffers": {
+          "Shared Hit Blocks": 23540,
+          "Shared Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Written Blocks": 0,
+          "Temp Read Blocks": 31131,
+          "Temp Written Blocks": 32265
+        },
+        "disk_sort_instances": 14,
+        "sort_disk_kb": 81288,
+        "max_hash_batches": 21,
+        "hash_disk_kb": 17728
+      },
+      "temp_traffic_bytes": 519340032,
+      "historical_totals_matched": 3,
+      "response_sha256": "3dfbeac7b06a97f546c319bde56a4f66f11dcc5daf48f5bf97f63034ac05f89b",
+      "server_spill_budgets_passed": false
+    },
+    "postcheck": {
+      "rollback_verified": true,
+      "database_bytes": 287594163,
+      "database_bytes_delta": -32768,
+      "raw_bytes": 275988480,
+      "limits": "No persistent candidate; not proof of absent WAL/catalog/filesystem effects"
+    }
+  },
+  "source_bindings_verified_before_and_after": 103,
+  "gates": {
+    "staging_fields": 9,
+    "fact_item_fields": 15,
+    "order_kpi_fields": 70,
+    "item_kpi_fields": 26,
+    "all_source_equal": true,
+    "complete_response_equal": true,
+    "server_limit_ms": 10000,
+    "runtime_passed": false,
+    "temporary_traffic_limit_bytes": 536870912,
+    "temporary_traffic_passed": true
+  },
+  "interpretation": "The normal-planner sample completed in 10292.353 ms, exceeding the unchanged time limit by 292.353 ms. Temporary traffic was 519340032 bytes, within budget. This one diagnostic sample is not full Q01 acceptance or evidence of stable production latency. All temporary view changes rolled back. Database size decreased by 32768 bytes during the job; cause is not established. Raw size and independently checked catalog/access/settings were unchanged.",
+  "review": "Master Plan Agent cleared preparation and confirmed the runtime failure and next plan-inspection step. Root verified the final independent restoration receipt and all source bindings.",
+  "next": "Inspect retained execution-private.json for remaining costly sorts/aggregates and row estimates; choose one evidence-supported bounded follow-up. Preserve normal planner, source/response contracts, original budgets and independent restoration. Do not adopt or widen limits. Full 16-case/concurrent Q01, consumer reconciliation and Phase 5 exit remain pending. Stop and ask owner before Phase 6.",
+  "security": "No model, package or persistent database change; no fresh advisory audit. E11/E13/E14 findings dated 25 October remain outstanding. No public release.",
+  "hashes": [
+    {
+      "path": ".artifacts/phase-5/d4a3e6eb59f14e3097e0f98d57d4f302/receipt.json",
+      "sha256": "4139e1ed69fcb664ad19d6a13c6f556e8b87573daa782020e183eaeb0817385b"
+    },
+    {
+      "path": ".artifacts/phase-5/d4a3e6eb59f14e3097e0f98d57d4f302/probe-source.py",
+      "sha256": "d2a7dbf847d74181d730626416337b7703dc3306adde86c0303ed0781487384b"
+    },
+    {
+      "path": ".artifacts/phase-5/d4a3e6eb59f14e3097e0f98d57d4f302/source-hashes.json",
+      "sha256": "526785df19ba1d0d762cacc7bcbc32a9bede1df0b5048b73c929cb3c094d9bbd"
+    },
+    {
+      "path": ".artifacts/phase-5/d4a3e6eb59f14e3097e0f98d57d4f302/staging-equivalence.json",
+      "sha256": "8079cee3ccd03856b106547538ec9d953baf29884334f2a4b73c4c453218cb81"
+    },
+    {
+      "path": ".artifacts/phase-5/d4a3e6eb59f14e3097e0f98d57d4f302/item-equivalence.json",
+      "sha256": "8bf14e25023720a98d1137bb92eea0d74813e3e2620f44e631be1709c895ad96"
+    },
+    {
+      "path": ".artifacts/phase-5/d4a3e6eb59f14e3097e0f98d57d4f302/equivalence.json",
+      "sha256": "69c8ba7b57ff03308352eb3434bd05f60395753c75e99bf1f030982461bee39d"
+    },
+    {
+      "path": ".artifacts/phase-5/d4a3e6eb59f14e3097e0f98d57d4f302/item-mart-equivalence.json",
+      "sha256": "1d701c59fd42396f02c98c8e830820684f0bafe17ec98d134c1db4e97b997f35"
+    },
+    {
+      "path": ".artifacts/phase-5/d4a3e6eb59f14e3097e0f98d57d4f302/execution-private.json",
+      "sha256": "cfb982c6f39b51b2b396cc7725ccf37f713472489f74373c5d52255ae7304e5a"
+    }
+  ]
+}
