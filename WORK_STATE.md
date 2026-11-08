@@ -3,28 +3,39 @@
 Authoritative handoff updated 2026-11-08. Actual D repository, Git and verified
 evidence take precedence over chat. Read the permanent instructions before edits.
 
-## Active unit — isolate the distinct-customer count, 2026-11-08
+## Current checkpoint — narrow customer count measured, 2026-11-08
 
-Resumed clean published 2fedb28, upstream 0/0; usage 0% five-hour / 28% weekly.
-Retained plan inspection found the customer-count sort carries 295-byte rows:
-96478 rows, 18440 KiB disk space. Plan TIMING OFF prevents attributing elapsed
-time to this node. One query-only experiment will count distinct customer IDs
-separately from wide totals over the same scope, preserving exact C collation,
-NULL exclusion, empty-input zero, field order/types and reference-customer reuse.
-No native execution yet. Normal planner, current limits and four-view full-source,
-complete response and independent restoration gates remain mandatory. No adoption.
+SAFE TO RESUME. Resumed clean published 2fedb28; preparation f278569 published.
+New retained four_view_narrow_customer_probe_20261108.py and its test_ counterpart
+passed Master Plan review, offline guards (64 rollback failure paths plus five
+positive/24 negative fixture checks), lint and format. One native run completed:
+.artifacts/phase-5/dd1776a8efb14caab9520ddcfb36cdc8. All 107 source bindings matched
+before/after. Five native empty/NULL/duplicate/literal-text cases, all four full-source
+contracts and the complete overview response passed. No production source change.
 
-Preparation completed: new four_view_narrow_customer_probe_20261108.py and its
-test_ counterpart passed offline guards (64 forced-rollback paths, five positive
-and 24 negative customer-fixture checks), lint and format. All 107 source bindings
-match, including all 103 prior bindings unchanged. Master Plan review passed.
-Evidence: docs/phase-5-narrow-customer-preparation.json. Final offline artifact:
-.artifacts/phase-5/offline-four-view-narrow-customer-ebb48be925bf4e91b1a0a80630112bc1.
-FIRST: after fresh usage check, run this new probe once with retained patched Python
-against explicit recovery settings. Verify restoration and all source bindings,
-then save/publish the result. Do not start another experiment this session.
+The customer sort narrowed from width295 to32, disk18440 to3496KiB. Temporary
+traffic fell from519340032 to473604096bytes, within536870912. Runtime10649.099ms
+still FAILS10000ms (prior sample10292.353ms). These single samples do not establish
+stable performance. No adoption. Independent restoration passed; database287635123,
+raw275988480bytes; job database delta+32768, cause unknown. Catalog/access/settings
+and raw state restored; no claim of absent WAL/filesystem effects.
+Evidence: docs/phase-5-narrow-customer-verification.json. Preparation, diagnosis,
+original runs and all tools remain retained. No package install or advisory refresh;
+E11/E13/E14 dated25October findings remain. No deployment or deletion.
 
-## Current checkpoint — full-source equality passed, runtime gate open, 2026-11-08
+FIRST NEXT: inspect the payment aggregate estimate (200 groups versus99440 actual)
+and its staging/query boundary in the retained execution plan and source. Prepare
+one bounded estimate-only diagnostic if needed before changing a model. Keep normal
+planner, original budgets, exact source/response contracts and independent restoration.
+Do not repeat this rejected variant to seek a passing sample. Full16-case/concurrent
+Q01, independent consumer reconciliation and Phase5 exit remain. Phases1–4/governance
+complete; Phase6 unstarted. STOP and ask owner before beginning Phase6.
+
+Usage reached80% five-hour/40%weekly during final verification; preservation only,
+then stop. Containing commit is the result checkpoint. Verify clean/upstream0/0 after
+publication; resume with fresh usage and Git checks.
+
+## Previous checkpoint — full-source equality passed, runtime gate open, 2026-11-08
 
 SAFE TO RESUME. Preparation checkpoint 7accbbe was published, then one reviewed
 four-view rollback-only probe ran on the explicit recovery target. Artifact:

@@ -1,5 +1,11 @@
 # Phase 5 — KPI and analytics layer
 
+2026-11-08 follow-up: separate customer counting preserved all source/response
+contracts and reduced temporary traffic to473604096bytes, but10649.099ms still
+fails the10s runtime limit. Five native fixtures,107bindings and independent
+restoration passed. No adoption. See [result](phase-5-narrow-customer-verification.json).
+
+
 2026-11-08: all four full-source contracts (9/15/70/26 fields) and the complete
 response matched. Normal-planner runtime 10292.353 ms exceeded the 10000 ms limit;
 temporary traffic 519340032 bytes passed. Independent restoration and 103 source

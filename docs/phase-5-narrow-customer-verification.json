@@ -1,0 +1,149 @@
+{
+  "date": "2026-11-08",
+  "preparation_checkpoint": "f278569",
+  "status": "CORRECTNESS PASSED; TEMPORARY TRAFFIC REDUCED; RUNTIME FAILED; RESTORATION VERIFIED",
+  "result": {
+    "artifacts": ".artifacts/phase-5/dd1776a8efb14caab9520ddcfb36cdc8",
+    "status": "completed",
+    "adopted": false,
+    "probe": {
+      "status": "completed",
+      "stage": "rolled_back",
+      "adopted": false,
+      "transport": {
+        "client_tls": true,
+        "effective_sslmode": "verify-full"
+      },
+      "customer_count_fixtures": 5,
+      "staging_equivalence": [
+        112650,
+        112650,
+        0,
+        0,
+        "13591643.70",
+        "2251909.54",
+        112650,
+        112650,
+        112650,
+        112650,
+        0,
+        0
+      ],
+      "item_equivalence": [
+        112650,
+        112650,
+        0,
+        0,
+        "13591643.70",
+        "2251909.54",
+        0
+      ],
+      "equivalence": [
+        99441,
+        99441,
+        0,
+        0,
+        "13591643.70",
+        "2251909.54",
+        "16008872.12",
+        99441,
+        0
+      ],
+      "item_mart_equivalence": [
+        112650,
+        112650,
+        0,
+        0,
+        "13591643.70",
+        "2251909.54",
+        112650,
+        112650,
+        0,
+        0,
+        0
+      ],
+      "measured": {
+        "planning_ms": 8.333,
+        "execution_ms": 10649.099,
+        "output_rows": 1,
+        "node_types": {
+          "Aggregate": 12,
+          "CTE Scan": 3,
+          "Gather": 1,
+          "Gather Merge": 4,
+          "Hash": 7,
+          "Hash Join": 7,
+          "Limit": 1,
+          "Materialize": 1,
+          "Merge Join": 2,
+          "Nested Loop": 1,
+          "Seq Scan": 10,
+          "Sort": 10,
+          "Subquery Scan": 11,
+          "WindowAgg": 1
+        },
+        "root_buffers": {
+          "Shared Hit Blocks": 23540,
+          "Shared Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Written Blocks": 0,
+          "Temp Read Blocks": 29681,
+          "Temp Written Blocks": 28132
+        },
+        "disk_sort_instances": 14,
+        "sort_disk_kb": 66344,
+        "max_hash_batches": 21,
+        "hash_disk_kb": 17728
+      },
+      "temp_traffic_bytes": 473604096,
+      "historical_totals_matched": 3,
+      "response_sha256": "3dfbeac7b06a97f546c319bde56a4f66f11dcc5daf48f5bf97f63034ac05f89b",
+      "server_spill_budgets_passed": false
+    },
+    "postcheck": {
+      "rollback_verified": true,
+      "database_bytes": 287635123,
+      "database_bytes_delta": 32768,
+      "raw_bytes": 275988480,
+      "limits": "No persistent candidate; not proof of absent WAL/catalog/filesystem effects"
+    }
+  },
+  "source_bindings_verified_before_and_after": 107,
+  "comparison": {
+    "previous_execution_ms": 10292.353,
+    "current_execution_ms": 10649.099,
+    "runtime_limit_ms": 10000,
+    "previous_temp_bytes": 519340032,
+    "current_temp_bytes": 473604096,
+    "temp_limit_bytes": 536870912,
+    "previous_customer_sort_width": 295,
+    "current_customer_sort_width": 32,
+    "previous_customer_sort_disk_kib": 18440,
+    "current_customer_sort_disk_kib": 3496
+  },
+  "interpretation": "The intended narrow sort occurred and temporary traffic decreased. The single runtime sample exceeded the unchanged limit; it does not establish a stable regression or improvement. No adoption. Five native synthetic cases, all four full-source contracts and complete response matched. Independent restoration passed. Database size increased32768bytes during the job, cause unknown; raw/catalog/access/settings restored.",
+  "next": "Inspect the payment aggregate estimate (200 groups versus99440 actual) and its staging/query boundary in retained plans/source. Prepare one bounded estimate-only diagnostic if needed before any model change. Preserve normal planner, original budgets, exact contracts and independent restoration. Do not rerun this rejected variant merely to seek a passing sample. Full Q01/concurrency, consumer reconciliation and Phase5 exit remain open.",
+  "security": "No package, production query or model change, persistent adoption, deployment or deletion. E11/E13/E14 dated25October findings remain; no fresh advisory audit. Phase6 unstarted.",
+  "hashes": [
+    {
+      "path": ".artifacts/phase-5/dd1776a8efb14caab9520ddcfb36cdc8/receipt.json",
+      "sha256": "9ab8e68194d3916d453238b7ebd0614a8ac07c2cd46db9e54e05d0a052a2725a"
+    },
+    {
+      "path": ".artifacts/phase-5/dd1776a8efb14caab9520ddcfb36cdc8/probe-source.py",
+      "sha256": "679cb05ccc577f2426b335c8a7e1be42e11dd23771c99b6536c46b45e69dcdee"
+    },
+    {
+      "path": ".artifacts/phase-5/dd1776a8efb14caab9520ddcfb36cdc8/source-hashes.json",
+      "sha256": "f15800ef70adfca1a4946b7209362d5fd3f2741beefa610835dafc50a0402fa6"
+    },
+    {
+      "path": ".artifacts/phase-5/dd1776a8efb14caab9520ddcfb36cdc8/customer-count-fixtures.json",
+      "sha256": "7e4dd03e8a549bca5c3285d1f79024cc6e4f3e9d0908e9a99c328af7d28bf5ac"
+    },
+    {
+      "path": ".artifacts/phase-5/dd1776a8efb14caab9520ddcfb36cdc8/execution-private.json",
+      "sha256": "4381a22bd0c8262ddcc8cf37f950b96f27ff57bfeab43c11f5c69ba8acd706d3"
+    }
+  ]
+}
