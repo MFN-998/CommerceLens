@@ -3,6 +3,27 @@
 Authoritative handoff updated 2026-11-08. Actual D repository, Git and verified
 evidence take precedence over chat. Read the permanent instructions before edits.
 
+## Active unit — isolate the distinct-customer count, 2026-11-08
+
+Resumed clean published 2fedb28, upstream 0/0; usage 0% five-hour / 28% weekly.
+Retained plan inspection found the customer-count sort carries 295-byte rows:
+96478 rows, 18440 KiB disk space. Plan TIMING OFF prevents attributing elapsed
+time to this node. One query-only experiment will count distinct customer IDs
+separately from wide totals over the same scope, preserving exact C collation,
+NULL exclusion, empty-input zero, field order/types and reference-customer reuse.
+No native execution yet. Normal planner, current limits and four-view full-source,
+complete response and independent restoration gates remain mandatory. No adoption.
+
+Preparation completed: new four_view_narrow_customer_probe_20261108.py and its
+test_ counterpart passed offline guards (64 forced-rollback paths, five positive
+and 24 negative customer-fixture checks), lint and format. All 107 source bindings
+match, including all 103 prior bindings unchanged. Master Plan review passed.
+Evidence: docs/phase-5-narrow-customer-preparation.json. Final offline artifact:
+.artifacts/phase-5/offline-four-view-narrow-customer-ebb48be925bf4e91b1a0a80630112bc1.
+FIRST: after fresh usage check, run this new probe once with retained patched Python
+against explicit recovery settings. Verify restoration and all source bindings,
+then save/publish the result. Do not start another experiment this session.
+
 ## Current checkpoint — full-source equality passed, runtime gate open, 2026-11-08
 
 SAFE TO RESUME. Preparation checkpoint 7accbbe was published, then one reviewed

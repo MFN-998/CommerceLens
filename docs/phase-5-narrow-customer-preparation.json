@@ -1,0 +1,81 @@
+{
+  "date": "2026-11-08",
+  "baseline_checkpoint": "2fedb28",
+  "status": "PREPARED AND VERIFIED OFFLINE; NATIVE EXECUTION PENDING",
+  "source_bindings": 107,
+  "prior_bindings_unchanged": 103,
+  "query_sha256": "f0a1a7dda61782e00fc714eac498f12ffcf903ec6bf2dd2be7121e964d1f3231",
+  "guard_receipt": {
+    "candidate_hashes_bound": {
+      "dbt/models/marts/mart_order_kpis.sql": "d18e0ff1fee2c24156b50a516fbf967287d9a600142bc8c6a7b304025a05268b",
+      "dbt/macros/order_components.sql": "8051d7c8b1e8e39b77445764d76be8a1b406d7ebbf136a0c2a672e6c890bada8",
+      ".artifacts/phase-5/aggregate-reuse-baseline-20261022/mart_order_kpis-candidate.sql": "5e21a27dd15bff6cbeb444c974fd0749ca61a986bba5e4f5701695dbcb5ba7d2"
+    },
+    "hash_drifts_rejected": 9,
+    "contract_columns": [
+      9,
+      15,
+      70,
+      26
+    ],
+    "fixed_reference_reuse_query_parameters_and_complete_response_hash_guards": true,
+    "narrow_customer_scalar_uses_same_scope_exact_expression_and_response_guard": true,
+    "customer_fixture_failures_force_rollback_before_view_replacement": 3,
+    "actual_customer_fixture_helper_mocked_positive_cases": 5,
+    "actual_customer_fixture_helper_mocked_negative_cases": 24,
+    "shared_projection_reference_digest_and_dependency_guards": true,
+    "literal_text_columns": 8,
+    "metadata_mutations_rejected": 24,
+    "baseline_mutations_rejected": 9,
+    "capacity_overflows_rejected": 2,
+    "failure_paths_force_rollback": 64,
+    "failure_paths_without_ddl": 38,
+    "connection_entry_failure_before_transaction": true,
+    "original_failure_paths_retained": 11,
+    "preflight_catalog_private_copy_and_safe_categories": true,
+    "restore_view_and_capacity_drift_rejected": true,
+    "baseline_reader_planner_verified_without_override_after_four_replacements": true,
+    "staging_candidate_hash": "580e9b86c438b7d7334defa9ca3b01e8105c60fb8c497c30099f0b77f1a4ab3c",
+    "staging_comparison_mutations_rejected": 13,
+    "staging_shape_type_precision_scale_and_order_guards": true,
+    "staging_definition_raw_dependency_and_sequence_guards": true,
+    "actual_transport_helper_failures_before_role_transaction_or_ddl": 6,
+    "transport_source_preimport_hash_guard": true,
+    "item_candidate_hash": "8642965b7c96c7474f55f6052a34630e15d781178a2be37f8d8e27278a72e538",
+    "item_mart_hash": "66dfd9be5bae2c765f725fa5c13f99d3cf230001b62d361b3edae20b72483f01",
+    "successful_path_force_rollback": true,
+    "item_mart_comparison_mutations_rejected": 12,
+    "preimport_hash_drift_rejected": true,
+    "empty_source_bindings_rejected": true,
+    "wrong_target_and_role_rejected_before_connections": true,
+    "supervisor_failure_paths_independently_restored": true,
+    "independent_restoration_failure_propagates": true,
+    "remaining_overall_budget_limits_postcheck": true,
+    "time_and_spill_failure_flags_checked": true,
+    "main_preparation_and_settings_failure_redacted": true,
+    "missing_or_negative_restoration_receipt_rejected": true,
+    "artifacts": ".artifacts/phase-5/offline-four-view-narrow-customer-ebb48be925bf4e91b1a0a80630112bc1"
+  },
+  "review": "Master Plan Agent reviewed the exact scalar-count rewrite, five native fixture definitions, unchanged data/response/rollback gates and limits; no material blocker. Root reviewed the scoped change.",
+  "validation": "Offline guards, Ruff lint and formatting passed. E402 alone excepted for source verification before imports. No native run yet.",
+  "scope": "Only the fixed unfiltered overview count changes inside the retained diagnostic. No production query, model, package, planner or limit change. No adoption.",
+  "limits": "55s statement/5s lock;480s probe+<=110s restoration within600s;10s runtime/512MiB temporary traffic.",
+  "hashes": [
+    {
+      "path": ".artifacts/phase-5/four_view_narrow_customer_probe_20261108.py",
+      "sha256": "679cb05ccc577f2426b335c8a7e1be42e11dd23771c99b6536c46b45e69dcdee"
+    },
+    {
+      "path": ".artifacts/phase-5/test_four_view_narrow_customer_probe_20261108.py",
+      "sha256": "42a548c7cc169b6d3eeb623277b0980a84bfee0f634cd136d3a2c114eb08d63a"
+    },
+    {
+      "path": ".artifacts/phase-5/offline-four-view-narrow-customer-ebb48be925bf4e91b1a0a80630112bc1/receipt.json",
+      "sha256": "3740cea0ec6964fa3f1e72a5aea0efad742b7c9dda3b735232551fbe436ecf0d"
+    },
+    {
+      "path": "docs/phase-5-customer-count-diagnosis-20261108.md",
+      "sha256": "acfee8d85395822fdc3e22e4321bde25bbbce2c3f67c407fb94a0c253c85348b"
+    }
+  ]
+}
