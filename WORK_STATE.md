@@ -1,9 +1,34 @@
 # CommerceLens work state
 
-Authoritative handoff updated 2026-11-08. Actual D repository, Git and verified
+Authoritative handoff updated 2026-11-09. Actual D repository, Git and verified
 evidence take precedence over chat. Read the permanent instructions before edits.
 
-## Current checkpoint — narrow customer count measured, 2026-11-08
+## Current checkpoint — payment estimate boundary reproduced, 2026-11-09
+
+SAFE TO RESUME. Resumed clean published 68b9d34 at 2% five-hour and 55% weekly usage.
+The new retained payment_estimate_pair_20261109.py passed Master Plan review,
+Ruff lint/format, 11 role cases and six supervision cases. Native artifact
+.artifacts/phase-5/55bb5e95b0544f0aa433ca3593d84efa verified client TLS/verify-full,
+read-only transformer role and normal planner. All 106 bindings matched before
+and after. Independent restoration passed. Database size 287643315 bytes, raw size
+275988480 bytes, with zero database-size change during the job.
+
+Identical normalized payment grouping estimates 94469 groups through a derived
+projection and 200 through WITH. Both raw scans estimate 103886 rows and use simple
+aggregation. Both deployed fact controls estimate 200 final groups, against 99440
+actual in the earlier overview execution. This verifies the estimate boundary.
+See docs/phase-5-payment-estimate-verification.json. Runtime remains unverified.
+
+FIRST NEXT: convert only stg_order_payments normalization and typing to derived
+projections, retaining all ten fields, exact casts, three warning flags, item-free
+payment grain and raw lineage. Verify payment staging/fact tests and offline dbt
+parse. Then require typed native, full-source equality and bounded Q01 measurement
+before adoption. Full Q01, consumer reconciliation and Phase 5 exit remain open.
+Phases 1–4 and governance are complete. Ask the owner before starting Phase 6.
+No package or advisory refresh. E11/E13/E14 remain dated October 25. No deployment
+or deletion. Containing commit is the checkpoint. Check usage before the next unit.
+
+## Previous checkpoint — narrow customer count measured, 2026-11-08
 
 SAFE TO RESUME. Resumed clean published 2fedb28; preparation f278569 published.
 New retained four_view_narrow_customer_probe_20261108.py and its test_ counterpart

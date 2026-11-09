@@ -1,0 +1,268 @@
+{
+  "date": "2026-11-09",
+  "baseline_checkpoint": "68b9d34",
+  "status": "PAYMENT ESTIMATE BOUNDARY REPRODUCED; RESTORATION VERIFIED",
+  "result": {
+    "artifacts": ".artifacts/phase-5/55bb5e95b0544f0aa433ca3593d84efa",
+    "status": "completed",
+    "adopted": false,
+    "probe": {
+      "status": "completed",
+      "stage": "rolled_back",
+      "adopted": false,
+      "client_tls": true,
+      "effective_sslmode": "verify-full",
+      "server_version_num": "170011",
+      "relations": [
+        [
+          "order_payments",
+          103886.0,
+          1424,
+          0,
+          0,
+          false,
+          false
+        ]
+      ],
+      "extended_statistics_counts": [
+        [
+          "order_payments",
+          0,
+          0
+        ]
+      ],
+      "roles": {
+        "commercelens_transformer": {
+          "visible_numeric_stats": [
+            [
+              "order_payments",
+              "order_id",
+              false,
+              0.0,
+              33,
+              -0.909353
+            ]
+          ],
+          "plans": {
+            "derived_payment_group": [
+              {
+                "path": "0",
+                "Node Type": "Aggregate",
+                "Strategy": "Hashed",
+                "Partial Mode": "Simple",
+                "Plan Rows": 94469,
+                "Plan Width": 40,
+                "Total Cost": 9483.25
+              },
+              {
+                "path": "0.0",
+                "Node Type": "Seq Scan",
+                "Relation Name": "order_payments",
+                "Alias": "order_payments",
+                "Plan Rows": 103886,
+                "Plan Width": 32,
+                "Total Cost": 2722.58
+              }
+            ],
+            "with_payment_group": [
+              {
+                "path": "0",
+                "Node Type": "Aggregate",
+                "Strategy": "Hashed",
+                "Partial Mode": "Simple",
+                "Plan Rows": 200,
+                "Plan Width": 40,
+                "Total Cost": 3244.01
+              },
+              {
+                "path": "0.0",
+                "Node Type": "Subquery Scan",
+                "Alias": "s",
+                "Plan Rows": 103886,
+                "Plan Width": 32,
+                "Total Cost": 2722.58
+              },
+              {
+                "path": "0.0.0",
+                "Node Type": "Seq Scan",
+                "Relation Name": "order_payments",
+                "Alias": "order_payments",
+                "Plan Rows": 103886,
+                "Plan Width": 32,
+                "Total Cost": 2722.58
+              }
+            ],
+            "deployed_fact_group": [
+              {
+                "path": "0",
+                "Node Type": "Aggregate",
+                "Strategy": "Sorted",
+                "Partial Mode": "Finalize",
+                "Plan Rows": 200,
+                "Plan Width": 40,
+                "Total Cost": 4140.16
+              },
+              {
+                "path": "0.0",
+                "Node Type": "Gather Merge",
+                "Plan Rows": 200,
+                "Plan Width": 40,
+                "Total Cost": 4137.16,
+                "Workers Planned": 1
+              },
+              {
+                "path": "0.0.0",
+                "Node Type": "Sort",
+                "Plan Rows": 200,
+                "Plan Width": 40,
+                "Total Cost": 3114.65
+              },
+              {
+                "path": "0.0.0.0",
+                "Node Type": "Aggregate",
+                "Strategy": "Hashed",
+                "Partial Mode": "Partial",
+                "Plan Rows": 200,
+                "Plan Width": 40,
+                "Total Cost": 3106.5
+              },
+              {
+                "path": "0.0.0.0.0",
+                "Node Type": "Subquery Scan",
+                "Alias": "stg_order_payments",
+                "Plan Rows": 61109,
+                "Plan Width": 32,
+                "Total Cost": 2798.96
+              },
+              {
+                "path": "0.0.0.0.0.0",
+                "Node Type": "Seq Scan",
+                "Relation Name": "order_payments",
+                "Alias": "order_payments",
+                "Plan Rows": 61109,
+                "Plan Width": 127,
+                "Total Cost": 2187.87
+              }
+            ],
+            "deployed_kpi_payment_aggregate": [
+              {
+                "path": "0",
+                "Node Type": "Aggregate",
+                "Strategy": "Sorted",
+                "Partial Mode": "Finalize",
+                "Plan Rows": 200,
+                "Plan Width": 104,
+                "Total Cost": 16518.73
+              },
+              {
+                "path": "0.0",
+                "Node Type": "Gather Merge",
+                "Plan Rows": 200,
+                "Plan Width": 104,
+                "Total Cost": 16512.23,
+                "Workers Planned": 1
+              },
+              {
+                "path": "0.0.0",
+                "Node Type": "Sort",
+                "Plan Rows": 200,
+                "Plan Width": 104,
+                "Total Cost": 15489.72
+              },
+              {
+                "path": "0.0.0.0",
+                "Node Type": "Aggregate",
+                "Strategy": "Hashed",
+                "Partial Mode": "Partial",
+                "Plan Rows": 200,
+                "Plan Width": 104,
+                "Total Cost": 15481.57
+              },
+              {
+                "path": "0.0.0.0.0",
+                "Node Type": "Subquery Scan",
+                "Alias": "stg_order_payments",
+                "Plan Rows": 61109,
+                "Plan Width": 55,
+                "Total Cost": 14409.67
+              },
+              {
+                "path": "0.0.0.0.0.0",
+                "Node Type": "Seq Scan",
+                "Relation Name": "order_payments",
+                "Alias": "order_payments",
+                "Plan Rows": 61109,
+                "Plan Width": 127,
+                "Total Cost": 13798.58
+              }
+            ]
+          },
+          "settings_verified": true
+        }
+      },
+      "read_only": true
+    },
+    "postcheck": {
+      "rollback_verified": true,
+      "database_bytes": 287643315,
+      "database_bytes_delta": 0,
+      "raw_bytes": 275988480,
+      "limits": "No persistent candidate; not proof of absent WAL/catalog/filesystem effects"
+    }
+  },
+  "case_hashes": {
+    "derived_payment_group": "5a960446e2a879451f74bad1ea4bb8adde887b488b78c153f3f90f125b034600",
+    "with_payment_group": "19c83d9f4929e74795d6dad8c46e4d048856eeaad3d92fe182775822e35a5a95",
+    "deployed_fact_group": "9787dba301514c9a47faacab0cbffe8650b743cc813a82b2d6e8475882182804",
+    "deployed_kpi_payment_aggregate": "a3032fee5b70f6c3a36b27b31addb8ee1795f5386c33fbf263780d4b03b25626"
+  },
+  "source_bindings_verified_before_and_after": 106,
+  "offline": {
+    "status": "passed",
+    "source_bindings": 106,
+    "role_success_failure_cases": 11,
+    "supervisor_cases": 6,
+    "fixed_sql_read_only_guard": true,
+    "transformer_only_pair_and_two_controls": true,
+    "actual_transport_failure_before_sql": true,
+    "statistics_no_sample_values": true,
+    "safe_failure_details": true,
+    "forced_rollback_and_independent_restore": true,
+    "artifacts": ".artifacts/phase-5/offline-payment-estimate-a19307221138442485edf85dc8cc5825"
+  },
+  "retained_execution": {
+    "estimated_payment_groups": 200,
+    "actual_payment_groups": 99440,
+    "partial_hash_batches": 21
+  },
+  "interpretation": "Matched normalized raw grouping gave 94469 estimated groups through a derived projection versus 200 through WITH. Both used simple aggregation and a raw scan estimated at 103886 rows. Both deployed fact controls estimated 200 groups at the final aggregate. This isolates estimate behavior and does not measure runtime or validate a full payment model rewrite.",
+  "research": "https://raw.githubusercontent.com/postgres/postgres/REL_17_STABLE/src/backend/optimizer/prep/prepjointree.c",
+  "review": "Master Plan Agent confirmed paired isolation, fact controls, source/TLS/role guards and independent restoration. Ruff lint and formatting passed.",
+  "next": "Convert only payment staging normalization and typing to nested derived projections, preserving all ten outputs and exact expressions. Verify existing staging/fact tests and offline dbt graph. Require typed native and full-source equality before representative performance acceptance.",
+  "hashes": [
+    {
+      "path": ".artifacts/phase-5/55bb5e95b0544f0aa433ca3593d84efa/receipt.json",
+      "sha256": "f262e654360777843bb753b3c626d3fbee9dd578e3be16a2bd890725eed7a0c4"
+    },
+    {
+      "path": ".artifacts/phase-5/55bb5e95b0544f0aa433ca3593d84efa/probe-source.py",
+      "sha256": "b2a935a2e02c2646f73c723852db9c64612b8c9fdb72a2b81d2cf6340d17ffb4"
+    },
+    {
+      "path": ".artifacts/phase-5/55bb5e95b0544f0aa433ca3593d84efa/source-hashes.json",
+      "sha256": "58d11e1c894275ec5af7d524c2fcbd31800505fe81a89b314b78bab7e19640c0"
+    },
+    {
+      "path": ".artifacts/phase-5/55bb5e95b0544f0aa433ca3593d84efa/method.json",
+      "sha256": "4b3fde48dd0769b9bc38fa94e44e1c9b2a682f703b777d24e9b5ddac772bbdf3"
+    },
+    {
+      "path": ".artifacts/phase-5/offline-payment-estimate-a19307221138442485edf85dc8cc5825/receipt.json",
+      "sha256": "e84b1efdaae4078c4289d8ef2e9399264ecd75ce52b38ea91c463f98f78412e8"
+    },
+    {
+      "path": ".artifacts/phase-5/offline-payment-estimate-a19307221138442485edf85dc8cc5825/test-source.py",
+      "sha256": "028e964ddbec556ca31038f385f31df221ef821f04d8a026aac8a08098c53bd5"
+    }
+  ]
+}
