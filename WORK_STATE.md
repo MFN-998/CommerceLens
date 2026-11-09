@@ -3,7 +3,41 @@
 Authoritative handoff updated 2026-11-09. Actual D repository, Git and verified
 evidence take precedence over chat. Read the permanent instructions before edits.
 
-## Current checkpoint — payment estimate boundary reproduced, 2026-11-09
+## Current checkpoint — payment staging candidate verified, 2026-11-09
+
+SAFE TO RESUME. The paired estimate diagnosis is published at 77857aa. The payment
+staging model now uses nested derived projections with the same ten output fields,
+exact parsing, three warning flags, lineage and grain. Only the payment native
+fixture transport assertion changed alongside it, using the shared client helper.
+Master Plan review passed. The 225 targeted offline cases passed, including the
+real closed dbt graph parse. Ruff lint/format passed for fixture and supervisor.
+
+Native artifact .artifacts/phase-5/00632659c82945f4b2af1fe9cedfc8a6 passed all 41
+cases in 90.950 seconds, zero errors/failures/skips. All 167 source bindings matched
+before and after. Client TLS and verify-full verified, backend SSL observed false.
+Independent restoration passed, with database size 287643315 bytes and raw size
+275988480 bytes, database delta zero. No candidate persisted in the warehouse.
+Evidence is docs/phase-5-payment-derived-verification.json. The retained runner is
+payment_staging_native_fixtures_20261109.py with matching test_ guard. Offline
+supervisor receipt is offline-payment-staging-native-7a52c905134b47f4a27d5aa0c61adb7d.
+
+FIRST NEXT: prepare a new five-view rollback-only probe based on
+four_view_staging_probe_20261107.py. Verify all 103886 payment rows across all ten
+columns against deployed staging before replacement, including type/precision,
+multiset equality, grain, lineage, exact sum 16008872.12 and warning counts 2/9/3.
+Check unchanged raw payment dependency and exact catalog/access after replacement,
+retain the prior 9/15/70/26-field comparisons and original reference-reuse overview
+with normal planner and unchanged limits. Restore independently. Refresh only
+reviewed changed bindings, leaving the historical runners intact. Do not repeat the
+accepted 41 native fixtures merely to resume. Full-source and performance still open.
+
+Full Q01, concurrency, independent reconciliation and Phase 5 exit remain. Phases
+1–4 and governance are complete. Ask the owner before starting Phase 6. No package
+or advisory refresh, deployment or deletion. E11/E13/E14 findings remain dated
+October 25. Latest pre-publication usage 52% five-hour and 63% weekly. Containing
+commit is the checkpoint. Resume with fresh usage and clean/upstream checks.
+
+## Previous checkpoint — payment estimate boundary reproduced, 2026-11-09
 
 SAFE TO RESUME. Resumed clean published 68b9d34 at 2% five-hour and 55% weekly usage.
 The new retained payment_estimate_pair_20261109.py passed Master Plan review,

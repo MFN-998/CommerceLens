@@ -1,0 +1,112 @@
+{
+  "date": "2026-11-09",
+  "baseline_checkpoint": "77857aa",
+  "status": "PAYMENT SOURCE VERIFIED OFFLINE AND NATIVE FIXTURES PASSED",
+  "result": {
+    "artifacts": ".artifacts/phase-5/00632659c82945f4b2af1fe9cedfc8a6",
+    "status": "passed",
+    "adopted": false,
+    "tests": {
+      "exit_code": 0,
+      "tests": 41,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "accepted": true,
+      "read_only": true,
+      "transport": {
+        "client_tls": true,
+        "client_sslmode": "verify-full",
+        "backend_ssl": false
+      }
+    },
+    "postcheck": {
+      "rollback_verified": true,
+      "database_bytes": 287643315,
+      "database_bytes_delta": 0,
+      "raw_bytes": 275988480,
+      "limits": "No persistent candidate; not proof of absent WAL/catalog/filesystem effects"
+    }
+  },
+  "native_seconds": 90.95,
+  "source_bindings_verified_before_and_after": 167,
+  "offline": {
+    "artifacts": ".artifacts/phase-5/payment-derived-offline-ad113c4689814eef81284970a73a9f48",
+    "checks": {
+      "lint": 0,
+      "format": 0,
+      "pytest": 0
+    },
+    "counts": {
+      "tests": 225,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "offline_native_guard": {
+    "source_bindings": 167,
+    "inherited_source_bindings": 160,
+    "reviewed_changed_bindings": [
+      "tests/test_warehouse_payment_postgres_integration.py"
+    ],
+    "added_payment_bindings": 7,
+    "expected_native_test_count_collected_offline": 41,
+    "invalid_or_missing_transport_receipts_rejected": 5,
+    "hash_drift_rejected": true,
+    "wrong_target_or_role_rejected": true,
+    "read_only_verified_and_failure_closes": true,
+    "per_statement_deadline_enforced": true,
+    "mutation_statements_rejected": 4,
+    "rollback_required": true,
+    "legacy_default_transaction_forced_rollback": true,
+    "explicit_recovery_settings_routing": true,
+    "fixture_config_restored_on_success_and_failure": true,
+    "empty_incomplete_skipped_failed_jobs_rejected": true,
+    "independent_postcheck_on_worker_failure": true,
+    "restore_failure_propagates": true,
+    "positive_restoration_receipt_required": true,
+    "artifacts": ".artifacts/phase-5/offline-payment-staging-native-7a52c905134b47f4a27d5aa0c61adb7d"
+  },
+  "review": "Master Plan Agent verified the ten output fields, exact parsing and warning logic, and the separate client/backend transport observations. Root reviewed the fixture supervisor adaptation.",
+  "scope": "Nested derived projections replace the two payment staging WITH clauses. The projection retains its field order, exact casts, source lineage, payment grain and all three warning flags. Shared fixture helper verifies actual client TLS and effective verify-full.",
+  "next": "Prepare a five-view rollback-only full-source and performance probe based on four_view_staging_probe_20261107.py. Compare all 103886 payments and ten fields with exact native shape, multiplicity, grain, lineage, sum 16008872.12 and flags 2/9/3 before any replacement. Verify unchanged raw payment dependency and catalog/access. Retain earlier four-view gates and the original fixed reference-reuse overview under the normal planner. Full Q01 and independent reconciliation remain pending.",
+  "hashes": [
+    {
+      "path": "dbt/models/staging/stg_order_payments.sql",
+      "sha256": "a722b02c89444dd34fe04c3498fd6296d0c908844336e011f2b90cc70172ba87"
+    },
+    {
+      "path": "tests/test_warehouse_payment_postgres_integration.py",
+      "sha256": "dcd675afe5cbcdd6fe749ea214ed5923a486bdb035147eeb357a1a5265377f5a"
+    },
+    {
+      "path": ".artifacts/phase-5/payment-derived-offline-ad113c4689814eef81284970a73a9f48/receipt.json",
+      "sha256": "3edce54c05dc4bd7ffeebbff8e1675aae67c3b664cb8345f64deb16c457ec270"
+    },
+    {
+      "path": ".artifacts/phase-5/offline-payment-staging-native-7a52c905134b47f4a27d5aa0c61adb7d/receipt.json",
+      "sha256": "575d038f5bc7f5dac55321b2f0ff9e2a35513ab5d46cf739ae503ff1dbfe6262"
+    },
+    {
+      "path": ".artifacts/phase-5/00632659c82945f4b2af1fe9cedfc8a6/probe-source.py",
+      "sha256": "eabb7c6955d344bca37685830cfe69a4a0e855202b2942b74979c33b3cda2994"
+    },
+    {
+      "path": ".artifacts/phase-5/00632659c82945f4b2af1fe9cedfc8a6/receipt.json",
+      "sha256": "0c583da9aded94b73d2690bdab4eeb5d3812d337f293fc30f5badee343c568e0"
+    },
+    {
+      "path": ".artifacts/phase-5/00632659c82945f4b2af1fe9cedfc8a6/source-hashes.json",
+      "sha256": "a9267fe89d48b0d26efda161b70c7acd77744d5f3054ae4bc22c94aff9390bbe"
+    },
+    {
+      "path": ".artifacts/phase-5/00632659c82945f4b2af1fe9cedfc8a6/synthetic-private.xml",
+      "sha256": "dcb917ff1009354bbcf4b7b75ec562ed0546380af7b3aa3e87cd8e4ced2382ed"
+    },
+    {
+      "path": ".artifacts/phase-5/test_payment_staging_native_fixtures_20261109.py",
+      "sha256": "7997395de2fb0328642530ffb60e89a5f8b526508e566d44128843534197d87f"
+    }
+  ]
+}

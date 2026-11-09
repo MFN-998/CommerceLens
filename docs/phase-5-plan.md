@@ -1,5 +1,12 @@
 # Phase 5 — KPI and analytics layer
 
+2026-11-09. Payment staging now uses derived projections after the paired estimate
+improved from 200 to 94469 groups. The 225 targeted offline checks and 41 native
+fixtures passed, with independent restoration. Full-source and performance gates
+remain open. See [diagnosis](phase-5-payment-estimate-verification.json) and
+[payment source verification](phase-5-payment-derived-verification.json).
+
+
 2026-11-08 follow-up: separate customer counting preserved all source/response
 contracts and reduced temporary traffic to473604096bytes, but10649.099ms still
 fails the10s runtime limit. Five native fixtures,107bindings and independent
