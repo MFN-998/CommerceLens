@@ -1,0 +1,258 @@
+{
+  "date": "2026-11-10",
+  "baseline_checkpoint": "60c44a7",
+  "status": "FIVE VIEW SOURCE AND RESPONSE EQUIVALENCE PASSED; RUNTIME FAILED; RESTORATION VERIFIED",
+  "result": {
+    "artifacts": ".artifacts/phase-5/b964c9b3cac74d608c81d901dc8e48d8",
+    "status": "completed",
+    "adopted": false,
+    "probe": {
+      "status": "completed",
+      "stage": "rolled_back",
+      "adopted": false,
+      "transport": {
+        "client_tls": true,
+        "effective_sslmode": "verify-full"
+      },
+      "payment_equivalence": [
+        103886,
+        103886,
+        0,
+        0,
+        "16008872.12",
+        2,
+        9,
+        3,
+        103886,
+        103886,
+        103886,
+        103886,
+        0,
+        0
+      ],
+      "staging_equivalence": [
+        112650,
+        112650,
+        0,
+        0,
+        "13591643.70",
+        "2251909.54",
+        112650,
+        112650,
+        112650,
+        112650,
+        0,
+        0
+      ],
+      "item_equivalence": [
+        112650,
+        112650,
+        0,
+        0,
+        "13591643.70",
+        "2251909.54",
+        0
+      ],
+      "equivalence": [
+        99441,
+        99441,
+        0,
+        0,
+        "13591643.70",
+        "2251909.54",
+        "16008872.12",
+        99441,
+        0
+      ],
+      "item_mart_equivalence": [
+        112650,
+        112650,
+        0,
+        0,
+        "13591643.70",
+        "2251909.54",
+        112650,
+        112650,
+        0,
+        0,
+        0
+      ],
+      "measured": {
+        "planning_ms": 7.668,
+        "execution_ms": 11080.136,
+        "output_rows": 1,
+        "node_types": {
+          "Aggregate": 10,
+          "CTE Scan": 2,
+          "Gather": 1,
+          "Gather Merge": 3,
+          "Hash": 7,
+          "Hash Join": 7,
+          "Limit": 1,
+          "Materialize": 1,
+          "Merge Join": 2,
+          "Nested Loop": 1,
+          "Seq Scan": 10,
+          "Sort": 9,
+          "Subquery Scan": 10,
+          "WindowAgg": 1
+        },
+        "root_buffers": {
+          "Shared Hit Blocks": 23540,
+          "Shared Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Written Blocks": 0,
+          "Temp Read Blocks": 28793,
+          "Temp Written Blocks": 30028
+        },
+        "disk_sort_instances": 13,
+        "sort_disk_kb": 67688,
+        "max_hash_batches": 41,
+        "hash_disk_kb": 17672
+      },
+      "temp_traffic_bytes": 481861632,
+      "historical_totals_matched": 3,
+      "response_sha256": "3dfbeac7b06a97f546c319bde56a4f66f11dcc5daf48f5bf97f63034ac05f89b",
+      "server_spill_budgets_passed": false
+    },
+    "postcheck": {
+      "rollback_verified": true,
+      "database_bytes": 287684275,
+      "database_bytes_delta": 40960,
+      "raw_bytes": 275988480,
+      "limits": "No persistent candidate; not proof of absent WAL/catalog/filesystem effects"
+    }
+  },
+  "source_bindings_verified_before_and_after": 107,
+  "offline_guard": {
+    "candidate_hashes_bound": {
+      "dbt/models/marts/mart_order_kpis.sql": "d18e0ff1fee2c24156b50a516fbf967287d9a600142bc8c6a7b304025a05268b",
+      "dbt/macros/order_components.sql": "8051d7c8b1e8e39b77445764d76be8a1b406d7ebbf136a0c2a672e6c890bada8",
+      ".artifacts/phase-5/aggregate-reuse-baseline-20261022/mart_order_kpis-candidate.sql": "5e21a27dd15bff6cbeb444c974fd0749ca61a986bba5e4f5701695dbcb5ba7d2"
+    },
+    "hash_drifts_rejected": 10,
+    "contract_columns": [
+      10,
+      9,
+      15,
+      70,
+      26
+    ],
+    "fixed_reference_reuse_query_parameters_and_complete_response_hash_guards": true,
+    "shared_projection_reference_digest_and_dependency_guards": true,
+    "literal_text_columns": 8,
+    "metadata_mutations_rejected": 30,
+    "baseline_mutations_rejected": 9,
+    "capacity_overflows_rejected": 2,
+    "failure_paths_force_rollback": 85,
+    "failure_paths_without_ddl": 38,
+    "connection_entry_failure_before_transaction": true,
+    "original_failure_paths_retained": 11,
+    "preflight_catalog_private_copy_and_safe_categories": true,
+    "restore_view_and_capacity_drift_rejected": true,
+    "baseline_reader_planner_verified_without_override_after_five_replacements": true,
+    "payment_candidate_hash": "a722b02c89444dd34fe04c3498fd6296d0c908844336e011f2b90cc70172ba87",
+    "payment_comparison_mutations_rejected": 15,
+    "payment_shape_type_precision_scale_and_order_guards": true,
+    "payment_definition_raw_dependency_and_sequence_guards": true,
+    "payment_raw_and_fact_dependency_presence_guards": true,
+    "staging_candidate_hash": "580e9b86c438b7d7334defa9ca3b01e8105c60fb8c497c30099f0b77f1a4ab3c",
+    "staging_comparison_mutations_rejected": 13,
+    "staging_shape_type_precision_scale_and_order_guards": true,
+    "staging_definition_raw_dependency_and_sequence_guards": true,
+    "actual_transport_helper_failures_before_role_transaction_or_ddl": 6,
+    "transport_source_preimport_hash_guard": true,
+    "item_candidate_hash": "8642965b7c96c7474f55f6052a34630e15d781178a2be37f8d8e27278a72e538",
+    "item_mart_hash": "66dfd9be5bae2c765f725fa5c13f99d3cf230001b62d361b3edae20b72483f01",
+    "successful_path_force_rollback": true,
+    "item_mart_comparison_mutations_rejected": 12,
+    "preimport_hash_drift_rejected": true,
+    "empty_source_bindings_rejected": true,
+    "wrong_target_and_role_rejected_before_connections": true,
+    "supervisor_failure_paths_independently_restored": true,
+    "independent_restoration_failure_propagates": true,
+    "remaining_overall_budget_limits_postcheck": true,
+    "time_and_spill_failure_flags_checked": true,
+    "main_preparation_and_settings_failure_redacted": true,
+    "missing_or_negative_restoration_receipt_rejected": true,
+    "artifacts": ".artifacts/phase-5/offline-five-view-payment-e5c86fea3dd64cfc9d3861a05e73363d"
+  },
+  "review": "Master Plan Agent cleared payment equality before first DDL, exactly five allowed catalog changes, both payment dependency edges, original overview and rollback. Root reviewed the diff. Ruff lint and format passed. E402 alone excepted for source checks before imports.",
+  "gates": {
+    "full_source_fields": [
+      10,
+      9,
+      15,
+      70,
+      26
+    ],
+    "source_and_complete_response_equal": true,
+    "execution_limit_ms": 10000,
+    "runtime_passed": false,
+    "temp_limit_bytes": 536870912,
+    "temporary_traffic_passed": true
+  },
+  "plan_observations": {
+    "four_view_runtime_ms": 10292.353,
+    "four_view_temp_bytes": 519340032,
+    "payment_estimated_groups_before": 200,
+    "payment_estimated_groups_after": 94469,
+    "payment_actual_groups": 99440,
+    "payment_prior_partial_hash_batches": 21,
+    "payment_current_serial_hash_batches": 41,
+    "review_estimated_groups": 200,
+    "review_actual_groups": 98673
+  },
+  "interpretation": "The payment group estimate improved and root temporary traffic decreased. The new payment aggregate ran serially with 41 hash batches. The saved plan has TIMING OFF and the single samples do not isolate node duration or establish stable regression. Runtime acceptance remains open. The database grew 40960 bytes during the job with cause unknown. Independent catalog, access, settings and raw checks passed.",
+  "next": "Inspect the old and new payment aggregate paths and the remaining review grouping estimate before choosing one bounded diagnostic. Preserve exact contracts, normal planner and budgets. Complete 16 serial cases and overlapping seller/product calls on the final configuration, independently reconcile consumers, publish Phase 5 exit evidence, then ask the owner for Phase 6 instructions.",
+  "hashes": [
+    {
+      "path": ".artifacts/phase-5/b964c9b3cac74d608c81d901dc8e48d8/receipt.json",
+      "sha256": "87afffc5efeb83c739125c7898c2f33aaf28e37978c8aedeca2ba19a7adcdafc"
+    },
+    {
+      "path": ".artifacts/phase-5/b964c9b3cac74d608c81d901dc8e48d8/probe-source.py",
+      "sha256": "47110ba90a240c2635682bf69147b1c575adec5a90d4e5d5cc4c3dcbb19a1d84"
+    },
+    {
+      "path": ".artifacts/phase-5/b964c9b3cac74d608c81d901dc8e48d8/source-hashes.json",
+      "sha256": "a242a3bf40d3ba51d5ad5c021c25630eabc6460b02ccbd75ef3a8b804f3be484"
+    },
+    {
+      "path": ".artifacts/phase-5/b964c9b3cac74d608c81d901dc8e48d8/method.json",
+      "sha256": "b95fe4e233e2750a20a60d8cca1625daf1baa9c77b6d6b88fa9d4c6c3ce69663"
+    },
+    {
+      "path": ".artifacts/phase-5/b964c9b3cac74d608c81d901dc8e48d8/payment-equivalence.json",
+      "sha256": "b9822a1cf18708988f6d9f0d5ba4bb4d6bf40272238548941110f4b6ac70dea1"
+    },
+    {
+      "path": ".artifacts/phase-5/b964c9b3cac74d608c81d901dc8e48d8/staging-equivalence.json",
+      "sha256": "8079cee3ccd03856b106547538ec9d953baf29884334f2a4b73c4c453218cb81"
+    },
+    {
+      "path": ".artifacts/phase-5/b964c9b3cac74d608c81d901dc8e48d8/item-equivalence.json",
+      "sha256": "8bf14e25023720a98d1137bb92eea0d74813e3e2620f44e631be1709c895ad96"
+    },
+    {
+      "path": ".artifacts/phase-5/b964c9b3cac74d608c81d901dc8e48d8/equivalence.json",
+      "sha256": "69c8ba7b57ff03308352eb3434bd05f60395753c75e99bf1f030982461bee39d"
+    },
+    {
+      "path": ".artifacts/phase-5/b964c9b3cac74d608c81d901dc8e48d8/item-mart-equivalence.json",
+      "sha256": "1d701c59fd42396f02c98c8e830820684f0bafe17ec98d134c1db4e97b997f35"
+    },
+    {
+      "path": ".artifacts/phase-5/b964c9b3cac74d608c81d901dc8e48d8/execution-private.json",
+      "sha256": "8b8387ebb56ce4a814a66903dda53b78c9961421a4aaf05d1241d195ce1c1013"
+    },
+    {
+      "path": ".artifacts/phase-5/offline-five-view-payment-e5c86fea3dd64cfc9d3861a05e73363d/receipt.json",
+      "sha256": "6d81513fc1bef3a8a7a09bc4d3828c6fb19a83bb55fc0225e43e83782ab4b801"
+    },
+    {
+      "path": ".artifacts/phase-5/test_five_view_payment_probe_20261110.py",
+      "sha256": "a6d7f70e27b8bb22c79e380f25dc5b0f1445f2ea351a013467977d0b4ff92429"
+    }
+  ]
+}

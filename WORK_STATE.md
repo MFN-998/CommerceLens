@@ -1,9 +1,44 @@
 # CommerceLens work state
 
-Authoritative handoff updated 2026-11-09. Actual D repository, Git and verified
+Authoritative handoff updated 2026-11-10. Actual D repository, Git and verified
 evidence take precedence over chat. Read the permanent instructions before edits.
 
-## Current checkpoint — payment staging candidate verified, 2026-11-09
+## Current checkpoint — payment full-source equality passed, 2026-11-10
+
+SAFE TO RESUME. Resumed clean published 60c44a7. New retained
+five_view_payment_probe_20261110.py and its test_ counterpart passed Master Plan
+review, offline guards and Ruff. Guard receipt offline-five-view-payment-
+e5c86fea3dd64cfc9d3861a05e73363d. One native artifact
+.artifacts/phase-5/b964c9b3cac74d608c81d901dc8e48d8 completed. All 107 bindings
+matched before and after. The payment contract matched across 103886 rows and ten
+fields before any replacement, with exact 16008872.12 amount, warnings 2/9/3,
+shape, grain and lineage. All four downstream comparisons and the full response
+hash matched. Expected catalog changes and both payment dependencies verified.
+
+Normal-planner runtime 11080.136 ms exceeded 10000 ms. Temporary traffic
+481861632 bytes met 536870912. The same four-view overview previously measured
+10292.353 ms and 519340032 bytes. Payment group estimate rose from 200 to 94469
+against 99440 actual, with a serial 41-batch hash aggregate. Reviews remain
+estimated at 200 versus 98673 actual. Single samples and TIMING OFF cannot
+attribute duration to one node. No candidate adopted. Independent restoration
+passed with database 287684275 bytes, raw 275988480 and database delta +40960
+bytes, cause unknown. Evidence docs/phase-5-five-view-verification.json.
+
+FIRST NEXT: compare the retained execution-private.json from this artifact and
+d4a3e6eb59f14e3097e0f98d57d4f302, focusing on payment parallel-to-serial
+aggregation and the review grouping boundary. Choose one bounded evidence-led
+diagnostic before changing another model. Preserve the data/response contracts,
+normal planner, original budgets and independent restoration. The existing payment
+native and full-source gates are accepted for the tested source. Do not repeat the
+failed benchmark to seek a favorable sample. Then finish final-version Q01, all
+16 serial and the concurrent pair, and independently reconcile consumers before
+Phase 5 exit. Ask the owner before Phase 6. E11/E13/E14 remain dated October 25.
+No package, production source, deployment or deletion change in this diagnostic.
+
+Usage 37% five-hour and 69% weekly at preservation. Result publication only,
+then stop. Containing commit is the checkpoint. Verify clean/upstream 0/0.
+
+## Previous checkpoint — payment staging candidate verified, 2026-11-09
 
 SAFE TO RESUME. The paired estimate diagnosis is published at 77857aa. The payment
 staging model now uses nested derived projections with the same ten output fields,

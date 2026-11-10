@@ -1,5 +1,11 @@
 # Phase 5 isolated native verification
 
+2026-11-10. All five full-source contracts and the complete overview matched.
+Payment group estimate improved to 94469 against 99440 actual. The normal-planner
+sample took 11080.136 ms, exceeding 10000 ms, with 481861632 temporary bytes within
+budget. Restoration passed. See [five-view evidence](phase-5-five-view-verification.json).
+
+
 2026-11-09. Payment staging now uses derived projections after the paired estimate
 improved from 200 to 94469 groups. The 225 targeted offline checks and 41 native
 fixtures passed, with independent restoration. Full-source and performance gates
