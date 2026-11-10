@@ -3,7 +3,44 @@
 Authoritative handoff updated 2026-11-10. Actual D repository, Git and verified
 evidence take precedence over chat. Read the permanent instructions before edits.
 
-## Current checkpoint — payment full-source equality passed, 2026-11-10
+## Current checkpoint — payment join estimate amplification isolated, 2026-11-10
+
+SAFE TO RESUME. Resumed clean published 0c46871 at 38% five-hour and 69% weekly.
+The retained plans showed 53983496 to 25498834418 estimated scope rows, with
+96478 actual in both. The five-view payment left join estimates 58478200 despite
+Inner Unique true. The retained order filter estimates 146 rows per scan against
+48239 actual per loop over two loops. Reviews remain at 200 estimated versus
+98673 actual. These observations narrow the next diagnosis to join estimates.
+
+The new retained payment_join_estimate_pair_20261110.py ran two read-only
+EXPLAIN statements on the same snapshot, with identical delivered-order dates,
+left join and seven payment expressions. Deployed input estimated 123804 at the
+isolated plan root. Derived input reordered the joins and reproduced the exact
+58478200 payment join estimate with Inner Unique true. The derived aggregate is
+sorted/finalized here, while the full benchmark used a simple 41-batch hash.
+No runtime was measured by this pair. See docs/phase-5-payment-join-estimate-verification.json.
+
+Master Plan review, lint/format and offline guards passed. All 111 bindings and
+both fixed SQL digests verified. Native artifact
+.artifacts/phase-5/ec39a5ee1ce24efc8231b025de183542 verified client TLS, normal
+planner/read-only transformer role and independent restoration. Database size
+287684275 bytes and raw 275988480 bytes, with zero database-size change.
+Guard artifact offline-payment-join-estimate-9747226077a54e7cbbb5af01806aea54.
+
+FIRST NEXT: prepare one EXPLAIN-only delivered-order cohort pair using identical
+typed status and timestamp expressions and the original date bounds. Compare
+current staging WITH against a derived projection, isolating cohort estimates
+before and after the customer join. Use the retained actual counts for context
+and keep the original planner and restoration gates. Select a source change only
+with evidence. The accepted payment native/full-source gates remain reusable.
+Runtime, all 16 serial Q01 cases, the concurrent pair and independent consumer
+reconciliation remain open. Ask the owner before starting Phase 6. No new package,
+source adoption, deployment or deletion. E11/E13/E14 remain dated October 25.
+
+Usage at preservation was 49% five-hour and 71% weekly. Containing commit is the
+checkpoint. Publish and verify clean/upstream 0/0, then stop for this session.
+
+## Previous checkpoint — payment full-source equality passed, 2026-11-10
 
 SAFE TO RESUME. Resumed clean published 60c44a7. New retained
 five_view_payment_probe_20261110.py and its test_ counterpart passed Master Plan

@@ -1,0 +1,386 @@
+{
+  "date": "2026-11-10",
+  "baseline_checkpoint": "0c46871",
+  "status": "PAYMENT JOIN ESTIMATE AMPLIFICATION REPRODUCED; INDEPENDENT RESTORATION VERIFIED",
+  "case_hashes": {
+    "deployed_payment_join": "97fff223307c1858830ce098301ebd38fa58dd6522155dc04afd0b77142cae03",
+    "derived_payment_join": "716ff83dc803ca231874756460a1f1216d7aac68086c619bb7b3603fcfbebe4f"
+  },
+  "result": {
+    "artifacts": ".artifacts/phase-5/ec39a5ee1ce24efc8231b025de183542",
+    "status": "completed",
+    "adopted": false,
+    "probe": {
+      "status": "completed",
+      "stage": "rolled_back",
+      "adopted": false,
+      "client_tls": true,
+      "effective_sslmode": "verify-full",
+      "server_version_num": "170011",
+      "relations": [
+        [
+          "order_payments",
+          103886.0,
+          1424,
+          0,
+          0,
+          false,
+          false
+        ]
+      ],
+      "extended_statistics_counts": [
+        [
+          "order_payments",
+          0,
+          0
+        ]
+      ],
+      "roles": {
+        "commercelens_transformer": {
+          "visible_numeric_stats": [
+            [
+              "order_payments",
+              "order_id",
+              false,
+              0.0,
+              33,
+              -0.909353
+            ]
+          ],
+          "plans": {
+            "deployed_payment_join": [
+              {
+                "path": "0",
+                "Node Type": "Hash Join",
+                "Join Type": "Right",
+                "Inner Unique": false,
+                "Plan Rows": 123804,
+                "Plan Width": 136,
+                "Total Cost": 35267.31
+              },
+              {
+                "path": "0.0",
+                "Node Type": "Seq Scan",
+                "Parent Relationship": "Outer",
+                "Relation Name": "customers",
+                "Alias": "customers",
+                "Plan Rows": 99441,
+                "Plan Width": 33,
+                "Total Cost": 2802.41
+              },
+              {
+                "path": "0.1",
+                "Node Type": "Hash",
+                "Parent Relationship": "Inner",
+                "Plan Rows": 249,
+                "Plan Width": 168,
+                "Total Cost": 24760.09
+              },
+              {
+                "path": "0.1.0",
+                "Node Type": "Hash Join",
+                "Join Type": "Left",
+                "Inner Unique": true,
+                "Parent Relationship": "Outer",
+                "Plan Rows": 249,
+                "Plan Width": 168,
+                "Total Cost": 24760.09
+              },
+              {
+                "path": "0.1.0.0",
+                "Node Type": "Gather",
+                "Parent Relationship": "Outer",
+                "Plan Rows": 249,
+                "Plan Width": 64,
+                "Total Cost": 8238.19,
+                "Workers Planned": 1
+              },
+              {
+                "path": "0.1.0.0.0",
+                "Node Type": "Subquery Scan",
+                "Parent Relationship": "Outer",
+                "Alias": "o",
+                "Plan Rows": 146,
+                "Plan Width": 64,
+                "Total Cost": 7213.29
+              },
+              {
+                "path": "0.1.0.0.0.0",
+                "Node Type": "Seq Scan",
+                "Parent Relationship": "Subquery",
+                "Relation Name": "orders",
+                "Alias": "orders",
+                "Plan Rows": 146,
+                "Plan Width": 172,
+                "Total Cost": 7211.83
+              },
+              {
+                "path": "0.1.0.1",
+                "Node Type": "Hash",
+                "Parent Relationship": "Inner",
+                "Plan Rows": 200,
+                "Plan Width": 104,
+                "Total Cost": 16518.73
+              },
+              {
+                "path": "0.1.0.1.0",
+                "Node Type": "Aggregate",
+                "Strategy": "Sorted",
+                "Partial Mode": "Finalize",
+                "Parent Relationship": "Outer",
+                "Plan Rows": 200,
+                "Plan Width": 104,
+                "Total Cost": 16518.73
+              },
+              {
+                "path": "0.1.0.1.0.0",
+                "Node Type": "Gather Merge",
+                "Parent Relationship": "Outer",
+                "Plan Rows": 200,
+                "Plan Width": 104,
+                "Total Cost": 16512.23,
+                "Workers Planned": 1
+              },
+              {
+                "path": "0.1.0.1.0.0.0",
+                "Node Type": "Sort",
+                "Parent Relationship": "Outer",
+                "Plan Rows": 200,
+                "Plan Width": 104,
+                "Total Cost": 15489.72
+              },
+              {
+                "path": "0.1.0.1.0.0.0.0",
+                "Node Type": "Aggregate",
+                "Strategy": "Hashed",
+                "Partial Mode": "Partial",
+                "Parent Relationship": "Outer",
+                "Plan Rows": 200,
+                "Plan Width": 104,
+                "Total Cost": 15481.57
+              },
+              {
+                "path": "0.1.0.1.0.0.0.0.0",
+                "Node Type": "Subquery Scan",
+                "Parent Relationship": "Outer",
+                "Alias": "stg_order_payments",
+                "Plan Rows": 61109,
+                "Plan Width": 55,
+                "Total Cost": 14409.67
+              },
+              {
+                "path": "0.1.0.1.0.0.0.0.0.0",
+                "Node Type": "Seq Scan",
+                "Parent Relationship": "Subquery",
+                "Relation Name": "order_payments",
+                "Alias": "order_payments",
+                "Plan Rows": 61109,
+                "Plan Width": 127,
+                "Total Cost": 13798.58
+              }
+            ],
+            "derived_payment_join": [
+              {
+                "path": "0",
+                "Node Type": "Hash Join",
+                "Join Type": "Left",
+                "Inner Unique": true,
+                "Plan Rows": 58478200,
+                "Plan Width": 136,
+                "Total Cost": 59883.63
+              },
+              {
+                "path": "0.0",
+                "Node Type": "Hash Join",
+                "Join Type": "Right",
+                "Inner Unique": false,
+                "Parent Relationship": "Outer",
+                "Plan Rows": 123804,
+                "Plan Width": 32,
+                "Total Cost": 18745.42
+              },
+              {
+                "path": "0.0.0",
+                "Node Type": "Seq Scan",
+                "Parent Relationship": "Outer",
+                "Relation Name": "customers",
+                "Alias": "customers",
+                "Plan Rows": 99441,
+                "Plan Width": 33,
+                "Total Cost": 2802.41
+              },
+              {
+                "path": "0.0.1",
+                "Node Type": "Hash",
+                "Parent Relationship": "Inner",
+                "Plan Rows": 249,
+                "Plan Width": 64,
+                "Total Cost": 8238.19
+              },
+              {
+                "path": "0.0.1.0",
+                "Node Type": "Gather",
+                "Parent Relationship": "Outer",
+                "Plan Rows": 249,
+                "Plan Width": 64,
+                "Total Cost": 8238.19,
+                "Workers Planned": 1
+              },
+              {
+                "path": "0.0.1.0.0",
+                "Node Type": "Subquery Scan",
+                "Parent Relationship": "Outer",
+                "Alias": "o",
+                "Plan Rows": 146,
+                "Plan Width": 64,
+                "Total Cost": 7213.29
+              },
+              {
+                "path": "0.0.1.0.0.0",
+                "Node Type": "Seq Scan",
+                "Parent Relationship": "Subquery",
+                "Relation Name": "orders",
+                "Alias": "orders",
+                "Plan Rows": 146,
+                "Plan Width": 172,
+                "Total Cost": 7211.83
+              },
+              {
+                "path": "0.1",
+                "Node Type": "Hash",
+                "Parent Relationship": "Inner",
+                "Plan Rows": 94469,
+                "Plan Width": 104,
+                "Total Cost": 34977.48
+              },
+              {
+                "path": "0.1.0",
+                "Node Type": "Aggregate",
+                "Strategy": "Sorted",
+                "Partial Mode": "Finalize",
+                "Parent Relationship": "Outer",
+                "Plan Rows": 94469,
+                "Plan Width": 104,
+                "Total Cost": 34977.48
+              },
+              {
+                "path": "0.1.0.0",
+                "Node Type": "Gather Merge",
+                "Parent Relationship": "Outer",
+                "Plan Rows": 61109,
+                "Plan Width": 104,
+                "Total Cost": 32338.26,
+                "Workers Planned": 1
+              },
+              {
+                "path": "0.1.0.0.0",
+                "Node Type": "Aggregate",
+                "Strategy": "Sorted",
+                "Partial Mode": "Partial",
+                "Parent Relationship": "Outer",
+                "Plan Rows": 61109,
+                "Plan Width": 104,
+                "Total Cost": 24463.49
+              },
+              {
+                "path": "0.1.0.0.0.0",
+                "Node Type": "Sort",
+                "Parent Relationship": "Outer",
+                "Plan Rows": 61109,
+                "Plan Width": 50,
+                "Total Cost": 8422.38
+              },
+              {
+                "path": "0.1.0.0.0.0.0",
+                "Node Type": "Seq Scan",
+                "Parent Relationship": "Outer",
+                "Relation Name": "order_payments",
+                "Alias": "order_payments",
+                "Plan Rows": 61109,
+                "Plan Width": 50,
+                "Total Cost": 2187.87
+              }
+            ]
+          },
+          "settings_verified": true
+        }
+      },
+      "read_only": true
+    },
+    "postcheck": {
+      "rollback_verified": true,
+      "database_bytes": 287684275,
+      "database_bytes_delta": 0,
+      "raw_bytes": 275988480,
+      "limits": "No persistent candidate; not proof of absent WAL/catalog/filesystem effects"
+    }
+  },
+  "source_bindings_verified_before_and_after": 111,
+  "offline_guard": {
+    "status": "passed",
+    "source_bindings": 111,
+    "role_success_failure_cases": 11,
+    "supervisor_cases": 6,
+    "fixed_sql_read_only_guard": true,
+    "same_join_scope_and_aggregates": true,
+    "exact_query_digest_drift_rejected": true,
+    "actual_transport_failure_before_sql": true,
+    "statistics_no_sample_values": true,
+    "safe_failure_details": true,
+    "forced_rollback_and_independent_restore": true,
+    "artifacts": ".artifacts/phase-5/offline-payment-join-estimate-9747226077a54e7cbbb5af01806aea54"
+  },
+  "retained_comparison": {
+    "four_view_scope_estimate": 53983496,
+    "five_view_scope_estimate": 25498834418,
+    "scope_actual_both": 96478,
+    "previous_payment_groups_estimated": 200,
+    "derived_payment_groups_estimated": 94469,
+    "payment_groups_actual": 99440,
+    "five_view_payment_join_estimate": 58478200,
+    "five_view_payment_join_actual": 96478,
+    "retained_order_filter_estimate_per_scan": 146,
+    "retained_order_filter_actual_per_loop": 48239,
+    "retained_order_filter_loops": 2,
+    "review_estimated_groups": 200,
+    "review_actual_groups": 98673
+  },
+  "interpretation": "The two EXPLAIN cases use the same delivered-order parent, dates, left join and seven payment expressions. Changing the payment input reproduces 58478200 estimated rows at the isolated payment join with Inner Unique true, matching the five-view plan. The deployed input has a different join order. Derived payment grouping is Sorted/Finalize in the isolated plan, versus Hashed/Simple in the full execution. This diagnoses estimate propagation without measuring component runtime or proving a specific selectivity fallback.",
+  "review": "Master Plan Agent reviewed the retained evidence and bounded pair scope. Root verified exact bound SQL digests, Ruff checks, offline guards, both plan summaries and fresh restoration.",
+  "research": "https://raw.githubusercontent.com/postgres/postgres/REL_17_STABLE/src/backend/optimizer/path/costsize.c",
+  "next": "Prepare one estimate-only comparison for the delivered-order parent using identical typed status/timestamp expressions and date bounds. Compare current staging WITH and a derived projection, checking the cohort before and after the customer join. Use retained actual counts for context. Validate join estimates before selecting any source change.",
+  "hashes": [
+    {
+      "path": ".artifacts/phase-5/ec39a5ee1ce24efc8231b025de183542/receipt.json",
+      "sha256": "79a0442fc9f713ebebfc9605809062d9532f615ead8430ed633c5c7e7ee3f549"
+    },
+    {
+      "path": ".artifacts/phase-5/ec39a5ee1ce24efc8231b025de183542/probe-source.py",
+      "sha256": "1e2f0799d475d899f59af3ba80111436c27dbbf8baa13f5c7888dc2991e9c861"
+    },
+    {
+      "path": ".artifacts/phase-5/ec39a5ee1ce24efc8231b025de183542/source-hashes.json",
+      "sha256": "097fb58cfd2e26ab4e605b7ac509f74228a0b36809784f33473b7c53a5d5f6bf"
+    },
+    {
+      "path": ".artifacts/phase-5/ec39a5ee1ce24efc8231b025de183542/method.json",
+      "sha256": "819387c0e89ab411ea421be5f510ac0177f447fd2c22611a416159e19ee68cf4"
+    },
+    {
+      "path": ".artifacts/phase-5/ec39a5ee1ce24efc8231b025de183542/commercelens_transformer-deployed_payment_join-plan-private.json",
+      "sha256": "240573665b71d5bcc33beab22f6e3c82e5e88f7e38007d82dc177a8e4164dd4d"
+    },
+    {
+      "path": ".artifacts/phase-5/ec39a5ee1ce24efc8231b025de183542/commercelens_transformer-derived_payment_join-plan-private.json",
+      "sha256": "d5b9620e6690598fe072b9acf0b6abc501de2c4ad2099a1672a799a28639b52f"
+    },
+    {
+      "path": ".artifacts/phase-5/offline-payment-join-estimate-9747226077a54e7cbbb5af01806aea54/receipt.json",
+      "sha256": "0de37128a3b943bf7621bb4578f40848b45615e3e81c3bc0e50c0dcd2e671373"
+    },
+    {
+      "path": ".artifacts/phase-5/test_payment_join_estimate_pair_20261110.py",
+      "sha256": "d5410faca85eb703ebef451ba5e1436819594dd20aee4de03e89cd0a5c6738fc"
+    }
+  ]
+}
