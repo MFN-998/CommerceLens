@@ -1,9 +1,34 @@
 # CommerceLens work state
 
-Authoritative handoff updated 2026-11-10. Actual D repository, Git and verified
+Authoritative handoff updated 2026-11-13. Actual D repository, Git and verified
 evidence take precedence over chat. Read the permanent instructions before edits.
 
-## Current checkpoint — payment join estimate amplification isolated, 2026-11-10
+## Current checkpoint — order boundary leaves estimates unchanged, 2026-11-13
+
+SAFE TO RESUME. Resumed clean published d697233 at41% five-hour/6%weekly. The new
+retained order_cohort_estimate_pair_20261113.py and matching test_ guard passed
+Master Plan review, Ruff and offline safety checks. Native artifact
+.artifacts/phase-5/59a0a6a3052b4eb9aa389fd6fd24fdd9 completed all four fixed
+EXPLAIN cases. All112bindings matched before/after. ClientTLS/verify-full,
+read-only transformer, normal planner and fresh-process restoration passed.
+Database287708851/raw275988480bytes, job database delta0.
+
+WITH and equivalent derived staging both estimate249 delivered-order rows at
+Gather and146 per parallel scan. Both customer joins estimate123804. The derived
+version removes one Subquery Scan only. The retained full-run actual cohort is
+96478. This gives no estimate-based reason to rewrite order staging. No source
+model changed. Evidence docs/phase-5-order-cohort-estimate-verification.json.
+
+FIRST NEXT: isolate predicate estimates over deployed staging with four fixed
+EXPLAIN controls: no filter, status only, date bounds only, and combined. Preserve
+identical order fields, exact literals and half-open dates, role/settings/snapshot,
+clientTLS, limits and independent restoration. Use evidence before another change.
+Existing native/full-source payment gates remain accepted. Phase5 runtime/Q01,
+concurrency and consumer reconciliation remain open. Ask owner before Phase6.
+No package, deployment or deletion. E11/E13/E14 remain datedOctober25, no freshaudit.
+Usage56%five-hour/9%weekly before publication. Containingcommit is checkpoint.
+
+## Previous checkpoint — payment join estimate amplification isolated, 2026-11-10
 
 SAFE TO RESUME. Resumed clean published 0c46871 at 38% five-hour and 69% weekly.
 The retained plans showed 53983496 to 25498834418 estimated scope rows, with

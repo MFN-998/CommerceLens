@@ -1,0 +1,289 @@
+{
+  "date": "2026-11-13",
+  "baseline_checkpoint": "d697233",
+  "status": "ORDER STRUCTURE ALONE DID NOT IMPROVE COHORT OR JOIN ESTIMATES; RESTORATION VERIFIED",
+  "result": {
+    "artifacts": ".artifacts/phase-5/59a0a6a3052b4eb9aa389fd6fd24fdd9",
+    "status": "completed",
+    "adopted": false,
+    "probe": {
+      "status": "completed",
+      "stage": "rolled_back",
+      "adopted": false,
+      "client_tls": true,
+      "effective_sslmode": "verify-full",
+      "server_version_num": "170011",
+      "relations": [
+        [
+          "orders",
+          99441.0,
+          2824,
+          0,
+          0,
+          false,
+          false
+        ]
+      ],
+      "extended_statistics_counts": [
+        [
+          "orders",
+          0,
+          0
+        ]
+      ],
+      "roles": {
+        "commercelens_transformer": {
+          "visible_numeric_stats": [
+            [
+              "orders",
+              "customer_id",
+              false,
+              0.0,
+              33,
+              -1.0
+            ],
+            [
+              "orders",
+              "order_id",
+              false,
+              0.0,
+              33,
+              -1.0
+            ],
+            [
+              "orders",
+              "order_purchase_timestamp",
+              false,
+              0.0,
+              20,
+              -0.991985
+            ],
+            [
+              "orders",
+              "order_status",
+              false,
+              0.0,
+              9,
+              7.0
+            ]
+          ],
+          "plans": {
+            "deployed_order_cohort": [
+              {
+                "path": "0",
+                "Node Type": "Gather",
+                "Plan Rows": 249,
+                "Plan Width": 104,
+                "Total Cost": 8242.57,
+                "Workers Planned": 1
+              },
+              {
+                "path": "0.0",
+                "Node Type": "Subquery Scan",
+                "Parent Relationship": "Outer",
+                "Alias": "o",
+                "Plan Rows": 146,
+                "Plan Width": 104,
+                "Total Cost": 7217.67
+              },
+              {
+                "path": "0.0.0",
+                "Node Type": "Seq Scan",
+                "Parent Relationship": "Subquery",
+                "Relation Name": "orders",
+                "Alias": "orders",
+                "Plan Rows": 146,
+                "Plan Width": 172,
+                "Total Cost": 7216.21
+              }
+            ],
+            "derived_order_cohort": [
+              {
+                "path": "0",
+                "Node Type": "Gather",
+                "Plan Rows": 249,
+                "Plan Width": 104,
+                "Total Cost": 8241.11,
+                "Workers Planned": 1
+              },
+              {
+                "path": "0.0",
+                "Node Type": "Seq Scan",
+                "Parent Relationship": "Outer",
+                "Relation Name": "orders",
+                "Alias": "orders",
+                "Plan Rows": 146,
+                "Plan Width": 104,
+                "Total Cost": 7216.21
+              }
+            ],
+            "deployed_customer_join": [
+              {
+                "path": "0",
+                "Node Type": "Hash Join",
+                "Join Type": "Right",
+                "Inner Unique": false,
+                "Plan Rows": 123804,
+                "Plan Width": 96,
+                "Total Cost": 18994.02
+              },
+              {
+                "path": "0.0",
+                "Node Type": "Seq Scan",
+                "Parent Relationship": "Outer",
+                "Relation Name": "customers",
+                "Alias": "customers",
+                "Plan Rows": 99441,
+                "Plan Width": 65,
+                "Total Cost": 3051.01
+              },
+              {
+                "path": "0.1",
+                "Node Type": "Hash",
+                "Parent Relationship": "Inner",
+                "Plan Rows": 249,
+                "Plan Width": 64,
+                "Total Cost": 8238.19
+              },
+              {
+                "path": "0.1.0",
+                "Node Type": "Gather",
+                "Parent Relationship": "Outer",
+                "Plan Rows": 249,
+                "Plan Width": 64,
+                "Total Cost": 8238.19,
+                "Workers Planned": 1
+              },
+              {
+                "path": "0.1.0.0",
+                "Node Type": "Subquery Scan",
+                "Parent Relationship": "Outer",
+                "Alias": "o",
+                "Plan Rows": 146,
+                "Plan Width": 64,
+                "Total Cost": 7213.29
+              },
+              {
+                "path": "0.1.0.0.0",
+                "Node Type": "Seq Scan",
+                "Parent Relationship": "Subquery",
+                "Relation Name": "orders",
+                "Alias": "orders",
+                "Plan Rows": 146,
+                "Plan Width": 172,
+                "Total Cost": 7211.83
+              }
+            ],
+            "derived_customer_join": [
+              {
+                "path": "0",
+                "Node Type": "Hash Join",
+                "Join Type": "Right",
+                "Inner Unique": false,
+                "Plan Rows": 123804,
+                "Plan Width": 96,
+                "Total Cost": 22718.38
+              },
+              {
+                "path": "0.0",
+                "Node Type": "Seq Scan",
+                "Parent Relationship": "Outer",
+                "Relation Name": "customers",
+                "Alias": "customers",
+                "Plan Rows": 99441,
+                "Plan Width": 65,
+                "Total Cost": 3051.01
+              },
+              {
+                "path": "0.1",
+                "Node Type": "Hash",
+                "Parent Relationship": "Inner",
+                "Plan Rows": 249,
+                "Plan Width": 66,
+                "Total Cost": 8236.0
+              },
+              {
+                "path": "0.1.0",
+                "Node Type": "Gather",
+                "Parent Relationship": "Outer",
+                "Plan Rows": 249,
+                "Plan Width": 66,
+                "Total Cost": 8236.0,
+                "Workers Planned": 1
+              },
+              {
+                "path": "0.1.0.0",
+                "Node Type": "Seq Scan",
+                "Parent Relationship": "Outer",
+                "Relation Name": "orders",
+                "Alias": "orders",
+                "Plan Rows": 146,
+                "Plan Width": 66,
+                "Total Cost": 7211.1
+              }
+            ]
+          },
+          "settings_verified": true
+        }
+      },
+      "read_only": true
+    },
+    "postcheck": {
+      "rollback_verified": true,
+      "database_bytes": 287708851,
+      "database_bytes_delta": 0,
+      "raw_bytes": 275988480,
+      "limits": "No persistent candidate; not proof of absent WAL/catalog/filesystem effects"
+    }
+  },
+  "case_hashes": {
+    "deployed_order_cohort": "f19ce30252afb4232d0a26a6a8415e92a54b527e0a6231e982766ddcc4fe8d54",
+    "derived_order_cohort": "50abe9b115157f19344759c41a8c83b5d19ef96860e4bcee3e3919274a3b009d",
+    "deployed_customer_join": "229fafbc35395fbe60929eed4cee6b61789f060fcab6fce7f168e3af4b19b930",
+    "derived_customer_join": "70258895cf8195cf2b881fc3f79f658b1ed6235e6ab61db9b123a2081f4b925c"
+  },
+  "source_bindings_verified_before_and_after": 112,
+  "offline_guard": {
+    "status": "passed",
+    "source_bindings": 112,
+    "role_success_failure_cases": 11,
+    "supervisor_cases": 6,
+    "fixed_sql_read_only_guard": true,
+    "same_cohort_and_customer_join_scope": true,
+    "exact_query_digest_drift_rejected": true,
+    "actual_transport_failure_before_sql": true,
+    "statistics_no_sample_values": true,
+    "safe_failure_details": true,
+    "forced_rollback_and_independent_restore": true,
+    "artifacts": ".artifacts/phase-5/offline-order-cohort-estimate-b3356dbc11224471b66ab571fb178df2"
+  },
+  "review": "Master Plan Agent reviewed the four controls, identical expressions/predicates, source/rendered/query digests and observable customer join. Ruff lint and formatting passed.",
+  "interpretation": "Both current WITH and derived staging estimate 249 rows at Gather and146 per parallel scan. Both customer joins estimate123804. Derived removes one Subquery Scan but leaves the estimates unchanged. This does not support an order staging rewrite as an estimate correction. These EXPLAIN-only cases do not validate the full order staging contract or measure runtime. Retained full-run actual cohort is96478.",
+  "next": "Decompose deployed order filter estimates with four fixed EXPLAIN controls: no filter, delivered status only, date bounds only, and combined status/date bounds. Preserve identical projected order fields, snapshot/role/planner/TLS and independent restoration before selecting another change.",
+  "hashes": [
+    {
+      "path": ".artifacts/phase-5/59a0a6a3052b4eb9aa389fd6fd24fdd9/receipt.json",
+      "sha256": "f6922baed99eaa9b40528bead5c96eca393b0050967beb095c1d81cfc3208e49"
+    },
+    {
+      "path": ".artifacts/phase-5/59a0a6a3052b4eb9aa389fd6fd24fdd9/probe-source.py",
+      "sha256": "8150b134dba6af065167fa0e1fa3cb645d24353f7e6b690dce986f0ed57b422e"
+    },
+    {
+      "path": ".artifacts/phase-5/59a0a6a3052b4eb9aa389fd6fd24fdd9/source-hashes.json",
+      "sha256": "69057318b32a2b3a4dd887ff7ca5c51def7fcbfb5e2bca6d1d54ccdc77da0d8d"
+    },
+    {
+      "path": ".artifacts/phase-5/59a0a6a3052b4eb9aa389fd6fd24fdd9/method.json",
+      "sha256": "2d2a2b823cf7452fc4b2b615682f52d33929b85fe04888a49f1f492096756d8a"
+    },
+    {
+      "path": ".artifacts/phase-5/offline-order-cohort-estimate-b3356dbc11224471b66ab571fb178df2/receipt.json",
+      "sha256": "ae2265d0533afb78bde2791f18f4a7989623fd5ca065d81d4ddfba97e9bf47a0"
+    },
+    {
+      "path": ".artifacts/phase-5/test_order_cohort_estimate_pair_20261113.py",
+      "sha256": "1a7ddcf34937b682ebe2452eef123cb28c832d41c7a4409d4f64380e4f41632d"
+    }
+  ]
+}
