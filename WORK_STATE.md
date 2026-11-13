@@ -3,7 +3,39 @@
 Authoritative handoff updated 2026-11-13. Actual D repository, Git and verified
 evidence take precedence over chat. Read the permanent instructions before edits.
 
-## Current checkpoint — order boundary leaves estimates unchanged, 2026-11-13
+## Current checkpoint — order date filter estimate isolated, 2026-11-13
+
+SAFE TO RESUME. Order structural comparison published at5cf9917 found no estimate
+improvement through a derived staging projection. Continued one small filter-only
+EXPLAIN diagnostic at60%five-hour/9%weekly. New retained
+order_filter_estimates_20261113.py and matching test_ guard passed Master Plan
+scope review, Ruff and offline checks. Native artifact
+.artifacts/phase-5/73e2f626b83c475c94434aba06efa1ff completed. All113bindings and
+four pinnedSQLdigests matched before/after. ClientTLS/verify-full, read-only
+transformer, normal planner and independent restoration verified. Database287708851,
+raw275988480bytes, job database delta0.
+
+Identical deployed projection estimates99441 unfiltered,49720 statusonly,
+497 datesonly and249 combined. Parallel scan estimates292 datesonly and146
+combined. Retained full-benchmark actual combined count96478. The date predicate
+accounts for the largest observed estimate reduction. Combined estimates are
+consistent with both reductions, without proving statistical independence or a
+specific optimizer fallback. No source change or new actual/runtime measurement.
+Evidence docs/phase-5-order-filter-estimate-verification.json. Guard artifact
+offline-order-filter-estimates-9bcbc1df1b2946b38867cfa1dad0acc2.
+
+FIRST NEXT: inspect selectivity estimation for the guarded typed purchase timestamp
+and statistics visibility. Prepare one fixed read-only expression-level EXPLAIN
+comparison and consult primary optimizer documentation/source before changing a
+model, statistics or storage. Preserve parser semantics, literal status, half-open
+dates, original planner/budgets and independent restoration. The accepted native
+and full-source payment gates remain reusable. Phase5 runtime/Q01, all16 serial
+cases, concurrent pair and independent consumer reconciliation remain open. Ask
+owner before Phase6. E11/E13/E14 remain datedOctober25, no freshadvisoryscan.
+No package, deployment or deletion. Usage61%five-hour/10%weekly before preservation.
+Publish the containing checkpoint and verify clean/upstream0/0, then stop.
+
+## Previous checkpoint — order boundary leaves estimates unchanged, 2026-11-13
 
 SAFE TO RESUME. Resumed clean published d697233 at41% five-hour/6%weekly. The new
 retained order_cohort_estimate_pair_20261113.py and matching test_ guard passed

@@ -1,0 +1,244 @@
+{
+  "date": "2026-11-13",
+  "baseline_checkpoint": "5cf9917",
+  "status": "DATE PREDICATE DOMINATES ORDER COHORT UNDERESTIMATE; RESTORATION VERIFIED",
+  "result": {
+    "artifacts": ".artifacts/phase-5/73e2f626b83c475c94434aba06efa1ff",
+    "status": "completed",
+    "adopted": false,
+    "probe": {
+      "status": "completed",
+      "stage": "rolled_back",
+      "adopted": false,
+      "client_tls": true,
+      "effective_sslmode": "verify-full",
+      "server_version_num": "170011",
+      "relations": [
+        [
+          "orders",
+          99441.0,
+          2824,
+          0,
+          0,
+          false,
+          false
+        ]
+      ],
+      "extended_statistics_counts": [
+        [
+          "orders",
+          0,
+          0
+        ]
+      ],
+      "roles": {
+        "commercelens_transformer": {
+          "visible_numeric_stats": [
+            [
+              "orders",
+              "customer_id",
+              false,
+              0.0,
+              33,
+              -1.0
+            ],
+            [
+              "orders",
+              "order_id",
+              false,
+              0.0,
+              33,
+              -1.0
+            ],
+            [
+              "orders",
+              "order_purchase_timestamp",
+              false,
+              0.0,
+              20,
+              -0.991985
+            ],
+            [
+              "orders",
+              "order_status",
+              false,
+              0.0,
+              9,
+              7.0
+            ]
+          ],
+          "plans": {
+            "unfiltered": [
+              {
+                "path": "0",
+                "Node Type": "Subquery Scan",
+                "Alias": "o",
+                "Plan Rows": 99441,
+                "Plan Width": 104,
+                "Total Cost": 8293.25
+              },
+              {
+                "path": "0.0",
+                "Node Type": "Seq Scan",
+                "Parent Relationship": "Subquery",
+                "Relation Name": "orders",
+                "Alias": "orders",
+                "Plan Rows": 99441,
+                "Plan Width": 172,
+                "Total Cost": 7298.84
+              }
+            ],
+            "status_only": [
+              {
+                "path": "0",
+                "Node Type": "Subquery Scan",
+                "Alias": "o",
+                "Plan Rows": 49720,
+                "Plan Width": 104,
+                "Total Cost": 6553.01
+              },
+              {
+                "path": "0.0",
+                "Node Type": "Seq Scan",
+                "Parent Relationship": "Subquery",
+                "Relation Name": "orders",
+                "Alias": "orders",
+                "Plan Rows": 49720,
+                "Plan Width": 172,
+                "Total Cost": 6055.81
+              }
+            ],
+            "dates_only": [
+              {
+                "path": "0",
+                "Node Type": "Gather",
+                "Plan Rows": 497,
+                "Plan Width": 104,
+                "Total Cost": 7981.47,
+                "Workers Planned": 1
+              },
+              {
+                "path": "0.0",
+                "Node Type": "Subquery Scan",
+                "Parent Relationship": "Outer",
+                "Alias": "o",
+                "Plan Rows": 292,
+                "Plan Width": 104,
+                "Total Cost": 6931.77
+              },
+              {
+                "path": "0.0.0",
+                "Node Type": "Seq Scan",
+                "Parent Relationship": "Subquery",
+                "Relation Name": "orders",
+                "Alias": "orders",
+                "Plan Rows": 292,
+                "Plan Width": 172,
+                "Total Cost": 6928.85
+              }
+            ],
+            "combined": [
+              {
+                "path": "0",
+                "Node Type": "Gather",
+                "Plan Rows": 249,
+                "Plan Width": 104,
+                "Total Cost": 8242.57,
+                "Workers Planned": 1
+              },
+              {
+                "path": "0.0",
+                "Node Type": "Subquery Scan",
+                "Parent Relationship": "Outer",
+                "Alias": "o",
+                "Plan Rows": 146,
+                "Plan Width": 104,
+                "Total Cost": 7217.67
+              },
+              {
+                "path": "0.0.0",
+                "Node Type": "Seq Scan",
+                "Parent Relationship": "Subquery",
+                "Relation Name": "orders",
+                "Alias": "orders",
+                "Plan Rows": 146,
+                "Plan Width": 172,
+                "Total Cost": 7216.21
+              }
+            ]
+          },
+          "settings_verified": true
+        }
+      },
+      "read_only": true
+    },
+    "postcheck": {
+      "rollback_verified": true,
+      "database_bytes": 287708851,
+      "database_bytes_delta": 0,
+      "raw_bytes": 275988480,
+      "limits": "No persistent candidate; not proof of absent WAL/catalog/filesystem effects"
+    }
+  },
+  "case_hashes": {
+    "unfiltered": "39a7b8278b9432da0103eba366147ae4c66cbabb7f0a6ddbbf1b8431ab7cf322",
+    "status_only": "7c95e1e0b4ccec6d17050b4155d944c53dd2956fa2f7c210be26b2f04914c653",
+    "dates_only": "2472617b82b1e96617b1a379dd15ad5b1e3f01f2425aa0673d6470a6db3c42a5",
+    "combined": "f19ce30252afb4232d0a26a6a8415e92a54b527e0a6231e982766ddcc4fe8d54"
+  },
+  "source_bindings_verified_before_and_after": 113,
+  "offline_guard": {
+    "status": "passed",
+    "source_bindings": 113,
+    "role_success_failure_cases": 11,
+    "supervisor_cases": 6,
+    "fixed_sql_read_only_guard": true,
+    "same_deployed_view_projection_and_predicate_components": true,
+    "exact_query_digest_drift_rejected": true,
+    "actual_transport_failure_before_sql": true,
+    "statistics_no_sample_values": true,
+    "safe_failure_details": true,
+    "forced_rollback_and_independent_restore": true,
+    "artifacts": ".artifacts/phase-5/offline-order-filter-estimates-9bcbc1df1b2946b38867cfa1dad0acc2"
+  },
+  "estimated_rows": {
+    "unfiltered": 99441,
+    "status_only": 49720,
+    "dates_only": 497,
+    "combined": 249
+  },
+  "parallel_scan_estimates": {
+    "dates_only": 292,
+    "combined": 146
+  },
+  "retained_combined_actual_rows": 96478,
+  "interpretation": "Same deployed view and output fields. The status component reduces the estimate to about half of99441. The date component reduces it to about0.5percent. Combining gives249, consistent with applying both estimated reductions. This pattern identifies the date-predicate estimate as the dominant observed loss. It does not prove statistical independence, a particular optimizer fallback, or runtime impact. Actual counts were not executed in this diagnostic.",
+  "review": "Master Plan Agent endorsed predicate decomposition over the same deployed query and equivalent-node comparison. Root verified exact digests, preserved predicates, Ruff, offline failure cases and fresh restoration.",
+  "next": "Inspect selectivity estimation of the guarded typed purchase timestamp and visibility of useful statistics. Use one fixed read-only expression-level EXPLAIN comparison and primary-source review before a source, statistics or physical-model change. Preserve parsing, literal status, half-open dates and independent restoration.",
+  "hashes": [
+    {
+      "path": ".artifacts/phase-5/73e2f626b83c475c94434aba06efa1ff/receipt.json",
+      "sha256": "de2ce4c55d2cff75b67ec732d015e0c4db06e5831d512580912a8f046a29fc18"
+    },
+    {
+      "path": ".artifacts/phase-5/73e2f626b83c475c94434aba06efa1ff/probe-source.py",
+      "sha256": "0e7e667b8d9d8afefeb77e607ea30a279ab9d78f7ed1a61aa730a97fb3095a11"
+    },
+    {
+      "path": ".artifacts/phase-5/73e2f626b83c475c94434aba06efa1ff/source-hashes.json",
+      "sha256": "ad4b04463203cb63b1f1bc58d2a3c421cd84e4d0fa52c8c622019b260e4e50aa"
+    },
+    {
+      "path": ".artifacts/phase-5/73e2f626b83c475c94434aba06efa1ff/method.json",
+      "sha256": "78ff55bc37a28aefcdc0863d9e6ac88a759da75e842a54c28ddd4191649ba499"
+    },
+    {
+      "path": ".artifacts/phase-5/offline-order-filter-estimates-9bcbc1df1b2946b38867cfa1dad0acc2/receipt.json",
+      "sha256": "bddbfdc92f84f9200a9531b6887a834079f5490c384728e53d00176fce002cbc"
+    },
+    {
+      "path": ".artifacts/phase-5/test_order_filter_estimates_20261113.py",
+      "sha256": "e40ca5a1ac1beaef484a94b01fd81c71f30002d215cb80094631409c61c1750c"
+    }
+  ]
+}
